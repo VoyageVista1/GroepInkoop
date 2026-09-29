@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoyageVista Werkplek</title>
+<meta name="description" content="Eén werkplek voor Inkoop en Klantenservice van VoyageVista. Van interview tot backlog, proces, prototype en teststrategie – het werk van team GroepInkoop.">
+<meta name="theme-color" content="#0b2536">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b2536'/%3E%3Cpath d='M8 10l8 13 8-13' stroke='%23fb923c' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem("vv-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<style>
+:root{
+  --bg:#f6f9fc; --bg-alt:#eef4f9; --surface:#ffffff; --ink:#0b2536; --ink-2:#27435a; --muted:#51667a;
+  --line:#dbe4ec; --primary:#0369a1; --primary-ink:#ffffff; --primary-soft:#e0f2fe;
+  --accent:#c2410c; --accent-bright:#ea580c; --accent-soft:#ffedd5;
+  --ok:#15803d; --ok-soft:#dcfce7; --warn:#a16207; --warn-soft:#fef3c7; --crit:#b91c1c; --crit-soft:#fee2e2;
+  --deep:#0b2536; --deep-2:#12344b; --deep-ink:#e6eef5; --deep-muted:#a9bfd0;
+  --shadow-sm:0 1px 2px rgba(11,37,54,.06);
+  --shadow:0 1px 2px rgba(11,37,54,.05),0 10px 30px rgba(11,37,54,.08);
+  --shadow-lg:0 2px 4px rgba(11,37,54,.06),0 30px 60px -12px rgba(11,37,54,.25);
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display:"Playfair Display",Georgia,"Times New Roman",serif;
+  --r:14px; --r-sm:8px; --max:1180px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#08131c; --bg-alt:#0c1b27; --surface:#102331; --ink:#e6eef5; --ink-2:#c5d4e0; --muted:#94a9ba;
+    --line:#1f3a4f; --primary:#38bdf8; --primary-ink:#06202f; --primary-soft:#0c2c40;
+    --accent:#fb923c; --accent-bright:#fb923c; --accent-soft:#3a2111;
+    --ok:#4ade80; --ok-soft:#0f2e1c; --warn:#facc15; --warn-soft:#332a0b; --crit:#f87171; --crit-soft:#3a1616;
+    --deep:#050d13; --deep-2:#0d2130;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.3);
+    --shadow-lg:0 30px 60px -12px rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#08131c; --bg-alt:#0c1b27; --surface:#102331; --ink:#e6eef5; --ink-2:#c5d4e0; --muted:#94a9ba;
+  --line:#1f3a4f; --primary:#38bdf8; --primary-ink:#06202f; --primary-soft:#0c2c40;
+  --accent:#fb923c; --accent-bright:#fb923c; --accent-soft:#3a2111;
+  --ok:#4ade80; --ok-soft:#0f2e1c; --warn:#facc15; --warn-soft:#332a0b; --crit:#f87171; --crit-soft:#3a1616;
+  --deep:#050d13; --deep-2:#0d2130;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.3);
+  --shadow-lg:0 30px 60px -12px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:var(--primary);text-underline-offset:3px}
+h1,h2,h3,h4{margin:0;line-height:1.15;color:var(--ink)}
+p{margin:0}
+:focus-visible{outline:3px solid var(--accent-bright);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:16px;top:-60px;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;z-index:100;text-decoration:none;font-weight:600}
+.skip:focus{top:12px}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+.icon{width:22px;height:22px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .25s var(--ease),box-shadow .25s var(--ease),border-color .25s;border-bottom:1px solid transparent}
+.nav.scrolled{background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:24px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;letter-spacing:-.01em;font-size:17px}
+.nav.scrolled .brand{color:var(--ink)}
+.brand-mark{width:32px;height:32px;border-radius:9px;background:var(--deep);display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.brand small{display:block;font-weight:500;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.7;margin-top:-2px}
+.nav-links{display:flex;gap:4px;margin-left:auto;list-style:none;padding:0;margin-top:0;margin-bottom:0}
+.nav-links a{display:block;padding:10px 12px;border-radius:8px;color:rgba(255,255,255,.85);text-decoration:none;font-size:14.5px;font-weight:500;transition:color .15s,background .15s}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.1)}
+.nav.scrolled .nav-links a{color:var(--muted)}
+.nav.scrolled .nav-links a:hover,.nav.scrolled .nav-links a[aria-current="true"]{color:var(--ink);background:var(--bg-alt)}
+.nav-actions{display:flex;gap:8px;align-items:center}
+.icon-btn{width:44px;height:44px;border-radius:10px;border:1px solid rgba(255,255,255,.22);background:transparent;color:#fff;display:grid;place-items:center;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.icon-btn:hover{background:rgba(255,255,255,.1)}
+.nav.scrolled .icon-btn{border-color:var(--line);color:var(--ink)}
+.nav.scrolled .icon-btn:hover{background:var(--bg-alt)}
+.menu-btn{display:none}
+.theme-btn .moon{display:none}
+:root[data-theme="dark"] .theme-btn .sun{display:none}
+:root[data-theme="dark"] .theme-btn .moon{display:block}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .theme-btn .sun{display:none}:root:not([data-theme="light"]) .theme-btn .moon{display:block}}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;font:600 15.5px/1 var(--f-body);text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .2s var(--ease),box-shadow .2s var(--ease),background .2s}
+.btn .icon{width:18px;height:18px;transition:transform .2s var(--ease)}
+.btn:hover .icon{transform:translateX(3px)}
+.btn-primary{background:var(--accent-bright);color:#1a0a00;box-shadow:0 8px 24px -8px rgba(234,88,12,.6)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 14px 30px -10px rgba(234,88,12,.7)}
+.btn-ghost{color:#fff;border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.06)}
+.btn-ghost:hover{background:rgba(255,255,255,.14)}
+.btn-dark{background:var(--ink);color:var(--bg)}
+.btn-dark:hover{transform:translateY(-1px)}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;color:#fff;background:var(--deep);overflow:hidden;padding:148px 0 96px;isolation:isolate}
+.aurora{position:absolute;inset:-20% -10% auto -10%;height:140%;z-index:-2;filter:blur(70px);opacity:.9}
+.aurora span{position:absolute;border-radius:50%;mix-blend-mode:screen;animation:drift 16s ease-in-out infinite alternate}
+.aurora .a1{width:55vw;height:55vw;left:-8%;top:-10%;background:radial-gradient(circle,#0369a1 0%,transparent 65%)}
+.aurora .a2{width:45vw;height:45vw;right:-6%;top:5%;background:radial-gradient(circle,#0ea5e9 0%,transparent 62%);animation-duration:20s;opacity:.55}
+.aurora .a3{width:38vw;height:38vw;left:38%;top:38%;background:radial-gradient(circle,#ea580c 0%,transparent 60%);animation-duration:24s;opacity:.4}
+@keyframes drift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(4%,6%,0) scale(1.12)}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.hero .eyebrow{padding:7px 14px 7px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#cfe3f1}
+.dot{width:8px;height:8px;border-radius:50%;background:#fb923c;box-shadow:0 0 0 4px rgba(251,146,60,.25)}
+.hero h1{font-family:var(--f-display);font-weight:600;font-size:clamp(40px,5.6vw,68px);letter-spacing:-.02em;line-height:1.04;color:#fff;margin:22px 0 22px}
+.hero h1 em{font-style:italic;color:#fdba74;font-weight:500}
+.lede{font-size:clamp(17px,1.6vw,19.5px);line-height:1.6;color:#c3d6e4;max-width:34em}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:34px;color:#9fb7c9;font-size:14px}
+.hero-meta span{display:inline-flex;align-items:center;gap:8px}
+.hero-meta .icon{width:17px;height:17px;color:#7dd3fc}
+
+/* Mock window */
+.mock{position:relative;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:10px;box-shadow:0 40px 80px -20px rgba(0,0,0,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transform:perspective(1400px) rotateY(-6deg) rotateX(3deg);transition:transform .6s var(--ease)}
+.mock:hover{transform:perspective(1400px) rotateY(-2deg) rotateX(1deg)}
+.mock-inner{border-radius:12px;overflow:hidden;background:#f3f6f9;color:#0b2536;display:grid;grid-template-columns:118px 1fr;min-height:360px;font-size:12px}
+.mock-side{background:#0b2536;color:#b9cbd9;padding:14px 10px;display:flex;flex-direction:column;gap:4px}
+.mock-side b{color:#fff;font-size:12.5px;padding:0 6px 10px;display:flex;gap:6px;align-items:center}
+.mock-side i{font-style:normal;padding:7px 8px;border-radius:6px;display:flex;align-items:center;gap:7px}
+.mock-side i.on{background:#174867;color:#fff}
+.mock-side i::before{content:"";width:7px;height:7px;border-radius:2px;background:currentColor;opacity:.6}
+.mock-main{padding:14px;display:flex;flex-direction:column;gap:10px}
+.mock-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mock-top strong{font-size:14px}
+.mock-search{flex:1;max-width:170px;height:26px;border-radius:6px;background:#fff;border:1px solid #dbe4ec;display:flex;align-items:center;padding:0 8px;color:#8093a4;gap:6px}
+.mock-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpi{background:#fff;border:1px solid #dbe4ec;border-radius:8px;padding:9px}
+.kpi span{display:block;color:#51667a;font-size:10.5px}
+.kpi strong{font-size:17px;letter-spacing:-.01em}
+.kpi em{white-space:nowrap;font-style:normal;font-size:10px;font-weight:600;border-radius:99px;padding:1px 6px;margin-left:4px}
+.up{background:#dcfce7;color:#15803d}.down{background:#fee2e2;color:#b91c1c}
+.mock-card{background:#fff;border:1px solid #dbe4ec;border-radius:8px;padding:10px}
+.mock-card h5{margin:0 0 8px;font-size:11.5px;display:flex;justify-content:space-between}
+.row{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:6px 0;border-top:1px solid #eef2f6}
+.row:first-of-type{border-top:0}
+.pill{font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px}
+.p-hi{background:#fee2e2;color:#b91c1c}.p-mid{background:#fef3c7;color:#a16207}.p-ok{background:#dcfce7;color:#15803d}.p-info{background:#e0f2fe;color:#0369a1}
+.bar{height:6px;border-radius:9px;background:#eef2f6;overflow:hidden;width:70px}
+.bar b{display:block;height:100%;background:#0369a1;border-radius:9px}
+.float-card{position:absolute;background:#fff;color:#0b2536;border-radius:12px;padding:12px 14px;box-shadow:0 20px 40px -12px rgba(0,0,0,.45);font-size:12.5px;display:flex;gap:10px;align-items:center;animation:bob 6s ease-in-out infinite}
+.float-card .ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center}
+.float-card small{display:block;color:#51667a;font-size:11px}
+.fc1{left:-34px;bottom:48px}
+.fc2{right:-18px;top:-22px;animation-delay:-3s}
+@keyframes bob{50%{transform:translateY(-8px)}}
+
+/* ---------- Stats band ---------- */
+.stats{position:relative;margin-top:-44px;z-index:2}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-lg);overflow:hidden}
+.stat{padding:28px 28px 26px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0}
+.stat strong{display:block;font-family:var(--f-display);font-size:clamp(34px,3.6vw,46px);font-weight:600;letter-spacing:-.02em;line-height:1;color:var(--ink)}
+.stat strong sup{font-size:.45em;color:var(--accent);margin-left:2px;font-family:var(--f-body);font-weight:700;vertical-align:.9em}
+.stat > dd > span{display:block;margin-top:10px;color:var(--muted);font-size:14.5px;line-height:1.45}
+
+/* ---------- Sections ---------- */
+section{padding:112px 0}
+.sec-alt{background:var(--bg-alt)}
+.sec-head{max-width:720px;margin-bottom:56px}
+.sec-head.center{margin-inline:auto;text-align:center}
+.chapter{color:var(--accent);display:flex;align-items:center;gap:12px}
+.center .chapter{justify-content:center}
+.chapter::before{content:"";width:28px;height:2px;background:currentColor;border-radius:2px}
+.sec-head h2{font-family:var(--f-display);font-weight:600;font-size:clamp(32px,4vw,48px);letter-spacing:-.02em;margin:16px 0 18px}
+.sec-head p{color:var(--muted);font-size:18px;line-height:1.65}
+
+/* Problem cards */
+.quote{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:36px 40px;box-shadow:var(--shadow);margin:0 0 28px}
+.quote svg{width:44px;height:44px;color:var(--accent);opacity:.9}
+.quote blockquote{margin:0;font-family:var(--f-display);font-size:clamp(21px,2.3vw,27px);line-height:1.4;font-style:italic;color:var(--ink)}
+.quote figcaption{margin-top:14px;color:var(--muted);font-size:14.5px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px;box-shadow:var(--shadow-sm);transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--primary) 30%,var(--line))}
+.card-ic{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:var(--primary-soft);color:var(--primary);margin-bottom:20px}
+.card-ic.orange{background:var(--accent-soft);color:var(--accent)}
+.card-ic.red{background:var(--crit-soft);color:var(--crit)}
+.card-ic.green{background:var(--ok-soft);color:var(--ok)}
+.card h3{font-size:18.5px;font-weight:650;letter-spacing:-.01em;margin-bottom:10px}
+.card p{color:var(--muted);font-size:15.5px}
+.tag{display:inline-block;margin-top:16px;font-size:12.5px;font-weight:600;color:var(--muted);background:var(--bg-alt);border:1px solid var(--line);border-radius:6px;padding:3px 8px;font-variant-numeric:tabular-nums}
+
+/* Solution tabs */
+.tabs{display:inline-flex;gap:4px;padding:5px;border-radius:999px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);margin-bottom:36px}
+.tab{min-height:44px;padding:0 22px;border:0;border-radius:999px;background:transparent;color:var(--muted);font:600 15px var(--f-body);cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .2s,color .2s}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.tab .icon{width:18px;height:18px}
+.panel{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+.panel[hidden]{display:none}
+.panel-intro h3{font-family:var(--f-display);font-size:clamp(26px,2.8vw,34px);font-weight:600;letter-spacing:-.015em;margin-bottom:16px}
+.panel-intro p{color:var(--muted);font-size:17px}
+.checks{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:12px}
+.checks li{display:flex;gap:12px;align-items:flex-start;color:var(--ink-2)}
+.checks .icon{width:20px;height:20px;color:var(--ok);margin-top:2px}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.feature{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;transition:border-color .2s,box-shadow .2s}
+.feature:hover{border-color:color-mix(in srgb,var(--primary) 35%,var(--line));box-shadow:var(--shadow)}
+.feature .card-ic{width:40px;height:40px;border-radius:10px;margin-bottom:14px}
+.feature .card-ic .icon{width:20px;height:20px}
+.feature h4{font-size:16px;font-weight:650;margin-bottom:6px}
+.feature p{color:var(--muted);font-size:14.5px;line-height:1.55}
+
+/* Process */
+.process{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;counter-reset:step;list-style:none;padding:0;margin:0}
+.process::before{content:"";position:absolute;top:27px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--primary),var(--accent-bright));opacity:.5}
+.step{position:relative;padding:0 14px;text-align:center}
+.step-no{width:56px;height:56px;margin:0 auto 20px;border-radius:50%;background:var(--surface);border:2px solid var(--primary);display:grid;place-items:center;font-weight:700;font-size:18px;color:var(--primary);position:relative;box-shadow:0 0 0 8px var(--bg-alt)}
+.step:last-child .step-no{border-color:var(--accent-bright);color:var(--accent)}
+.step h3{font-size:16.5px;font-weight:650;margin-bottom:8px}
+.step p{color:var(--muted);font-size:14.5px;line-height:1.55}
+.step .lane{display:inline-block;margin-top:12px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--primary-soft);color:var(--primary)}
+.process-foot{margin-top:56px;display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+
+/* Improvements strip */
+.improve{margin-top:56px;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.imp{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;font-size:14px;color:var(--ink-2);display:flex;gap:10px;align-items:flex-start}
+.imp b{flex:none;width:24px;height:24px;border-radius:7px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:12.5px}
+
+/* Risk */
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.matrix{display:grid;grid-template-columns:auto repeat(3,1fr);grid-template-rows:repeat(3,1fr) auto;gap:8px;aspect-ratio:1.15/1}
+.m-label{font-size:12.5px;color:var(--muted);font-weight:600;display:flex;align-items:center;justify-content:center}
+.m-label.y{writing-mode:vertical-rl;transform:rotate(180deg);padding:0 4px}
+.cell{border-radius:12px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid transparent;position:relative;transition:transform .2s var(--ease)}
+.cell:hover{transform:scale(1.03);z-index:1}
+.cell .cls{font-size:12px;font-weight:700;letter-spacing:.04em}
+.cell .ids{display:flex;flex-wrap:wrap;gap:4px}
+.cell .ids span{font-size:11.5px;font-weight:600;background:var(--surface);border-radius:5px;padding:2px 6px;color:var(--ink)}
+.cell .none{font-size:12px;opacity:.75}
+.cA{background:var(--crit-soft);color:var(--crit);border-color:color-mix(in srgb,var(--crit) 25%,transparent)}
+.cB{background:var(--warn-soft);color:var(--warn);border-color:color-mix(in srgb,var(--warn) 25%,transparent)}
+.cC{background:var(--ok-soft);color:var(--ok);border-color:color-mix(in srgb,var(--ok) 25%,transparent)}
+.cell.hot{box-shadow:0 0 0 3px var(--crit),0 16px 30px -12px rgba(185,28,28,.5)}
+.m-x{grid-column:2/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.risk-list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.risk-list li{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.rid{font-weight:700;font-size:13px;color:var(--crit);background:var(--crit-soft);border-radius:8px;padding:6px 9px;font-variant-numeric:tabular-nums}
+.risk-list p{font-size:15px;color:var(--ink-2)}
+.risk-list small{display:block;color:var(--muted);font-size:13px;margin-top:4px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;font-size:13.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:12px;height:12px;border-radius:4px}
+
+/* Privacy (dark band) */
+.privacy{background:var(--deep);color:var(--deep-ink);position:relative;overflow:hidden}
+.privacy::before{content:"";position:absolute;width:700px;height:700px;right:-200px;top:-260px;background:radial-gradient(circle,rgba(3,105,161,.45),transparent 65%);filter:blur(20px)}
+.privacy .sec-head h2{color:#fff}
+.privacy .sec-head p{color:var(--deep-muted)}
+.privacy .chapter{color:#fdba74}
+.p-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative}
+.p-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:26px;transition:background .2s,border-color .2s}
+.p-card:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2)}
+.p-card .card-ic{background:rgba(125,211,252,.12);color:#7dd3fc}
+.p-card h3{color:#fff;font-size:17px;font-weight:650;margin-bottom:8px}
+.p-card p{color:var(--deep-muted);font-size:14.5px}
+.p-card .never{color:#fca5a5}
+.p-card .never.card-ic{background:rgba(248,113,113,.14)}
+
+/* Roadmap */
+.road{position:relative;display:grid;gap:14px;list-style:none;padding:0;margin:0}
+.sprint{display:grid;grid-template-columns:150px 1fr auto;gap:28px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 26px;transition:border-color .2s,box-shadow .2s,transform .2s var(--ease)}
+.sprint:hover{box-shadow:var(--shadow);transform:translateX(4px)}
+.sprint.now{border-color:var(--accent-bright);box-shadow:0 0 0 1px var(--accent-bright),var(--shadow)}
+.s-when strong{display:block;font-size:17px;font-weight:700}
+.s-when span{color:var(--muted);font-size:13.5px}
+.s-now{display:inline-block;white-space:nowrap;margin-top:6px;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:6px}
+.s-goal{color:var(--ink-2);font-size:15.5px}
+.s-goal .ids{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.s-goal .ids span{font-size:12px;font-weight:600;color:var(--primary);background:var(--primary-soft);padding:2px 8px;border-radius:6px}
+.s-sp{text-align:right}
+.s-sp strong{display:block;font-family:var(--f-display);font-size:30px;font-weight:600;line-height:1}
+.s-sp span{color:var(--muted);font-size:12.5px}
+.epics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px}
+.epic{border-radius:12px;padding:16px;background:var(--surface);border:1px solid var(--line)}
+.epic b{display:block;font-size:12px;color:var(--accent);letter-spacing:.05em}
+.epic h4{font-size:15px;margin:4px 0 12px;font-weight:650}
+.epic .meter{height:6px;border-radius:9px;background:var(--bg-alt);overflow:hidden}
+.epic .meter i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),#0ea5e9);border-radius:9px}
+.epic small{display:block;color:var(--muted);font-size:12.5px;margin-top:8px}
+
+/* Deliverables */
+.deliv{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.d-card{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px;text-decoration:none;color:inherit;transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s;min-height:220px}
+.d-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:color-mix(in srgb,var(--primary) 35%,var(--line))}
+.d-card h3{font-size:19px;font-weight:650;margin-bottom:8px}
+.d-card p{color:var(--muted);font-size:15px;flex:1}
+.d-go{display:inline-flex;align-items:center;gap:8px;margin-top:20px;color:var(--primary);font-weight:600;font-size:14.5px}
+.d-go .icon{width:17px;height:17px;transition:transform .2s var(--ease)}
+.d-card:hover .d-go .icon{transform:translateX(4px)}
+.d-type{position:absolute;top:24px;right:24px;font-size:11.5px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:2px 8px;text-transform:uppercase;letter-spacing:.05em}
+.d-card.wide{grid-column:1/-1;min-height:0;flex-direction:row;align-items:center;gap:20px}
+.d-card.wide .card-ic{margin:0!important}
+.d-card.wide p{flex:1}
+.d-card.wide .d-go{margin:0}
+.d-card.wide .d-type{position:static;order:-1}
+.d-card.feat{grid-column:span 2;background:linear-gradient(135deg,var(--deep) 0%,var(--deep-2) 100%);color:#fff;border-color:transparent;overflow:hidden}
+.d-card.feat::after{content:"";position:absolute;right:-80px;bottom:-120px;width:360px;height:360px;background:radial-gradient(circle,rgba(234,88,12,.45),transparent 65%)}
+.d-card.feat h3{color:#fff;font-family:var(--f-display);font-size:30px;font-weight:600}
+.d-card.feat p{color:var(--deep-muted);max-width:30em;position:relative;z-index:1}
+.d-card.feat .d-go{color:#fdba74;position:relative;z-index:1}
+.d-card.feat .d-type{color:#cfe3f1;border-color:rgba(255,255,255,.2)}
+.d-card.feat .card-ic{background:rgba(251,146,60,.16);color:#fdba74}
+
+/* CTA */
+.cta{padding:0 0 112px}
+.cta-box{border-radius:24px;padding:64px;display:grid;grid-template-columns:1.3fr auto;gap:40px;align-items:center;background:linear-gradient(120deg,var(--accent-soft),var(--primary-soft));border:1px solid var(--line);position:relative;overflow:hidden}
+.cta-box h2{font-family:var(--f-display);font-size:clamp(28px,3.4vw,42px);font-weight:600;letter-spacing:-.02em;margin-bottom:12px}
+.cta-box p{color:var(--ink-2);font-size:17.5px;max-width:36em}
+.cta-actions{display:flex;flex-direction:column;gap:12px}
+.btn-line{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn-line:hover{background:var(--ink);color:var(--bg)}
+
+/* Footer */
+footer{background:var(--deep);color:var(--deep-muted);padding:64px 0 36px;font-size:14.5px}
+.f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+footer .brand{color:#fff;margin-bottom:16px}
+footer h4{color:#fff;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+footer a{color:var(--deep-muted);text-decoration:none;display:inline-block;padding:2px 0}
+footer a:hover{color:#fff}
+.f-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:48px;padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13.5px}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.no-js .reveal{opacity:1;transform:none}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1080px){
+  .nav-links{display:none}
+  .menu-btn{display:grid}
+  .nav-actions{margin-left:auto}
+  .nav.open{background:var(--bg);border-bottom-color:var(--line)}
+  .nav.open .brand{color:var(--ink)}
+  .nav.open .icon-btn{border-color:var(--line);color:var(--ink)}
+  .nav.open .nav-links{display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:var(--bg);padding:12px 16px 20px;border-bottom:1px solid var(--line);box-shadow:var(--shadow);gap:2px}
+  .nav.open .nav-links a{color:var(--ink);padding:14px 12px;font-size:16px}
+  .hero-grid{grid-template-columns:1fr}
+  .mock-wrap{max-width:560px}
+  .fc1{left:-8px}.fc2{right:-4px}
+  .cards,.deliv{grid-template-columns:1fr 1fr}
+  .d-card.feat{grid-column:span 2}
+  .panel,.risk-grid{grid-template-columns:1fr}
+  .p-grid{grid-template-columns:1fr 1fr}
+  .process{grid-template-columns:1fr;gap:28px}
+  .process::before{top:28px;bottom:28px;left:27px;right:auto;width:2px;height:auto;background:linear-gradient(180deg,var(--primary),var(--accent-bright))}
+  .step{display:grid;grid-template-columns:56px 1fr;gap:0 20px;text-align:left;padding:0}
+  .step-no{grid-row:span 3;margin:0}
+  .step .lane{justify-self:start}
+  .improve{grid-template-columns:1fr 1fr}
+  .epics{grid-template-columns:repeat(3,1fr)}
+  .f-grid{grid-template-columns:1fr 1fr}
+  .cta-box{grid-template-columns:1fr;padding:44px}
+  .cta-actions{flex-direction:row;flex-wrap:wrap}
+}
+@media (max-width:720px){
+  .wrap{padding:0 16px}
+  section{padding:80px 0}
+  .hero{padding:120px 0 84px}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .stat{padding:22px 18px}
+  .stat:nth-child(3){border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+  .cards,.deliv,.features,.p-grid,.improve{grid-template-columns:1fr}
+  .d-card.feat{grid-column:auto}
+  .d-card.wide{flex-direction:column;align-items:flex-start}
+  .quote{grid-template-columns:1fr;padding:28px 22px;gap:16px}
+  .mock{transform:none}.mock:hover{transform:none}
+  .mock-inner{grid-template-columns:1fr}
+  .mock-side{display:none}
+  .mock-search{display:none}
+  .kpi em{display:inline-block;margin:4px 0 0}
+  .fc1{display:none}
+  .fc2{right:8px;top:-26px}
+  .sprint{grid-template-columns:1fr auto;gap:12px 16px;padding:20px}
+  .s-goal{grid-column:1/-1;grid-row:2}
+  .epics{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .epic h4{overflow-wrap:anywhere}
+  .tabs{display:flex;width:100%}
+  .tab{flex:1;justify-content:center;padding:0 10px}
+  .cta-box{padding:32px 22px}
+  .f-grid{grid-template-columns:1fr}
+  .matrix{aspect-ratio:auto;grid-template-rows:repeat(3,minmax(92px,auto)) auto}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body class="no-js">
+<a class="skip" href="#main">Naar de inhoud</a>
+
+<!-- SVG icon sprite (Lucide-stijl) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7l10-5z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></symbol>
+    <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-bed" viewBox="0 0 24 24"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-eye2" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-euro" viewBox="0 0 24 24"><path d="M18 7a7 7 0 1 0 0 10M4 10h10M4 14h10"/></symbol>
+    <symbol id="i-handshake" viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.9-3.9a3 3 0 0 0-4.2 0l-.9.9a1 1 0 1 1-3-3l2.8-2.8a5 5 0 0 1 6 .8L21 8"/><path d="M21 3 20 14M3 3l1 11 6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></symbol>
+    <symbol id="i-contract" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 16a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 16a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/><path d="M18 18v1a3 3 0 0 1-3 3h-3"/></symbol>
+    <symbol id="i-timeline" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><path d="M6 8v8M11 6h10M11 18h10M11 12h6"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M5 21h14M3 7h18"/><path d="m6 7-3 7a3 3 0 0 0 6 0zM18 7l-3 7a3 3 0 0 0 6 0z"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+    <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M6 6l1 15h10l1-15"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></symbol>
+    <symbol id="i-git" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M6 8.5v7M18 15.5V11a3 3 0 0 0-3-3H9"/></symbol>
+    <symbol id="i-flow" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="6" rx="1.5"/><rect x="14" y="15" width="7" height="6" rx="1.5"/><path d="M6.5 9v4a2 2 0 0 0 2 2H14"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M9 7H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v3l3-3V9a2 2 0 0 0-1-2zM20 7h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v3l3-3V9a2 2 0 0 0-1-2z"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol>
+  </defs>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="VoyageVista Werkplek – naar boven">
+      <span class="brand-mark"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6l7 12 7-12" stroke="#fb923c" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span>VoyageVista<small>Werkplek</small></span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#probleem">Probleem</a></li>
+      <li><a href="#oplossing">Oplossing</a></li>
+      <li><a href="#proces">Proces</a></li>
+      <li><a href="#kwaliteit">Kwaliteit</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#documenten">Documenten</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn theme-btn" id="theme-btn" type="button" aria-label="Wissel licht en donker thema">
+        <svg class="icon sun" aria-hidden="true"><use href="#i-sun"/></svg>
+        <svg class="icon moon" aria-hidden="true"><use href="#i-moon"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Menu openen" aria-expanded="false" aria-controls="nav-links">
+        <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<!-- ================= HERO ================= -->
+<div class="hero" id="top">
+  <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Team GroepInkoop · casus VoyageVista</span>
+      <h1>Eén werkplek voor <em>Inkoop</em> en <em>Klantenservice</em></h1>
+      <p class="lede">Medewerkers van VoyageVista werken nu met zo’n dertig systemen die niet met elkaar praten. Wij ontwerpen één plek waar leveranciers, contracten, klanten en klachten samenkomen, zodat iedereen hetzelfde verhaal vertelt.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="../prototype/index.html">Bekijk het prototype <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="#probleem">Lees het verhaal</a>
+      </div>
+      <div class="hero-meta">
+        <span><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg>Gebaseerd op interview opdrachtgever</span>
+        <span><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>AVG als harde eis</span>
+      </div>
+    </div>
+
+    <div class="mock-wrap" aria-hidden="true">
+      <div style="position:relative">
+        <div class="mock">
+          <div class="mock-inner">
+            <div class="mock-side">
+              <b><svg width="12" height="12" viewBox="0 0 24 24"><path d="M5 6l7 12 7-12" stroke="#fb923c" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>Werkplek</b>
+              <i>Dashboard</i><i class="on">Klanten</i><i>Klachten</i><i>Leveranciers</i><i>Contracten</i><i>Bezetting</i>
+            </div>
+            <div class="mock-main">
+              <div class="mock-top"><strong>Goedemorgen, Sanne</strong><span class="mock-search"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Zoek op e-mail…</span></div>
+              <div class="mock-kpis">
+                <div class="kpi"><span>Open klachten</span><strong>12</strong><em class="down">3 hoog</em></div>
+                <div class="kpi"><span>Contactmomenten</span><strong>48</strong><em class="up">vandaag</em></div>
+                <div class="kpi"><span>Bezetting</span><strong>74%</strong><em class="up">+6%</em></div>
+              </div>
+              <div class="mock-card">
+                <h5>Klachten die aandacht vragen <span style="color:#0369a1">Alles</span></h5>
+                <div class="row"><span>M. de Vries · Kreta · op reis</span><span class="pill p-hi">Hoog</span><span class="pill p-info">Hotel</span></div>
+                <div class="row"><span>J. Bakker Jr. · Lissabon</span><span class="pill p-mid">Middel</span><span class="pill p-ok">4% voorstel</span></div>
+                <div class="row"><span>fam. Yilmaz · Antalya</span><span class="pill p-mid">Middel</span><span class="pill p-info">Senior</span></div>
+              </div>
+              <div class="mock-card">
+                <h5>Bezetting ingekochte kamers</h5>
+                <div class="row"><span>Hotel Aegean Blue</span><span class="bar"><b style="width:86%"></b></span><span>86%</span></div>
+                <div class="row"><span>Casa do Mar</span><span class="bar"><b style="width:42%;background:#b91c1c"></b></span><span style="color:#b91c1c;font-weight:600">42%</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="float-card fc1"><span class="ic" style="background:#dcfce7;color:#15803d"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span><span><strong>Vier-ogenprincipe</strong><small>Compensatie goedgekeurd door senior</small></span></div>
+        <div class="float-card fc2"><span class="ic" style="background:#ffedd5;color:#c2410c"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><span><strong>Bezetting onder 50%</strong><small>Signaal naar Marketing &amp; Sales</small></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= STATS ================= -->
+<div class="stats">
+  <div class="wrap">
+    <dl class="stats-grid reveal">
+      <div class="stat"><dt class="sr">Systemen</dt><dd style="margin:0"><strong data-count="30">30</strong><span>systemen, waarvan zo’n tien per dag in gebruik</span></dd></div>
+      <div class="stat"><dt class="sr">Servicevragen</dt><dd style="margin:0"><strong><span data-count="50">50</span><sup>%</sup></strong><span>van het klantcontact is een vraag die de klant zelf kan regelen</span></dd></div>
+      <div class="stat"><dt class="sr">Issues</dt><dd style="margin:0"><strong data-count="146">146</strong><span>issues op de backlog, met acceptatiecriteria in Stel/Als/Dan</span></dd></div>
+      <div class="stat"><dt class="sr">Risico’s</dt><dd style="margin:0"><strong data-count="15">15</strong><span>productrisico’s geanalyseerd, vijf in klasse A</span></dd></div>
+    </dl>
+  </div>
+</div>
+
+<!-- ================= PROBLEEM ================= -->
+<section id="probleem">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow chapter">Hoofdstuk 1 · Het probleem</span>
+      <h2>Iedereen vertelt een ander verhaal</h2>
+      <p>In het interview met de opdrachtgever kwam steeds hetzelfde terug: gegevens staan verspreid, worden met de hand overgetypt en raken onderweg kwijt. Dat merkt de klant direct.</p>
+    </div>
+
+    <figure class="quote reveal">
+      <svg class="icon" aria-hidden="true"><use href="#i-quote"/></svg>
+      <div>
+        <blockquote>“Als collega A, B en C allemaal iets anders zeggen, snapt de klant er niets meer van. Je hebt één verhaallijn nodig.”</blockquote>
+        <figcaption>Opdrachtgever, senior medewerker reisbureau · interview sprint 2 (vrij weergegeven)</figcaption>
+      </div>
+    </figure>
+
+    <div class="cards">
+      <article class="card reveal">
+        <div class="card-ic red"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg></div>
+        <h3>Dertig losse systemen</h3>
+        <p>Medewerkers springen tussen systemen die niet met elkaar communiceren. Productdata wordt met de hand in de backoffice geladen.</p>
+        <span class="tag">I6 · I9</span>
+      </article>
+      <article class="card reveal">
+        <div class="card-ic orange"><svg class="icon" aria-hidden="true"><use href="#i-msg"/></svg></div>
+        <h3>Alles in één tekstveld</h3>
+        <p>Een gesprek met de klant verdwijnt als vrije tekst in één opmerkingenveld. Wie belde, wat is beloofd en wat moet er nog gebeuren? Niemand ziet het snel.</p>
+        <span class="tag">K3 · K5</span>
+      </article>
+      <article class="card reveal">
+        <div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-bed"/></svg></div>
+        <h3>Onduidelijke kamertypes</h3>
+        <p>Beddenbanken zetten automatisch kamertypes in het systeem. Verkoper en klant weten niet of een kamer een balkon heeft of op de begane grond ligt.</p>
+        <span class="tag">I7</span>
+      </article>
+      <article class="card reveal">
+        <div class="card-ic orange"><svg class="icon" aria-hidden="true"><use href="#i-handshake"/></svg></div>
+        <h3>Onderhandelingen uit het zicht</h3>
+        <p>Productmanagers bezoeken zo’n twintig hotels per week. Basisprijs, marge en volumekorting staan niet op één plek.</p>
+        <span class="tag">I3 · I4</span>
+      </article>
+      <article class="card reveal">
+        <div class="card-ic red"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></div>
+        <h3>Brieven op het verkeerde moment</h3>
+        <p>Door handmatige registratie krijgt een klant een brief over vertraging terwijl hij al op de bestemming is.</p>
+        <span class="tag">K6</span>
+      </article>
+      <article class="card reveal">
+        <div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-euro"/></svg></div>
+        <h3>Kamers die leeg blijven</h3>
+        <p>Het inkooprisico ligt bij VoyageVista. Zonder signaal naar Marketing en Sales blijven ingekochte kamers onverkocht.</p>
+        <span class="tag">I5</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OPLOSSING ================= -->
+<section id="oplossing" class="sec-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow chapter">Hoofdstuk 2 · De oplossing</span>
+      <h2>Twee afdelingen, één bron van waarheid</h2>
+      <p>De werkplek geeft Klantenservice en Inkoop elk hun eigen schermen, maar ze delen dezelfde gegevens. Wat Inkoop vastlegt, ziet Klantenservice meteen.</p>
+    </div>
+
+    <div class="tabs reveal" role="tablist" aria-label="Kies een afdeling">
+      <button class="tab" role="tab" id="tab-ks" aria-selected="true" aria-controls="panel-ks" tabindex="0"><svg class="icon" aria-hidden="true"><use href="#i-headset"/></svg>Klantenservice</button>
+      <button class="tab" role="tab" id="tab-in" aria-selected="false" aria-controls="panel-in" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg>Inkoop</button>
+    </div>
+
+    <div class="panel" id="panel-ks" role="tabpanel" aria-labelledby="tab-ks">
+      <div class="panel-intro reveal">
+        <h3>Elke medewerker kent het hele verhaal van de klant</h3>
+        <p>Van shop tot contactcenter tot After Travel: één klantdossier met een tijdlijn van alle contactmomenten, klachten en afspraken.</p>
+        <ul class="checks">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Vaste velden in plaats van één vrij opmerkingenveld</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Urgentie automatisch Hoog als de klant op reis is</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Een mens controleert altijd het compensatievoorstel</li>
+        </ul>
+      </div>
+      <div class="features">
+        <div class="feature reveal"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></div><h4>Klant zoeken</h4><p>Op e-mail, telefoon of naam. Vader en zoon met dezelfde naam? Onderscheid via Sr./Jr. en contactgegevens.</p></div>
+        <div class="feature reveal"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-timeline"/></svg></div><h4>Contactmoment &amp; tijdlijn</h4><p>Kanaal, categorie, samenvatting en vervolgactie. Datum en medewerker vult het systeem zelf in.</p></div>
+        <div class="feature reveal"><div class="card-ic orange"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg></div><h4>Klacht met urgentie</h4><p>Is de klant nu op reis, dan vraagt de medewerker eerst het hotel om een oplossing ter plaatse.</p></div>
+        <div class="feature reveal"><div class="card-ic green"><svg class="icon" aria-hidden="true"><use href="#i-scale"/></svg></div><h4>Compensatie volgens richtlijn</h4><p>Een voorstel als percentage van de reissom, goedgekeurd door een tweede medewerker. Nooit je eigen voorstel.</p></div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-in" role="tabpanel" aria-labelledby="tab-in" hidden>
+      <div class="panel-intro">
+        <h3>Van hotelbezoek tot verkochte kamer</h3>
+        <p>Inkoop legt leveranciers, onderhandelingen, contracten en reisproducten op één plek vast, zodat iedereen met dezelfde, betrouwbare gegevens werkt.</p>
+        <ul class="checks">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Marge automatisch berekend, waarschuwing bij negatief</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Annuleringsvoorwaarden gestructureerd, niet als vrije tekst</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Signaal bij contracten die binnen 60 dagen aflopen</li>
+        </ul>
+      </div>
+      <div class="features">
+        <div class="feature"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg></div><h4>Leveranciersbeheer</h4><p>Hotels, vervoerders en rederijen centraal, met een waarschuwing bij een mogelijk dubbele invoer.</p></div>
+        <div class="feature"><div class="card-ic orange"><svg class="icon" aria-hidden="true"><use href="#i-handshake"/></svg></div><h4>Onderhandelingen</h4><p>Status van Gepland tot Akkoord, met basisprijs, marge en volumekorting per bezoek.</p></div>
+        <div class="feature"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-contract"/></svg></div><h4>Contractbeheer</h4><p>Looptijd, allotment, prijzen en voorwaarden per contract, gekoppeld aan precies één leverancier.</p></div>
+        <div class="feature"><div class="card-ic green"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></div><h4>Bezetting bewaken</h4><p>Zakt de bezetting onder de 50%, dan krijgen Marketing en Sales een signaal voor een campagne.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCES ================= -->
+<section id="proces">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow chapter">Hoofdstuk 3 · Het proces</span>
+      <h2>Van eerste contact tot eindbesluit</h2>
+      <p>We hebben het klantenserviceproces in BPMN uitgewerkt, met vijf verbeteringen ten opzichte van nu. Zo loopt een vraag of klacht door de organisatie.</p>
+    </div>
+
+    <ol class="process">
+      <li class="step reveal"><span class="step-no">1</span><h3>Contact ontvangen</h3><p>Telefoon, e-mail, shop of social media. De klant wordt gezocht op e-mail.</p><span class="lane">Klantenservice</span></li>
+      <li class="step reveal"><span class="step-no">2</span><h3>Vastleggen</h3><p>Contactmoment met vaste velden in het klantdossier. Vraag of klacht?</p><span class="lane">Klantenservice</span></li>
+      <li class="step reveal"><span class="step-no">3</span><h3>Beoordelen</h3><p>Met de hele historie: heeft de klant de accommodatie zelf gekozen?</p><span class="lane">Klantenservice</span></li>
+      <li class="step reveal"><span class="step-no">4</span><h3>Escaleren</h3><p>Voorstel boven de richtlijn? Dan beslist een senior, of After Travel na de reis.</p><span class="lane">Senior · After Travel</span></li>
+      <li class="step reveal"><span class="step-no">5</span><h3>Afronden</h3><p>Klant akkoord? Financiën betaalt uit. De klant vult zelf zijn rekeningnummer in.</p><span class="lane">Financiën</span></li>
+    </ol>
+
+    <div class="improve">
+      <div class="imp reveal"><b>1</b>Vaste velden in plaats van vrije tekst</div>
+      <div class="imp reveal"><b>2</b>Automatische urgentie bij klant op reis</div>
+      <div class="imp reveal"><b>3</b>Eerst het hotel om een oplossing vragen</div>
+      <div class="imp reveal"><b>4</b>Beoordelen met volledige klanthistorie</div>
+      <div class="imp reveal"><b>5</b>IBAN nooit opslaan, klant vult zelf in</div>
+    </div>
+
+    <div class="process-foot">
+      <a class="btn btn-dark" href="../docs/proces/klantenservice-proces.html">Bekijk het BPMN-model <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KWALITEIT ================= -->
+<section id="kwaliteit" class="sec-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow chapter">Hoofdstuk 4 · Kwaliteit</span>
+      <h2>We testen het zwaarst waar het de klant raakt</h2>
+      <p>Per risico scoren we kans en impact van 1 tot 3. Vijf van de vijftien risico’s vallen in klasse A. Ze gaan allemaal over privacy, geld of een klant die op reis is.</p>
+    </div>
+
+    <div class="risk-grid">
+      <figure class="reveal" style="margin:0">
+        <div class="matrix" role="img" aria-label="Risicomatrix: kans horizontaal, impact verticaal. Klasse A met score 6 bevat R1 tot en met R5. De cel met hoge kans en hoge impact is leeg.">
+          <span class="m-label y">Impact hoog</span>
+          <div class="cell cB"><span class="cls">B · 3</span><span class="ids"><span>R8</span></span></div>
+          <div class="cell cA hot"><span class="cls">A · 6</span><span class="ids"><span>R1</span><span>R2</span><span>R3</span><span>R4</span><span>R5</span></span></div>
+          <div class="cell cA"><span class="cls">A · 9</span><span class="none">geen</span></div>
+          <span class="m-label y">Middel</span>
+          <div class="cell cC"><span class="cls">C · 2</span><span class="ids"><span>R13</span><span>R15</span></span></div>
+          <div class="cell cB"><span class="cls">B · 4</span><span class="ids"><span>R6</span><span>R7</span><span>R10</span><span>R11</span><span>R12</span></span></div>
+          <div class="cell cA"><span class="cls">A · 6</span><span class="none">geen</span></div>
+          <span class="m-label y">Laag</span>
+          <div class="cell cC"><span class="cls">C · 1</span><span class="none">geen</span></div>
+          <div class="cell cC"><span class="cls">C · 2</span><span class="ids"><span>R14</span></span></div>
+          <div class="cell cB"><span class="cls">B · 3</span><span class="ids"><span>R9</span></span></div>
+          <div class="m-x"><span class="m-label">Kans laag</span><span class="m-label">Middel</span><span class="m-label">Hoog</span></div>
+        </div>
+        <figcaption class="legend">
+          <span><i style="background:var(--crit)"></i>A · grondig, altijd tweede tester</span>
+          <span><i style="background:var(--warn)"></i>B · één passende techniek</span>
+          <span><i style="background:var(--ok)"></i>C · verkennend testen</span>
+        </figcaption>
+      </figure>
+
+      <ul class="risk-list">
+        <li class="reveal"><span class="rid">R1</span><p>Gegevens verwijderd terwijl de klant nog op reis is<small>Beslistabel AVG-verwijdering · functionele juistheid</small></p></li>
+        <li class="reveal"><span class="rid">R2</span><p>Toch een IBAN of paspoortnummer in een vrij tekstveld<small>Vertrouwelijkheid · patroonherkenning op invoer</small></p></li>
+        <li class="reveal"><span class="rid">R3</span><p>Compensatiebedrag verkeerd berekend<small>Grenswaardenanalyse op percentage, reissom en afronding</small></p></li>
+        <li class="reveal"><span class="rid">R4</span><p>Medewerker keurt eigen compensatievoorstel goed<small>Verantwoording · vier-ogenprincipe</small></p></li>
+        <li class="reveal"><span class="rid">R5</span><p>Klacht van klant op reis krijgt geen urgentie Hoog<small>Toestandsovergangen klacht</small></p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRIVACY ================= -->
+<section class="privacy" id="privacy">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow chapter">Randvoorwaarde · AVG</span>
+      <h2>Privacy zit in het ontwerp, niet erachteraan</h2>
+      <p>Deze regels uit het interview komen in bijna elke user story terug. Ze bepalen wat we wél en vooral wat we níét opslaan.</p>
+    </div>
+    <div class="p-grid">
+      <div class="p-card reveal"><div class="card-ic never"><svg class="icon" aria-hidden="true"><use href="#i-ban"/></svg></div><h3>Geen IBAN</h3><p>Ook niet na betaling. Voor een terugbetaling vult de klant het zelf in.</p></div>
+      <div class="p-card reveal"><div class="card-ic never"><svg class="icon" aria-hidden="true"><use href="#i-ban"/></svg></div><h3>Geen paspoortnummer</h3><p>Alleen voornaam, achternaam en geboortedatum zoals in het paspoort.</p></div>
+      <div class="p-card reveal"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-plane"/></svg></div><h3>Bewaren tot thuis</h3><p>Bij een calamiteit moeten we weten wie er op reis is. Pas daarna kan verwijderen.</p></div>
+      <div class="p-card reveal"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg></div><h3>Verwijderen op verzoek</h3><p>Na de reis mag de klant om verwijdering vragen. Geblokkeerd zolang de reis loopt.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROADMAP ================= -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow chapter">Hoofdstuk 5 · De roadmap</span>
+      <h2>Vijf sprints naar een bruikbare eerste versie</h2>
+      <p>De Inkoop-backlog telt 18 items en 62 storypoints in vijf epics. Sprint 3 tot en met 7 bevatten 50 punten; de rest staat klaar als er tijd over is.</p>
+    </div>
+
+    <ol class="road">
+      <li class="sprint now reveal"><div class="s-when"><strong>Sprint 3</strong><span>1 – 22 okt 2026</span><br><span class="s-now">Volgende sprint</span></div><div class="s-goal">Een productmanager kan een leverancier registreren en na een bezoek de onderhandeling met marge vastleggen.<div class="ids"><span>IN-00</span><span>IN-01</span><span>IN-02</span><span>IN-04</span></div></div><div class="s-sp"><strong>13</strong><span>SP</span></div></li>
+      <li class="sprint reveal"><div class="s-when"><strong>Sprint 4</strong><span>22 – 29 okt 2026</span></div><div class="s-goal">De inkoopmanager ziet in één overzicht hoe alle onderhandelingen ervoor staan; wijzigingen zijn herleidbaar.<div class="ids"><span>IN-03</span><span>IN-05</span></div></div><div class="s-sp"><strong>6</strong><span>SP</span></div></li>
+      <li class="sprint reveal"><div class="s-when"><strong>Sprint 5</strong><span>12 – 19 nov 2026</span></div><div class="s-goal">Een inkoper kan een contract vastleggen en ziet welke contracten binnenkort aflopen.<div class="ids"><span>IN-07</span><span>IN-09</span></div></div><div class="s-sp"><strong>7</strong><span>SP</span></div></li>
+      <li class="sprint reveal"><div class="s-when"><strong>Sprint 6</strong><span>19 nov – 3 dec 2026</span></div><div class="s-goal">Inkoop ziet de bezetting van ingekochte kamers en geeft lage bezetting door aan Marketing en Sales.<div class="ids"><span>IN-08</span><span>IN-11</span><span>IN-12</span></div></div><div class="s-sp"><strong>11</strong><span>SP</span></div></li>
+      <li class="sprint reveal"><div class="s-when"><strong>Sprint 7</strong><span>3 – 17 dec 2026</span></div><div class="s-goal">Reisproducten hebben vaste kenmerken en de voortgang van productontwikkeling is zichtbaar.<div class="ids"><span>IN-13</span><span>IN-14</span><span>IN-15</span></div></div><div class="s-sp"><strong>13</strong><span>SP</span></div></li>
+    </ol>
+
+    <div class="epics">
+      <div class="epic reveal"><b>E1</b><h4>Leveranciersbeheer</h4><div class="meter"><i style="width:58%"></i></div><small>4 items · 11 SP</small></div>
+      <div class="epic reveal"><b>E2</b><h4>Onderhandelingen</h4><div class="meter"><i style="width:58%"></i></div><small>3 items · 11 SP</small></div>
+      <div class="epic reveal"><b>E3</b><h4>Contractbeheer</h4><div class="meter"><i style="width:68%"></i></div><small>4 items · 13 SP</small></div>
+      <div class="epic reveal"><b>E4</b><h4>Bezetting &amp; verkoop</h4><div class="meter"><i style="width:42%"></i></div><small>2 items · 8 SP</small></div>
+      <div class="epic reveal"><b>E5</b><h4>Productdata</h4><div class="meter"><i style="width:100%"></i></div><small>5 items · 19 SP</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DOCUMENTEN ================= -->
+<section id="documenten" class="sec-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow chapter">Het werk</span>
+      <h2>Alles wat we hebben opgeleverd</h2>
+      <p>Elk document bouwt voort op het vorige: van interview naar backlog, proces, prototype en teststrategie.</p>
+    </div>
+    <div class="deliv">
+      <a class="d-card feat reveal" href="../prototype/index.html">
+        <span class="d-type">Prototype</span>
+        <div class="card-ic" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg></div>
+        <h3>Klikbaar prototype Werkplek</h3>
+        <p>Probeer zelf hoe een medewerker een klant zoekt, een klacht registreert, compensatie laat goedkeuren en de bezetting van een contract bekijkt.</p>
+        <span class="d-go">Open het prototype <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="d-card reveal" href="../docs/proces/klantenservice-proces.html">
+        <span class="d-type">BPMN</span>
+        <div class="card-ic" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-flow"/></svg></div>
+        <h3>Klantenserviceproces</h3>
+        <p>Procesmodel met vier lanes en vijf verbeteringen.</p>
+        <span class="d-go">Bekijk model <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="d-card reveal" href="https://github.com/VoyageVista1/GroepInkoop/blob/HEAD/docs/interview-analyse.md">
+        <span class="d-type">Analyse</span>
+        <div class="card-ic orange" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg></div>
+        <h3>Interviewanalyse</h3>
+        <p>Bevindingen I1–I10 en K1–K11, privacyregels en voorstel-epics.</p>
+        <span class="d-go">Lees op GitHub <svg class="icon" aria-hidden="true"><use href="#i-ext"/></svg></span>
+      </a>
+      <a class="d-card reveal" href="https://github.com/VoyageVista1/GroepInkoop/blob/HEAD/docs/backlog/inkoop-product-backlog.md">
+        <span class="d-type">Backlog</span>
+        <div class="card-ic" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></div>
+        <h3>Product backlog Inkoop</h3>
+        <p>18 stories, Definition of Ready en Done, sprintdoelen.</p>
+        <span class="d-go">Lees op GitHub <svg class="icon" aria-hidden="true"><use href="#i-ext"/></svg></span>
+      </a>
+      <a class="d-card reveal" href="https://github.com/VoyageVista1/GroepInkoop/blob/HEAD/docs/productrisicoanalyse-teststrategie.md">
+        <span class="d-type">Test</span>
+        <div class="card-ic red" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg></div>
+        <h3>Risicoanalyse &amp; teststrategie</h3>
+        <p>15 risico’s, testtechnieken en testproces in Azure DevOps.</p>
+        <span class="d-go">Lees op GitHub <svg class="icon" aria-hidden="true"><use href="#i-ext"/></svg></span>
+      </a>
+      <a class="d-card wide reveal" href="https://github.com/VoyageVista1/GroepInkoop/issues">
+        <span class="d-type">Issues</span>
+        <div class="card-ic green" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-git"/></svg></div>
+        <div style="flex:1"><h3>Backlog op GitHub</h3>
+        <p>146 issues: epics, user stories en taken als sub-issues.</p></div>
+        <span class="d-go">Naar de issues <svg class="icon" aria-hidden="true"><use href="#i-ext"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta" aria-labelledby="cta-title" style="padding-top:112px">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <div>
+        <h2 id="cta-title">Zie het zelf werken</h2>
+        <p>Het prototype laat zien hoe Klantenservice en Inkoop straks samenwerken. Geef ons je feedback tijdens de refinement van sprint 3.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="../prototype/index.html">Open het prototype <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-line" href="https://github.com/VoyageVista1/GroepInkoop">Naar de repository</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <a class="brand" href="#top"><span class="brand-mark"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6l7 12 7-12" stroke="#fb923c" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>VoyageVista<small>Werkplek</small></span></a>
+        <p style="max-width:28em">Een schoolproject van team GroepInkoop: Productontwikkeling &amp; Inkoop en Klantenservice &amp; Support. VoyageVista is een fictieve casus; cijfers zijn indicatief.</p>
+      </div>
+      <div>
+        <h4>Verhaal</h4>
+        <ul><li><a href="#probleem">Probleem</a></li><li><a href="#oplossing">Oplossing</a></li><li><a href="#proces">Proces</a></li><li><a href="#kwaliteit">Kwaliteit</a></li></ul>
+      </div>
+      <div>
+        <h4>Opleveringen</h4>
+        <ul><li><a href="../prototype/index.html">Prototype</a></li><li><a href="../docs/proces/klantenservice-proces.html">BPMN-model</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/blob/HEAD/docs/backlog/inkoop-product-backlog.md">Backlog</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/blob/HEAD/docs/productrisicoanalyse-teststrategie.md">Teststrategie</a></li></ul>
+      </div>
+      <div>
+        <h4>Team</h4>
+        <ul><li><a href="https://github.com/VoyageVista1/GroepInkoop">GitHub repository</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues">Issues</a></li></ul>
+      </div>
+    </div>
+    <div class="f-bottom"><span>© 2026 Team GroepInkoop · casus VoyageVista</span><span>Gebouwd met toegankelijkheid en AVG in gedachten</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.body.classList.remove('no-js');
+  var root=document.documentElement, nav=document.getElementById('nav');
+
+  // Thema
+  document.getElementById('theme-btn').addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var next=cur==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('vv-theme',next);}catch(e){}
+  });
+
+  // Nav bij scrollen
+  function onScroll(){nav.classList.toggle('scrolled',window.scrollY>24);}
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+  // Mobiel menu
+  var mb=document.getElementById('menu-btn');
+  mb.addEventListener('click',function(){
+    var open=nav.classList.toggle('open');
+    mb.setAttribute('aria-expanded',open); mb.setAttribute('aria-label',open?'Menu sluiten':'Menu openen');
+  });
+  document.querySelectorAll('#nav-links a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');mb.setAttribute('aria-expanded','false');});});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){nav.classList.remove('open');mb.setAttribute('aria-expanded','false');mb.focus();}});
+
+  // Tabs (WAI-ARIA)
+  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+  function select(tab){
+    tabs.forEach(function(t){var on=t===tab;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!on;});
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){select(t);});
+    t.addEventListener('keydown',function(e){
+      var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0; if(!d) return;
+      var n=tabs[(i+d+tabs.length)%tabs.length]; select(n); n.focus(); e.preventDefault();
+    });
+  });
+
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Reveal + stagger
+  var els=[].slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var el=en.target, sib=[].slice.call(el.parentNode.children).filter(function(c){return c.classList.contains('reveal');});
+        el.style.transitionDelay=Math.min(sib.indexOf(el),6)*60+'ms';
+        el.classList.add('in'); io.unobserve(el);
+      });
+    },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    els.forEach(function(el){io.observe(el);});
+  } else els.forEach(function(el){el.classList.add('in');});
+
+  // Tellers
+  var nums=[].slice.call(document.querySelectorAll('[data-count]'));
+  if(!reduce && 'IntersectionObserver' in window){
+    var co=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return; co.unobserve(en.target);
+        var el=en.target, end=+el.dataset.count, t0=performance.now(), dur=1100;
+        (function tick(now){var p=Math.min((now-t0)/dur,1); el.textContent=Math.round(end*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(tick);})(t0);
+      });
+    },{threshold:.6});
+    nums.forEach(function(n){co.observe(n);});
+  }
+
+  // Actieve sectie in nav
+  var links=[].slice.call(document.querySelectorAll('#nav-links a'));
+  if('IntersectionObserver' in window){
+    var so=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        links.forEach(function(l){l.setAttribute('aria-current',l.getAttribute('href')==='#'+en.target.id?'true':'false');});
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    links.forEach(function(l){var s=document.querySelector(l.getAttribute('href')); if(s) so.observe(s);});
+  }
+})();
+</script>
+</body>
+</html>
