@@ -1,5 +1,7 @@
 # Product Backlog – Productontwikkeling & Inkoop
 
+> **Let op (29 sep 2026):** de backlog staat nu als issues in GitHub. Zie [migratie-overzicht.md](migratie-overzicht.md) voor de nummers. Dit document blijft de uitleg van werkwijze, Definition of Ready en Definition of Done.
+
 **Casus:** VoyageVista · **Team:** GroepInkoop · **Versie:** 29 september 2026 (vóór refinement sprint 3)
 
 De backlog telt **18 items (62 storypoints)** in 5 epics. Sprint 3 t/m 7 bevatten 50 punten; 12 punten (Could) staan klaar als er tijd over is. De volgorde is een voorstel van het team en wordt door de Product Owner met de opdrachtgever bevestigd.
