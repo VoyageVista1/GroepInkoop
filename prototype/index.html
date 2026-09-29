@@ -1,0 +1,1031 @@
+<title>VoyageVista Werkplek</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: backoffice-werkplek — vaste zijbalk met navigatie, werkvlak met kop, overzicht en detailpanelen. Op telefoon wordt de zijbalk een bovenbalk. */
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --surface-2: #f8fafb;
+  --ink: #15222c;
+  --muted: #5a6a77;
+  --line: #dce3e9;
+  --accent: #1b5a84;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2edf5;
+  --side: #102636;
+  --side-ink: #c9d8e3;
+  --side-active: #1f4058;
+  --ok: #2b7a57;  --ok-soft: #e1f2e9;
+  --warn: #9a6512; --warn-soft: #fbf0d9;
+  --crit: #b3403a; --crit-soft: #fae4e1;
+  --shadow: 0 1px 2px rgba(16,38,54,.06), 0 4px 16px rgba(16,38,54,.06);
+  --f-display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 8px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d151c; --surface: #15202a; --surface-2: #1a2632; --ink: #e5ecf1; --muted: #92a2af; --line: #263441;
+    --accent: #6fb2de; --accent-ink: #0b1a24; --accent-soft: #17324a;
+    --side: #09121a; --side-ink: #a9bccb; --side-active: #17324a;
+    --ok: #5cc194; --ok-soft: #173427; --warn: #e2b04e; --warn-soft: #3a2d12; --crit: #ee7b70; --crit-soft: #3e1d1b;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d151c; --surface: #15202a; --surface-2: #1a2632; --ink: #e5ecf1; --muted: #92a2af; --line: #263441;
+  --accent: #6fb2de; --accent-ink: #0b1a24; --accent-soft: #17324a;
+  --side: #09121a; --side-ink: #a9bccb; --side-active: #17324a;
+  --ok: #5cc194; --ok-soft: #173427; --warn: #e2b04e; --warn-soft: #3a2d12; --crit: #ee7b70; --crit-soft: #3e1d1b;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-body); }
+button, input, select, textarea { font: inherit; color: inherit; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: 1.6rem; font-weight: 700; }
+h2 { font-size: 1.15rem; font-weight: 600; }
+h3 { font-size: 1rem; font-weight: 600; font-family: var(--f-body); }
+.mono { font-family: var(--f-mono); font-size: .82em; letter-spacing: .01em; }
+.muted { color: var(--muted); }
+.num { font-variant-numeric: tabular-nums; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Shell */
+.app { display: grid; grid-template-columns: 232px minmax(0,1fr); min-height: 100%; }
+.side { background: var(--side); color: var(--side-ink); padding: 20px 14px; display: flex; flex-direction: column; gap: 20px; position: sticky; top: env(safe-area-inset-top, 0px); height: 100vh; overflow-y: auto; }
+.brand { display: flex; align-items: center; gap: 10px; padding: 0 8px; color: #fff; }
+.brand svg { flex: none; }
+.brand b { font-family: var(--f-display); font-size: 1.05rem; display: block; line-height: 1.1; }
+.brand small { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+.nav { display: flex; flex-direction: column; gap: 2px; }
+.nav-label { font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; opacity: .6; padding: 12px 10px 4px; }
+.nav button { all: unset; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; border-radius: 6px; color: var(--side-ink); font-weight: 500; }
+.nav button:hover { background: rgba(255,255,255,.06); }
+.nav button[aria-current="page"] { background: var(--side-active); color: #fff; }
+.nav button:focus-visible { outline: 2px solid var(--accent); }
+.nav .count { font-size: .75rem; background: rgba(255,255,255,.12); padding: 0 7px; border-radius: 99px; font-variant-numeric: tabular-nums; }
+.side-foot { margin-top: auto; display: flex; flex-direction: column; gap: 8px; font-size: .82rem; }
+.side-foot label { opacity: .7; font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; }
+.side-foot select { background: var(--side-active); color: #fff; border: 1px solid rgba(255,255,255,.14); border-radius: 6px; padding: 7px 8px; width: 100%; }
+.side-foot .reset { all: unset; cursor: pointer; font-size: .8rem; opacity: .7; text-decoration: underline; text-underline-offset: 3px; }
+.side-foot .reset:hover { opacity: 1; }
+
+.main { min-width: 0; padding: 28px 32px 48px; display: flex; flex-direction: column; gap: 20px; }
+.proto-bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; font-size: .8rem; color: var(--warn); background: var(--warn-soft); border-radius: var(--r); padding: 8px 12px; }
+.head { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: flex-end; justify-content: space-between; }
+.head p { margin: 4px 0 0; color: var(--muted); }
+.crumb { all: unset; cursor: pointer; color: var(--accent); font-size: .85rem; font-weight: 600; margin-bottom: 6px; display: inline-block; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Buttons & chips */
+.btn { cursor: pointer; border: 1px solid var(--line); background: var(--surface); padding: 8px 14px; border-radius: 6px; font-weight: 600; font-size: .9rem; display: inline-flex; align-items: center; gap: 6px; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.danger { color: var(--crit); }
+.btn.danger:hover { border-color: var(--crit); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn.sm { padding: 5px 10px; font-size: .82rem; }
+.pill { display: inline-flex; align-items: center; gap: 5px; font-size: .76rem; font-weight: 600; padding: 2px 9px; border-radius: 99px; white-space: nowrap; background: var(--surface-2); color: var(--muted); border: 1px solid var(--line); }
+.pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
+.pill.warn { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.pill.crit { background: var(--crit-soft); color: var(--crit); border-color: transparent; }
+.pill.info { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { cursor: pointer; border: 1px solid var(--line); background: var(--surface); border-radius: 99px; padding: 4px 12px; font-size: .82rem; font-weight: 500; }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+/* Panels */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); min-width: 0; }
+.panel-h { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.panel-b { padding: 16px 18px; }
+.grid-2 { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr); gap: 20px; align-items: start; }
+.stack { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; }
+.tile { all: unset; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+.tile:hover { border-color: var(--accent); }
+.tile:focus-visible { outline: 2px solid var(--accent); }
+.tile .k { font-size: .78rem; color: var(--muted); font-weight: 600; }
+.tile .v { font-family: var(--f-display); font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.tile .s { font-size: .8rem; color: var(--muted); }
+.tile.crit .v { color: var(--crit); }
+.tile.warn .v { color: var(--warn); }
+
+/* Tables */
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th { text-align: left; font-size: .72rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 600; padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap; background: var(--surface-2); }
+td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tr:last-child td { border-bottom: 0; }
+tr.click { cursor: pointer; }
+tr.click:hover td { background: var(--accent-soft); }
+td.r, th.r { text-align: right; }
+.empty { padding: 28px 18px; text-align: center; color: var(--muted); }
+
+/* Search */
+.search { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.search input { flex: 1 1 260px; min-width: 0; }
+
+/* Forms */
+input[type=text], input[type=email], input[type=tel], input[type=date], input[type=number], input[type=search], select, textarea {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; width: 100%;
+}
+textarea { min-height: 84px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent); }
+.form { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px 16px; }
+.field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: .82rem; font-weight: 600; }
+.field label .req { color: var(--crit); }
+.field .hint { font-size: .78rem; color: var(--muted); }
+.field .err { font-size: .78rem; color: var(--crit); font-weight: 600; }
+.field.invalid input, .field.invalid select, .field.invalid textarea { border-color: var(--crit); }
+.readonly { background: var(--surface-2); border: 1px dashed var(--line); border-radius: 6px; padding: 8px 10px; font-size: .9rem; color: var(--muted); }
+.notice { border-radius: 6px; padding: 10px 12px; font-size: .86rem; display: flex; gap: 8px; align-items: flex-start; }
+.notice.warn { background: var(--warn-soft); color: var(--warn); }
+.notice.crit { background: var(--crit-soft); color: var(--crit); }
+.notice.info { background: var(--accent-soft); color: var(--accent); }
+.notice.ok { background: var(--ok-soft); color: var(--ok); }
+.notice b { font-weight: 700; }
+
+/* Dialog */
+dialog { border: 0; padding: 0; border-radius: 10px; background: var(--surface); color: var(--ink); width: min(640px, calc(100vw - 32px)); max-height: calc(100vh - 48px); box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+dialog::backdrop { background: rgba(9,18,26,.55); }
+dialog form { display: flex; flex-direction: column; max-height: calc(100vh - 48px); }
+.dlg-h { padding: 18px 20px 12px; border-bottom: 1px solid var(--line); }
+.dlg-h p { margin: 4px 0 0; color: var(--muted); font-size: .88rem; }
+.dlg-b { padding: 18px 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+.dlg-f { padding: 12px 20px; border-top: 1px solid var(--line); display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+
+/* Klantdossier */
+.kv { display: grid; grid-template-columns: max-content minmax(0,1fr); gap: 8px 16px; font-size: .9rem; margin: 0; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; overflow-wrap: anywhere; }
+.kv-wide { grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 12px 24px; }
+.kv-wide > div { display: flex; flex-direction: column; gap: 2px; }
+.kv-wide dt { font-size: .78rem; }
+.privacy { display: flex; flex-direction: column; gap: 6px; font-size: .82rem; color: var(--muted); padding-top: 12px; border-top: 1px solid var(--line); margin-top: 14px; }
+.privacy span { display: flex; gap: 6px; align-items: center; }
+.privacy svg { color: var(--ok); flex: none; }
+
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li { display: grid; grid-template-columns: 28px minmax(0,1fr); gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.timeline li:last-child { border-bottom: 0; }
+.tl-ico { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+.tl-ico.klacht { background: var(--crit-soft); color: var(--crit); }
+.tl-ico.boeking { background: var(--ok-soft); color: var(--ok); }
+.tl-top { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.tl-top b { font-weight: 600; }
+.tl-meta { font-size: .8rem; color: var(--muted); }
+.tl-body { margin: 4px 0 0; font-size: .9rem; overflow-wrap: anywhere; }
+.tl-follow { margin-top: 6px; font-size: .82rem; display: inline-flex; gap: 6px; align-items: center; }
+.open-first { background: var(--warn-soft); }
+
+/* Bezetting */
+.bar { height: 8px; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--line); overflow: hidden; min-width: 80px; }
+.bar i { display: block; height: 100%; background: var(--accent); }
+.bar.low i { background: var(--warn); }
+.occ { display: flex; align-items: center; gap: 10px; }
+.occ .num { font-size: .82rem; color: var(--muted); white-space: nowrap; }
+
+.calc { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
+.calc div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; }
+.calc small { display: block; font-size: .74rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.calc strong { font-family: var(--f-display); font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.voorw { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+.voorw-row { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 6px; align-items: center; font-size: .82rem; }
+
+.steps { display: flex; flex-wrap: wrap; gap: 4px; font-size: .78rem; }
+.steps span { padding: 3px 9px; border-radius: 4px; background: var(--surface-2); color: var(--muted); border: 1px solid var(--line); }
+.steps span.done { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.steps span.now { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+
+.toast { position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: .9rem; box-shadow: var(--shadow); z-index: 50; max-width: calc(100vw - 40px); }
+
+@media (max-width: 1100px) {
+  .tiles { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .grid-2 { grid-template-columns: minmax(0,1fr); }
+}
+@media (max-width: 760px) {
+  .app { grid-template-columns: minmax(0,1fr); }
+  .side { position: static; height: auto; padding: 14px 16px; gap: 12px; }
+  .nav { flex-direction: row; overflow-x: auto; gap: 4px; }
+  .nav-label { display: none; }
+  .nav button { white-space: nowrap; }
+  .side-foot { flex-direction: row; flex-wrap: wrap; align-items: center; margin-top: 0; }
+  .side-foot select { width: auto; flex: 1 1 180px; }
+  .main { padding: 20px 16px 40px; }
+  .form, .calc, .voorw { grid-template-columns: minmax(0,1fr); }
+  .tiles { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+  h1 { font-size: 1.35rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .main > * { animation: rise .25s ease-out both; }
+  @keyframes rise { from { transform: translateY(4px); } to { transform: none; } }
+}
+</style>
+
+<div class="app">
+  <aside class="side">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="#2f7fb4"/><path d="M6 19c4-3 7-3 10 0s6 3 10 0" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="21" cy="11" r="3" fill="#f2c14e"/></svg>
+      <div><b>VoyageVista</b><small>Werkplek</small></div>
+    </div>
+    <nav class="nav" id="nav" aria-label="Hoofdmenu"></nav>
+    <div class="side-foot">
+      <label for="user">Ingelogd als</label>
+      <select id="user"></select>
+      <button class="reset" id="reset" type="button">Testdata herstellen</button>
+    </div>
+  </aside>
+  <main class="main" id="main"></main>
+</div>
+<dialog id="dlg"></dialog>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(() => {
+'use strict';
+
+/* ---------- Basis ---------- */
+const TODAY = new Date('2026-09-29T12:00:00');
+const STORE_KEY = 'vv-werkplek-v1';
+const DAY = 86400000;
+
+const USERS = [
+  { id: 'm1', naam: 'Priya Ramdin', rol: 'Klantenservice' },
+  { id: 'm2', naam: 'Tom Bakker', rol: 'Senior klantenservice' },
+  { id: 'm3', naam: 'Eva Smit', rol: 'Productmanager' },
+  { id: 'm4', naam: 'Ruben de Wit', rol: 'Inkoper' }
+];
+const KANALEN = ['Telefoon', 'E-mail', 'Shop', 'Social media'];
+const CATEGORIEEN = ['Informatie', 'Wijziging', 'Betaling', 'Klacht', 'Overig'];
+const LEV_TYPES = ['Hotel', 'Appartement', 'Busvervoer', 'Rederij', 'Excursie'];
+const OND_STATUS = ['Gepland', 'Bezocht', 'In onderhandeling', 'Akkoord', 'Afgewezen'];
+const KAMERTYPES = ['2-persoonskamer standaard', '2-persoonskamer met balkon', '2-persoonskamer begane grond', '3-persoonskamer', 'Familiekamer (4 pers.)', 'Studio met keukenblok', 'Appartement 2 slaapkamers'];
+const KL_STATUS = ['Nieuw', 'In behandeling', 'Wacht op goedkeuring', 'Geëscaleerd (After Travel)', 'Afgehandeld', 'Ongegrond'];
+const RICHTLIJNEN = [
+  { cat: 'Kamertype wijkt af van boeking', pct: 4 },
+  { cat: 'Hygiëne accommodatie onvoldoende', pct: 8 },
+  { cat: 'Geluidsoverlast (bouw/verbouwing)', pct: 3 },
+  { cat: 'Transfer meer dan 2 uur vertraagd', pct: 2 },
+  { cat: 'Faciliteit gesloten (zwembad, restaurant)', pct: 3 },
+  { cat: 'Excursie niet doorgegaan', pct: 2 },
+  { cat: 'Overig (maatwerk)', pct: 0 }
+];
+
+const d = s => new Date(s + 'T12:00:00');
+const iso = dt => dt.toISOString().slice(0, 10);
+const addDays = n => iso(new Date(TODAY.getTime() + n * DAY));
+const fmtDate = s => s ? new Date(s + (s.length === 10 ? 'T12:00:00' : '')).toLocaleDateString('nl-NL', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+const fmtDT = s => new Date(s).toLocaleString('nl-NL', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+const eur = n => new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR' }).format(n || 0);
+const daysUntil = s => Math.round((d(s) - TODAY) / DAY);
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uid = p => p + '-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+const userName = id => (USERS.find(u => u.id === id) || { naam: 'Onbekend' }).naam;
+
+/* ---------- Testdata (fictief) ---------- */
+function seed() {
+  return {
+    currentUser: 'm1',
+    klanten: [
+      { id: 'K-1001', voornaam: 'Sanne', achternaam: 'de Vries', achtervoegsel: '', geboortedatum: '2006-03-14', email: 'sanne.devries@mail.nl', telefoon: '06-12345678', woonplaats: 'Alkmaar' },
+      { id: 'K-1002', voornaam: 'Jan', achternaam: 'Jansen', achtervoegsel: 'Sr.', geboortedatum: '1968-07-02', email: 'jan.jansen@ziggo.nl', telefoon: '072-5123456', woonplaats: 'Heerhugowaard' },
+      { id: 'K-1003', voornaam: 'Jan', achternaam: 'Jansen', achtervoegsel: 'Jr.', geboortedatum: '2007-01-19', email: 'jan.jansen.jr@gmail.com', telefoon: '06-98765432', woonplaats: 'Heerhugowaard' },
+      { id: 'K-1004', voornaam: 'Yusuf', achternaam: 'Kaya', achtervoegsel: '', geboortedatum: '2005-11-08', email: 'y.kaya@outlook.com', telefoon: '06-24681357', woonplaats: 'Zaandam' },
+      { id: 'K-1005', voornaam: 'Lotte', achternaam: 'Bakker', achtervoegsel: '', geboortedatum: '2006-05-27', email: 'lotte.bakker@hotmail.com', telefoon: '06-11223344', woonplaats: 'Hoorn' },
+      { id: 'K-1006', voornaam: 'Baby', achternaam: 'Bakker', achtervoegsel: '', geboortedatum: '', email: '', telefoon: '', woonplaats: 'Hoorn', voorlopig: true }
+    ],
+    boekingen: [
+      { id: 'VV-26-00412', klantId: 'K-1001', product: 'Rondreis Thailand – Backpack 14 dagen', vertrek: '2026-11-02', terug: '2026-11-16', reissom: 1849, zelfGekozen: false },
+      { id: 'VV-26-00388', klantId: 'K-1004', product: 'Hotel Playa Serena, Mallorca – 14 dagen', vertrek: '2026-09-24', terug: '2026-10-08', reissom: 1320, zelfGekozen: true },
+      { id: 'VV-26-00297', klantId: 'K-1002', product: 'Stedentrip Rome – 4 dagen', vertrek: '2026-06-11', terug: '2026-06-14', reissom: 780, zelfGekozen: true },
+      { id: 'VV-26-00455', klantId: 'K-1005', product: 'Aparthotel Sol y Mar, Costa Brava – 8 dagen', vertrek: '2027-05-15', terug: '2027-05-23', reissom: 1410, zelfGekozen: false }
+    ],
+    contacten: [
+      { id: 'C-5001', klantId: 'K-1001', datum: '2026-09-18T10:12:00', kanaal: 'Shop', categorie: 'Informatie', samenvatting: 'Oriëntatie backpackreis Thailand, 2 weken in november. Budget rond € 1.800. Wil vooral eilanden en duiken. Voorkeur voor hostels met privékamer.', afspraak: 'Voorstel rondreis mailen vóór 20 sep.', vervolg: '', vervolgOpen: false, medewerker: 'm1' },
+      { id: 'C-5002', klantId: 'K-1001', datum: '2026-09-21T14:40:00', kanaal: 'E-mail', categorie: 'Wijziging', samenvatting: 'Klant vraagt of de vertrekdatum één dag later kan (3 nov).', afspraak: 'Nagevraagd bij touroperator.', vervolg: 'Klant terugbellen met antwoord over datumwijziging', vervolgOpen: true, medewerker: 'm2' },
+      { id: 'C-5003', klantId: 'K-1004', datum: '2026-09-28T09:05:00', kanaal: 'Telefoon', categorie: 'Klacht', samenvatting: 'Belt vanaf bestemming: kamer heeft geen balkon terwijl hij een kamer met balkon heeft geboekt. Hotel zegt dat er geen andere kamer vrij is.', afspraak: 'Klacht geregistreerd, hotel wordt vandaag benaderd.', vervolg: 'Hotel Playa Serena bellen over kamerwissel', vervolgOpen: true, medewerker: 'm1' },
+      { id: 'C-5004', klantId: 'K-1002', datum: '2026-06-20T11:30:00', kanaal: 'Shop', categorie: 'Betaling', samenvatting: 'Betaling zonder boekingsnummer overgemaakt, handmatig gekoppeld aan boeking VV-26-00297.', afspraak: '', vervolg: '', vervolgOpen: false, medewerker: 'm2' },
+      { id: 'C-5005', klantId: 'K-1005', datum: '2026-09-25T16:00:00', kanaal: 'Shop', categorie: 'Informatie', samenvatting: 'Klant is zwanger, uitgerekend in januari. Baby meegeboekt als "Baby Bakker". Naam en geboortedatum na de geboorte aanvullen.', afspraak: 'Klant geeft gegevens door na de geboorte.', vervolg: 'Gegevens baby aanvullen', vervolgOpen: true, medewerker: 'm1' }
+    ],
+    klachten: [
+      { id: 'KL-3001', klantId: 'K-1004', boekingId: 'VV-26-00388', categorie: 'Kamertype wijkt af van boeking', omschrijving: 'Geboekt: 2-persoonskamer met balkon. Gekregen: standaardkamer zonder balkon, uitzicht op binnenplaats.', urgentie: 'Hoog', status: 'Nieuw', datum: '2026-09-28T09:10:00', geregistreerdDoor: 'm1', pct: null, toelichting: '', voorgesteldDoor: null, goedgekeurdDoor: null, log: [] },
+      { id: 'KL-2987', klantId: 'K-1002', boekingId: 'VV-26-00297', categorie: 'Faciliteit gesloten (zwembad, restaurant)', omschrijving: 'Daktuin met zwembad was gesloten tijdens het hele verblijf.', urgentie: 'Normaal', status: 'Wacht op goedkeuring', datum: '2026-06-18T13:22:00', geregistreerdDoor: 'm1', pct: 3, toelichting: '', voorgesteldDoor: 'm1', goedgekeurdDoor: null, log: [{ t: '2026-06-19T10:00:00', m: 'm1', txt: 'Compensatievoorstel 3% ingediend.' }] }
+    ],
+    leveranciers: [
+      { id: 'L-201', naam: 'Hotel Playa Serena', type: 'Hotel', land: 'Spanje', plaats: 'Alcúdia, Mallorca', contactpersoon: 'Marta Oliver', email: 'reservas@playaserena.es', telefoon: '+34 971 000 111' },
+      { id: 'L-202', naam: 'Aparthotel Sol y Mar', type: 'Appartement', land: 'Spanje', plaats: 'Lloret de Mar', contactpersoon: 'Jordi Puig', email: 'jordi@solymar.es', telefoon: '+34 972 000 222' },
+      { id: 'L-203', naam: 'Casa Azul Hostel', type: 'Hotel', land: 'Portugal', plaats: 'Lagos, Algarve', contactpersoon: 'Inês Costa', email: 'ines@casaazul.pt', telefoon: '+351 282 000 333' },
+      { id: 'L-204', naam: 'Kalimera Beach Resort', type: 'Hotel', land: 'Griekenland', plaats: 'Chersonissos, Kreta', contactpersoon: 'Nikos Pappas', email: 'sales@kalimerabeach.gr', telefoon: '+30 2897 000 444' },
+      { id: 'L-205', naam: 'Nordlicht Cruises', type: 'Rederij', land: 'Duitsland', plaats: 'Hamburg', contactpersoon: 'Anke Vogel', email: 'a.vogel@nordlicht.de', telefoon: '+49 40 000 555' },
+      { id: 'L-206', naam: 'Noord-Holland Touringcars', type: 'Busvervoer', land: 'Nederland', plaats: 'Alkmaar', contactpersoon: 'Kees Mol', email: 'planning@nhtouringcars.nl', telefoon: '072-5000666' }
+    ],
+    onderhandelingen: [
+      { id: 'O-701', levId: 'L-201', datum: '2026-03-10', status: 'Akkoord', inkoop: 62, verkoop: 84, volumekorting: '8% bij 20+ kamers per week', notitie: 'Nederlandse gasten waarderen de lange bedden. Balkonkamers beperkt beschikbaar.', pm: 'm3' },
+      { id: 'O-702', levId: 'L-202', datum: '2026-09-15', status: 'In onderhandeling', inkoop: 58, verkoop: 76, volumekorting: 'Vraagt afname 10 appartementen voor 5% korting', notitie: 'Keukenblok aanwezig, koelkast klein. Nagevraagd of grotere koelkast mogelijk is.', pm: 'm3' },
+      { id: 'O-703', levId: 'L-203', datum: '2026-10-20', status: 'Gepland', inkoop: 0, verkoop: 0, volumekorting: '', notitie: 'Eerste bezoek, doelgroep 18–25 jaar (backpackers).', pm: 'm3' },
+      { id: 'O-704', levId: 'L-204', datum: '2026-05-04', status: 'Afgewezen', inkoop: 88, verkoop: 84, volumekorting: '', notitie: 'Basisprijs te hoog, geen ruimte voor marge.', pm: 'm3' },
+      { id: 'O-705', levId: 'L-205', datum: '2026-08-27', status: 'Bezocht', inkoop: 110, verkoop: 145, volumekorting: 'Nederlandstalige hostess vanaf 40 NL-gasten per vaart', notitie: 'Busvervoer naar haven Hamburg nodig, zie Noord-Holland Touringcars.', pm: 'm3' }
+    ],
+    contracten: [
+      { id: 'CT-901', levId: 'L-201', begin: '2026-04-01', einde: '2026-11-15', kamertype: '2-persoonskamer met balkon', kamers: 40, verkocht: 31, prijs: 62, voorwaarden: [{ dagen: 42, pct: 25 }, { dagen: 28, pct: 50 }, { dagen: 7, pct: 100 }] },
+      { id: 'CT-902', levId: 'L-201', begin: '2026-10-15', einde: '2027-03-31', kamertype: '2-persoonskamer standaard', kamers: 30, verkocht: 9, prijs: 48, voorwaarden: [{ dagen: 42, pct: 15 }, { dagen: 14, pct: 50 }, { dagen: 3, pct: 100 }] },
+      { id: 'CT-903', levId: 'L-206', begin: '2026-01-01', einde: '2026-12-31', kamertype: '—', kamers: 0, verkocht: 0, prijs: 0, voorwaarden: [{ dagen: 14, pct: 50 }, { dagen: 2, pct: 100 }, { dagen: 0, pct: 100 }] }
+    ]
+  };
+}
+
+let S;
+try { S = JSON.parse(localStorage.getItem(STORE_KEY)) || seed(); } catch (e) { S = seed(); }
+const save = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} };
+
+let view = { name: 'dashboard', id: null };
+let ui = { klantQuery: '', tlFilter: 'Alles', levQuery: '', levStatus: 'Alle', klStatus: 'Open' };
+
+/* ---------- Afleidingen ---------- */
+const klant = id => S.klanten.find(k => k.id === id);
+const lev = id => S.leveranciers.find(l => l.id === id);
+const volledigeNaam = k => [k.voornaam, k.achternaam, k.achtervoegsel].filter(Boolean).join(' ');
+const opReis = b => b.vertrek <= iso(TODAY) && b.terug >= iso(TODAY);
+const klachtOpen = k => !['Afgehandeld', 'Ongegrond'].includes(k.status);
+const laatsteOnd = levId => S.onderhandelingen.filter(o => o.levId === levId).sort((a, b) => b.datum.localeCompare(a.datum))[0];
+const bezetting = c => c.kamers ? Math.round(c.verkocht / c.kamers * 100) : null;
+const contractSignalen = c => {
+  const out = [];
+  const tot = daysUntil(c.einde);
+  if (tot >= 0 && tot <= 60) out.push({ cls: 'warn', txt: `Loopt af over ${tot} dagen` });
+  if (tot < 0) out.push({ cls: '', txt: 'Verlopen' });
+  const b = bezetting(c);
+  if (b !== null && b < 50 && daysUntil(c.begin) <= 56 && tot >= 0) out.push({ cls: 'crit', txt: 'Actie nodig: bezetting < 50%' });
+  return out;
+};
+const statusCls = s => ({ 'Akkoord': 'ok', 'In onderhandeling': 'info', 'Bezocht': 'info', 'Gepland': '', 'Afgewezen': 'crit',
+  'Nieuw': 'crit', 'In behandeling': 'info', 'Wacht op goedkeuring': 'warn', 'Geëscaleerd (After Travel)': 'warn', 'Afgehandeld': 'ok', 'Ongegrond': '' }[s] ?? '');
+const urgCls = u => ({ 'Hoog': 'crit', 'Normaal': 'info', 'Laag': '' }[u] ?? '');
+
+/* ---------- Iconen ---------- */
+const I = {
+  phone: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>',
+  mail: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>',
+  shop: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9M3 9v11h18V9M3 9h18M9 20v-6h6v6"/></svg>',
+  social: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.2A8.4 8.4 0 1 1 21 11.5z"/></svg>',
+  alert: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></svg>',
+  plane: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>',
+  shield: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>',
+  clock: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'
+};
+const kanaalIco = k => ({ 'Telefoon': I.phone, 'E-mail': I.mail, 'Shop': I.shop, 'Social media': I.social }[k] || I.mail);
+
+/* ---------- Navigatie ---------- */
+function renderNav() {
+  const openKl = S.klachten.filter(klachtOpen).length;
+  const lopend = S.onderhandelingen.filter(o => ['Gepland', 'Bezocht', 'In onderhandeling'].includes(o.status)).length;
+  const items = [
+    ['label', 'Overzicht'],
+    ['dashboard', 'Dashboard'],
+    ['label', 'Klantenservice'],
+    ['klanten', 'Klanten', S.klanten.length],
+    ['klachten', 'Klachten', openKl],
+    ['label', 'Inkoop'],
+    ['leveranciers', 'Leveranciers', S.leveranciers.length],
+    ['onderhandelingen', 'Onderhandelingen', lopend]
+  ];
+  const active = { klant: 'klanten', klacht: 'klachten', leverancier: 'leveranciers' }[view.name] || view.name;
+  document.getElementById('nav').innerHTML = items.map(([k, label, n]) => k === 'label'
+    ? `<div class="nav-label">${label}</div>`
+    : `<button type="button" data-go="${k}" ${active === k ? 'aria-current="page"' : ''}><span>${label}</span>${n !== undefined ? `<span class="count">${n}</span>` : ''}</button>`).join('');
+  const us = document.getElementById('user');
+  us.innerHTML = USERS.map(u => `<option value="${u.id}" ${u.id === S.currentUser ? 'selected' : ''}>${esc(u.naam)} · ${esc(u.rol)}</option>`).join('');
+}
+
+function go(name, id = null) { view = { name, id }; render(); window.scrollTo(0, 0); }
+
+function render() {
+  renderNav();
+  const m = document.getElementById('main');
+  const views = { dashboard: vDashboard, klanten: vKlanten, klant: vKlant, klachten: vKlachten, klacht: vKlacht, leveranciers: vLeveranciers, leverancier: vLeverancier, onderhandelingen: vOnderhandelingen };
+  m.innerHTML = `<div class="proto-bar">${I.alert}<span><b>Prototype</b> met fictieve testdata · datum in het prototype staat vast op ${fmtDate(iso(TODAY))} · wijzigingen worden alleen in deze browser bewaard</span></div>` + (views[view.name] || vDashboard)();
+}
+
+/* ---------- Views: Dashboard ---------- */
+function vDashboard() {
+  const openKl = S.klachten.filter(klachtOpen);
+  const wacht = S.klachten.filter(k => k.status === 'Wacht op goedkeuring');
+  const vervolg = S.contacten.filter(c => c.vervolgOpen);
+  const lopend = S.onderhandelingen.filter(o => ['Gepland', 'Bezocht', 'In onderhandeling'].includes(o.status));
+  const signalen = S.contracten.map(c => ({ c, s: contractSignalen(c) })).filter(x => x.s.length && x.s.some(s => s.cls));
+  const me = USERS.find(u => u.id === S.currentUser);
+  return `
+  <div class="head"><div><h1>Goedemiddag, ${esc(me.naam.split(' ')[0])}</h1><p>Wat er vandaag aandacht nodig heeft bij Klantenservice en Inkoop.</p></div></div>
+  <div class="tiles">
+    <button class="tile ${openKl.length ? 'crit' : ''}" data-go="klachten"><span class="k">Open klachten</span><span class="v">${openKl.length}</span><span class="s">${openKl.filter(k => k.urgentie === 'Hoog').length} met urgentie hoog</span></button>
+    <button class="tile ${wacht.length ? 'warn' : ''}" data-go="klachten" data-klstatus="Wacht op goedkeuring"><span class="k">Wacht op goedkeuring</span><span class="v">${wacht.length}</span><span class="s">Compensatievoorstellen (vier ogen)</span></button>
+    <button class="tile" data-go="onderhandelingen"><span class="k">Lopende onderhandelingen</span><span class="v">${lopend.length}</span><span class="s">Gepland, bezocht of in onderhandeling</span></button>
+    <button class="tile ${signalen.length ? 'warn' : ''}" data-go="leveranciers"><span class="k">Contracten met signaal</span><span class="v">${signalen.length}</span><span class="s">Aflopend of lage bezetting</span></button>
+  </div>
+  <div class="grid-2">
+    <section class="panel">
+      <div class="panel-h"><h2>Open vervolgacties</h2><span class="muted num">${vervolg.length}</span></div>
+      ${vervolg.length ? `<div class="tbl-wrap"><table><thead><tr><th>Actie</th><th>Klant</th><th>Behandelaar</th></tr></thead><tbody>
+        ${vervolg.map(c => { const k = klant(c.klantId); return `<tr class="click" data-open-klant="${c.klantId}"><td>${esc(c.vervolg)}</td><td>${esc(k ? volledigeNaam(k) : '')}</td><td class="muted">${esc(userName(c.medewerker))}</td></tr>`; }).join('')}
+      </tbody></table></div>` : `<div class="empty">Geen open vervolgacties.</div>`}
+    </section>
+    <section class="panel">
+      <div class="panel-h"><h2>Contracten met signaal</h2></div>
+      ${signalen.length ? `<div class="tbl-wrap"><table><tbody>
+        ${signalen.map(({ c, s }) => `<tr class="click" data-open-lev="${c.levId}"><td><b>${esc(lev(c.levId).naam)}</b><div class="muted" style="font-size:.8rem">${esc(c.kamertype)}</div></td><td class="r"><div class="chips" style="justify-content:flex-end">${s.map(x => `<span class="pill ${x.cls}">${x.txt}</span>`).join('')}</div></td></tr>`).join('')}
+      </tbody></table></div>` : `<div class="empty">Geen signalen.</div>`}
+    </section>
+  </div>`;
+}
+
+/* ---------- Views: Klanten ---------- */
+function zoekKlanten(q) {
+  q = q.trim().toLowerCase();
+  if (!q) return S.klanten;
+  const qDigits = q.replace(/\D/g, '');
+  return S.klanten.filter(k => {
+    if (k.email && k.email.toLowerCase() === q) return true;
+    if (q.includes('@')) return k.email && k.email.toLowerCase().includes(q);
+    if (qDigits.length >= 6 && k.telefoon && k.telefoon.replace(/\D/g, '').includes(qDigits)) return true;
+    return volledigeNaam(k).toLowerCase().includes(q) || k.id.toLowerCase() === q;
+  });
+}
+function vKlanten() {
+  const res = zoekKlanten(ui.klantQuery);
+  const exactMail = ui.klantQuery.includes('@') && res.length === 1;
+  return `
+  <div class="head"><div><h1>Klanten</h1><p>Zoek op e-mailadres, telefoonnummer of naam. Een e-mailadres geeft het snelst de juiste klant.</p></div></div>
+  <section class="panel">
+    <div class="search">
+      <input type="search" id="klantQuery" placeholder="bijv. sanne.devries@mail.nl, 06-12345678 of Jansen" value="${esc(ui.klantQuery)}" aria-label="Klant zoeken">
+      <span class="muted num" style="font-size:.85rem">${res.length} ${res.length === 1 ? 'resultaat' : 'resultaten'}${exactMail ? ' · exacte match op e-mail' : ''}</span>
+    </div>
+    ${res.length ? `<div class="tbl-wrap"><table><thead><tr><th>Klant</th><th>Geboortedatum</th><th>Woonplaats</th><th>E-mail</th><th>Status</th></tr></thead><tbody>
+      ${res.map(k => {
+        const bs = S.boekingen.filter(b => b.klantId === k.id);
+        const onTrip = bs.some(opReis);
+        const openK = S.klachten.some(x => x.klantId === k.id && klachtOpen(x));
+        return `<tr class="click" data-open-klant="${k.id}">
+          <td><b>${esc(volledigeNaam(k))}</b> <span class="mono muted">${k.id}</span></td>
+          <td class="num">${k.geboortedatum ? fmtDate(k.geboortedatum) : '<span class="pill warn">Nog aanvullen</span>'}</td>
+          <td>${esc(k.woonplaats)}</td>
+          <td>${esc(k.email) || '<span class="muted">—</span>'}</td>
+          <td><div class="chips">${onTrip ? `<span class="pill info">Nu op reis</span>` : ''}${openK ? `<span class="pill crit">Open klacht</span>` : ''}${k.geanonimiseerd ? `<span class="pill">Geanonimiseerd</span>` : ''}</div></td>
+        </tr>`; }).join('')}
+    </tbody></table></div>` : `<div class="empty">Geen klant gevonden voor “${esc(ui.klantQuery)}”. Controleer de spelling of zoek op e-mailadres.</div>`}
+  </section>`;
+}
+
+function vKlant() {
+  const k = klant(view.id);
+  if (!k) return `<div class="empty">Klant niet gevonden.</div>`;
+  const bs = S.boekingen.filter(b => b.klantId === k.id);
+  const items = [
+    ...S.contacten.filter(c => c.klantId === k.id).map(c => ({ type: 'contact', t: c.datum, open: c.vervolgOpen, c })),
+    ...S.klachten.filter(c => c.klantId === k.id).map(c => ({ type: 'klacht', t: c.datum, open: klachtOpen(c), c })),
+    ...bs.map(b => ({ type: 'boeking', t: b.vertrek + 'T00:00:00', open: false, c: b }))
+  ].filter(x => ui.tlFilter === 'Alles' || (ui.tlFilter === 'Contacten' && x.type === 'contact') || (ui.tlFilter === 'Klachten' && x.type === 'klacht') || (ui.tlFilter === 'Boekingen' && x.type === 'boeking'))
+   .sort((a, b) => (b.open - a.open) || b.t.localeCompare(a.t));
+  const onTrip = bs.find(opReis);
+  return `
+  <div class="head">
+    <div><button class="crumb" data-go="klanten">← Klanten</button><h1>${esc(volledigeNaam(k))}</h1><p><span class="mono">${k.id}</span>${onTrip ? ` · <span class="pill info">Nu op reis tot ${fmtDate(onTrip.terug)}</span>` : ''}</p></div>
+    <div class="actions">
+      <button class="btn primary" data-act="contact" ${k.geanonimiseerd ? 'disabled' : ''}>+ Contactmoment</button>
+      <button class="btn" data-act="klacht" ${!bs.length || k.geanonimiseerd ? 'disabled' : ''}>+ Klacht</button>
+    </div>
+  </div>
+  ${k.voorlopig ? `<div class="notice warn">${I.alert}<span><b>Voorlopige klant.</b> Deze reiziger is geboekt vóór de geboorte. Vul voornaam en geboortedatum aan zodra die bekend zijn.</span></div>` : ''}
+  <div class="grid-2">
+    <section class="panel">
+      <div class="panel-h"><h2>Tijdlijn</h2>
+        <div class="chips" role="group" aria-label="Filter tijdlijn">${['Alles', 'Contacten', 'Klachten', 'Boekingen'].map(f => `<button class="chip" data-tl="${f}" aria-pressed="${ui.tlFilter === f}">${f}</button>`).join('')}</div>
+      </div>
+      ${items.length ? `<ol class="timeline">${items.map(tlItem).join('')}</ol>` : `<div class="empty">Nog niets vastgelegd. Registreer het eerste contactmoment met de knop hierboven.</div>`}
+    </section>
+    <div class="stack">
+      <section class="panel">
+        <div class="panel-h"><h2>Klantgegevens</h2></div>
+        <div class="panel-b">
+          <dl class="kv">
+            <dt>Geboortedatum</dt><dd>${k.geboortedatum ? fmtDate(k.geboortedatum) : '<span class="pill warn">Nog aanvullen</span>'}</dd>
+            <dt>E-mail</dt><dd>${esc(k.email) || '—'}</dd>
+            <dt>Telefoon</dt><dd>${esc(k.telefoon) || '—'}</dd>
+            <dt>Woonplaats</dt><dd>${esc(k.woonplaats) || '—'}</dd>
+          </dl>
+          <div class="privacy">
+            <span>${I.shield} Geen bankrekeningnummer opgeslagen (AVG)</span>
+            <span>${I.shield} Geen paspoortnummer opgeslagen (AVG)</span>
+          </div>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="panel-h"><h2>Boekingen</h2><span class="muted num">${bs.length}</span></div>
+        ${bs.length ? `<div class="tbl-wrap"><table><tbody>${bs.map(b => `<tr><td><b style="font-weight:600">${esc(b.product)}</b><div class="muted" style="font-size:.8rem"><span class="mono">${b.id}</span> · ${fmtDate(b.vertrek)} – ${fmtDate(b.terug)}</div><div class="chips" style="margin-top:4px">${b.zelfGekozen ? '<span class="pill">Accommodatie zelf gekozen</span>' : '<span class="pill info">Advies reisadviseur</span>'}${opReis(b) ? '<span class="pill info">Op reis</span>' : ''}</div></td><td class="r num">${eur(b.reissom)}</td></tr>`).join('')}</tbody></table></div>` : `<div class="empty">Geen boekingen.</div>`}
+      </section>
+      <section class="panel">
+        <div class="panel-h"><h2>Privacy</h2></div>
+        <div class="panel-b" style="display:flex;flex-direction:column;gap:10px">
+          <p class="muted" style="margin:0;font-size:.88rem">Gegevens blijven bewaard tot de klant van zijn laatste reis thuis is. Daarna kan de klant verwijdering aanvragen.</p>
+          <button class="btn danger" data-act="avg" ${k.geanonimiseerd ? 'disabled' : ''}>${k.geanonimiseerd ? 'Gegevens zijn verwijderd' : 'Gegevens verwijderen (AVG)'}</button>
+        </div>
+      </section>
+    </div>
+  </div>`;
+}
+function tlItem(x) {
+  if (x.type === 'contact') {
+    const c = x.c;
+    return `<li class="${c.vervolgOpen ? 'open-first' : ''}"><div class="tl-ico">${kanaalIco(c.kanaal)}</div><div>
+      <div class="tl-top"><b>${esc(c.kanaal)}</b><span class="pill">${esc(c.categorie)}</span><span class="tl-meta">${fmtDT(c.datum)} · ${esc(userName(c.medewerker))}</span></div>
+      <p class="tl-body">${esc(c.samenvatting)}</p>
+      ${c.afspraak ? `<p class="tl-body"><span class="muted">Afspraak:</span> ${esc(c.afspraak)}</p>` : ''}
+      ${c.vervolg ? `<div class="tl-follow">${c.vervolgOpen ? `<span class="pill warn">Open actie</span> ${esc(c.vervolg)} <button class="btn sm" data-done="${c.id}">Afronden</button>` : `<span class="pill ok">Afgerond</span> <span class="muted">${esc(c.vervolg)}</span>`}</div>` : ''}
+    </div></li>`;
+  }
+  if (x.type === 'klacht') {
+    const c = x.c;
+    return `<li><div class="tl-ico klacht">${I.alert}</div><div>
+      <div class="tl-top"><b>Klacht</b><span class="pill ${statusCls(c.status)}">${esc(c.status)}</span><span class="pill ${urgCls(c.urgentie)}">Urgentie ${esc(c.urgentie.toLowerCase())}</span><span class="tl-meta">${fmtDT(c.datum)}</span></div>
+      <p class="tl-body">${esc(c.categorie)}: ${esc(c.omschrijving)}</p>
+      <div class="tl-follow"><button class="btn sm" data-open-klacht="${c.id}">Klacht openen →</button></div>
+    </div></li>`;
+  }
+  const b = x.c;
+  return `<li><div class="tl-ico boeking">${I.plane}</div><div>
+    <div class="tl-top"><b>Boeking</b><span class="mono muted">${b.id}</span><span class="tl-meta">vertrek ${fmtDate(b.vertrek)}</span></div>
+    <p class="tl-body">${esc(b.product)} · ${eur(b.reissom)}</p></div></li>`;
+}
+
+/* ---------- Views: Klachten ---------- */
+function vKlachten() {
+  const filters = ['Open', 'Wacht op goedkeuring', 'Afgehandeld', 'Alle'];
+  const list = S.klachten.filter(k => ui.klStatus === 'Alle' || (ui.klStatus === 'Open' ? klachtOpen(k) : ui.klStatus === 'Afgehandeld' ? !klachtOpen(k) : k.status === ui.klStatus))
+    .sort((a, b) => (a.urgentie === 'Hoog' ? -1 : 0) - (b.urgentie === 'Hoog' ? -1 : 0) || b.datum.localeCompare(a.datum));
+  return `
+  <div class="head"><div><h1>Klachten</h1><p>Urgente klachten staan bovenaan. Een compensatievoorstel gaat pas naar de klant na goedkeuring door een tweede medewerker.</p></div></div>
+  <section class="panel">
+    <div class="search"><div class="chips" role="group" aria-label="Filter status">${filters.map(f => `<button class="chip" data-klstatus-f="${f}" aria-pressed="${ui.klStatus === f}">${f}</button>`).join('')}</div></div>
+    ${list.length ? `<div class="tbl-wrap"><table><thead><tr><th>Klacht</th><th>Klant</th><th>Urgentie</th><th>Status</th><th class="r">Reissom</th></tr></thead><tbody>
+      ${list.map(c => { const k = klant(c.klantId); const b = S.boekingen.find(x => x.id === c.boekingId); return `<tr class="click" data-open-klacht="${c.id}">
+        <td><b style="font-weight:600">${esc(c.categorie)}</b><div class="muted" style="font-size:.8rem"><span class="mono">${c.id}</span> · ${fmtDT(c.datum)}</div></td>
+        <td>${esc(k ? volledigeNaam(k) : '')}</td>
+        <td><span class="pill ${urgCls(c.urgentie)}">${esc(c.urgentie)}</span></td>
+        <td><span class="pill ${statusCls(c.status)}">${esc(c.status)}</span></td>
+        <td class="r num">${b ? eur(b.reissom) : '—'}</td></tr>`; }).join('')}
+    </tbody></table></div>` : `<div class="empty">Geen klachten in deze selectie.</div>`}
+  </section>`;
+}
+
+function vKlacht() {
+  const c = S.klachten.find(x => x.id === view.id);
+  if (!c) return `<div class="empty">Klacht niet gevonden.</div>`;
+  const k = klant(c.klantId);
+  const b = S.boekingen.find(x => x.id === c.boekingId);
+  const rl = RICHTLIJNEN.find(r => r.cat === c.categorie) || { pct: 0 };
+  const pct = c.pct ?? rl.pct;
+  const me = S.currentUser;
+  const flow = ['Nieuw', 'In behandeling', 'Wacht op goedkeuring', 'Afgehandeld'];
+  const idx = flow.indexOf(c.status);
+  const bewerkbaar = ['Nieuw', 'In behandeling', 'Geëscaleerd (After Travel)'].includes(c.status);
+  const magGoedkeuren = c.status === 'Wacht op goedkeuring' && c.voorgesteldDoor !== me;
+  return `
+  <div class="head">
+    <div><button class="crumb" data-go="klachten">← Klachten</button><h1>${esc(c.categorie)}</h1>
+    <p><span class="mono">${c.id}</span> · ${esc(k ? volledigeNaam(k) : '')} · <span class="pill ${statusCls(c.status)}">${esc(c.status)}</span> <span class="pill ${urgCls(c.urgentie)}">Urgentie ${esc(c.urgentie.toLowerCase())}</span></p></div>
+    <div class="actions">
+      <button class="btn" data-open-klant="${c.klantId}">Klantdossier</button>
+      ${klachtOpen(c) && c.status !== 'Geëscaleerd (After Travel)' ? `<button class="btn" data-act="escaleer">Escaleren naar After Travel</button>` : ''}
+    </div>
+  </div>
+  <div class="steps" aria-label="Voortgang">${flow.map((s, i) => `<span class="${i < idx ? 'done' : i === idx ? 'now' : ''}">${s}</span>`).join('')}${c.status === 'Geëscaleerd (After Travel)' ? '<span class="now">Geëscaleerd (After Travel)</span>' : ''}${c.status === 'Ongegrond' ? '<span class="now">Ongegrond</span>' : ''}</div>
+  <div class="grid-2">
+    <div class="stack">
+      <section class="panel">
+        <div class="panel-h"><h2>Compensatie volgens richtlijn</h2></div>
+        <div class="panel-b" style="display:flex;flex-direction:column;gap:14px">
+          <div class="calc">
+            <div><small>Reissom</small><strong>${eur(b?.reissom)}</strong></div>
+            <div><small>Richtlijn</small><strong>${rl.pct}%</strong></div>
+            <div><small>Compensatie</small><strong id="calcBedrag">${eur((b?.reissom || 0) * pct / 100)}</strong></div>
+          </div>
+          ${bewerkbaar ? `
+          <form id="compForm" class="form" novalidate>
+            <div class="field"><label for="f-pct">Toegekend percentage</label><input type="number" id="f-pct" min="0" max="100" step="0.5" value="${pct}"><span class="hint">Richtlijn voor deze categorie: ${rl.pct}%</span></div>
+            <div class="field full" id="wrap-toel"><label for="f-toel">Toelichting bij afwijking <span class="req" id="toelReq" ${pct === rl.pct ? 'hidden' : ''}>*</span></label><textarea id="f-toel" placeholder="Waarom wijkt het voorstel af van de richtlijn?">${esc(c.toelichting)}</textarea></div>
+            <div class="field full" style="flex-direction:row;gap:8px;flex-wrap:wrap">
+              <button type="submit" class="btn primary">Voorstel ter goedkeuring indienen</button>
+              <button type="button" class="btn" data-act="ongegrond">Ongegrond verklaren</button>
+            </div>
+          </form>` : c.status === 'Wacht op goedkeuring' ? `
+            <div class="notice ${magGoedkeuren ? 'info' : 'warn'}">${I.shield}<span>Voorstel van <b>${esc(userName(c.voorgesteldDoor))}</b>: ${c.pct}% = <b>${eur((b?.reissom || 0) * c.pct / 100)}</b>.${c.toelichting ? ` Toelichting: ${esc(c.toelichting)}` : ''}<br>${magGoedkeuren ? 'Controleer het voorstel. Na goedkeuring mag het naar de klant.' : 'Je hebt dit voorstel zelf ingediend. Een collega moet het goedkeuren (vier-ogenprincipe). Wissel linksonder van gebruiker om dit te testen.'}</span></div>
+            <div class="actions"><button class="btn primary" data-act="goedkeuren" ${magGoedkeuren ? '' : 'disabled'}>Goedkeuren en afhandelen</button><button class="btn" data-act="afkeuren" ${magGoedkeuren ? '' : 'disabled'}>Terugsturen</button></div>`
+          : `<div class="notice ${c.status === 'Afgehandeld' ? 'ok' : ''}">${I.shield}<span>${c.status === 'Afgehandeld' ? `Afgehandeld met ${c.pct}% = <b>${eur((b?.reissom || 0) * c.pct / 100)}</b>. Goedgekeurd door ${esc(userName(c.goedgekeurdDoor))}.` : `Klacht ongegrond verklaard. ${esc(c.toelichting)}`}</span></div>`}
+        </div>
+      </section>
+      <section class="panel">
+        <div class="panel-h"><h2>Logboek</h2></div>
+        ${c.log.length ? `<ol class="timeline">${c.log.slice().reverse().map(l => `<li><div class="tl-ico">${I.clock}</div><div><div class="tl-meta">${fmtDT(l.t)} · ${esc(userName(l.m))}</div><p class="tl-body">${esc(l.txt)}</p></div></li>`).join('')}</ol>` : `<div class="empty">Nog geen acties op deze klacht.</div>`}
+      </section>
+    </div>
+    <section class="panel">
+      <div class="panel-h"><h2>Details</h2></div>
+      <div class="panel-b">
+        <dl class="kv">
+          <dt>Omschrijving</dt><dd>${esc(c.omschrijving)}</dd>
+          <dt>Boeking</dt><dd>${b ? `${esc(b.product)}<br><span class="mono muted">${b.id}</span>` : '—'}</dd>
+          <dt>Reisperiode</dt><dd>${b ? `${fmtDate(b.vertrek)} – ${fmtDate(b.terug)}` : '—'}</dd>
+          <dt>Accommodatie</dt><dd>${b ? (b.zelfGekozen ? '<span class="pill warn">Zelf gekozen door klant</span>' : '<span class="pill info">Op advies van reisadviseur</span>') : '—'}</dd>
+          <dt>Geregistreerd</dt><dd>${fmtDT(c.datum)} door ${esc(userName(c.geregistreerdDoor))}</dd>
+        </dl>
+      </div>
+    </section>
+  </div>`;
+}
+
+/* ---------- Views: Leveranciers ---------- */
+function vLeveranciers() {
+  const q = ui.levQuery.trim().toLowerCase();
+  const list = S.leveranciers.filter(l => {
+    const o = laatsteOnd(l.id);
+    const st = o ? o.status : 'Geen';
+    return (!q || (l.naam + ' ' + l.plaats + ' ' + l.land).toLowerCase().includes(q)) && (ui.levStatus === 'Alle' || st === ui.levStatus);
+  });
+  return `
+  <div class="head"><div><h1>Leveranciers</h1><p>Hotels, appartementen, vervoerders en rederijen met de stand van de onderhandeling.</p></div>
+    <div class="actions"><button class="btn primary" data-act="nieuweLev">+ Leverancier toevoegen</button></div></div>
+  <section class="panel">
+    <div class="search">
+      <input type="search" id="levQuery" placeholder="Zoek op naam, plaats of land" value="${esc(ui.levQuery)}" aria-label="Leverancier zoeken">
+      <select id="levStatus" aria-label="Filter op status" style="width:auto">${['Alle', ...OND_STATUS].map(s => `<option ${ui.levStatus === s ? 'selected' : ''}>${s}</option>`).join('')}</select>
+    </div>
+    ${list.length ? `<div class="tbl-wrap"><table><thead><tr><th>Leverancier</th><th>Type</th><th>Bestemming</th><th>Onderhandeling</th><th>Laatste bezoek</th></tr></thead><tbody>
+      ${list.map(l => { const o = laatsteOnd(l.id); const sig = S.contracten.filter(c => c.levId === l.id).flatMap(contractSignalen).filter(s => s.cls); return `<tr class="click" data-open-lev="${l.id}">
+        <td><b>${esc(l.naam)}</b> <span class="mono muted">${l.id}</span>${sig.length ? `<div class="chips" style="margin-top:4px">${sig.map(s => `<span class="pill ${s.cls}">${s.txt}</span>`).join('')}</div>` : ''}</td>
+        <td>${esc(l.type)}</td><td>${esc(l.plaats)}, ${esc(l.land)}</td>
+        <td>${o ? `<span class="pill ${statusCls(o.status)}">${o.status}</span>` : '<span class="muted">—</span>'}</td>
+        <td class="num">${o ? fmtDate(o.datum) : '—'}</td></tr>`; }).join('')}
+    </tbody></table></div>` : `<div class="empty">Geen leveranciers gevonden. Pas de zoekterm of het filter aan.</div>`}
+  </section>`;
+}
+
+function vLeverancier() {
+  const l = lev(view.id);
+  if (!l) return `<div class="empty">Leverancier niet gevonden.</div>`;
+  const onds = S.onderhandelingen.filter(o => o.levId === l.id).sort((a, b) => b.datum.localeCompare(a.datum));
+  const cts = S.contracten.filter(c => c.levId === l.id);
+  return `
+  <div class="head">
+    <div><button class="crumb" data-go="leveranciers">← Leveranciers</button><h1>${esc(l.naam)}</h1><p>${esc(l.type)} · ${esc(l.plaats)}, ${esc(l.land)} · <span class="mono">${l.id}</span></p></div>
+    <div class="actions"><button class="btn primary" data-act="nieuweOnd">+ Bezoek / onderhandeling</button><button class="btn" data-act="nieuwContract">+ Contract</button></div>
+  </div>
+  <div class="stack">
+    <section class="panel">
+      <div class="panel-h"><h2>Gegevens</h2></div>
+      <div class="panel-b"><dl class="kv kv-wide">
+        <div><dt>Contactpersoon</dt><dd>${esc(l.contactpersoon) || '—'}</dd></div>
+        <div><dt>E-mail</dt><dd>${esc(l.email) || '—'}</dd></div>
+        <div><dt>Telefoon</dt><dd>${esc(l.telefoon) || '—'}</dd></div>
+        <div><dt>Land</dt><dd>${esc(l.land)}</dd></div>
+        <div><dt>Plaats</dt><dd>${esc(l.plaats)}</dd></div>
+      </dl></div>
+    </section>
+      <section class="panel">
+        <div class="panel-h"><h2>Onderhandelingen</h2><span class="muted num">${onds.length}</span></div>
+        ${onds.length ? `<div class="tbl-wrap"><table><thead><tr><th>Bezoek</th><th>Status</th><th class="r">Inkoop / nacht</th><th class="r">Verkoop / nacht</th><th class="r">Marge</th></tr></thead><tbody>
+          ${onds.map(o => { const m = o.verkoop - o.inkoop; const mp = o.verkoop ? Math.round(m / o.verkoop * 100) : 0; return `<tr>
+            <td class="num">${fmtDate(o.datum)}<div class="muted" style="font-size:.8rem;max-width:34ch">${esc(o.notitie)}</div>${o.volumekorting ? `<div style="font-size:.8rem;margin-top:2px"><span class="muted">Volume:</span> ${esc(o.volumekorting)}</div>` : ''}</td>
+            <td><span class="pill ${statusCls(o.status)}">${o.status}</span></td>
+            <td class="r num">${o.inkoop ? eur(o.inkoop) : '—'}</td><td class="r num">${o.verkoop ? eur(o.verkoop) : '—'}</td>
+            <td class="r num">${o.verkoop ? `<span class="pill ${m < 0 ? 'crit' : 'ok'}">${eur(m)} · ${mp}%</span>` : '—'}</td></tr>`; }).join('')}
+        </tbody></table></div>` : `<div class="empty">Nog geen bezoeken vastgelegd.</div>`}
+      </section>
+      <section class="panel">
+        <div class="panel-h"><h2>Contracten</h2><span class="muted num">${cts.length}</span></div>
+        ${cts.length ? `<div class="tbl-wrap"><table><thead><tr><th>Contract</th><th>Looptijd</th><th>Bezetting</th><th>Annulering</th></tr></thead><tbody>
+          ${cts.map(c => { const b = bezetting(c); const sig = contractSignalen(c); return `<tr>
+            <td><b style="font-weight:600">${esc(c.kamertype)}</b><div class="muted" style="font-size:.8rem"><span class="mono">${c.id}</span>${c.prijs ? ` · ${eur(c.prijs)} p.n.` : ''}</div>${sig.length ? `<div class="chips" style="margin-top:4px">${sig.map(s => `<span class="pill ${s.cls}">${s.txt}</span>`).join('')}</div>` : ''}</td>
+            <td class="num" style="white-space:nowrap">${fmtDate(c.begin)} –<br>${fmtDate(c.einde)}</td>
+            <td>${b === null ? '<span class="muted">n.v.t.</span>' : `<div class="occ"><div class="bar ${b < 50 ? 'low' : ''}" style="width:90px"><i style="width:${b}%"></i></div><span class="num">${c.verkocht}/${c.kamers} · ${b}%</span></div>${c.verkocht < c.kamers ? `<button class="btn sm" style="margin-top:6px" data-verkoop="${c.id}">+1 verkocht</button>` : ''}`}</td>
+            <td style="font-size:.8rem;white-space:nowrap">${c.voorwaarden.map(v => `${v.dagen} dg vóór vertrek: ${v.pct}%`).join('<br>')}</td></tr>`; }).join('')}
+        </tbody></table></div>` : `<div class="empty">Nog geen contract. Voeg een contract toe zodra de onderhandeling akkoord is.</div>`}
+      </section>
+  </div>`;
+}
+
+function vOnderhandelingen() {
+  const list = S.onderhandelingen.slice().sort((a, b) => OND_STATUS.indexOf(a.status) - OND_STATUS.indexOf(b.status) || b.datum.localeCompare(a.datum));
+  return `
+  <div class="head"><div><h1>Onderhandelingen</h1><p>Alle leveranciersbezoeken en de stand van de onderhandeling, voor productmanagers en inkopers.</p></div></div>
+  <section class="panel">
+    <div class="tbl-wrap"><table><thead><tr><th>Leverancier</th><th>Bezoek</th><th>Status</th><th class="r">Marge / nacht</th><th>Productmanager</th></tr></thead><tbody>
+      ${list.map(o => { const l = lev(o.levId); const m = o.verkoop - o.inkoop; return `<tr class="click" data-open-lev="${o.levId}">
+        <td><b>${esc(l ? l.naam : '')}</b><div class="muted" style="font-size:.8rem">${esc(l ? l.plaats : '')}</div></td>
+        <td class="num">${fmtDate(o.datum)}${daysUntil(o.datum) > 0 ? ' <span class="pill">gepland</span>' : ''}</td>
+        <td><span class="pill ${statusCls(o.status)}">${o.status}</span></td>
+        <td class="r num">${o.verkoop ? `<span class="pill ${m < 0 ? 'crit' : 'ok'}">${eur(m)}</span>` : '—'}</td>
+        <td>${esc(userName(o.pm))}</td></tr>`; }).join('')}
+    </tbody></table></div>
+  </section>`;
+}
+
+/* ---------- Dialogen ---------- */
+const dlg = document.getElementById('dlg');
+let dlgSubmit = null;
+function openDialog(title, sub, body, submitLabel, onSubmit, extraFooter = '') {
+  dlg.innerHTML = `<form method="dialog" novalidate>
+    <div class="dlg-h"><h2>${title}</h2>${sub ? `<p>${sub}</p>` : ''}</div>
+    <div class="dlg-b">${body}</div>
+    <div class="dlg-f">${extraFooter}<button type="button" class="btn" data-close>Annuleren</button>${submitLabel ? `<button type="submit" class="btn primary">${submitLabel}</button>` : ''}</div>
+  </form>`;
+  dlgSubmit = onSubmit;
+  dlg.showModal();
+  const first = dlg.querySelector('.dlg-b input:not([readonly]), .dlg-b select, .dlg-b textarea');
+  if (first) first.focus();
+}
+dlg.addEventListener('click', e => {
+  if (e.target.closest('[data-close]')) dlg.close();
+  else if (e.target === dlg) dlg.close();
+});
+dlg.addEventListener('submit', e => {
+  e.preventDefault();
+  if (dlgSubmit && dlgSubmit(dlg.querySelector('form')) !== false) dlg.close();
+});
+
+const fld = (id, label, input, { req, hint, full } = {}) => `<div class="field ${full ? 'full' : ''}" id="wrap-${id}"><label for="${id}">${label}${req ? ' <span class="req">*</span>' : ''}</label>${input}${hint ? `<span class="hint">${hint}</span>` : ''}</div>`;
+const sel = (id, opts, val) => `<select id="${id}">${opts.map(o => `<option ${o === val ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select>`;
+function setErr(id, msg) {
+  const w = dlg.querySelector('#wrap-' + id) || document.getElementById('wrap-' + id);
+  if (!w) return;
+  w.classList.toggle('invalid', !!msg);
+  let e = w.querySelector('.err');
+  if (msg) { if (!e) { e = document.createElement('span'); e.className = 'err'; w.appendChild(e); } e.textContent = msg; }
+  else if (e) e.remove();
+}
+const val = id => (dlg.querySelector('#' + id)?.value ?? '').trim();
+
+function dlgContact(k) {
+  const me = USERS.find(u => u.id === S.currentUser);
+  openDialog('Contactmoment registreren', `${esc(volledigeNaam(k))} · ${k.id}`, `
+    <div class="form">
+      ${fld('c-kanaal', 'Kanaal', sel('c-kanaal', KANALEN, 'Telefoon'), { req: true })}
+      ${fld('c-cat', 'Categorie', sel('c-cat', CATEGORIEEN, 'Informatie'), { req: true })}
+      ${fld('c-sam', 'Samenvatting van het gesprek', '<textarea id="c-sam" placeholder="Wie, wat, waar, wanneer, hoe lang. Wat vindt de klant belangrijk?"></textarea>', { req: true, full: true })}
+      ${fld('c-afs', 'Gemaakte afspraak', '<input type="text" id="c-afs" placeholder="bijv. Voorstel mailen vóór vrijdag">', { full: true })}
+      ${fld('c-vv', 'Vervolgactie', '<input type="text" id="c-vv" placeholder="Laat leeg als er niets meer hoeft te gebeuren">', { full: true, hint: 'Een vervolgactie verschijnt bovenaan de tijdlijn en op het dashboard tot iemand hem afrondt.' })}
+      <div class="field"><label>Datum en tijd</label><div class="readonly">${fmtDate(iso(TODAY))}, ${new Date().toTimeString().slice(0, 5)} (automatisch)</div></div>
+      <div class="field"><label>Medewerker</label><div class="readonly">${esc(me.naam)}</div></div>
+    </div>`, 'Opslaan', () => {
+    const sam = val('c-sam');
+    setErr('c-sam', sam.length < 10 ? 'Schrijf een samenvatting van minimaal 10 tekens, zodat een collega het gesprek kan terugvinden.' : '');
+    if (sam.length < 10) return false;
+    const vv = val('c-vv');
+    S.contacten.push({ id: uid('C'), klantId: k.id, datum: iso(TODAY) + 'T' + new Date().toTimeString().slice(0, 8), kanaal: val('c-kanaal'), categorie: val('c-cat'), samenvatting: sam, afspraak: val('c-afs'), vervolg: vv, vervolgOpen: !!vv, medewerker: S.currentUser });
+    save(); render(); toast('Contactmoment opgeslagen');
+  });
+}
+
+function dlgKlacht(k) {
+  const bs = S.boekingen.filter(b => b.klantId === k.id);
+  const sugg = b => opReis(b) ? 'Hoog' : 'Normaal';
+  openDialog('Klacht registreren', `${esc(volledigeNaam(k))} · ${k.id}`, `
+    <div class="form">
+      ${fld('k-boek', 'Boeking', `<select id="k-boek">${bs.map(b => `<option value="${b.id}">${b.id} · ${esc(b.product)}</option>`).join('')}</select>`, { req: true, full: true })}
+      ${fld('k-cat', 'Categorie (richtlijn)', sel('k-cat', RICHTLIJNEN.map(r => r.cat), RICHTLIJNEN[0].cat), { req: true, full: true })}
+      ${fld('k-oms', 'Omschrijving', '<textarea id="k-oms" placeholder="Wat is er gebeurd, en wat verwacht de klant?"></textarea>', { req: true, full: true })}
+      ${fld('k-urg', 'Urgentie', sel('k-urg', ['Hoog', 'Normaal', 'Laag'], sugg(bs[0])), { req: true, hint: '' })}
+      <div class="field"><label>&nbsp;</label><div class="notice info" id="k-sugg"></div></div>
+    </div>`, 'Klacht registreren', () => {
+    const oms = val('k-oms');
+    setErr('k-oms', oms.length < 10 ? 'Beschrijf de klacht in minimaal 10 tekens.' : '');
+    if (oms.length < 10) return false;
+    const id = uid('KL');
+    S.klachten.push({ id, klantId: k.id, boekingId: val('k-boek'), categorie: val('k-cat'), omschrijving: oms, urgentie: val('k-urg'), status: 'Nieuw', datum: iso(TODAY) + 'T' + new Date().toTimeString().slice(0, 8), geregistreerdDoor: S.currentUser, pct: null, toelichting: '', voorgesteldDoor: null, goedgekeurdDoor: null, log: [{ t: new Date().toISOString(), m: S.currentUser, txt: 'Klacht geregistreerd.' }] });
+    save(); go('klacht', id); toast('Klacht geregistreerd');
+  });
+  const upd = () => {
+    const b = bs.find(x => x.id === val('k-boek'));
+    const s = sugg(b);
+    dlg.querySelector('#k-sugg').innerHTML = `Voorstel: <b>${s}</b> ${opReis(b) ? '(klant is nu op reis)' : '(klant is niet op reis)'}`;
+    return s;
+  };
+  upd();
+  dlg.querySelector('#k-boek').addEventListener('change', () => { dlg.querySelector('#k-urg').value = upd(); });
+}
+
+function dlgAvg(k) {
+  const actief = S.boekingen.filter(b => b.klantId === k.id && b.terug >= iso(TODAY)).sort((a, b) => b.terug.localeCompare(a.terug));
+  if (actief.length) {
+    openDialog('Gegevens verwijderen (AVG)', esc(volledigeNaam(k)), `
+      <div class="notice crit">${I.alert}<span><b>Verwijderen is nu niet mogelijk.</b> De klant heeft een reis met terugkomst op ${fmtDate(actief[0].terug)} (${esc(actief[0].product)}). Klantgegevens moeten bewaard blijven tot de klant weer thuis is, voor calamiteiten en verzekering. Je kunt het verzoek na deze datum opnieuw uitvoeren.</span></div>`, null, null);
+    return;
+  }
+  openDialog('Gegevens verwijderen (AVG)', esc(volledigeNaam(k)), `
+    <div class="notice warn">${I.alert}<span>Naam, geboortedatum, e-mailadres, telefoonnummer en woonplaats worden verwijderd. De samenvattingen van contactmomenten worden gewist. Boekingen blijven anoniem bewaard voor de financiële administratie. <b>Dit kun je niet ongedaan maken.</b></span></div>
+    ${fld('a-bev', 'Typ VERWIJDEREN om te bevestigen', '<input type="text" id="a-bev" autocomplete="off">', { req: true })}`, 'Definitief verwijderen', () => {
+    const ok = val('a-bev').toUpperCase() === 'VERWIJDEREN';
+    setErr('a-bev', ok ? '' : 'Typ VERWIJDEREN in hoofdletters om te bevestigen.');
+    if (!ok) return false;
+    Object.assign(k, { voornaam: 'Geanonimiseerde', achternaam: 'klant', achtervoegsel: '', geboortedatum: '', email: '', telefoon: '', woonplaats: '', geanonimiseerd: true, voorlopig: false });
+    S.contacten.filter(c => c.klantId === k.id).forEach(c => { c.samenvatting = '[verwijderd op verzoek klant]'; c.afspraak = ''; c.vervolgOpen = false; });
+    save(); render(); toast('Persoonsgegevens verwijderd');
+  });
+}
+
+function dlgLeverancier() {
+  let dupAkkoord = false;
+  openDialog('Leverancier toevoegen', 'Leg de leverancier één keer centraal vast, zodat iedereen dezelfde gegevens ziet.', `
+    <div class="form">
+      ${fld('l-naam', 'Naam', '<input type="text" id="l-naam" placeholder="bijv. Hotel Playa Serena">', { req: true, full: true })}
+      ${fld('l-type', 'Type', sel('l-type', LEV_TYPES, 'Hotel'), { req: true })}
+      ${fld('l-land', 'Land', '<input type="text" id="l-land" placeholder="bijv. Spanje">', { req: true })}
+      ${fld('l-plaats', 'Plaats / regio', '<input type="text" id="l-plaats" placeholder="bijv. Alcúdia, Mallorca">', { req: true })}
+      ${fld('l-cp', 'Contactpersoon', '<input type="text" id="l-cp">')}
+      ${fld('l-mail', 'E-mail', '<input type="email" id="l-mail">')}
+      ${fld('l-tel', 'Telefoon', '<input type="tel" id="l-tel">')}
+      <div class="field full" id="l-dup" hidden></div>
+    </div>`, 'Opslaan', () => {
+    const naam = val('l-naam'), land = val('l-land'), plaats = val('l-plaats'), mail = val('l-mail');
+    setErr('l-naam', naam ? '' : 'Vul de naam van de leverancier in.');
+    setErr('l-land', land ? '' : 'Vul het land in.');
+    setErr('l-plaats', plaats ? '' : 'Vul de plaats of regio in.');
+    const mailOk = !mail || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
+    setErr('l-mail', mailOk ? '' : 'Dit is geen geldig e-mailadres, bijv. naam@hotel.es');
+    if (!naam || !land || !plaats || !mailOk) return false;
+    const dup = S.leveranciers.find(l => l.naam.toLowerCase() === naam.toLowerCase() && l.plaats.toLowerCase() === plaats.toLowerCase());
+    if (dup && !dupAkkoord) {
+      const box = dlg.querySelector('#l-dup');
+      box.hidden = false;
+      box.innerHTML = `<div class="notice warn">${I.alert}<span><b>Mogelijk dubbel.</b> ${esc(dup.naam)} in ${esc(dup.plaats)} bestaat al (${dup.id}). Klik nogmaals op Opslaan als het echt een andere leverancier is.</span></div>`;
+      dupAkkoord = true;
+      return false;
+    }
+    const id = 'L-' + (200 + S.leveranciers.length + 1 + Math.floor(Math.random() * 90));
+    S.leveranciers.push({ id, naam, type: val('l-type'), land, plaats, contactpersoon: val('l-cp'), email: mail, telefoon: val('l-tel') });
+    save(); go('leverancier', id); toast('Leverancier toegevoegd');
+  });
+}
+
+function dlgOnderhandeling(l) {
+  openDialog('Bezoek of onderhandeling vastleggen', esc(l.naam), `
+    <div class="form">
+      ${fld('o-datum', 'Datum bezoek', `<input type="date" id="o-datum" value="${iso(TODAY)}">`, { req: true })}
+      ${fld('o-status', 'Status', sel('o-status', OND_STATUS, 'Bezocht'), { req: true })}
+      ${fld('o-in', 'Inkoopprijs per nacht (€)', '<input type="number" id="o-in" min="0" step="1" placeholder="0">')}
+      ${fld('o-uit', 'Verkoopprijs per nacht (€)', '<input type="number" id="o-uit" min="0" step="1" placeholder="0">')}
+      <div class="field full"><div class="notice info" id="o-marge">Vul inkoop- en verkoopprijs in om de marge te berekenen.</div></div>
+      ${fld('o-vol', 'Volumekorting', '<input type="text" id="o-vol" placeholder="bijv. 5% korting bij afname van 10 kamers">', { full: true })}
+      ${fld('o-not', 'Notities van het bezoek', '<textarea id="o-not" placeholder="Wensen van de Nederlandse klant, faciliteiten, afspraken"></textarea>', { full: true })}
+    </div>`, 'Opslaan', () => {
+    const datum = val('o-datum');
+    setErr('o-datum', datum ? '' : 'Kies de datum van het bezoek.');
+    const inP = +val('o-in') || 0, uit = +val('o-uit') || 0;
+    setErr('o-in', inP < 0 ? 'Prijs kan niet negatief zijn.' : '');
+    if (!datum || inP < 0) return false;
+    S.onderhandelingen.push({ id: uid('O'), levId: l.id, datum, status: val('o-status'), inkoop: inP, verkoop: uit, volumekorting: val('o-vol'), notitie: val('o-not'), pm: S.currentUser });
+    save(); render(); toast('Onderhandeling opgeslagen');
+  });
+  const upd = () => {
+    const inP = +val('o-in') || 0, uit = +val('o-uit') || 0, box = dlg.querySelector('#o-marge');
+    if (!inP || !uit) { box.className = 'notice info'; box.textContent = 'Vul inkoop- en verkoopprijs in om de marge te berekenen.'; return; }
+    const m = uit - inP;
+    box.className = 'notice ' + (m < 0 ? 'crit' : 'ok');
+    box.innerHTML = m < 0 ? `<b>Negatieve marge: ${eur(m)} per nacht.</b>&nbsp;De verkoopprijs ligt onder de inkoopprijs.` : `Marge: <b>${eur(m)}</b> per nacht (${Math.round(m / uit * 100)}% van de verkoopprijs).`;
+  };
+  dlg.querySelector('#o-in').addEventListener('input', upd);
+  dlg.querySelector('#o-uit').addEventListener('input', upd);
+}
+
+function dlgContract(l) {
+  const dv = [{ dagen: 42, pct: 25 }, { dagen: 28, pct: 50 }, { dagen: 7, pct: 100 }];
+  openDialog('Contract vastleggen', esc(l.naam), `
+    <div class="form">
+      ${fld('ct-b', 'Begindatum', `<input type="date" id="ct-b" value="${addDays(30)}">`, { req: true })}
+      ${fld('ct-e', 'Einddatum', `<input type="date" id="ct-e" value="${addDays(210)}">`, { req: true })}
+      ${fld('ct-type', 'Kamertype', sel('ct-type', KAMERTYPES, KAMERTYPES[0]), { req: true, hint: 'Vaste lijst, zodat verkoop en klant precies weten wat er geboekt wordt.' })}
+      ${fld('ct-k', 'Aantal gecontracteerde kamers', '<input type="number" id="ct-k" min="1" step="1" value="20">', { req: true })}
+      ${fld('ct-p', 'Inkoopprijs per nacht (€)', '<input type="number" id="ct-p" min="0" step="1" value="55">', { req: true })}
+      <div class="field full" id="wrap-ct-v"><label>Annuleringsvoorwaarden</label>
+        <div class="voorw">${dv.map((v, i) => `<div class="voorw-row"><input type="number" id="ct-vd${i}" min="0" value="${v.dagen}" aria-label="Dagen voor vertrek, regel ${i + 1}"><input type="number" id="ct-vp${i}" min="0" max="100" value="${v.pct}" aria-label="Kosten in procent, regel ${i + 1}"></div>`).join('')}</div>
+        <span class="hint">Per regel: tot X dagen vóór vertrek → Y% annuleringskosten.</span></div>
+    </div>`, 'Contract opslaan', () => {
+    const b = val('ct-b'), e = val('ct-e'), k = +val('ct-k'), p = +val('ct-p');
+    setErr('ct-b', b ? '' : 'Kies een begindatum.');
+    setErr('ct-e', !e ? 'Kies een einddatum.' : (b && e < b ? 'De einddatum moet op of na de begindatum liggen.' : ''));
+    setErr('ct-k', k >= 1 && Number.isInteger(k) ? '' : 'Vul een heel aantal kamers in (minimaal 1).');
+    setErr('ct-p', p >= 0 && val('ct-p') !== '' ? '' : 'Vul de inkoopprijs in.');
+    const vw = [0, 1, 2].map(i => ({ dagen: +val('ct-vd' + i), pct: +val('ct-vp' + i) }));
+    const vwOk = vw.every(v => v.dagen >= 0 && v.pct >= 0 && v.pct <= 100);
+    setErr('ct-v', vwOk ? '' : 'Percentages liggen tussen 0 en 100, dagen zijn 0 of meer.');
+    if (!b || !e || e < b || !(k >= 1 && Number.isInteger(k)) || !(p >= 0) || val('ct-p') === '' || !vwOk) return false;
+    S.contracten.push({ id: uid('CT'), levId: l.id, begin: b, einde: e, kamertype: val('ct-type'), kamers: k, verkocht: 0, prijs: p, voorwaarden: vw.sort((x, y) => y.dagen - x.dagen) });
+    save(); render(); toast('Contract opgeslagen');
+  });
+}
+
+/* ---------- Klachtacties ---------- */
+function klachtLog(c, txt) { c.log.push({ t: new Date().toISOString(), m: S.currentUser, txt }); }
+function onCompSubmit(form) {
+  const c = S.klachten.find(x => x.id === view.id);
+  const rl = RICHTLIJNEN.find(r => r.cat === c.categorie) || { pct: 0 };
+  const pct = parseFloat(form.querySelector('#f-pct').value);
+  const toel = form.querySelector('#f-toel').value.trim();
+  if (isNaN(pct) || pct < 0 || pct > 100) { toast('Vul een percentage tussen 0 en 100 in'); return; }
+  if (pct !== rl.pct && toel.length < 5) {
+    const w = document.getElementById('wrap-toel'); w.classList.add('invalid');
+    let e = w.querySelector('.err'); if (!e) { e = document.createElement('span'); e.className = 'err'; w.appendChild(e); }
+    e.textContent = `Je wijkt af van de richtlijn (${rl.pct}%). Geef een toelichting.`;
+    return;
+  }
+  Object.assign(c, { pct, toelichting: toel, status: 'Wacht op goedkeuring', voorgesteldDoor: S.currentUser });
+  klachtLog(c, `Compensatievoorstel ${pct}% ingediend${toel ? ' – ' + toel : ''}.`);
+  save(); render(); toast('Voorstel ingediend ter goedkeuring');
+}
+
+/* ---------- Toast ---------- */
+let tt;
+function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.hidden = false; clearTimeout(tt); tt = setTimeout(() => t.hidden = true, 2600); }
+
+/* ---------- Events ---------- */
+document.addEventListener('click', e => {
+  const t = e.target.closest('button, tr.click');
+  if (!t || dlg.contains(t)) return;
+  const ds = t.dataset;
+  if (ds.go) { if (ds.klstatus) ui.klStatus = ds.klstatus; else if (ds.go === 'klachten' && t.classList.contains('tile')) ui.klStatus = 'Open'; go(ds.go); return; }
+  if (ds.openKlant) { ui.tlFilter = 'Alles'; go('klant', ds.openKlant); return; }
+  if (ds.openKlacht) { go('klacht', ds.openKlacht); return; }
+  if (ds.openLev) { go('leverancier', ds.openLev); return; }
+  if (ds.tl) { ui.tlFilter = ds.tl; render(); return; }
+  if (ds.klstatusF) { ui.klStatus = ds.klstatusF; render(); return; }
+  if (ds.done) { const c = S.contacten.find(x => x.id === ds.done); c.vervolgOpen = false; save(); render(); toast('Vervolgactie afgerond'); return; }
+  if (ds.verkoop) { const c = S.contracten.find(x => x.id === ds.verkoop); if (c.verkocht < c.kamers) c.verkocht++; save(); render(); return; }
+  const act = ds.act;
+  if (!act) return;
+  if (act === 'contact') dlgContact(klant(view.id));
+  if (act === 'klacht') dlgKlacht(klant(view.id));
+  if (act === 'avg') dlgAvg(klant(view.id));
+  if (act === 'nieuweLev') dlgLeverancier();
+  if (act === 'nieuweOnd') dlgOnderhandeling(lev(view.id));
+  if (act === 'nieuwContract') dlgContract(lev(view.id));
+  const c = view.name === 'klacht' ? S.klachten.find(x => x.id === view.id) : null;
+  if (c && act === 'escaleer') {
+    openDialog('Escaleren naar After Travel', `${c.id} · ${esc(c.categorie)}`, `
+      <p class="muted" style="margin:0">After Travel krijgt de klacht met de volledige historie van de klant. De klant hoeft het verhaal niet opnieuw te vertellen.</p>
+      ${fld('e-reden', 'Reden van escalatie', '<textarea id="e-reden" placeholder="bijv. Klant accepteert de 4% niet en vraagt om kamerwissel of terugreis"></textarea>', { req: true })}`, 'Escaleren', () => {
+      const r = val('e-reden'); setErr('e-reden', r.length < 5 ? 'Geef de reden van de escalatie.' : ''); if (r.length < 5) return false;
+      c.status = 'Geëscaleerd (After Travel)'; klachtLog(c, 'Geëscaleerd naar After Travel – ' + r); save(); render(); toast('Doorgezet naar After Travel');
+    });
+  }
+  if (c && act === 'ongegrond') {
+    openDialog('Klacht ongegrond verklaren', `${c.id} · ${esc(c.categorie)}`, `
+      ${fld('u-reden', 'Onderbouwing', '<textarea id="u-reden" placeholder="bijv. Al opgelost op de bestemming, of accommodatie door klant zelf gekozen"></textarea>', { req: true })}`, 'Ongegrond verklaren', () => {
+      const r = val('u-reden'); setErr('u-reden', r.length < 5 ? 'Geef een onderbouwing.' : ''); if (r.length < 5) return false;
+      Object.assign(c, { status: 'Ongegrond', toelichting: r }); klachtLog(c, 'Ongegrond verklaard – ' + r); save(); render(); toast('Klacht ongegrond verklaard');
+    });
+  }
+  if (c && act === 'goedkeuren' && c.voorgesteldDoor !== S.currentUser) {
+    Object.assign(c, { status: 'Afgehandeld', goedgekeurdDoor: S.currentUser }); klachtLog(c, `Voorstel ${c.pct}% goedgekeurd. Klacht afgehandeld.`); save(); render(); toast('Goedgekeurd en afgehandeld');
+  }
+  if (c && act === 'afkeuren' && c.voorgesteldDoor !== S.currentUser) {
+    Object.assign(c, { status: 'In behandeling', voorgesteldDoor: null }); klachtLog(c, 'Voorstel teruggestuurd voor aanpassing.'); save(); render(); toast('Voorstel teruggestuurd');
+  }
+});
+document.addEventListener('submit', e => {
+  if (e.target.id === 'compForm') { e.preventDefault(); onCompSubmit(e.target); }
+});
+document.addEventListener('input', e => {
+  if (e.target.id === 'klantQuery') { ui.klantQuery = e.target.value; const pos = e.target.selectionStart; render(); const n = document.getElementById('klantQuery'); n.focus(); n.setSelectionRange(pos, pos); }
+  if (e.target.id === 'levQuery') { ui.levQuery = e.target.value; const pos = e.target.selectionStart; render(); const n = document.getElementById('levQuery'); n.focus(); n.setSelectionRange(pos, pos); }
+  if (e.target.id === 'f-pct') {
+    const c = S.klachten.find(x => x.id === view.id); const b = S.boekingen.find(x => x.id === c.boekingId);
+    const rl = RICHTLIJNEN.find(r => r.cat === c.categorie) || { pct: 0 }; const p = parseFloat(e.target.value) || 0;
+    document.getElementById('calcBedrag').textContent = eur((b?.reissom || 0) * p / 100);
+    document.getElementById('toelReq').hidden = p === rl.pct;
+  }
+});
+document.addEventListener('change', e => {
+  if (e.target.id === 'levStatus') { ui.levStatus = e.target.value; render(); }
+  if (e.target.id === 'user') { S.currentUser = e.target.value; save(); render(); toast('Ingelogd als ' + userName(S.currentUser)); }
+});
+document.getElementById('reset').addEventListener('click', () => {
+  openDialog('Testdata herstellen', '', '<p style="margin:0">Alle wijzigingen in dit prototype worden teruggezet naar de oorspronkelijke testdata.</p>', 'Herstellen', () => {
+    S = seed(); save(); ui = { klantQuery: '', tlFilter: 'Alles', levQuery: '', levStatus: 'Alle', klStatus: 'Open' }; go('dashboard'); toast('Testdata hersteld');
+  });
+});
+
+render();
+})();
+</script>
