@@ -1,5 +1,5 @@
 // Zet de Markdown-documenten uit docs/ om naar HTML-pagina's in website/docs/.
-// Gebruik: cd website && npm install && npm run build
+// Gebruik: cd website && npm install && npm run build (de site zelf is ../index.html)
 const fs = require('fs');
 const path = require('path');
 const { marked } = require('marked');
@@ -58,8 +58,8 @@ function page(title, desc, body, toc) {
 <a class="skip" href="#inhoud">Naar de inhoud</a>
 <header class="top">
   <div class="wrap top-in">
-    <a class="brand" href="../index.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6l7 12 7-12" stroke="#fb923c" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>VoyageVista <span class="muted">Werkplek</span></a>
-    <a class="back" href="../index.html#documenten">← Terug naar de website</a>
+    <a class="brand" href="../../index.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6l7 12 7-12" stroke="#fb923c" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>VoyageVista <span class="muted">Werkplek</span></a>
+    <a class="back" href="../../index.html#documenten">← Terug naar de website</a>
   </div>
   <nav class="wrap tabs" aria-label="Documenten">${nav}</nav>
 </header>
