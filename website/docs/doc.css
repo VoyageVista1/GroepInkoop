@@ -1,0 +1,71 @@
+:root{
+  --bg:#f6f9fc; --surface:#fff; --ink:#0b2536; --ink-2:#27435a; --muted:#51667a; --line:#dbe4ec;
+  --soft:#eef4f9; --primary:#0369a1; --primary-soft:#e0f2fe; --accent:#c2410c;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display:"Playfair Display",Georgia,serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#08131c; --surface:#102331; --ink:#e6eef5; --ink-2:#c5d4e0; --muted:#94a9ba; --line:#1f3a4f;
+    --soft:#0c1b27; --primary:#38bdf8; --primary-soft:#0c2c40; --accent:#fb923c; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#08131c; --surface:#102331; --ink:#e6eef5; --ink-2:#c5d4e0; --muted:#94a9ba; --line:#1f3a4f;
+  --soft:#0c1b27; --primary:#38bdf8; --primary-soft:#0c2c40; --accent:#fb923c; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:128px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--f-body);-webkit-font-smoothing:antialiased}
+a{color:var(--primary);text-underline-offset:3px}
+:focus-visible{outline:3px solid #ea580c;outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:16px;top:-60px;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;z-index:10}
+.skip:focus{top:12px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.muted{color:var(--muted);font-weight:500}
+
+.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink);text-decoration:none}
+.mark{width:30px;height:30px;border-radius:8px;background:#0b2536;display:grid;place-items:center}
+.back{font-size:14.5px;font-weight:600;text-decoration:none;padding:10px 0}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
+.tabs a{white-space:nowrap;font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px}
+.tabs a:hover{color:var(--ink);background:var(--soft)}
+.tabs a[aria-current="page"]{color:var(--ink);background:var(--primary-soft);font-weight:600}
+
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:48px;padding-top:40px;padding-bottom:64px}
+.toc{position:sticky;top:140px;align-self:start;display:flex;flex-direction:column;gap:2px;font-size:14px;max-height:calc(100vh - 160px);overflow:auto}
+.toc strong{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.toc a{color:var(--ink-2);text-decoration:none;padding:6px 10px;border-left:2px solid var(--line)}
+.toc a:hover{color:var(--primary);border-left-color:var(--primary)}
+
+.doc{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:48px 56px;min-width:0}
+.doc h1{font-family:var(--f-display);font-weight:600;font-size:clamp(30px,4vw,42px);letter-spacing:-.02em;line-height:1.15;margin:0 0 20px}
+.doc h2{font-size:24px;letter-spacing:-.01em;margin:48px 0 14px;padding-top:24px;border-top:1px solid var(--line)}
+.doc h3{font-size:19px;margin:32px 0 10px}
+.doc h4{font-size:16px;margin:24px 0 8px}
+.doc p,.doc li{color:var(--ink-2)}
+.doc strong{color:var(--ink)}
+.doc blockquote{margin:20px 0;padding:14px 18px;border-left:4px solid var(--accent);background:var(--soft);border-radius:0 10px 10px 0}
+.doc blockquote p{margin:0}
+.doc hr{border:0;border-top:1px solid var(--line);margin:32px 0}
+.doc code{font-size:.9em;background:var(--soft);padding:2px 6px;border-radius:5px}
+.doc pre{background:var(--soft);padding:16px;border-radius:10px;overflow:auto}
+.doc pre code{background:none;padding:0}
+.table{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:10px}
+.doc table{border-collapse:collapse;width:100%;font-size:14.5px}
+.doc th,.doc td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.doc th{background:var(--soft);font-weight:600;color:var(--ink);white-space:nowrap}
+.doc tr:last-child td{border-bottom:0}
+.foot{color:var(--muted);font-size:13.5px;padding-bottom:40px}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;padding-top:24px}
+  .toc{display:none}
+  .doc{padding:28px 20px;border-radius:12px}
+  .wrap{padding:0 16px}
+  .back{font-size:0}
+  .back::after{content:"← Website";font-size:14.5px}
+}

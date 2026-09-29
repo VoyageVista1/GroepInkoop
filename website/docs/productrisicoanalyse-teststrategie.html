@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Risicoanalyse & teststrategie · VoyageVista Werkplek</title>
+<meta name="description" content="Productrisico’s, risicomatrix en testaanpak">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b2536'/%3E%3Cpath d='M8 10l8 13 8-13' stroke='%23fb923c' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="doc.css">
+<script>try{var t=localStorage.getItem("vv-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#inhoud">Naar de inhoud</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../index.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6l7 12 7-12" stroke="#fb923c" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>VoyageVista <span class="muted">Werkplek</span></a>
+    <a class="back" href="../index.html#documenten">← Terug naar de website</a>
+  </div>
+  <nav class="wrap tabs" aria-label="Documenten"><a href="interview-analyse.html">Interviewanalyse</a><a href="inkoop-product-backlog.html">Product backlog Inkoop</a><a href="migratie-overzicht.html">Migratie backlog</a><a href="productrisicoanalyse-teststrategie.html" aria-current="page">Risicoanalyse & teststrategie</a></nav>
+</header>
+<div class="wrap layout">
+  <aside class="toc" aria-label="Inhoud van dit document"><strong>Op deze pagina</strong><a href="#1-scope-en-aanpak">1. Scope en aanpak</a><a href="#2-productrisicos">2. Productrisico&#39;s</a><a href="#3-risicomatrix">3. Risicomatrix</a><a href="#4-teststrategie">4. Teststrategie</a><a href="#5-testontwerptechnieken">5. Testontwerptechnieken</a><a href="#6-testproces-in-azure-devops">6. Testproces in Azure DevOps</a><a href="#7-open-vragen-voor-de-opdrachtgever">7. Open vragen voor de opdrachtgever</a></aside>
+  <main id="inhoud" class="doc"><h1 id="productrisicoanalyse-en-teststrategie">Productrisicoanalyse en teststrategie</h1>
+<p><strong>Team:</strong> Productontwikkeling &amp; Inkoop + Klantenservice &amp; Support – casus VoyageVista
+<strong>Versie:</strong> 29 september 2026 · online versie: <a href="https://claude.ai/code/artifact/63b02a6f-4e1f-4e7e-8294-cd43abf1d436" target="_blank" rel="noopener">Claude Docs</a></p>
+<p>Voor VoyageVista Klantenservice en Inkoop testen we het zwaarst op privacy (AVG), de compensatieberekening bij klachten en het vier-ogenprincipe. Fouten daar raken de klant direct, kosten geld of zijn in strijd met de wet.</p>
+<hr>
+<h2 id="1-scope-en-aanpak">1. Scope en aanpak</h2>
+<p>Deze analyse dekt de user stories van sprint 3 en 4 uit de <a href="interview-analyse.html">interviewanalyse</a>. Na elke refinement werken we haar bij.</p>
+<div class="table"><table><thead><tr>
+<th>ID</th>
+<th>User story</th>
+<th>Afdeling</th>
+</tr>
+</thead><tbody><tr>
+<td>C1</td>
+<td>Klant zoeken op e-mail, telefoon of naam</td>
+<td>Klantenservice</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>Contactmoment gestructureerd registreren</td>
+<td>Klantenservice</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>Klanthistorie (tijdlijn) bekijken</td>
+<td>Klantenservice</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>Klacht registreren met urgentie</td>
+<td>Klantenservice</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>Compensatievoorstel volgens richtlijn, met goedkeuring</td>
+<td>Klantenservice</td>
+</tr>
+<tr>
+<td>E2</td>
+<td>Persoonsgegevens verwijderen (AVG)</td>
+<td>Klantenservice</td>
+</tr>
+<tr>
+<td>A1</td>
+<td>Leverancier registreren</td>
+<td>Inkoop</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>Onderhandeling vastleggen met marge</td>
+<td>Inkoop</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>Contract met annuleringsvoorwaarden vastleggen</td>
+<td>Inkoop</td>
+</tr>
+<tr>
+<td>A4</td>
+<td>Bezetting ingekochte kamers bewaken</td>
+<td>Inkoop</td>
+</tr>
+</tbody></table></div>
+<p><strong>Zo bepalen we het risico.</strong> Per risico scoren we de kans op een fout en de impact als die fout in productie komt, elk op 1 (laag), 2 (middel) of 3 (hoog). Risico = kans × impact.</p>
+<div class="table"><table><thead><tr>
+<th>Score</th>
+<th>Risicoklasse</th>
+<th>Betekenis</th>
+</tr>
+</thead><tbody><tr>
+<td>6–9</td>
+<td>A · hoog</td>
+<td>Grondig testen, meerdere technieken, altijd een tweede tester</td>
+</tr>
+<tr>
+<td>3–4</td>
+<td>B · middel</td>
+<td>Gestructureerd testen met één passende techniek</td>
+</tr>
+<tr>
+<td>1–2</td>
+<td>C · laag</td>
+<td>Verkennend testen of een korte checklist</td>
+</tr>
+</tbody></table></div>
+<p>Impact is hoog als de fout de wet raakt (AVG), geld kost, of de klant op reis in de problemen brengt. Kans is hoog bij rekenwerk, datums, afhankelijkheden tussen gegevens en logica met rollen.</p>
+<h2 id="2-productrisicos">2. Productrisico&#39;s</h2>
+<p>Vijf van de vijftien risico&#39;s vallen in klasse A. Alle vijf gaan over privacy, geld of een klant die op reis is. Kwaliteitskenmerken volgen ISO 25010.</p>
+<div class="table"><table><thead><tr>
+<th>ID</th>
+<th>Risico</th>
+<th>Story</th>
+<th>Kwaliteitskenmerk</th>
+<th>Kans</th>
+<th>Impact</th>
+<th>Score</th>
+<th>Klasse</th>
+</tr>
+</thead><tbody><tr>
+<td>R1</td>
+<td>Persoonsgegevens worden verwijderd terwijl de klant nog op reis is; bij een calamiteit weten we niet wie er aan boord zit</td>
+<td>E2</td>
+<td>Functionele juistheid</td>
+<td>2</td>
+<td>3</td>
+<td>6</td>
+<td>A</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>Er belandt toch een IBAN of paspoortnummer in het systeem, bijvoorbeeld via een vrij tekstveld</td>
+<td>C2, E2</td>
+<td>Beveiliging: vertrouwelijkheid</td>
+<td>2</td>
+<td>3</td>
+<td>6</td>
+<td>A</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>Het compensatiebedrag wordt verkeerd berekend (percentage, reissom of afronding)</td>
+<td>D2</td>
+<td>Functionele juistheid</td>
+<td>2</td>
+<td>3</td>
+<td>6</td>
+<td>A</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>Een medewerker keurt zijn eigen compensatievoorstel goed</td>
+<td>D2</td>
+<td>Beveiliging: verantwoording</td>
+<td>2</td>
+<td>3</td>
+<td>6</td>
+<td>A</td>
+</tr>
+<tr>
+<td>R5</td>
+<td>Een klacht van een klant die nu op reis is, krijgt niet automatisch urgentie Hoog</td>
+<td>D1</td>
+<td>Functionele juistheid</td>
+<td>2</td>
+<td>3</td>
+<td>6</td>
+<td>A</td>
+</tr>
+<tr>
+<td>R6</td>
+<td>Een contract krijgt een einddatum vóór de begindatum, of ongeldige annuleringsvoorwaarden</td>
+<td>A3</td>
+<td>Functionele juistheid</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>B</td>
+</tr>
+<tr>
+<td>R7</td>
+<td>De marge wordt verkeerd berekend of een negatieve marge wordt niet gesignaleerd</td>
+<td>A2</td>
+<td>Functionele juistheid</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>B</td>
+</tr>
+<tr>
+<td>R8</td>
+<td>Bij gelijke namen (vader en zoon) wordt de verkeerde klant geopend</td>
+<td>C1</td>
+<td>Functionele juistheid</td>
+<td>1</td>
+<td>3</td>
+<td>3</td>
+<td>B</td>
+</tr>
+<tr>
+<td>R9</td>
+<td>Dezelfde leverancier wordt twee keer aangemaakt</td>
+<td>A1</td>
+<td>Functionele juistheid: gegevensintegriteit</td>
+<td>3</td>
+<td>1</td>
+<td>3</td>
+<td>B</td>
+</tr>
+<tr>
+<td>R10</td>
+<td>Een contactmoment wordt opgeslagen zonder bruikbare samenvatting, of met verkeerde tijd of medewerker</td>
+<td>C2</td>
+<td>Beveiliging: verantwoording</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>B</td>
+</tr>
+<tr>
+<td>R11</td>
+<td>Het bezettingssignaal (onder 50%) verschijnt niet of te laat</td>
+<td>A4</td>
+<td>Functionele juistheid</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>B</td>
+</tr>
+<tr>
+<td>R12</td>
+<td>Medewerkers begrijpen een formulier niet en voeren gegevens verkeerd in</td>
+<td>Alle</td>
+<td>Bruikbaarheid</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>B</td>
+</tr>
+<tr>
+<td>R13</td>
+<td>De klanthistorie toont niet alle contactmomenten, of in de verkeerde volgorde</td>
+<td>C3</td>
+<td>Functionele volledigheid</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>C</td>
+</tr>
+<tr>
+<td>R14</td>
+<td>Het scherm is lastig te gebruiken op een tablet in de shop of met het toetsenbord</td>
+<td>Alle</td>
+<td>Bruikbaarheid: toegankelijkheid</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>C</td>
+</tr>
+<tr>
+<td>R15</td>
+<td>Zoeken wordt traag bij een groot klantenbestand</td>
+<td>C1</td>
+<td>Prestatie-efficiëntie</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>C</td>
+</tr>
+</tbody></table></div>
+<h2 id="3-risicomatrix">3. Risicomatrix</h2>
+<p>Vijf risico&#39;s in klasse A, allemaal met kans 2 en impact 3.</p>
+<div class="table"><table><thead><tr>
+<th>Impact ↓ / Kans →</th>
+<th>Laag (1)</th>
+<th>Middel (2)</th>
+<th>Hoog (3)</th>
+</tr>
+</thead><tbody><tr>
+<td><strong>Hoog (3)</strong></td>
+<td>B · 3 — R8</td>
+<td><strong>A · 6 — R1, R2, R3, R4, R5</strong></td>
+<td>A · 9 — geen</td>
+</tr>
+<tr>
+<td><strong>Middel (2)</strong></td>
+<td>C · 2 — R13, R15</td>
+<td>B · 4 — R6, R7, R10, R11, R12</td>
+<td>A · 6 — geen</td>
+</tr>
+<tr>
+<td><strong>Laag (1)</strong></td>
+<td>C · 1 — geen</td>
+<td>C · 2 — R14</td>
+<td>B · 3 — R9</td>
+</tr>
+</tbody></table></div>
+<p>De rechterbovenhoek is leeg: geen enkel risico heeft zowel een hoge kans als een hoge impact.</p>
+<h2 id="4-teststrategie">4. Teststrategie</h2>
+<p>Hoe hoger de risicoklasse, hoe meer technieken, hoe hoger de dekking en hoe strenger het vier-ogenprincipe.</p>
+<div class="table"><table><thead><tr>
+<th>Klasse</th>
+<th>Testintensiteit</th>
+<th>Technieken</th>
+<th>Dekking</th>
+<th>Wie test</th>
+</tr>
+</thead><tbody><tr>
+<td>A · hoog</td>
+<td>Grondig, bij elke wijziging opnieuw (regressie)</td>
+<td>Grenswaardenanalyse, beslistabel, toestandsovergangen, plus een geautomatiseerde UI-test van het hoofdpad</td>
+<td>Alle regels in de beslistabel, alle grenswaarden, alle overgangen</td>
+<td>Bouwer en tweede tester van een ander teamlid; de tweede tester tekent af in DevOps</td>
+</tr>
+<tr>
+<td>B · middel</td>
+<td>Gestructureerd, eenmalig per sprint</td>
+<td>Equivalentieklassen of grenswaarden (één techniek)</td>
+<td>Elke klasse minstens één keer, geldig en ongeldig</td>
+<td>Tweede tester van een ander teamlid</td>
+</tr>
+<tr>
+<td>C · laag</td>
+<td>Licht</td>
+<td>Verkennend testen (sessie van 30 minuten) of een checklist</td>
+<td>Hoofdpad en één foutpad</td>
+<td>Een teamlid dat niet de bouwer is</td>
+</tr>
+</tbody></table></div>
+<p><strong>Niet-functionele kwaliteit</strong> testen we apart, omdat die buiten de user stories valt.</p>
+<div class="table"><table><thead><tr>
+<th>Kwaliteitskenmerk</th>
+<th>Hoe we testen</th>
+<th>Risico&#39;s</th>
+</tr>
+</thead><tbody><tr>
+<td>Bruikbaarheid</td>
+<td>Usability-test met 3 gebruikers per sprint (think-aloud) op 3 vaste taken: klant zoeken, klacht registreren, contract vastleggen</td>
+<td>R12</td>
+</tr>
+<tr>
+<td>Toegankelijkheid</td>
+<td>Checklist: alles met toetsenbord te bedienen, zichtbare focus, contrast 4,5:1, foutmelding onder het veld; tablet- en schermbreedte 390 px</td>
+<td>R14</td>
+</tr>
+<tr>
+<td>Beveiliging: vertrouwelijkheid</td>
+<td>Review van het datamodel op IBAN- en paspoortvelden; negatieve test die een IBAN in een tekstveld plakt</td>
+<td>R2</td>
+</tr>
+<tr>
+<td>Beveiliging: verantwoording</td>
+<td>Controleren dat datum, tijd en medewerker automatisch worden vastgelegd en niet aan te passen zijn</td>
+<td>R4, R10</td>
+</tr>
+<tr>
+<td>Prestatie-efficiëntie</td>
+<td>Zoektest met 10.000 testklanten; zoeken op e-mail moet binnen 2 seconden een resultaat geven</td>
+<td>R15</td>
+</tr>
+</tbody></table></div>
+<p><strong>Testniveaus.</strong> Per user story testen we eerst de losse regels (unittest van de berekening en de validatie), daarna het scherm (UI-test), en tijdens de review de hele keten (acceptatietest met de opdrachtgever en realistische testdata).</p>
+<h2 id="5-testontwerptechnieken">5. Testontwerptechnieken</h2>
+<p>Elke user story krijgt de techniek die past bij het hoogste risico erin. Samen zijn dat 54 testgevallen voor sprint 3 en 4.</p>
+<div class="table"><table><thead><tr>
+<th>Story</th>
+<th>Risico&#39;s</th>
+<th>Klasse</th>
+<th>Techniek</th>
+<th>Testgevallen</th>
+</tr>
+</thead><tbody><tr>
+<td>D2 Compensatie</td>
+<td>R3, R4</td>
+<td>A</td>
+<td>Grenswaarden (percentage), toestandsovergangen (status), geautomatiseerde UI-test</td>
+<td>12</td>
+</tr>
+<tr>
+<td>E2 AVG-verwijdering</td>
+<td>R1, R2</td>
+<td>A</td>
+<td>Beslistabel, grenswaarden (terugkomdatum)</td>
+<td>6</td>
+</tr>
+<tr>
+<td>D1 Klacht registreren</td>
+<td>R5</td>
+<td>A</td>
+<td>Grenswaarden (vertrek- en terugkomdatum)</td>
+<td>4</td>
+</tr>
+<tr>
+<td>C2 Contactmoment</td>
+<td>R2, R10</td>
+<td>A</td>
+<td>Grenswaarden (lengte samenvatting), negatieve test met IBAN</td>
+<td>5</td>
+</tr>
+<tr>
+<td>A3 Contract</td>
+<td>R6</td>
+<td>B</td>
+<td>Grenswaarden (datums, 0–100%)</td>
+<td>6</td>
+</tr>
+<tr>
+<td>C1 Klant zoeken</td>
+<td>R8, R15</td>
+<td>B</td>
+<td>Equivalentieklassen (e-mail, telefoon, naam; gevonden, niet gevonden)</td>
+<td>6</td>
+</tr>
+<tr>
+<td>A1 Leverancier</td>
+<td>R9</td>
+<td>B</td>
+<td>Equivalentieklassen (uniek, dubbel, ongeldig e-mailadres)</td>
+<td>5</td>
+</tr>
+<tr>
+<td>A2 Onderhandeling</td>
+<td>R7</td>
+<td>B</td>
+<td>Grenswaarden (marge −1, 0, +1)</td>
+<td>4</td>
+</tr>
+<tr>
+<td>A4 Bezetting</td>
+<td>R11</td>
+<td>B</td>
+<td>Grenswaarden (49% en 50%; 56 en 57 dagen)</td>
+<td>4</td>
+</tr>
+<tr>
+<td>C3 Klanthistorie</td>
+<td>R13</td>
+<td>C</td>
+<td>Verkennend testen</td>
+<td>2</td>
+</tr>
+</tbody></table></div>
+<h3 id="voorbeeld-1-grenswaarden-compensatiepercentage-d2">Voorbeeld 1: grenswaarden compensatiepercentage (D2)</h3>
+<p>Klacht KL-3001, reissom € 1.320,00, richtlijn 4%. Geldig is 0 tot en met 100%. Wijkt het percentage af van 4%, dan is een toelichting verplicht.</p>
+<div class="table"><table><thead><tr>
+<th>TC</th>
+<th>Invoer</th>
+<th>Verwacht resultaat</th>
+<th>Status</th>
+</tr>
+</thead><tbody><tr>
+<td>D2-01</td>
+<td>−0,5%</td>
+<td>Foutmelding onder het veld: percentage tussen 0 en 100</td>
+<td>Niet gestart</td>
+</tr>
+<tr>
+<td>D2-02</td>
+<td>0%, geen toelichting</td>
+<td>Foutmelding: toelichting verplicht; bedrag € 0,00</td>
+<td>Niet gestart</td>
+</tr>
+<tr>
+<td>D2-03</td>
+<td>4%, geen toelichting</td>
+<td>Voorstel ingediend; bedrag € 52,80; status Wacht op goedkeuring</td>
+<td>Niet gestart</td>
+</tr>
+<tr>
+<td>D2-04</td>
+<td>4,5%, met toelichting</td>
+<td>Voorstel ingediend; bedrag € 59,40</td>
+<td>Niet gestart</td>
+</tr>
+<tr>
+<td>D2-05</td>
+<td>100%, met toelichting</td>
+<td>Voorstel ingediend; bedrag € 1.320,00</td>
+<td>Niet gestart</td>
+</tr>
+<tr>
+<td>D2-06</td>
+<td>100,5%</td>
+<td>Foutmelding onder het veld: percentage tussen 0 en 100</td>
+<td>Niet gestart</td>
+</tr>
+</tbody></table></div>
+<h3 id="voorbeeld-2-beslistabel-avg-verwijdering-e2">Voorbeeld 2: beslistabel AVG-verwijdering (E2)</h3>
+<p>Testdatum 29 september 2026. Een streepje betekent: maakt niet uit.</p>
+<div class="table"><table><thead><tr>
+<th>Conditie of actie</th>
+<th>Regel 1</th>
+<th>Regel 2</th>
+<th>Regel 3</th>
+</tr>
+</thead><tbody><tr>
+<td>Klant heeft een reis met terugkomst op of na vandaag</td>
+<td>Ja</td>
+<td>Nee</td>
+<td>Nee</td>
+</tr>
+<tr>
+<td>Bevestiging “VERWIJDEREN” correct getypt</td>
+<td>–</td>
+<td>Nee</td>
+<td>Ja</td>
+</tr>
+<tr>
+<td><strong>Verwijderen geblokkeerd, melding met terugkomdatum</strong></td>
+<td><strong>X</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Foutmelding onder het bevestigingsveld</strong></td>
+<td></td>
+<td><strong>X</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Persoonsgegevens verwijderd, boekingen anoniem bewaard</strong></td>
+<td></td>
+<td></td>
+<td><strong>X</strong></td>
+</tr>
+</tbody></table></div>
+<p>Grenswaarden bij regel 1: terugkomst 29 sep (vandaag) moet blokkeren, terugkomst 28 sep moet verwijderen toestaan.</p>
+<h3 id="voorbeeld-3-toestandsovergangen-klacht-d2">Voorbeeld 3: toestandsovergangen klacht (D2)</h3>
+<div class="table"><table><thead><tr>
+<th>Van</th>
+<th>Actie</th>
+<th>Door</th>
+<th>Naar</th>
+</tr>
+</thead><tbody><tr>
+<td>Nieuw</td>
+<td>Voorstel indienen</td>
+<td>Medewerker A</td>
+<td>Wacht op goedkeuring</td>
+</tr>
+<tr>
+<td>Wacht op goedkeuring</td>
+<td>Goedkeuren</td>
+<td>Medewerker B</td>
+<td>Afgehandeld</td>
+</tr>
+<tr>
+<td>Wacht op goedkeuring</td>
+<td>Terugsturen</td>
+<td>Medewerker B</td>
+<td>In behandeling</td>
+</tr>
+<tr>
+<td>Wacht op goedkeuring</td>
+<td>Goedkeuren</td>
+<td>Medewerker A (indiener)</td>
+<td>Niet toegestaan: knop uitgeschakeld</td>
+</tr>
+<tr>
+<td>Nieuw</td>
+<td>Escaleren</td>
+<td>Medewerker</td>
+<td>Geëscaleerd (After Travel)</td>
+</tr>
+<tr>
+<td>Nieuw</td>
+<td>Ongegrond verklaren met onderbouwing</td>
+<td>Medewerker</td>
+<td>Ongegrond</td>
+</tr>
+</tbody></table></div>
+<p>De vierde regel is de belangrijkste negatieve test: die bewijst het vier-ogenprincipe (R4).</p>
+<h2 id="6-testproces-in-azure-devops">6. Testproces in Azure DevOps</h2>
+<p>Alles wat we testen staat in Azure Test Plans en is gekoppeld aan een user story. Zo is voor elke story te zien wie wat heeft getest, wanneer, en met welk resultaat.</p>
+<ol>
+<li><strong>Test plan per sprint.</strong> Daarin een test suite per user story, gekoppeld aan het Product Backlog Item.</li>
+<li><strong>Testgeval.</strong> Titel met ID (bijv. D2-03), risico-ID in de tags (bijv. R3), stappen met invoer en verwacht resultaat, en de gebruikte techniek.</li>
+<li><strong>Uitvoeren.</strong> De tester voert het testgeval uit in de testrunner. DevOps legt status, tester en datum vast.</li>
+<li><strong>Bevinding.</strong> Een gefaald testgeval wordt een Bug, gekoppeld aan de story. De bug bevat de doorlopen stappen, het verwachte en het werkelijke resultaat, en een screenshot.</li>
+<li><strong>Oplossen.</strong> De bouwer beschrijft de oorzaak en de oplossing in de bug.</li>
+<li><strong>Hertest door een ander.</strong> Een teamlid dat de story niet heeft gebouwd, test opnieuw en sluit de bug. Dat is het vier-ogenprincipe.</li>
+</ol>
+<p><strong>Entrycriteria: we beginnen met testen als</strong></p>
+<ul>
+<li>de user story acceptatiecriteria heeft die de opdrachtgever heeft gezien;</li>
+<li>de testgevallen in DevOps staan en een ander teamlid ze heeft gereviewd;</li>
+<li>de testdata klaarstaat (fictieve klanten, boekingen en leveranciers, zie het <a href="../../prototype/index.html">prototype</a>).</li>
+</ul>
+<p><strong>Exitcriteria: een story is klaar voor de review als</strong></p>
+<ul>
+<li>alle testgevallen van klasse A en B zijn uitgevoerd;</li>
+<li>geen enkele bug met prioriteit 1 of 2 open staat;</li>
+<li>voor klasse A een tweede tester heeft afgetekend;</li>
+<li>de geautomatiseerde UI-test van het hoofdpad slaagt.</li>
+</ul>
+<p><strong>Regressie.</strong> Na elke wijziging aan D2, E2 of D1 draaien we de testgevallen van klasse A opnieuw. Het geautomatiseerde deel draait bij elke oplevering.</p>
+<h2 id="7-open-vragen-voor-de-opdrachtgever">7. Open vragen voor de opdrachtgever</h2>
+<p>De antwoorden kunnen kans en impact van een risico veranderen. Daarom vragen we ze vóór de refinement van sprint 3.</p>
+<ul>
+<li><input disabled="" type="checkbox"> Binnen hoeveel uur moet een klacht met urgentie Hoog opgepakt zijn? (R5)</li>
+<li><input disabled="" type="checkbox"> Mag een compensatie hoger zijn dan de reissom, bijvoorbeeld bij een volledig mislukte reis? (R3)</li>
+<li><input disabled="" type="checkbox"> Hoe lang na thuiskomst moeten klantgegevens bewaard blijven voor klachten en verzekering? (R1)</li>
+<li><input disabled="" type="checkbox"> Wie mag een compensatievoorstel goedkeuren: elke collega, of alleen een senior? (R4)</li>
+<li><input disabled="" type="checkbox"> Welke bezettingsgrens en hoeveel weken vóór de periode moet de inkoper gewaarschuwd worden? Nu aangenomen: 50% en 8 weken. (R11)</li>
+</ul>
+</main>
+</div>
+<footer class="wrap foot">Gegenereerd uit de Markdown-bron in <code>docs/</code> · Team GroepInkoop · casus VoyageVista</footer>
+</body>
+</html>

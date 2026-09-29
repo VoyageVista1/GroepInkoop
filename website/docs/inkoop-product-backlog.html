@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product backlog Inkoop · VoyageVista Werkplek</title>
+<meta name="description" content="User stories, Definition of Ready/Done en sprintdoelen">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b2536'/%3E%3Cpath d='M8 10l8 13 8-13' stroke='%23fb923c' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="doc.css">
+<script>try{var t=localStorage.getItem("vv-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#inhoud">Naar de inhoud</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../index.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6l7 12 7-12" stroke="#fb923c" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>VoyageVista <span class="muted">Werkplek</span></a>
+    <a class="back" href="../index.html#documenten">← Terug naar de website</a>
+  </div>
+  <nav class="wrap tabs" aria-label="Documenten"><a href="interview-analyse.html">Interviewanalyse</a><a href="inkoop-product-backlog.html" aria-current="page">Product backlog Inkoop</a><a href="migratie-overzicht.html">Migratie backlog</a><a href="productrisicoanalyse-teststrategie.html">Risicoanalyse & teststrategie</a></nav>
+</header>
+<div class="wrap layout">
+  <aside class="toc" aria-label="Inhoud van dit document"><strong>Op deze pagina</strong><a href="#inhoud">Inhoud</a><a href="#1-productdoel-en-stakeholders">1. Productdoel en stakeholders</a><a href="#2-werkwijze-backlog">2. Werkwijze backlog</a><a href="#3-definition-of-ready">3. Definition of Ready</a><a href="#4-definition-of-done">4. Definition of Done</a><a href="#5-backlogoverzicht">5. Backlogoverzicht</a><a href="#6-releaseplanning-en-sprintdoelen">6. Releaseplanning en sprintdoelen</a><a href="#7-user-stories-met-acceptatiecriteria">7. User stories met acceptatiecriteria</a><a href="#8-importeren-in-azure-devops">8. Importeren in Azure DevOps</a><a href="#9-open-vragen">9. Open vragen</a></aside>
+  <main id="inhoud" class="doc"><h1 id="product-backlog--productontwikkeling--inkoop">Product Backlog – Productontwikkeling &amp; Inkoop</h1>
+<blockquote>
+<p><strong>Let op (29 sep 2026):</strong> de backlog staat nu als issues in GitHub. Zie <a href="migratie-overzicht.html">migratie-overzicht.md</a> voor de nummers. Dit document blijft de uitleg van werkwijze, Definition of Ready en Definition of Done.</p>
+</blockquote>
+<p><strong>Casus:</strong> VoyageVista · <strong>Team:</strong> GroepInkoop · <strong>Versie:</strong> 29 september 2026 (vóór refinement sprint 3)</p>
+<p>De backlog telt <strong>18 items (62 storypoints)</strong> in 5 epics. Sprint 3 t/m 7 bevatten 50 punten; 12 punten (Kan hebben) staan klaar als er tijd over is. De volgorde is een voorstel van het team en wordt door de Product Owner met de opdrachtgever bevestigd.</p>
+<blockquote>
+<p>Alle stories komen uit het interview met de opdrachtgever (I1–I10 in <a href="interview-analyse.html">interviewanalyse</a>) en de casus §4.4 (KP = klein probleem, GP = groot probleem). Risico-ID’s verwijzen naar de <a href="productrisicoanalyse-teststrategie.html">productrisicoanalyse</a>.</p>
+</blockquote>
+<h2 id="inhoud">Inhoud</h2>
+<ol>
+<li><a href="#1-productdoel-en-stakeholders">Productdoel en stakeholders</a></li>
+<li><a href="#2-werkwijze-backlog">Werkwijze backlog</a></li>
+<li><a href="#3-definition-of-ready">Definition of Ready</a></li>
+<li><a href="#4-definition-of-done">Definition of Done</a></li>
+<li><a href="#5-backlogoverzicht">Backlogoverzicht</a></li>
+<li><a href="#6-releaseplanning-en-sprintdoelen">Releaseplanning en sprintdoelen</a></li>
+<li><a href="#7-user-stories-met-acceptatiecriteria">User stories met acceptatiecriteria</a></li>
+<li><a href="#8-importeren-in-azure-devops">Importeren in Azure DevOps</a></li>
+<li><a href="#9-open-vragen">Open vragen</a></li>
+</ol>
+<h2 id="1-productdoel-en-stakeholders">1. Productdoel en stakeholders</h2>
+<p><strong>Productdoel.</strong> Inkoop legt leveranciers, onderhandelingen, contracten en reisproducten op één plek vast, zodat iedereen bij VoyageVista met dezelfde, betrouwbare gegevens werkt en ingekochte kamers op tijd verkocht worden.</p>
+<div class="table"><table><thead><tr>
+<th>Stakeholder</th>
+<th>Belang</th>
+<th>Wat zij van ons nodig hebben</th>
+</tr>
+</thead><tbody><tr>
+<td>Productmanagers</td>
+<td>Leveranciers bezoeken, onderhandelen, nieuwe reizen ontwikkelen</td>
+<td>Snel vastleggen na een bezoek; overzicht van onderhandelingen</td>
+</tr>
+<tr>
+<td>Inkopers</td>
+<td>Contracten afsluiten en bewaken</td>
+<td>Contracten, voorwaarden, aflopende contracten, bezetting</td>
+</tr>
+<tr>
+<td>Sales &amp; Boekingen</td>
+<td>Reizen verkopen</td>
+<td>Eenduidige productinformatie en kamertypes</td>
+</tr>
+<tr>
+<td>Marketing &amp; Communicatie</td>
+<td>Campagnes op kamers die leeg dreigen te blijven</td>
+<td>Signaal bij lage bezetting</td>
+</tr>
+<tr>
+<td>Klantenservice</td>
+<td>Klanten juist informeren</td>
+<td>Productinformatie en annuleringsvoorwaarden</td>
+</tr>
+<tr>
+<td>Financiën &amp; Administratie</td>
+<td>Correcte facturen en kosten</td>
+<td>Contractprijzen en annuleringsvoorwaarden</td>
+</tr>
+<tr>
+<td>IT &amp; Innovatie</td>
+<td>Onderhoudbare applicatie</td>
+<td>Uniform datamodel en documentatie</td>
+</tr>
+<tr>
+<td>Opdrachtgever (docent)</td>
+<td>Werkend, getest product</td>
+<td>Stories die zijn waarde leveren en aantoonbaar getest zijn</td>
+</tr>
+</tbody></table></div>
+<p><strong>Rollen in het team.</strong> Product Owner: <em>[naam]</em> · Scrum Master: <em>[naam]</em> · Ontwikkelteam: <em>[namen]</em></p>
+<h2 id="2-werkwijze-backlog">2. Werkwijze backlog</h2>
+<ul>
+<li><strong>Schatten:</strong> planning poker in storypoints (1, 2, 3, 5, 8, 13). Referentiestory: <strong>IN-02 Leveranciers zoeken en filteren = 2 punten.</strong> Een story van 8 of meer wordt gesplitst.</li>
+<li><strong>Prioriteit:</strong> MoSCoW. Moet hebben = nodig voor een bruikbare eerste versie; Zou moeten hebben = belangrijk, niet blokkerend; Kan hebben = als er tijd is; Nu niet = niet in dit project (externe koppelingen met leveranciers, zie casus §5.2).</li>
+<li><strong>Velocity:</strong> aangenomen 12–13 punten per 2 weken voor dit team. Na sprint 3 vervangen we dit door de gemeten velocity en passen we de releaseplanning aan.</li>
+<li><strong>Refinement:</strong> elke werksessie (donderdag) 30 minuten. De bovenste 2 sprints aan stories voldoen aan de Definition of Ready.</li>
+<li><strong>Traceerbaarheid:</strong> elke story verwijst naar een probleem uit de casus of het interview, en naar een risico waar dat van toepassing is.</li>
+<li><strong>Oude nummers:</strong> de voorlopige stories uit de interviewanalyse en risicoanalyse heten nu: A1 → IN-01, A2 → IN-04, A3 → IN-07 en IN-08, A4 → IN-11, B1 → IN-13, B2 → IN-15.</li>
+</ul>
+<h2 id="3-definition-of-ready">3. Definition of Ready</h2>
+<p>Een story mag de sprint in als:</p>
+<ul>
+<li><input disabled="" type="checkbox"> de story in de vorm “Als … wil ik … zodat …” staat en waarde heeft voor een stakeholder;</li>
+<li><input disabled="" type="checkbox"> er minimaal twee testbare acceptatiecriteria zijn (Stel/Als/Dan), inclusief minstens één foutsituatie;</li>
+<li><input disabled="" type="checkbox"> de story geschat is met planning poker en kleiner is dan 8 punten;</li>
+<li><input disabled="" type="checkbox"> bekend is welke gegevens uit het datamodel de story leest en vastlegt;</li>
+<li><input disabled="" type="checkbox"> er een wireframe of schets is voor elk nieuw scherm;</li>
+<li><input disabled="" type="checkbox"> het productrisico (klasse A, B of C) bepaald is;</li>
+<li><input disabled="" type="checkbox"> afhankelijkheden met andere stories of teams bekend en afgesproken zijn;</li>
+<li><input disabled="" type="checkbox"> de Product Owner de story heeft besproken met de opdrachtgever.</li>
+</ul>
+<h2 id="4-definition-of-done">4. Definition of Done</h2>
+<p>Een story is klaar als:</p>
+<p><strong>Bouw</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> de functionaliteit in de low-code applicatie werkt volgens alle acceptatiecriteria;</li>
+<li><input disabled="" type="checkbox"> foutmeldingen staan bij het juiste veld en zeggen hoe de gebruiker het oplost;</li>
+<li><input disabled="" type="checkbox"> een ander teamlid de configuratie of code heeft gereviewd (vier ogen) en de review staat in DevOps;</li>
+<li><input disabled="" type="checkbox"> er geen persoonsgegevens worden opgeslagen die niet nodig zijn (AVG).</li>
+</ul>
+<p><strong>Test</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> testgevallen zijn opgesteld met de testontwerptechniek uit de teststrategie en gekoppeld aan de story in Azure Test Plans;</li>
+<li><input disabled="" type="checkbox"> alle testgevallen zijn uitgevoerd; per testgeval staan status, tester, datum en bevindingen;</li>
+<li><input disabled="" type="checkbox"> bij risicoklasse A heeft een tweede tester afgetekend;</li>
+<li><input disabled="" type="checkbox"> er zijn geen open bugs met prioriteit 1 of 2;</li>
+<li><input disabled="" type="checkbox"> de story is gedemonstreerd met realistische testdata.</li>
+</ul>
+<p><strong>Documentatie</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> het datamodel, de wireframes en het procesmodel zijn bijgewerkt, met een link vanuit de story in DevOps;</li>
+<li><input disabled="" type="checkbox"> de werking is beschreven zodat VoyageVista de applicatie zelf kan onderhouden (casus §5.2);</li>
+<li><input disabled="" type="checkbox"> de Product Owner heeft de story geaccepteerd.</li>
+</ul>
+<h2 id="5-backlogoverzicht">5. Backlogoverzicht</h2>
+<p>Gesorteerd op prioriteit. SP = storypoints.</p>
+<div class="table"><table><thead><tr>
+<th>ID</th>
+<th>Epic</th>
+<th>User story</th>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Risico</th>
+</tr>
+</thead><tbody><tr>
+<td><a href="#in-00-datamodel-inkoop-opstellen">IN-00</a></td>
+<td>E1</td>
+<td>Datamodel Inkoop opstellen</td>
+<td>3</td>
+<td>Moet hebben</td>
+<td>3</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="#in-01-leverancier-registreren">IN-01</a></td>
+<td>E1</td>
+<td>Leverancier registreren</td>
+<td>3</td>
+<td>Moet hebben</td>
+<td>3</td>
+<td>R9</td>
+</tr>
+<tr>
+<td><a href="#in-02-leveranciers-zoeken-en-filteren">IN-02</a></td>
+<td>E1</td>
+<td>Leveranciers zoeken en filteren</td>
+<td>2</td>
+<td>Moet hebben</td>
+<td>3</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="#in-04-bezoek-en-onderhandeling-vastleggen">IN-04</a></td>
+<td>E2</td>
+<td>Bezoek en onderhandeling vastleggen</td>
+<td>5</td>
+<td>Moet hebben</td>
+<td>3</td>
+<td>R7</td>
+</tr>
+<tr>
+<td><a href="#in-05-overzicht-van-alle-onderhandelingen">IN-05</a></td>
+<td>E2</td>
+<td>Overzicht van alle onderhandelingen</td>
+<td>3</td>
+<td>Moet hebben</td>
+<td>4</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="#in-03-leveranciersgegevens-wijzigen-met-historie">IN-03</a></td>
+<td>E1</td>
+<td>Leveranciersgegevens wijzigen met historie</td>
+<td>3</td>
+<td>Zou moeten hebben</td>
+<td>4</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="#in-07-contract-vastleggen">IN-07</a></td>
+<td>E3</td>
+<td>Contract vastleggen</td>
+<td>5</td>
+<td>Moet hebben</td>
+<td>5</td>
+<td>R6</td>
+</tr>
+<tr>
+<td><a href="#in-09-signaal-aflopende-contracten">IN-09</a></td>
+<td>E3</td>
+<td>Signaal aflopende contracten</td>
+<td>2</td>
+<td>Zou moeten hebben</td>
+<td>5</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="#in-08-annuleringsvoorwaarden-gestructureerd-vastleggen">IN-08</a></td>
+<td>E3</td>
+<td>Annuleringsvoorwaarden gestructureerd vastleggen</td>
+<td>3</td>
+<td>Moet hebben</td>
+<td>6</td>
+<td>R6</td>
+</tr>
+<tr>
+<td><a href="#in-11-bezetting-per-contract-bekijken">IN-11</a></td>
+<td>E4</td>
+<td>Bezetting per contract bekijken</td>
+<td>5</td>
+<td>Zou moeten hebben</td>
+<td>6</td>
+<td>R11</td>
+</tr>
+<tr>
+<td><a href="#in-12-lage-bezetting-doorgeven-aan-marketing-en-sales">IN-12</a></td>
+<td>E4</td>
+<td>Lage bezetting doorgeven aan Marketing en Sales</td>
+<td>3</td>
+<td>Zou moeten hebben</td>
+<td>6</td>
+<td>R11</td>
+</tr>
+<tr>
+<td><a href="#in-13-reisproduct-aanmaken-met-vaste-kenmerken">IN-13</a></td>
+<td>E5</td>
+<td>Reisproduct aanmaken met vaste kenmerken</td>
+<td>5</td>
+<td>Zou moeten hebben</td>
+<td>7</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="#in-14-vaste-lijsten-voor-kamertypes-en-faciliteiten-beheren">IN-14</a></td>
+<td>E5</td>
+<td>Vaste lijsten voor kamertypes en faciliteiten beheren</td>
+<td>3</td>
+<td>Zou moeten hebben</td>
+<td>7</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="#in-15-voortgang-productontwikkeling-volgen">IN-15</a></td>
+<td>E5</td>
+<td>Voortgang productontwikkeling volgen</td>
+<td>5</td>
+<td>Zou moeten hebben</td>
+<td>7</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="#in-06-signaal-voor-volgend-leveranciersbezoek">IN-06</a></td>
+<td>E2</td>
+<td>Signaal voor volgend leveranciersbezoek</td>
+<td>3</td>
+<td>Kan hebben</td>
+<td>–</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="#in-10-contract-laten-goedkeuren">IN-10</a></td>
+<td>E3</td>
+<td>Contract laten goedkeuren</td>
+<td>3</td>
+<td>Kan hebben</td>
+<td>–</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="#in-16-productcatalogus-voor-andere-afdelingen">IN-16</a></td>
+<td>E5</td>
+<td>Productcatalogus voor andere afdelingen</td>
+<td>3</td>
+<td>Kan hebben</td>
+<td>–</td>
+<td>–</td>
+</tr>
+<tr>
+<td><a href="#in-17-klantwensen-koppelen-aan-productideeën">IN-17</a></td>
+<td>E5</td>
+<td>Klantwensen koppelen aan productideeën</td>
+<td>3</td>
+<td>Kan hebben</td>
+<td>–</td>
+<td>–</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><strong>Totaal</strong></td>
+<td><strong>62</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table></div>
+<div class="table"><table><thead><tr>
+<th>Epic</th>
+<th>Doel</th>
+<th>Items</th>
+<th>SP</th>
+</tr>
+</thead><tbody><tr>
+<td>E1 Leveranciersbeheer</td>
+<td>Eén centrale, betrouwbare plek voor alle leveranciers (hotels, appartementen, vervoerders, rederijen).</td>
+<td>4</td>
+<td>11</td>
+</tr>
+<tr>
+<td>E2 Onderhandelingen</td>
+<td>De stand van elke onderhandeling is voor iedereen zichtbaar, met prijzen en marge.</td>
+<td>3</td>
+<td>11</td>
+</tr>
+<tr>
+<td>E3 Contractbeheer</td>
+<td>Contracten met prijzen, aantallen en annuleringsvoorwaarden zijn gestructureerd vastgelegd.</td>
+<td>4</td>
+<td>13</td>
+</tr>
+<tr>
+<td>E4 Bezetting en afstemming met verkoop</td>
+<td>Ingekochte kamers worden op tijd verkocht; Marketing en Sales krijgen een signaal als dat achterloopt.</td>
+<td>2</td>
+<td>8</td>
+</tr>
+<tr>
+<td>E5 Gestandaardiseerde productdata</td>
+<td>Reisproducten hebben vaste kenmerken, zodat verkoper en klant precies weten wat er geboekt wordt.</td>
+<td>5</td>
+<td>19</td>
+</tr>
+</tbody></table></div>
+<h2 id="6-releaseplanning-en-sprintdoelen">6. Releaseplanning en sprintdoelen</h2>
+<div class="table"><table><thead><tr>
+<th>Sprint</th>
+<th>Periode</th>
+<th>Duur</th>
+<th>Sprintdoel</th>
+<th>Stories</th>
+<th>SP</th>
+</tr>
+</thead><tbody><tr>
+<td>3</td>
+<td>1 okt – 22 okt 2026</td>
+<td>3 weken (incl. herfstvakantie)</td>
+<td>Een productmanager kan een leverancier registreren en na een bezoek de onderhandeling met marge vastleggen, op basis van een goedgekeurd datamodel.</td>
+<td>IN-00, IN-01, IN-02, IN-04</td>
+<td>13</td>
+</tr>
+<tr>
+<td>4</td>
+<td>22 okt – 29 okt 2026</td>
+<td>1 week</td>
+<td>De inkoopmanager ziet in één overzicht hoe alle onderhandelingen ervoor staan, en wijzigingen aan leveranciers zijn herleidbaar.</td>
+<td>IN-03, IN-05</td>
+<td>6</td>
+</tr>
+<tr>
+<td>5</td>
+<td>12 nov – 19 nov 2026</td>
+<td>1 week</td>
+<td>Een inkoper kan een contract vastleggen en ziet welke contracten binnenkort aflopen.</td>
+<td>IN-07, IN-09</td>
+<td>7</td>
+</tr>
+<tr>
+<td>6</td>
+<td>19 nov – 3 dec 2026</td>
+<td>2 weken</td>
+<td>Inkoop ziet de bezetting van ingekochte kamers en kan lage bezetting doorgeven aan Marketing en Sales.</td>
+<td>IN-08, IN-11, IN-12</td>
+<td>11</td>
+</tr>
+<tr>
+<td>7</td>
+<td>3 dec – 17 dec 2026</td>
+<td>2 weken</td>
+<td>Reisproducten hebben vaste kenmerken en de voortgang van productontwikkeling is zichtbaar.</td>
+<td>IN-13, IN-14, IN-15</td>
+<td>13</td>
+</tr>
+<tr>
+<td>Reserve</td>
+<td>bij hogere velocity</td>
+<td>–</td>
+<td>Kan-hebben-stories</td>
+<td>IN-06, IN-10, IN-16, IN-17</td>
+<td>12</td>
+</tr>
+</tbody></table></div>
+<p>Sprint 8 (januari) is gereserveerd voor herkansing en wordt niet gepland.</p>
+<h2 id="7-user-stories-met-acceptatiecriteria">7. User stories met acceptatiecriteria</h2>
+<h3 id="epic-e1-leveranciersbeheer">Epic E1: Leveranciersbeheer</h3>
+<p><em>Eén centrale, betrouwbare plek voor alle leveranciers (hotels, appartementen, vervoerders, rederijen).</em></p>
+<h4 id="in-00-datamodel-inkoop-opstellen">IN-00 Datamodel Inkoop opstellen</h4>
+<blockquote>
+<p>Als ontwikkelteam wil ik een datamodel (ERD) voor leverancier, onderhandeling, contract, annuleringsvoorwaarde, reisproduct en kamertype, zodat alle Inkoop-stories op dezelfde gegevens bouwen en de applicatie later onderhoudbaar is.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>3</td>
+<td>Moet hebben</td>
+<td>3</td>
+<td>Casus §5.2, IT GP1</td>
+<td>–</td>
+<td>–</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Het ERD bevat alle entiteiten, attributen, sleutels en relaties die de stories IN-01 t/m IN-15 nodig hebben.</li>
+<li>Per entiteit staat beschreven welke story hem aanmaakt, leest of wijzigt.</li>
+<li>De opdrachtgever en het Financiën-team hebben de koppeling contract → boeking → factuur gezien.</li>
+<li>Het ERD staat in DevOps gekoppeld (link naar SharePoint) en in de repo onder docs.</li>
+</ol>
+<p><em>Opmerking: Technische story (enabler). Nodig voor bijna alle andere stories.</em></p>
+<h4 id="in-01-leverancier-registreren">IN-01 Leverancier registreren</h4>
+<blockquote>
+<p>Als productmanager wil ik een leverancier één keer centraal vastleggen met naam, type, land, plaats en contactpersoon, zodat alle collega’s dezelfde, actuele gegevens zien.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>3</td>
+<td>Moet hebben</td>
+<td>3</td>
+<td>KP2, KP3 · interview I6</td>
+<td>R9</td>
+<td>IN-00</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel ik ben ingelogd als productmanager, als ik naam, type, land en plaats invul en opsla, dan staat de leverancier in het leveranciersoverzicht.</li>
+<li>Stel een verplicht veld is leeg, als ik opsla, dan zie ik per veld een foutmelding en wordt er niets opgeslagen.</li>
+<li>Stel er bestaat al een leverancier met dezelfde naam en plaats, als ik opsla, dan krijg ik een waarschuwing voor dubbele invoer en kan ik bewust doorgaan.</li>
+<li>Stel ik vul een ongeldig e-mailadres in, als ik opsla, dan zie ik de melding “Dit is geen geldig e-mailadres” onder het veld.</li>
+</ol>
+<p><em>Opmerking: Type kiezen uit vaste lijst: Hotel, Appartement, Busvervoer, Rederij, Excursie.</em></p>
+<h4 id="in-02-leveranciers-zoeken-en-filteren">IN-02 Leveranciers zoeken en filteren</h4>
+<blockquote>
+<p>Als inkoper wil ik leveranciers zoeken op naam, plaats of land en filteren op onderhandelingsstatus, zodat ik snel de juiste leverancier en de stand van zaken vind.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>2</td>
+<td>Moet hebben</td>
+<td>3</td>
+<td>KP1</td>
+<td>–</td>
+<td>IN-01</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel er zijn leveranciers, als ik een deel van de naam, plaats of het land typ, dan zie ik alleen de leveranciers die daarop passen.</li>
+<li>Stel ik kies de status “In onderhandeling”, als het filter actief is, dan zie ik alleen leveranciers waarvan de laatste onderhandeling die status heeft.</li>
+<li>Stel mijn zoekopdracht geeft geen resultaat, dan zie ik een melding met een tip om de zoekterm aan te passen.</li>
+</ol>
+<h4 id="in-03-leveranciersgegevens-wijzigen-met-historie">IN-03 Leveranciersgegevens wijzigen met historie</h4>
+<blockquote>
+<p>Als inkoper wil ik gegevens van een leverancier wijzigen en zien wie wat wanneer heeft aangepast, zodat fouten te herleiden zijn en de gegevens betrouwbaar blijven.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>3</td>
+<td>Zou moeten hebben</td>
+<td>4</td>
+<td>KP2, GP1</td>
+<td>–</td>
+<td>IN-01</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel ik open een leverancier, als ik een gegeven wijzig en opsla, dan is de nieuwe waarde direct zichtbaar voor iedereen.</li>
+<li>Stel een gegeven is gewijzigd, als ik de historie open, dan zie ik de oude en nieuwe waarde, de medewerker en de datum.</li>
+<li>De datum en de medewerker vult het systeem zelf in; ik kan ze niet aanpassen.</li>
+</ol>
+<h3 id="epic-e2-onderhandelingen">Epic E2: Onderhandelingen</h3>
+<p><em>De stand van elke onderhandeling is voor iedereen zichtbaar, met prijzen en marge.</em></p>
+<h4 id="in-04-bezoek-en-onderhandeling-vastleggen">IN-04 Bezoek en onderhandeling vastleggen</h4>
+<blockquote>
+<p>Als productmanager wil ik na een leveranciersbezoek de basisprijs, verkoopprijs, volumekorting, status en notities vastleggen, zodat mijn collega’s de onderhandeling kunnen volgen zonder mijn mailbox.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>5</td>
+<td>Moet hebben</td>
+<td>3</td>
+<td>KP1 · interview I3, I4</td>
+<td>R7</td>
+<td>IN-01</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel ik open een leverancier, als ik een bezoek vastleg met datum, status, inkoopprijs en verkoopprijs, dan staat het bezoek bovenaan in de lijst van die leverancier.</li>
+<li>Stel ik vul inkoop- en verkoopprijs in, dan berekent het systeem direct de marge in euro en procent.</li>
+<li>Stel de verkoopprijs ligt onder de inkoopprijs, dan zie ik een waarschuwing “negatieve marge” voordat ik opsla.</li>
+<li>Status kiezen uit: Gepland, Bezocht, In onderhandeling, Akkoord, Afgewezen.</li>
+</ol>
+<p><em>Opmerking: Grenswaarden marge: −1, 0, +1 euro (zie teststrategie).</em></p>
+<h4 id="in-05-overzicht-van-alle-onderhandelingen">IN-05 Overzicht van alle onderhandelingen</h4>
+<blockquote>
+<p>Als inkoopmanager wil ik één overzicht van alle onderhandelingen met status, marge en productmanager, zodat ik zie welke onderhandelingen aandacht nodig hebben.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>3</td>
+<td>Moet hebben</td>
+<td>4</td>
+<td>KP1, KP4</td>
+<td>–</td>
+<td>IN-04</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel er zijn onderhandelingen, als ik het overzicht open, dan zie ik per regel leverancier, bezoekdatum, status, marge en productmanager.</li>
+<li>Stel ik klik op een kolomkop, dan wordt het overzicht op die kolom gesorteerd.</li>
+<li>Stel een bezoek ligt in de toekomst, dan staat bij die regel “over X dagen”.</li>
+</ol>
+<h4 id="in-06-signaal-voor-volgend-leveranciersbezoek">IN-06 Signaal voor volgend leveranciersbezoek</h4>
+<blockquote>
+<p>Als productmanager wil ik een signaal krijgen als een leverancier te lang niet bezocht is, zodat goede contacten warm blijven.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>3</td>
+<td>Kan hebben</td>
+<td>Reserve</td>
+<td>Interview I3</td>
+<td>–</td>
+<td>IN-04</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel een leverancier met status Akkoord is meer dan 12 maanden niet bezocht, dan staat hij in de lijst “Bezoek plannen”.</li>
+<li>Stel een nieuwe leverancier (minder dan 1 jaar contact) is meer dan 6 maanden niet bezocht, dan staat hij ook in die lijst.</li>
+</ol>
+<p><em>Opmerking: Termijnen komen uit het interview (bestaand contact 1× per jaar, nieuw 2–3× per jaar). Laten bevestigen.</em></p>
+<h3 id="epic-e3-contractbeheer">Epic E3: Contractbeheer</h3>
+<p><em>Contracten met prijzen, aantallen en annuleringsvoorwaarden zijn gestructureerd vastgelegd.</em></p>
+<h4 id="in-07-contract-vastleggen">IN-07 Contract vastleggen</h4>
+<blockquote>
+<p>Als inkoper wil ik een contract vastleggen met looptijd, kamertype, aantal gecontracteerde kamers en inkoopprijs, zodat verkoop en klantenservice weten wat er is afgesproken.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>5</td>
+<td>Moet hebben</td>
+<td>5</td>
+<td>KP5 · GP1</td>
+<td>R6</td>
+<td>IN-00, IN-04</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel de onderhandeling heeft status Akkoord, als ik een contract vastleg met begin- en einddatum, kamertype, aantal kamers en prijs, dan staat het contract bij de leverancier.</li>
+<li>Stel de einddatum ligt vóór de begindatum, als ik opsla, dan zie ik “De einddatum moet op of na de begindatum liggen”.</li>
+<li>Stel het aantal kamers is 0 of geen heel getal, als ik opsla, dan zie ik een foutmelding onder het veld.</li>
+<li>Het kamertype kies ik uit de vaste lijst (IN-14).</li>
+</ol>
+<h4 id="in-08-annuleringsvoorwaarden-gestructureerd-vastleggen">IN-08 Annuleringsvoorwaarden gestructureerd vastleggen</h4>
+<blockquote>
+<p>Als inkoper wil ik per contract de annuleringsvoorwaarden vastleggen als regels “vanaf X dagen vóór vertrek: Y% kosten”, zodat klantenservice en Financiën de juiste kosten kunnen berekenen.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>3</td>
+<td>Moet hebben</td>
+<td>6</td>
+<td>KP5 · interview I10</td>
+<td>R6</td>
+<td>IN-07</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel ik leg een contract vast, als ik annuleringsregels invul, dan worden ze gesorteerd opgeslagen van meeste naar minste dagen.</li>
+<li>Stel een percentage ligt onder 0 of boven 100, als ik opsla, dan zie ik een foutmelding.</li>
+<li>Stel een contract heeft annuleringsregels, dan zijn ze leesbaar voor Sales, Klantenservice en Financiën.</li>
+</ol>
+<p><em>Opmerking: Voorwaarden volgen de ANVR-systematiek per reis (interview).</em></p>
+<h4 id="in-09-signaal-aflopende-contracten">IN-09 Signaal aflopende contracten</h4>
+<blockquote>
+<p>Als inkoper wil ik een signaal zien bij contracten die binnen 60 dagen aflopen, zodat ik op tijd kan heronderhandelen.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>2</td>
+<td>Zou moeten hebben</td>
+<td>5</td>
+<td>KP4 · GP2</td>
+<td>–</td>
+<td>IN-07</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel een contract loopt af over 60 dagen of minder, dan staat bij het contract “Loopt af over X dagen”.</li>
+<li>Stel een contract loopt af over 61 dagen, dan staat dat signaal er niet.</li>
+<li>Het dashboard toont het aantal contracten met een signaal.</li>
+</ol>
+<p><em>Opmerking: Grenswaarden 60/61 dagen.</em></p>
+<h4 id="in-10-contract-laten-goedkeuren">IN-10 Contract laten goedkeuren</h4>
+<blockquote>
+<p>Als inkoopmanager wil ik een contract goedkeuren voordat het actief wordt, zodat er geen contracten met verkeerde prijzen of voorwaarden live gaan.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>3</td>
+<td>Kan hebben</td>
+<td>Reserve</td>
+<td>KP5</td>
+<td>–</td>
+<td>IN-07</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel een inkoper legt een contract vast, dan krijgt het de status “Wacht op goedkeuring”.</li>
+<li>Stel ik ben de indiener, dan kan ik mijn eigen contract niet goedkeuren.</li>
+<li>Stel een collega keurt goed, dan wordt het contract actief en staat de goedkeurder in de historie.</li>
+</ol>
+<p><em>Opmerking: Open vraag aan opdrachtgever: wie keurt contracten goed, en vanaf welk bedrag?</em></p>
+<h3 id="epic-e4-bezetting-en-afstemming-met-verkoop">Epic E4: Bezetting en afstemming met verkoop</h3>
+<p><em>Ingekochte kamers worden op tijd verkocht; Marketing en Sales krijgen een signaal als dat achterloopt.</em></p>
+<h4 id="in-11-bezetting-per-contract-bekijken">IN-11 Bezetting per contract bekijken</h4>
+<blockquote>
+<p>Als inkoper wil ik per contract zien hoeveel ingekochte kamers al verkocht zijn, zodat ik weet waar ingekochte kamers dreigen leeg te blijven.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>5</td>
+<td>Zou moeten hebben</td>
+<td>6</td>
+<td>Interview I5</td>
+<td>R11</td>
+<td>IN-07</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel een contract met aantal kamers, dan zie ik gecontracteerd, verkocht, beschikbaar en het bezettingspercentage.</li>
+<li>Stel de bezetting is onder 50% en de periode begint binnen 8 weken, dan krijgt het contract het signaal “Actie nodig”.</li>
+<li>Stel de bezetting is precies 50%, dan is er geen signaal.</li>
+</ol>
+<p><em>Opmerking: Drempel 50% en 8 weken zijn aannames; staan als open vraag bij de opdrachtgever.</em></p>
+<h4 id="in-12-lage-bezetting-doorgeven-aan-marketing-en-sales">IN-12 Lage bezetting doorgeven aan Marketing en Sales</h4>
+<blockquote>
+<p>Als inkoper wil ik een contract met lage bezetting met één klik doorgeven aan Marketing en Sales, zodat zij er een actie op kunnen zetten voordat de kamers leeg blijven.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>3</td>
+<td>Zou moeten hebben</td>
+<td>6</td>
+<td>Interview I5 · Marketing GP2</td>
+<td>R11</td>
+<td>IN-11, Marketing-team</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel een contract heeft het signaal “Actie nodig”, als ik op “Doorgeven aan verkoop” klik, dan ziet het Marketing-team het contract in hun lijst met de bezetting en periode.</li>
+<li>Stel het signaal is doorgegeven, dan staat bij het contract wie het wanneer heeft doorgegeven.</li>
+</ol>
+<p><em>Opmerking: Overstijgende story: afstemmen met het Marketing-team.</em></p>
+<h3 id="epic-e5-gestandaardiseerde-productdata">Epic E5: Gestandaardiseerde productdata</h3>
+<p><em>Reisproducten hebben vaste kenmerken, zodat verkoper en klant precies weten wat er geboekt wordt.</em></p>
+<h4 id="in-13-reisproduct-aanmaken-met-vaste-kenmerken">IN-13 Reisproduct aanmaken met vaste kenmerken</h4>
+<blockquote>
+<p>Als productmanager wil ik een reisproduct aanmaken met bestemming, accommodatie, kamertypes en faciliteiten uit vaste lijsten, zodat verkopers en klanten eenduidige informatie krijgen.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>5</td>
+<td>Zou moeten hebben</td>
+<td>7</td>
+<td>GP1 · KP2 · interview I2, I7</td>
+<td>–</td>
+<td>IN-07, IN-14</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel ik maak een reisproduct aan, als ik kamertypes kies, dan kan ik alleen kiezen uit de vaste lijst (geen vrije tekst).</li>
+<li>Stel ik vink faciliteiten aan (bijv. lange bedden, keukenblok), dan kunnen verkopers daarop filteren.</li>
+<li>Stel een reisproduct is gekoppeld aan een contract, dan zie ik bij het product de prijs en de annuleringsvoorwaarden van dat contract.</li>
+</ol>
+<p><em>Opmerking: Lost de onduidelijke kamertypes uit beddenbanken op (interview I7).</em></p>
+<h4 id="in-14-vaste-lijsten-voor-kamertypes-en-faciliteiten-beheren">IN-14 Vaste lijsten voor kamertypes en faciliteiten beheren</h4>
+<blockquote>
+<p>Als productmanager wil ik de lijsten met kamertypes en faciliteiten beheren, zodat iedereen dezelfde omschrijvingen gebruikt.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>3</td>
+<td>Zou moeten hebben</td>
+<td>7</td>
+<td>GP1 · interview I7</td>
+<td>–</td>
+<td>IN-00</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel ik voeg een kamertype toe, dan is het direct te kiezen bij contracten en reisproducten.</li>
+<li>Stel een kamertype is in gebruik, als ik het wil verwijderen, dan kan dat niet en zie ik waar het gebruikt wordt.</li>
+</ol>
+<h4 id="in-15-voortgang-productontwikkeling-volgen">IN-15 Voortgang productontwikkeling volgen</h4>
+<blockquote>
+<p>Als productmanager wil ik per nieuw reisproduct de fase en streefdatum zien (Idee → Onderzoek → Inkoop → Klaar voor verkoop → Live), zodat deadlines niet meer gemist worden.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>5</td>
+<td>Zou moeten hebben</td>
+<td>7</td>
+<td>KP4 · GP2</td>
+<td>–</td>
+<td>IN-13</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel een reisproduct heeft een eigenaar en streefdatum, dan staat het in het overzicht met zijn fase.</li>
+<li>Stel de streefdatum is verstreken en de fase is niet Live, dan is de regel rood gemarkeerd.</li>
+<li>Stel ik zet een product een fase verder, dan legt het systeem datum en medewerker vast.</li>
+</ol>
+<h4 id="in-16-productcatalogus-voor-andere-afdelingen">IN-16 Productcatalogus voor andere afdelingen</h4>
+<blockquote>
+<p>Als medewerker Sales of Klantenservice wil ik de actuele productinformatie van Inkoop kunnen inzien (alleen lezen), zodat ik klanten de juiste informatie geef.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>3</td>
+<td>Kan hebben</td>
+<td>Reserve</td>
+<td>KP3 · GP1</td>
+<td>–</td>
+<td>IN-13</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel ik ben medewerker Sales of Klantenservice, dan kan ik reisproducten en hun kenmerken bekijken maar niet wijzigen.</li>
+<li>Stel Inkoop wijzigt een product, dan zie ik de wijziging direct.</li>
+</ol>
+<p><em>Opmerking: Overstijgende story: afstemmen met Sales en Klantenservice.</em></p>
+<h4 id="in-17-klantwensen-koppelen-aan-productideeën">IN-17 Klantwensen koppelen aan productideeën</h4>
+<blockquote>
+<p>Als productmanager wil ik bij een productidee vastleggen welke klantwensen (bijv. uit het klantpanel) eraan ten grondslag liggen, zodat we reizen ontwikkelen die de Nederlandse klant echt wil.</p>
+</blockquote>
+<div class="table"><table><thead><tr>
+<th>SP</th>
+<th>MoSCoW</th>
+<th>Sprint</th>
+<th>Bron</th>
+<th>Risico</th>
+<th>Afhankelijk van</th>
+</tr>
+</thead><tbody><tr>
+<td>3</td>
+<td>Kan hebben</td>
+<td>Reserve</td>
+<td>Interview I1, I2</td>
+<td>–</td>
+<td>IN-15</td>
+</tr>
+</tbody></table></div>
+<p><strong>Acceptatiecriteria</strong></p>
+<ol>
+<li>Stel ik maak een productidee aan, dan kan ik één of meer klantwensen met bron (klantpanel, klantenservice, marketing) toevoegen.</li>
+<li>Stel een klantwens hoort bij meerdere ideeën, dan zie ik bij de wens alle gekoppelde ideeën.</li>
+</ol>
+<h2 id="8-importeren-in-azure-devops">8. Importeren in Azure DevOps</h2>
+<p>Het bestand <a href="../../docs/backlog/inkoop-backlog-azure-devops.csv"><code>inkoop-backlog-azure-devops.csv</code></a> bevat alle epics, features en Product Backlog Items, met beschrijving, acceptatiecriteria, effort (storypoints), business value en tags.</p>
+<ol>
+<li>Ga in Azure DevOps naar <strong>Boards → Work items → Import work items</strong>.</li>
+<li>Kies het CSV-bestand en klik op <strong>Import</strong>.</li>
+<li>Controleer de voorbeeldweergave en klik op <strong>Save items</strong>.</li>
+<li>Zet daarna per PBI het <strong>Iteration Path</strong> op de juiste sprint (kolom Sprint in dit document; staat ook als tag).</li>
+</ol>
+<p>Het bestand gaat uit van het <strong>Scrum-proces</strong> (Epic → Feature → Product Backlog Item, veld <em>Effort</em>). Gebruikt jullie project het Agile-proces, vervang dan in de kolom <em>Work Item Type</em> “Product Backlog Item” door “User Story” en hernoem de kolom <em>Effort</em> naar <em>Story Points</em>.</p>
+<h2 id="9-open-vragen">9. Open vragen</h2>
+<ul>
+<li><input disabled="" type="checkbox"> Wie keurt contracten goed, en is er een bedrag waarboven dat moet? (IN-10)</li>
+<li><input disabled="" type="checkbox"> Klopt de drempel van 50% bezetting en 8 weken vóór de periode voor het signaal “Actie nodig”? (IN-11)</li>
+<li><input disabled="" type="checkbox"> Hoe vaak moet een bestaande en een nieuwe leverancier bezocht worden? Nu aangenomen: 12 en 6 maanden. (IN-06)</li>
+<li><input disabled="" type="checkbox"> Welke kamertypes en faciliteiten horen in de standaardlijst? (IN-14)</li>
+<li><input disabled="" type="checkbox"> Hoe loopt een contract door naar de facturatie? Af te stemmen met het Financiën-team. (IN-07, IN-08)</li>
+</ul>
+</main>
+</div>
+<footer class="wrap foot">Gegenereerd uit de Markdown-bron in <code>docs/</code> · Team GroepInkoop · casus VoyageVista</footer>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interviewanalyse · VoyageVista Werkplek</title>
+<meta name="description" content="Bevindingen uit het interview met de opdrachtgever">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b2536'/%3E%3Cpath d='M8 10l8 13 8-13' stroke='%23fb923c' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="doc.css">
+<script>try{var t=localStorage.getItem("vv-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#inhoud">Naar de inhoud</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../index.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6l7 12 7-12" stroke="#fb923c" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>VoyageVista <span class="muted">Werkplek</span></a>
+    <a class="back" href="../index.html#documenten">← Terug naar de website</a>
+  </div>
+  <nav class="wrap tabs" aria-label="Documenten"><a href="interview-analyse.html" aria-current="page">Interviewanalyse</a><a href="inkoop-product-backlog.html">Product backlog Inkoop</a><a href="migratie-overzicht.html">Migratie backlog</a><a href="productrisicoanalyse-teststrategie.html">Risicoanalyse & teststrategie</a></nav>
+</header>
+<div class="wrap layout">
+  <aside class="toc" aria-label="Inhoud van dit document"><strong>Op deze pagina</strong><a href="#1-belangrijkste-bevindingen">1. Belangrijkste bevindingen</a><a href="#2-voorstel-epics-en-user-stories">2. Voorstel epics en user stories</a><a href="#3-eerste-opzet-datamodel-entiteiten">3. Eerste opzet datamodel (entiteiten)</a><a href="#4-vervolgvragen-voor-de-opdrachtgever">4. Vervolgvragen voor de opdrachtgever</a><a href="#5-advies-voor-sprintplanning">5. Advies voor sprintplanning</a></aside>
+  <main id="inhoud" class="doc"><h1 id="interviewanalyse--inkoop--klantenservice">Interviewanalyse – Inkoop &amp; Klantenservice</h1>
+<p><strong>Bron:</strong> interview met de opdrachtgever (medewerker reisbureau, praktijkvoorbeeld TUI), sprint 2.
+<strong>Team:</strong> Productontwikkeling &amp; Inkoop + Klantenservice &amp; Support – casus VoyageVista.</p>
+<blockquote>
+<p>Let op: de geïnterviewde gaf aan soms <strong>fictieve cijfers</strong> te gebruiken (bedrijfsinformatie). Gebruik de getallen als indicatie, niet als harde requirement.</p>
+</blockquote>
+<hr>
+<h2 id="1-belangrijkste-bevindingen">1. Belangrijkste bevindingen</h2>
+<h3 id="11-productontwikkeling--inkoop">1.1 Productontwikkeling &amp; Inkoop</h3>
+<div class="table"><table><thead><tr>
+<th>#</th>
+<th>Bevinding</th>
+<th>Tijdstip</th>
+<th>Koppeling casus (§4.4)</th>
+</tr>
+</thead><tbody><tr>
+<td>I1</td>
+<td>Nieuwe reis ontstaat vanuit productafdeling, accommodatieafdeling en inkoop, met input van een <strong>klantpanel (~2.500 klanten)</strong> en analyse van &quot;witte vlekken&quot; op de kaart.</td>
+<td>24:26–26:35</td>
+<td>GP2 Inefficiënte productontwikkelingscyclus</td>
+</tr>
+<tr>
+<td>I2</td>
+<td>Productontwikkeling kijkt naar <strong>specifieke wensen van de Nederlandse klant</strong> (NL-sprekende hostess, lange bedden, goede koelkast, ruime woonkamer).</td>
+<td>25:05–26:16</td>
+<td>KP2 Versnipperde productinformatie</td>
+</tr>
+<tr>
+<td>I3</td>
+<td>Contact met leveranciers (hotels) is <strong>persoonlijk bezoek</strong> door productmanagers: bestaand contact 1×/jaar, nieuw contact 2–3×/jaar; ± 20 hotels per week.</td>
+<td>26:52–27:22</td>
+<td>KP1 Onoverzichtelijke onderhandelingen</td>
+</tr>
+<tr>
+<td>I4</td>
+<td>Tijdens onderhandeling worden vastgelegd: <strong>basisprijs, marge, onderhandelingsruimte, volumekorting</strong> (bijv. korting bij afname van 5 kamers).</td>
+<td>27:29–27:49</td>
+<td>KP5 Handmatig contractbeheer, GP1 Geen gestandaardiseerde productdata</td>
+</tr>
+<tr>
+<td>I5</td>
+<td>Ingekochte kamers <strong>moeten verkocht worden</strong> (inkooprisico ligt bij het bedrijf). Inkoop moet dus direct afstemmen met marketing en sales.</td>
+<td>27:49–28:03</td>
+<td>KP3 Moeilijk delen van informatie</td>
+</tr>
+<tr>
+<td>I6</td>
+<td>Productmanagers laden de gegevens handmatig in een backofficesysteem, dat gekoppeld is met het verkoopsysteem.</td>
+<td>28:16–28:33</td>
+<td>GP1</td>
+</tr>
+<tr>
+<td>I7</td>
+<td><strong>Beddenbanken</strong> (externe voorraad) zetten veel kamertypes automatisch in het systeem. Daardoor is het voor verkoper én klant onduidelijk welke kamer wat heeft (balkon, begane grond, …).</td>
+<td>10:26–11:16</td>
+<td>GP1, KP2</td>
+</tr>
+<tr>
+<td>I8</td>
+<td>Producten van <strong>derde partijen</strong> (bijv. De Jong Intra, Sawadee) lopen niet automatisch door naar facturatie. Creditfacturen bij annulering worden handmatig verwerkt.</td>
+<td>3:44–4:05, 15:05–15:21</td>
+<td>Overstijgend met Financiën</td>
+</tr>
+<tr>
+<td>I9</td>
+<td>Medewerkers werken met <strong>~30 systemen, ~10 per dag</strong>, die deels niet met elkaar communiceren.</td>
+<td>4:51–5:35</td>
+<td>IT GP1 Geen uniforme datastructuur</td>
+</tr>
+<tr>
+<td>I10</td>
+<td>Elke reis heeft <strong>eigen (annulerings-)voorwaarden</strong> (ANVR). Dat is een van de redenen waarom klanten niet zelf online kunnen wijzigen.</td>
+<td>8:14–8:33 (deel 2)</td>
+<td>GP1 Geen gestandaardiseerde productdata</td>
+</tr>
+</tbody></table></div>
+<h3 id="12-klantenservice--support">1.2 Klantenservice &amp; Support</h3>
+<div class="table"><table><thead><tr>
+<th>#</th>
+<th>Bevinding</th>
+<th>Tijdstip</th>
+<th>Koppeling casus (§4.3)</th>
+</tr>
+</thead><tbody><tr>
+<td>K1</td>
+<td>Klant wordt opgezocht in de &quot;Agent Desktop&quot;, bij voorkeur op <strong>e-mailadres</strong> (naam geeft te veel resultaten).</td>
+<td>6:03–6:25</td>
+<td>KP4 Beperkt inzicht eerdere contacten</td>
+</tr>
+<tr>
+<td>K2</td>
+<td>Bij een shopbezoek wordt handmatig een <strong>opportunity</strong> (verkoopkans) aangemaakt: vertrek- en aankomstdatum, reisduur, aantal volwassenen en kinderen.</td>
+<td>6:28–7:18</td>
+<td>KP1 Handmatige registratie</td>
+</tr>
+<tr>
+<td>K3</td>
+<td>Het gesprek wordt als <strong>vrije tekst in één opmerkingenveld</strong> gezet: wie, wat, waar, wanneer, hoe lang, wat de klant belangrijk vindt, taalbarrière, of de klant de accommodatie zelf koos.</td>
+<td>7:27–8:42</td>
+<td>KP1, KP3 Geen uniforme afhandeling</td>
+</tr>
+<tr>
+<td>K4</td>
+<td>Vastleggen of de klant de accommodatie <strong>zelf heeft gekozen</strong> is belangrijk om latere klachten te kunnen beoordelen.</td>
+<td>8:21–8:35</td>
+<td>GP2 Geen analyse van klantfeedback</td>
+</tr>
+<tr>
+<td>K5</td>
+<td><strong>Elk telefoongesprek wordt geregistreerd.</strong> Shopmedewerkers werken ook voor het contactcentrum. Een consistente &quot;verhaallijn&quot; is nodig, anders krijgt de klant van collega A, B en C verschillende antwoorden.</td>
+<td>29:08–29:47</td>
+<td>GP1 Versnipperde klantcommunicatie</td>
+</tr>
+<tr>
+<td>K6</td>
+<td>Door handmatige registratie gaat er van alles mis, bijvoorbeeld een brief over vertraging terwijl de klant al op de bestemming is.</td>
+<td>1:11–1:53 (deel 2)</td>
+<td>KP5 Lange reactietijden, GP1</td>
+</tr>
+<tr>
+<td>K7</td>
+<td>Wens: gesprekken automatisch opnemen of transcriberen. <strong>Maar:</strong> privacy van klant én medewerker, standpunt van de ondernemingsraad en de vraag of een medewerker het verslag nog kan aanpassen zijn nog open.</td>
+<td>8:53–9:07, 2:01–3:18 (deel 2)</td>
+<td>KP1</td>
+</tr>
+<tr>
+<td>K8</td>
+<td><strong>Escalatiepad:</strong> shopmedewerker → senior (geïnterviewde) → afdeling <strong>After Travel</strong> (klachten na de reis).</td>
+<td>3:36–4:19 (deel 2)</td>
+<td>KP3 Geen uniforme afhandeling</td>
+</tr>
+<tr>
+<td>K9</td>
+<td>Er zijn <strong>4 A4&#39;tjes met standaardoplossingen</strong> voor klachten, meestal als <strong>percentage van de reissom</strong>. Een systeem/bot doet een voorstel (bijv. 4%), maar een <strong>mens controleert altijd</strong> (klacht kan ongegrond zijn of al ter plekke opgelost).</td>
+<td>4:29–5:26 (deel 2)</td>
+<td>KP2 Prioriteren, KP3, GP2</td>
+</tr>
+<tr>
+<td>K10</td>
+<td><strong>~50% van het klantcontact is een servicevraag</strong> (stoel boeken, betaling, wijziging) die de klant eigenlijk zelf zou moeten kunnen doen.</td>
+<td>7:18–8:04 (deel 2)</td>
+<td>KP5, GP1</td>
+</tr>
+<tr>
+<td>K11</td>
+<td>Betalingen zonder boekingsnummer moeten handmatig aan een boeking gekoppeld worden, vaak vlak voor vertrek (&quot;stress&quot;).</td>
+<td>12:35–14:27</td>
+<td>Overstijgend met Financiën</td>
+</tr>
+</tbody></table></div>
+<h3 id="13-privacy-avg--harde-randvoorwaarden">1.3 Privacy (AVG) – harde randvoorwaarden</h3>
+<p>Dit zijn <strong>niet-functionele eisen</strong> die in bijna elke user story terugkomen. Ze zijn goed voor het perspectief BIV (beschikbaarheid, integriteit, vertrouwelijkheid) in de toetsmatrijs.</p>
+<div class="table"><table><thead><tr>
+<th>#</th>
+<th>Regel</th>
+<th>Tijdstip</th>
+</tr>
+</thead><tbody><tr>
+<td>P1</td>
+<td><strong>Geen bankrekeningnummer (IBAN) opslaan</strong>, ook niet na betaling. Voor een terugbetaling vult de klant het zelf in.</td>
+<td>15:36–16:18</td>
+</tr>
+<tr>
+<td>P2</td>
+<td><strong>Geen paspoortnummers</strong> of andere paspoortgegevens opslaan. Alleen voornaam, achternaam en geboortedatum zoals in het paspoort.</td>
+<td>16:21–16:35</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Klantgegevens moeten bewaard blijven <strong>tot de klant weer thuis is</strong> (calamiteiten, verzekering). Daarna mag de klant om <strong>verwijdering</strong> vragen.</td>
+<td>29:48 – 0:52 (deel 2)</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>Dubbele namen (vader/zoon) onderscheiden met tweede voornaam of Sr./Jr., en verder via e-mail en telefoon.</td>
+<td>16:56–17:39</td>
+</tr>
+<tr>
+<td>P5</td>
+<td>Ongeboren baby&#39;s worden geboekt als &quot;Baby <achternaam>&quot; zonder geldige geboortedatum. Aanvullen na de geboorte.</td>
+<td>17:45–18:10</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="2-voorstel-epics-en-user-stories">2. Voorstel epics en user stories</h2>
+<p>Formaat: <em>Als <rol> wil ik <functie>, zodat <waarde>.</em> De acceptatiecriteria (AC) staan in Stel/Als/Dan. Het zijn <strong>voorstellen</strong> om tijdens de refinement met de opdrachtgever te valideren.</p>
+<h3 id="epic-a--leveranciers--contracten-inkoop">Epic A – Leveranciers &amp; contracten (Inkoop)</h3>
+<p><strong>A1 – Leverancier registreren</strong>
+Als productmanager wil ik een leverancier (hotel, busmaatschappij, rederij) centraal vastleggen, zodat alle collega&#39;s dezelfde, actuele gegevens zien.</p>
+<ul>
+<li>AC1: <em>Stel</em> ik ben ingelogd als productmanager, <em>als</em> ik naam, type, land/bestemming en contactpersoon invul en opsla, <em>dan</em> staat de leverancier in het leveranciersoverzicht.</li>
+<li>AC2: <em>Stel</em> er bestaat al een leverancier met dezelfde naam en plaats, <em>als</em> ik opsla, <em>dan</em> krijg ik een waarschuwing voor een mogelijk dubbele invoer.</li>
+<li>AC3: Verplichte velden zijn gemarkeerd. Opslaan zonder verplichte velden geeft een duidelijke foutmelding per veld.</li>
+</ul>
+<p><strong>A2 – Leveranciersbezoek / onderhandeling vastleggen</strong>
+Als productmanager wil ik per bezoek de onderhandelingsresultaten vastleggen (basisprijs, marge, volumekorting, status), zodat ik en mijn collega&#39;s de stand van de onderhandelingen kunnen volgen.</p>
+<ul>
+<li>AC1: Een onderhandeling heeft een status: <em>Gepland – Bezocht – In onderhandeling – Akkoord – Afgewezen</em>.</li>
+<li>AC2: Marge wordt automatisch berekend uit inkoopprijs en verkoopprijs. Een negatieve marge geeft een waarschuwing.</li>
+<li>AC3: Het overzicht is te filteren op status en bestemming, en toont de datum van het laatste bezoek.</li>
+</ul>
+<p><strong>A3 – Contract met voorwaarden vastleggen</strong>
+Als inkoper wil ik een contract vastleggen met looptijd, aantal gecontracteerde kamers (allotment), prijzen en <strong>annulerings- en wijzigingsvoorwaarden</strong>, zodat verkoop en klantenservice weten wat er geldt.</p>
+<ul>
+<li>AC1: Een contract hoort bij precies één leverancier en heeft een begin- en einddatum (einddatum ≥ begindatum).</li>
+<li>AC2: <em>Stel</em> een contract verloopt binnen 60 dagen, <em>dan</em> staat het gemarkeerd in het dashboard &quot;Aflopende contracten&quot;.</li>
+<li>AC3: Annuleringsvoorwaarden worden gestructureerd vastgelegd (tot X dagen voor vertrek → Y% kosten), niet als vrije tekst.</li>
+</ul>
+<p><strong>A4 – Bezettingsoverzicht ingekochte kamers</strong>
+Als inkoper wil ik zien hoeveel ingekochte kamers al verkocht zijn, zodat ik op tijd marketing en sales kan inschakelen om de rest te vullen.</p>
+<ul>
+<li>AC1: Per contract ziet de inkoper het aantal gecontracteerde, verkochte en beschikbare kamers en een bezettingspercentage.</li>
+<li>AC2: <em>Stel</em> de bezetting is &lt; 50% binnen 8 weken voor de periode, <em>dan</em> krijgt het contract de status &quot;Actie nodig&quot;. <em>(Drempels valideren bij de opdrachtgever.)</em></li>
+</ul>
+<h3 id="epic-b--gestandaardiseerde-productdata-inkoop">Epic B – Gestandaardiseerde productdata (Inkoop)</h3>
+<p><strong>B1 – Reisproduct aanmaken met vaste kenmerken</strong>
+Als productmanager wil ik een reisproduct aanmaken met gestandaardiseerde kenmerken (bestemming, accommodatie, kamertypes, faciliteiten), zodat verkopers en klanten eenduidige informatie krijgen.</p>
+<ul>
+<li>AC1: Kamertypes kiezen uit een vaste lijst (bijv. 2-persoons standaard, balkon, begane grond). Vrije tekst is niet mogelijk. <em>(Oplossing voor I7, de beddenbank-chaos.)</em></li>
+<li>AC2: Faciliteiten die belangrijk zijn voor de Nederlandse klant (lange bedden, keukenblok, …) zijn aan te vinken en filterbaar.</li>
+</ul>
+<p><strong>B2 – Productstatus in de ontwikkelcyclus</strong>
+Als productmanager wil ik de status van een nieuw product volgen (<em>Idee → Onderzoek → Inkoop → Klaar voor verkoop → Live</em>) met deadlines, zodat deadlines niet meer gemist worden.</p>
+<ul>
+<li>AC1: Elk product heeft een eigenaar en een streefdatum. Te laat = rood in het overzicht.</li>
+</ul>
+<h3 id="epic-c--klantdossier--contactregistratie-klantenservice">Epic C – Klantdossier &amp; contactregistratie (Klantenservice)</h3>
+<p><strong>C1 – Klant zoeken</strong>
+Als klantenservicemedewerker wil ik een klant zoeken op e-mailadres, telefoonnummer, of naam + geboortedatum, zodat ik snel het juiste dossier vind.</p>
+<ul>
+<li>AC1: Zoeken op volledig e-mailadres geeft maximaal één resultaat.</li>
+<li>AC2: Zoeken op naam toont naam, geboortedatum en woonplaats, zodat ik vader en zoon met dezelfde naam kan onderscheiden.</li>
+</ul>
+<p><strong>C2 – Klantcontact gestructureerd registreren</strong>
+Als klantenservicemedewerker wil ik een contactmoment vastleggen met vaste velden (kanaal, onderwerp/categorie, samenvatting, afspraak, vervolgactie, behandelaar), zodat collega&#39;s dezelfde verhaallijn aanhouden.</p>
+<ul>
+<li>AC1: Kanaal kiezen uit <em>Telefoon – E-mail – Shop – Social media</em>. Categorie kiezen uit <em>Informatie – Wijziging – Betaling – Klacht – Overig</em>.</li>
+<li>AC2: Een contactmoment zonder samenvatting kan niet worden opgeslagen.</li>
+<li>AC3: Datum, tijd en medewerker worden automatisch ingevuld (niet aanpasbaar).</li>
+</ul>
+<p><strong>C3 – Klanttijdlijn</strong>
+Als klantenservicemedewerker wil ik alle eerdere contactmomenten, boekingen en klachten van een klant op één tijdlijn zien, zodat ik niet opnieuw informatie hoef te vragen.</p>
+<ul>
+<li>AC1: De tijdlijn staat in omgekeerd chronologische volgorde en is te filteren op categorie.</li>
+<li>AC2: Open vervolgacties staan bovenaan.</li>
+</ul>
+<p><strong>C4 – Reiswensen gestructureerd vastleggen (opportunity)</strong>
+Als reisadviseur wil ik de reiswensen vastleggen in vaste velden (periode, reisduur, aantal volwassenen/kinderen, budget, belangrijkste wensen, &quot;accommodatie zelf gekozen: ja/nee&quot;), zodat de afspraken later terug te vinden zijn.</p>
+<ul>
+<li>AC1: Vertrekdatum ligt in de toekomst en de terugkomdatum ligt na de vertrekdatum.</li>
+<li>AC2: Het veld &quot;Accommodatie zelf gekozen door klant&quot; is verplicht bij het omzetten naar een boeking. <em>(Onderbouwing: K4.)</em></li>
+</ul>
+<h3 id="epic-d--klachtafhandeling-klantenservice">Epic D – Klachtafhandeling (Klantenservice)</h3>
+<p><strong>D1 – Klacht registreren met prioriteit</strong>
+Als klantenservicemedewerker wil ik een klacht registreren met categorie en urgentie, zodat urgente zaken eerst worden opgepakt.</p>
+<ul>
+<li>AC1: Urgentie wordt voorgesteld op basis van regels (bijv. klant is nu op reis → Hoog) en is handmatig aan te passen.</li>
+<li>AC2: Een klacht heeft een status: <em>Nieuw – In behandeling – Geëscaleerd (After Travel) – Afgehandeld</em>.</li>
+</ul>
+<p><strong>D2 – Compensatievoorstel volgens richtlijn</strong>
+Als klantenservicemedewerker wil ik op basis van de klachtcategorie een compensatievoorstel (percentage van de reissom) krijgen, zodat klachten uniform worden afgehandeld.</p>
+<ul>
+<li>AC1: Het systeem berekent het bedrag = percentage × reissom en toont welke richtlijn is gebruikt.</li>
+<li>AC2: Een voorstel kan <strong>pas naar de klant nadat een medewerker het heeft goedgekeurd</strong> (vier-ogenprincipe, K9).</li>
+<li>AC3: Afwijken van de richtlijn kan alleen met een verplichte toelichting.</li>
+</ul>
+<p><strong>D3 – Escaleren</strong>
+Als medewerker wil ik een klacht kunnen doorzetten naar een senior of naar After Travel, met de volledige historie erbij, zodat de klant zijn verhaal niet opnieuw hoeft te doen.</p>
+<h3 id="epic-e--privacy-niet-functioneel-geldt-voor-alle-stories">Epic E – Privacy (niet-functioneel, geldt voor alle stories)</h3>
+<ul>
+<li><strong>E1:</strong> Er bestaat geen veld voor IBAN of paspoortnummer in het datamodel (P1, P2).</li>
+<li><strong>E2:</strong> Als medewerker wil ik op verzoek van een klant diens persoonsgegevens verwijderen of anonimiseren, zodat we voldoen aan de AVG. <em>AC:</em> verwijderen is geblokkeerd zolang de klant een reis heeft met een terugkomdatum in de toekomst (P3).</li>
+<li><strong>E3:</strong> Een klant kan worden aangemaakt met de voorlopige naam &quot;Baby <achternaam>&quot; en zonder geboortedatum. Het systeem signaleert dat deze gegevens nog moeten worden aangevuld (P5).</li>
+</ul>
+<hr>
+<h2 id="3-eerste-opzet-datamodel-entiteiten">3. Eerste opzet datamodel (entiteiten)</h2>
+<pre><code>Leverancier (leverancierID, naam, type, land, plaats, contactpersoon, e-mail, telefoon)
+  1 ── * Onderhandeling (onderhandelingID, datumBezoek, status, basisprijs, verkoopprijs, marge, volumekorting, notitie, productmanager)
+  1 ── * Contract (contractID, begindatum, einddatum, aantalKamers, prijsPerNacht, status)
+           1 ── * Annuleringsvoorwaarde (dagenVoorVertrek, kostenPercentage)
+Reisproduct (productID, naam, bestemming, status, streefdatum, eigenaar)
+  * ── 1 Contract
+  1 ── * Kamertype (kamertypeID, omschrijving [vaste lijst], capaciteit)
+  * ── * Faciliteit
+
+Klant (klantID, voornaam, tussenvoegsel, achternaam, achtervoegsel [Sr./Jr.], geboortedatum?, e-mail, telefoon, woonplaats)
+  ⚠ GEEN iban, GEEN paspoortnummer
+  1 ── * Contactmoment (contactID, datumTijd, kanaal, categorie, samenvatting, vervolgactie, medewerker)
+  1 ── * Opportunity (opportunityID, vertrekdatum, terugkomdatum, volwassenen, kinderen, budget, wensen, zelfGekozen)
+  1 ── * Boeking (boekingID, productID, vertrekdatum, terugkomdatum, reissom, status)
+  1 ── * Klacht (klachtID, boekingID, categorie, urgentie, status, compensatiePercentage, compensatieBedrag, goedgekeurdDoor)
+Compensatierichtlijn (categorie, percentage, omschrijving)
+Medewerker (medewerkerID, naam, rol)
+</code></pre>
+<p>Overstijgende koppelingen:</p>
+<ul>
+<li><strong>Boeking ↔ Contract/Kamertype.</strong> Daarmee kan de inkoop de bezetting zien (A4).</li>
+<li><strong>Boeking → Factuur.</strong> Dit hoort bij het Financiën-team. Stem de sleutel <code>boekingID</code> af.</li>
+<li><strong>Klant.</strong> Deel dezelfde entiteit met het Marketing-team (360-graden klantbeeld). Spreek af wie de eigenaar is.</li>
+</ul>
+<hr>
+<h2 id="4-vervolgvragen-voor-de-opdrachtgever">4. Vervolgvragen voor de opdrachtgever</h2>
+<p>Verzamel ze via Nynke (docent). De opdrachtgever beantwoordt ze per mail.</p>
+<p><strong>Inkoop</strong></p>
+<ol>
+<li>Welke gegevens noteert een productmanager precies tijdens een hotelbezoek? Is er een vast format of checklist?</li>
+<li>Hoe lang loopt een contract met een hotel meestal, en wanneer begint de heronderhandeling?</li>
+<li>Wat gebeurt er als ingekochte kamers niet verkocht worden? Kunnen ze teruggegeven worden (release-datum)?</li>
+<li>Wie moet een contract goedkeuren voordat een product live gaat?</li>
+<li>Welke kamertypes en faciliteiten zijn voor jullie de standaardlijst?</li>
+</ol>
+<p><strong>Klantenservice</strong>
+6. Welke categorieën klantvragen en klachten onderscheiden jullie? Mogen we (een geanonimiseerde versie van) de 4 A4&#39;tjes met compensatieregels zien?
+7. Wanneer is een vraag of klacht &quot;urgent&quot;? Welke reactietijd is de norm?
+8. Welke informatie heeft After Travel nodig bij een escalatie?
+9. Welke servicevragen (stoel, betaling, wijziging) komen het vaakst voor? Dat helpt ons bij het prioriteren.
+10. Hoe lang na thuiskomst moeten klantgegevens nog bewaard blijven voor klachten of verzekering?</p>
+<hr>
+<h2 id="5-advies-voor-sprintplanning">5. Advies voor sprintplanning</h2>
+<ul>
+<li><strong>Sprint 3 (1 okt – 22 okt, verlengd door herfstvakantie):</strong> C1, C2, A1 en E1. Dit is de basis: klanten en leveranciers vastleggen, met privacy by design.</li>
+<li><strong>Sprint 4:</strong> C3, A2, A3 en D1.</li>
+<li><strong>Later:</strong> D2 (compensatie met goedkeuring), A4 (bezetting, overstijgend met Sales/Marketing), B1–B2.</li>
+<li>Overleg met het <strong>Financiën-team</strong> over de factuur voor derde partijen (I8, K11), en met het <strong>Marketing-team</strong> over de gedeelde klantentiteit.</li>
+</ul>
+</main>
+</div>
+<footer class="wrap foot">Gegenereerd uit de Markdown-bron in <code>docs/</code> · Team GroepInkoop · casus VoyageVista</footer>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "voyagevista-website",
+  "version": "1.0.0",
+  "description": "Projectwebsite VoyageVista Werkplek",
+  "scripts": {
+    "build": "node build-docs.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "marked": "^12.0.2"
+  },
+  "private": true
+}
