@@ -56,14 +56,14 @@ Dit zijn **niet-functionele eisen** die in bijna elke user story terugkomen. Ze 
 
 ## 2. Voorstel epics en user stories
 
-Formaat: *Als <rol> wil ik <functie>, zodat <waarde>.* De acceptatiecriteria (AC) staan in Given/When/Then. Het zijn **voorstellen** om tijdens de refinement met de opdrachtgever te valideren.
+Formaat: *Als <rol> wil ik <functie>, zodat <waarde>.* De acceptatiecriteria (AC) staan in Stel/Als/Dan. Het zijn **voorstellen** om tijdens de refinement met de opdrachtgever te valideren.
 
 ### Epic A – Leveranciers & contracten (Inkoop)
 
 **A1 – Leverancier registreren**
 Als productmanager wil ik een leverancier (hotel, busmaatschappij, rederij) centraal vastleggen, zodat alle collega's dezelfde, actuele gegevens zien.
-- AC1: *Given* ik ben ingelogd als productmanager, *when* ik naam, type, land/bestemming en contactpersoon invul en opsla, *then* staat de leverancier in het leveranciersoverzicht.
-- AC2: *Given* er bestaat al een leverancier met dezelfde naam en plaats, *when* ik opsla, *then* krijg ik een waarschuwing voor een mogelijk dubbele invoer.
+- AC1: *Stel* ik ben ingelogd als productmanager, *als* ik naam, type, land/bestemming en contactpersoon invul en opsla, *dan* staat de leverancier in het leveranciersoverzicht.
+- AC2: *Stel* er bestaat al een leverancier met dezelfde naam en plaats, *als* ik opsla, *dan* krijg ik een waarschuwing voor een mogelijk dubbele invoer.
 - AC3: Verplichte velden zijn gemarkeerd. Opslaan zonder verplichte velden geeft een duidelijke foutmelding per veld.
 
 **A2 – Leveranciersbezoek / onderhandeling vastleggen**
@@ -75,13 +75,13 @@ Als productmanager wil ik per bezoek de onderhandelingsresultaten vastleggen (ba
 **A3 – Contract met voorwaarden vastleggen**
 Als inkoper wil ik een contract vastleggen met looptijd, aantal gecontracteerde kamers (allotment), prijzen en **annulerings- en wijzigingsvoorwaarden**, zodat verkoop en klantenservice weten wat er geldt.
 - AC1: Een contract hoort bij precies één leverancier en heeft een begin- en einddatum (einddatum ≥ begindatum).
-- AC2: *Given* een contract verloopt binnen 60 dagen, *then* staat het gemarkeerd in het dashboard "Aflopende contracten".
+- AC2: *Stel* een contract verloopt binnen 60 dagen, *dan* staat het gemarkeerd in het dashboard "Aflopende contracten".
 - AC3: Annuleringsvoorwaarden worden gestructureerd vastgelegd (tot X dagen voor vertrek → Y% kosten), niet als vrije tekst.
 
 **A4 – Bezettingsoverzicht ingekochte kamers**
 Als inkoper wil ik zien hoeveel ingekochte kamers al verkocht zijn, zodat ik op tijd marketing en sales kan inschakelen om de rest te vullen.
 - AC1: Per contract ziet de inkoper het aantal gecontracteerde, verkochte en beschikbare kamers en een bezettingspercentage.
-- AC2: *Given* de bezetting is < 50% binnen 8 weken voor de periode, *then* krijgt het contract de status "Actie nodig". *(Drempels valideren bij de opdrachtgever.)*
+- AC2: *Stel* de bezetting is < 50% binnen 8 weken voor de periode, *dan* krijgt het contract de status "Actie nodig". *(Drempels valideren bij de opdrachtgever.)*
 
 ### Epic B – Gestandaardiseerde productdata (Inkoop)
 

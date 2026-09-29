@@ -13,11 +13,11 @@ Op 29 september 2026 zijn de issues van ons team uit [VoyageVista1/VoyageVista](
 | Nieuw als parent (ontbrak) | 1 |
 | **Totaal in GroepInkoop** | **146** |
 
-**Structuur.** Epic (type *Feature*, label *Epic*) → User Story (type *User Story*) → Taak (type *Task*), gekoppeld als sub-issues. Labels: afdeling (*Inkoop*, *Klantenservice*, *Algemeen*), fase (*Designsprint*, *Ontwerp*), MoSCoW (*Must*, *Should*, *Could*, *Won't*), storypoints (*SP 2*, *SP 3*, *SP 5*) en *Nieuw (interview)*.
+**Structuur.** Epic (type *Feature*, label *Epic*) → User Story (type *User Story*) → Taak (type *Task*), gekoppeld als sub-issues. Labels: afdeling (*Inkoop*, *Klantenservice*, *Algemeen*), fase (*Designsprint*, *Ontwerp*), MoSCoW (*Moet hebben*, *Zou moeten hebben*, *Kan hebben*, *Nu niet*), storypoints (*SP 2*, *SP 3*, *SP 5*) en *Nieuw (interview)*.
 
 **Controle en verbeteringen**
 
-- De 57 functionele stories die alleen een titel hadden, hebben nu een user story, acceptatiecriteria (Given/When/Then), prioriteit, een voorstel voor storypoints, bron (casus/interview) en risico-ID.
+- De 57 functionele stories die alleen een titel hadden, hebben nu een user story, acceptatiecriteria (Stel/Als/Dan), prioriteit, een voorstel voor storypoints, bron (casus/interview) en risico-ID.
 - K1–K10 waren dubbel met functionele stories en zijn daarmee **samengevoegd** (zie tabel). K11 had geen tegenhanger en is een eigen story gebleven.
 - **K10 is inhoudelijk aangepast.** “Automatisch verwijderen zodra de reis is afgerond” botst met het interview: gegevens moeten bewaard blijven tot de klant thuis is, en klachten komen vaak ná de reis. Nu: verwijderen op verzoek, geblokkeerd zolang de reis loopt; bewaartermijn is een open vraag.
 - Voor Inkoop ontbrak een story voor use cases; die is toegevoegd als parent van “Use-casebeschrijvingen controleren” ([#49](https://github.com/VoyageVista1/GroepInkoop/issues/49)).
@@ -45,7 +45,7 @@ Op 29 september 2026 zijn de issues van ons team uit [VoyageVista1/VoyageVista](
 - [#108](https://github.com/VoyageVista1/GroepInkoop/issues/108) Vaste lijsten voor kamertypes en faciliteiten beheren
 - [#109](https://github.com/VoyageVista1/GroepInkoop/issues/109) Annuleringsvoorwaarden gestructureerd vastleggen
 - [#110](https://github.com/VoyageVista1/GroepInkoop/issues/110) Leveranciersbezoek plannen
-- [#111](https://github.com/VoyageVista1/GroepInkoop/issues/111) Klantgesprekken automatisch vastleggen (Won't – onderzoek)
+- [#111](https://github.com/VoyageVista1/GroepInkoop/issues/111) Klantgesprekken automatisch vastleggen (Nu niet – onderzoek)
 - [#143](https://github.com/VoyageVista1/GroepInkoop/issues/143) Leverancier inschakelen voor oplossing ter plaatse
 - [#144](https://github.com/VoyageVista1/GroepInkoop/issues/144) Compensatierichtlijnen beheren
 - [#145](https://github.com/VoyageVista1/GroepInkoop/issues/145) Voorlopige klant registreren (bijv. ongeboren baby)
@@ -246,7 +246,7 @@ Op 29 september 2026 zijn de issues van ons team uit [VoyageVista1/VoyageVista](
 | IN-15 | [#100](https://github.com/VoyageVista1/GroepInkoop/issues/100) |
 | IN-16 | [#105](https://github.com/VoyageVista1/GroepInkoop/issues/105) |
 | IN-17 | [#84](https://github.com/VoyageVista1/GroepInkoop/issues/84) |
-| IN-10 (contract laten goedkeuren, Could) | nog niet als issue; kan worden toegevoegd na antwoord van de opdrachtgever |
+| IN-10 (contract laten goedkeuren, Kan hebben) | nog niet als issue; kan worden toegevoegd na antwoord van de opdrachtgever |
 
 ## Nog te doen
 

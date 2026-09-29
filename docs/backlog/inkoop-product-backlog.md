@@ -4,7 +4,7 @@
 
 **Casus:** VoyageVista · **Team:** GroepInkoop · **Versie:** 29 september 2026 (vóór refinement sprint 3)
 
-De backlog telt **18 items (62 storypoints)** in 5 epics. Sprint 3 t/m 7 bevatten 50 punten; 12 punten (Could) staan klaar als er tijd over is. De volgorde is een voorstel van het team en wordt door de Product Owner met de opdrachtgever bevestigd.
+De backlog telt **18 items (62 storypoints)** in 5 epics. Sprint 3 t/m 7 bevatten 50 punten; 12 punten (Kan hebben) staan klaar als er tijd over is. De volgorde is een voorstel van het team en wordt door de Product Owner met de opdrachtgever bevestigd.
 
 > Alle stories komen uit het interview met de opdrachtgever (I1–I10 in [interviewanalyse](../interview-analyse.md)) en de casus §4.4 (KP = klein probleem, GP = groot probleem). Risico-ID’s verwijzen naar de [productrisicoanalyse](../productrisicoanalyse-teststrategie.md).
 
@@ -40,7 +40,7 @@ De backlog telt **18 items (62 storypoints)** in 5 epics. Sprint 3 t/m 7 bevatte
 ## 2. Werkwijze backlog
 
 - **Schatten:** planning poker in storypoints (1, 2, 3, 5, 8, 13). Referentiestory: **IN-02 Leveranciers zoeken en filteren = 2 punten.** Een story van 8 of meer wordt gesplitst.
-- **Prioriteit:** MoSCoW. Must = nodig voor een bruikbare eerste versie; Should = belangrijk, niet blokkerend; Could = als er tijd is; Won’t = niet in dit project (externe koppelingen met leveranciers, zie casus §5.2).
+- **Prioriteit:** MoSCoW. Moet hebben = nodig voor een bruikbare eerste versie; Zou moeten hebben = belangrijk, niet blokkerend; Kan hebben = als er tijd is; Nu niet = niet in dit project (externe koppelingen met leveranciers, zie casus §5.2).
 - **Velocity:** aangenomen 12–13 punten per 2 weken voor dit team. Na sprint 3 vervangen we dit door de gemeten velocity en passen we de releaseplanning aan.
 - **Refinement:** elke werksessie (donderdag) 30 minuten. De bovenste 2 sprints aan stories voldoen aan de Definition of Ready.
 - **Traceerbaarheid:** elke story verwijst naar een probleem uit de casus of het interview, en naar een risico waar dat van toepassing is.
@@ -51,7 +51,7 @@ De backlog telt **18 items (62 storypoints)** in 5 epics. Sprint 3 t/m 7 bevatte
 Een story mag de sprint in als:
 
 - [ ] de story in de vorm “Als … wil ik … zodat …” staat en waarde heeft voor een stakeholder;
-- [ ] er minimaal twee testbare acceptatiecriteria zijn (Given/When/Then), inclusief minstens één foutsituatie;
+- [ ] er minimaal twee testbare acceptatiecriteria zijn (Stel/Als/Dan), inclusief minstens één foutsituatie;
 - [ ] de story geschat is met planning poker en kleiner is dan 8 punten;
 - [ ] bekend is welke gegevens uit het datamodel de story leest en vastlegt;
 - [ ] er een wireframe of schets is voor elk nieuw scherm;
@@ -90,24 +90,24 @@ Gesorteerd op prioriteit. SP = storypoints.
 
 | ID | Epic | User story | SP | MoSCoW | Sprint | Risico |
 | --- | --- | --- | --- | --- | --- | --- |
-| [IN-00](#in-00-datamodel-inkoop-opstellen) | E1 | Datamodel Inkoop opstellen | 3 | Must | 3 | – |
-| [IN-01](#in-01-leverancier-registreren) | E1 | Leverancier registreren | 3 | Must | 3 | R9 |
-| [IN-02](#in-02-leveranciers-zoeken-en-filteren) | E1 | Leveranciers zoeken en filteren | 2 | Must | 3 | – |
-| [IN-04](#in-04-bezoek-en-onderhandeling-vastleggen) | E2 | Bezoek en onderhandeling vastleggen | 5 | Must | 3 | R7 |
-| [IN-05](#in-05-overzicht-van-alle-onderhandelingen) | E2 | Overzicht van alle onderhandelingen | 3 | Must | 4 | – |
-| [IN-03](#in-03-leveranciersgegevens-wijzigen-met-historie) | E1 | Leveranciersgegevens wijzigen met historie | 3 | Should | 4 | – |
-| [IN-07](#in-07-contract-vastleggen) | E3 | Contract vastleggen | 5 | Must | 5 | R6 |
-| [IN-09](#in-09-signaal-aflopende-contracten) | E3 | Signaal aflopende contracten | 2 | Should | 5 | – |
-| [IN-08](#in-08-annuleringsvoorwaarden-gestructureerd-vastleggen) | E3 | Annuleringsvoorwaarden gestructureerd vastleggen | 3 | Must | 6 | R6 |
-| [IN-11](#in-11-bezetting-per-contract-bekijken) | E4 | Bezetting per contract bekijken | 5 | Should | 6 | R11 |
-| [IN-12](#in-12-lage-bezetting-doorgeven-aan-marketing-en-sales) | E4 | Lage bezetting doorgeven aan Marketing en Sales | 3 | Should | 6 | R11 |
-| [IN-13](#in-13-reisproduct-aanmaken-met-vaste-kenmerken) | E5 | Reisproduct aanmaken met vaste kenmerken | 5 | Should | 7 | – |
-| [IN-14](#in-14-vaste-lijsten-voor-kamertypes-en-faciliteiten-beheren) | E5 | Vaste lijsten voor kamertypes en faciliteiten beheren | 3 | Should | 7 | – |
-| [IN-15](#in-15-voortgang-productontwikkeling-volgen) | E5 | Voortgang productontwikkeling volgen | 5 | Should | 7 | – |
-| [IN-06](#in-06-signaal-voor-volgend-leveranciersbezoek) | E2 | Signaal voor volgend leveranciersbezoek | 3 | Could | – | – |
-| [IN-10](#in-10-contract-laten-goedkeuren) | E3 | Contract laten goedkeuren | 3 | Could | – | – |
-| [IN-16](#in-16-productcatalogus-voor-andere-afdelingen) | E5 | Productcatalogus voor andere afdelingen | 3 | Could | – | – |
-| [IN-17](#in-17-klantwensen-koppelen-aan-productideeën) | E5 | Klantwensen koppelen aan productideeën | 3 | Could | – | – |
+| [IN-00](#in-00-datamodel-inkoop-opstellen) | E1 | Datamodel Inkoop opstellen | 3 | Moet hebben | 3 | – |
+| [IN-01](#in-01-leverancier-registreren) | E1 | Leverancier registreren | 3 | Moet hebben | 3 | R9 |
+| [IN-02](#in-02-leveranciers-zoeken-en-filteren) | E1 | Leveranciers zoeken en filteren | 2 | Moet hebben | 3 | – |
+| [IN-04](#in-04-bezoek-en-onderhandeling-vastleggen) | E2 | Bezoek en onderhandeling vastleggen | 5 | Moet hebben | 3 | R7 |
+| [IN-05](#in-05-overzicht-van-alle-onderhandelingen) | E2 | Overzicht van alle onderhandelingen | 3 | Moet hebben | 4 | – |
+| [IN-03](#in-03-leveranciersgegevens-wijzigen-met-historie) | E1 | Leveranciersgegevens wijzigen met historie | 3 | Zou moeten hebben | 4 | – |
+| [IN-07](#in-07-contract-vastleggen) | E3 | Contract vastleggen | 5 | Moet hebben | 5 | R6 |
+| [IN-09](#in-09-signaal-aflopende-contracten) | E3 | Signaal aflopende contracten | 2 | Zou moeten hebben | 5 | – |
+| [IN-08](#in-08-annuleringsvoorwaarden-gestructureerd-vastleggen) | E3 | Annuleringsvoorwaarden gestructureerd vastleggen | 3 | Moet hebben | 6 | R6 |
+| [IN-11](#in-11-bezetting-per-contract-bekijken) | E4 | Bezetting per contract bekijken | 5 | Zou moeten hebben | 6 | R11 |
+| [IN-12](#in-12-lage-bezetting-doorgeven-aan-marketing-en-sales) | E4 | Lage bezetting doorgeven aan Marketing en Sales | 3 | Zou moeten hebben | 6 | R11 |
+| [IN-13](#in-13-reisproduct-aanmaken-met-vaste-kenmerken) | E5 | Reisproduct aanmaken met vaste kenmerken | 5 | Zou moeten hebben | 7 | – |
+| [IN-14](#in-14-vaste-lijsten-voor-kamertypes-en-faciliteiten-beheren) | E5 | Vaste lijsten voor kamertypes en faciliteiten beheren | 3 | Zou moeten hebben | 7 | – |
+| [IN-15](#in-15-voortgang-productontwikkeling-volgen) | E5 | Voortgang productontwikkeling volgen | 5 | Zou moeten hebben | 7 | – |
+| [IN-06](#in-06-signaal-voor-volgend-leveranciersbezoek) | E2 | Signaal voor volgend leveranciersbezoek | 3 | Kan hebben | – | – |
+| [IN-10](#in-10-contract-laten-goedkeuren) | E3 | Contract laten goedkeuren | 3 | Kan hebben | – | – |
+| [IN-16](#in-16-productcatalogus-voor-andere-afdelingen) | E5 | Productcatalogus voor andere afdelingen | 3 | Kan hebben | – | – |
+| [IN-17](#in-17-klantwensen-koppelen-aan-productideeën) | E5 | Klantwensen koppelen aan productideeën | 3 | Kan hebben | – | – |
 | | | **Totaal** | **62** | | | |
 
 | Epic | Doel | Items | SP |
@@ -127,7 +127,7 @@ Gesorteerd op prioriteit. SP = storypoints.
 | 5 | 12 nov – 19 nov 2026 | 1 week | Een inkoper kan een contract vastleggen en ziet welke contracten binnenkort aflopen. | IN-07, IN-09 | 7 |
 | 6 | 19 nov – 3 dec 2026 | 2 weken | Inkoop ziet de bezetting van ingekochte kamers en kan lage bezetting doorgeven aan Marketing en Sales. | IN-08, IN-11, IN-12 | 11 |
 | 7 | 3 dec – 17 dec 2026 | 2 weken | Reisproducten hebben vaste kenmerken en de voortgang van productontwikkeling is zichtbaar. | IN-13, IN-14, IN-15 | 13 |
-| Reserve | bij hogere velocity | – | Could-stories | IN-06, IN-10, IN-16, IN-17 | 12 |
+| Reserve | bij hogere velocity | – | Kan-hebben-stories | IN-06, IN-10, IN-16, IN-17 | 12 |
 
 Sprint 8 (januari) is gereserveerd voor herkansing en wordt niet gepland.
 
@@ -143,7 +143,7 @@ _Eén centrale, betrouwbare plek voor alle leveranciers (hotels, appartementen, 
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 3 | Must | 3 | Casus §5.2, IT GP1 | – | – |
+| 3 | Moet hebben | 3 | Casus §5.2, IT GP1 | – | – |
 
 **Acceptatiecriteria**
 
@@ -160,14 +160,14 @@ _Opmerking: Technische story (enabler). Nodig voor bijna alle andere stories._
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 3 | Must | 3 | KP2, KP3 · interview I6 | R9 | IN-00 |
+| 3 | Moet hebben | 3 | KP2, KP3 · interview I6 | R9 | IN-00 |
 
 **Acceptatiecriteria**
 
-1. Given ik ben ingelogd als productmanager, When ik naam, type, land en plaats invul en opsla, Then staat de leverancier in het leveranciersoverzicht.
-2. Given een verplicht veld is leeg, When ik opsla, Then zie ik per veld een foutmelding en wordt er niets opgeslagen.
-3. Given er bestaat al een leverancier met dezelfde naam en plaats, When ik opsla, Then krijg ik een waarschuwing voor dubbele invoer en kan ik bewust doorgaan.
-4. Given ik vul een ongeldig e-mailadres in, When ik opsla, Then zie ik de melding “Dit is geen geldig e-mailadres” onder het veld.
+1. Stel ik ben ingelogd als productmanager, als ik naam, type, land en plaats invul en opsla, dan staat de leverancier in het leveranciersoverzicht.
+2. Stel een verplicht veld is leeg, als ik opsla, dan zie ik per veld een foutmelding en wordt er niets opgeslagen.
+3. Stel er bestaat al een leverancier met dezelfde naam en plaats, als ik opsla, dan krijg ik een waarschuwing voor dubbele invoer en kan ik bewust doorgaan.
+4. Stel ik vul een ongeldig e-mailadres in, als ik opsla, dan zie ik de melding “Dit is geen geldig e-mailadres” onder het veld.
 
 _Opmerking: Type kiezen uit vaste lijst: Hotel, Appartement, Busvervoer, Rederij, Excursie._
 
@@ -177,13 +177,13 @@ _Opmerking: Type kiezen uit vaste lijst: Hotel, Appartement, Busvervoer, Rederij
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 2 | Must | 3 | KP1 | – | IN-01 |
+| 2 | Moet hebben | 3 | KP1 | – | IN-01 |
 
 **Acceptatiecriteria**
 
-1. Given er zijn leveranciers, When ik een deel van de naam, plaats of het land typ, Then zie ik alleen de leveranciers die daarop passen.
-2. Given ik kies de status “In onderhandeling”, When het filter actief is, Then zie ik alleen leveranciers waarvan de laatste onderhandeling die status heeft.
-3. Given mijn zoekopdracht geeft geen resultaat, Then zie ik een melding met een tip om de zoekterm aan te passen.
+1. Stel er zijn leveranciers, als ik een deel van de naam, plaats of het land typ, dan zie ik alleen de leveranciers die daarop passen.
+2. Stel ik kies de status “In onderhandeling”, als het filter actief is, dan zie ik alleen leveranciers waarvan de laatste onderhandeling die status heeft.
+3. Stel mijn zoekopdracht geeft geen resultaat, dan zie ik een melding met een tip om de zoekterm aan te passen.
 
 #### IN-03 Leveranciersgegevens wijzigen met historie
 
@@ -191,12 +191,12 @@ _Opmerking: Type kiezen uit vaste lijst: Hotel, Appartement, Busvervoer, Rederij
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 3 | Should | 4 | KP2, GP1 | – | IN-01 |
+| 3 | Zou moeten hebben | 4 | KP2, GP1 | – | IN-01 |
 
 **Acceptatiecriteria**
 
-1. Given ik open een leverancier, When ik een gegeven wijzig en opsla, Then is de nieuwe waarde direct zichtbaar voor iedereen.
-2. Given een gegeven is gewijzigd, When ik de historie open, Then zie ik de oude en nieuwe waarde, de medewerker en de datum.
+1. Stel ik open een leverancier, als ik een gegeven wijzig en opsla, dan is de nieuwe waarde direct zichtbaar voor iedereen.
+2. Stel een gegeven is gewijzigd, als ik de historie open, dan zie ik de oude en nieuwe waarde, de medewerker en de datum.
 3. De datum en de medewerker vult het systeem zelf in; ik kan ze niet aanpassen.
 
 ### Epic E2: Onderhandelingen
@@ -209,13 +209,13 @@ _De stand van elke onderhandeling is voor iedereen zichtbaar, met prijzen en mar
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 5 | Must | 3 | KP1 · interview I3, I4 | R7 | IN-01 |
+| 5 | Moet hebben | 3 | KP1 · interview I3, I4 | R7 | IN-01 |
 
 **Acceptatiecriteria**
 
-1. Given ik open een leverancier, When ik een bezoek vastleg met datum, status, inkoopprijs en verkoopprijs, Then staat het bezoek bovenaan in de lijst van die leverancier.
-2. Given ik vul inkoop- en verkoopprijs in, Then berekent het systeem direct de marge in euro en procent.
-3. Given de verkoopprijs ligt onder de inkoopprijs, Then zie ik een waarschuwing “negatieve marge” voordat ik opsla.
+1. Stel ik open een leverancier, als ik een bezoek vastleg met datum, status, inkoopprijs en verkoopprijs, dan staat het bezoek bovenaan in de lijst van die leverancier.
+2. Stel ik vul inkoop- en verkoopprijs in, dan berekent het systeem direct de marge in euro en procent.
+3. Stel de verkoopprijs ligt onder de inkoopprijs, dan zie ik een waarschuwing “negatieve marge” voordat ik opsla.
 4. Status kiezen uit: Gepland, Bezocht, In onderhandeling, Akkoord, Afgewezen.
 
 _Opmerking: Grenswaarden marge: −1, 0, +1 euro (zie teststrategie)._
@@ -226,13 +226,13 @@ _Opmerking: Grenswaarden marge: −1, 0, +1 euro (zie teststrategie)._
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 3 | Must | 4 | KP1, KP4 | – | IN-04 |
+| 3 | Moet hebben | 4 | KP1, KP4 | – | IN-04 |
 
 **Acceptatiecriteria**
 
-1. Given er zijn onderhandelingen, When ik het overzicht open, Then zie ik per regel leverancier, bezoekdatum, status, marge en productmanager.
-2. Given ik klik op een kolomkop, Then wordt het overzicht op die kolom gesorteerd.
-3. Given een bezoek ligt in de toekomst, Then staat bij die regel “over X dagen”.
+1. Stel er zijn onderhandelingen, als ik het overzicht open, dan zie ik per regel leverancier, bezoekdatum, status, marge en productmanager.
+2. Stel ik klik op een kolomkop, dan wordt het overzicht op die kolom gesorteerd.
+3. Stel een bezoek ligt in de toekomst, dan staat bij die regel “over X dagen”.
 
 #### IN-06 Signaal voor volgend leveranciersbezoek
 
@@ -240,12 +240,12 @@ _Opmerking: Grenswaarden marge: −1, 0, +1 euro (zie teststrategie)._
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 3 | Could | Reserve | Interview I3 | – | IN-04 |
+| 3 | Kan hebben | Reserve | Interview I3 | – | IN-04 |
 
 **Acceptatiecriteria**
 
-1. Given een leverancier met status Akkoord is meer dan 12 maanden niet bezocht, Then staat hij in de lijst “Bezoek plannen”.
-2. Given een nieuwe leverancier (minder dan 1 jaar contact) is meer dan 6 maanden niet bezocht, Then staat hij ook in die lijst.
+1. Stel een leverancier met status Akkoord is meer dan 12 maanden niet bezocht, dan staat hij in de lijst “Bezoek plannen”.
+2. Stel een nieuwe leverancier (minder dan 1 jaar contact) is meer dan 6 maanden niet bezocht, dan staat hij ook in die lijst.
 
 _Opmerking: Termijnen komen uit het interview (bestaand contact 1× per jaar, nieuw 2–3× per jaar). Laten bevestigen._
 
@@ -259,13 +259,13 @@ _Contracten met prijzen, aantallen en annuleringsvoorwaarden zijn gestructureerd
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 5 | Must | 5 | KP5 · GP1 | R6 | IN-00, IN-04 |
+| 5 | Moet hebben | 5 | KP5 · GP1 | R6 | IN-00, IN-04 |
 
 **Acceptatiecriteria**
 
-1. Given de onderhandeling heeft status Akkoord, When ik een contract vastleg met begin- en einddatum, kamertype, aantal kamers en prijs, Then staat het contract bij de leverancier.
-2. Given de einddatum ligt vóór de begindatum, When ik opsla, Then zie ik “De einddatum moet op of na de begindatum liggen”.
-3. Given het aantal kamers is 0 of geen heel getal, When ik opsla, Then zie ik een foutmelding onder het veld.
+1. Stel de onderhandeling heeft status Akkoord, als ik een contract vastleg met begin- en einddatum, kamertype, aantal kamers en prijs, dan staat het contract bij de leverancier.
+2. Stel de einddatum ligt vóór de begindatum, als ik opsla, dan zie ik “De einddatum moet op of na de begindatum liggen”.
+3. Stel het aantal kamers is 0 of geen heel getal, als ik opsla, dan zie ik een foutmelding onder het veld.
 4. Het kamertype kies ik uit de vaste lijst (IN-14).
 
 #### IN-08 Annuleringsvoorwaarden gestructureerd vastleggen
@@ -274,13 +274,13 @@ _Contracten met prijzen, aantallen en annuleringsvoorwaarden zijn gestructureerd
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 3 | Must | 6 | KP5 · interview I10 | R6 | IN-07 |
+| 3 | Moet hebben | 6 | KP5 · interview I10 | R6 | IN-07 |
 
 **Acceptatiecriteria**
 
-1. Given ik leg een contract vast, When ik annuleringsregels invul, Then worden ze gesorteerd opgeslagen van meeste naar minste dagen.
-2. Given een percentage ligt onder 0 of boven 100, When ik opsla, Then zie ik een foutmelding.
-3. Given een contract heeft annuleringsregels, Then zijn ze leesbaar voor Sales, Klantenservice en Financiën.
+1. Stel ik leg een contract vast, als ik annuleringsregels invul, dan worden ze gesorteerd opgeslagen van meeste naar minste dagen.
+2. Stel een percentage ligt onder 0 of boven 100, als ik opsla, dan zie ik een foutmelding.
+3. Stel een contract heeft annuleringsregels, dan zijn ze leesbaar voor Sales, Klantenservice en Financiën.
 
 _Opmerking: Voorwaarden volgen de ANVR-systematiek per reis (interview)._
 
@@ -290,12 +290,12 @@ _Opmerking: Voorwaarden volgen de ANVR-systematiek per reis (interview)._
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 2 | Should | 5 | KP4 · GP2 | – | IN-07 |
+| 2 | Zou moeten hebben | 5 | KP4 · GP2 | – | IN-07 |
 
 **Acceptatiecriteria**
 
-1. Given een contract loopt af over 60 dagen of minder, Then staat bij het contract “Loopt af over X dagen”.
-2. Given een contract loopt af over 61 dagen, Then staat dat signaal er niet.
+1. Stel een contract loopt af over 60 dagen of minder, dan staat bij het contract “Loopt af over X dagen”.
+2. Stel een contract loopt af over 61 dagen, dan staat dat signaal er niet.
 3. Het dashboard toont het aantal contracten met een signaal.
 
 _Opmerking: Grenswaarden 60/61 dagen._
@@ -306,13 +306,13 @@ _Opmerking: Grenswaarden 60/61 dagen._
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 3 | Could | Reserve | KP5 | – | IN-07 |
+| 3 | Kan hebben | Reserve | KP5 | – | IN-07 |
 
 **Acceptatiecriteria**
 
-1. Given een inkoper legt een contract vast, Then krijgt het de status “Wacht op goedkeuring”.
-2. Given ik ben de indiener, Then kan ik mijn eigen contract niet goedkeuren.
-3. Given een collega keurt goed, Then wordt het contract actief en staat de goedkeurder in de historie.
+1. Stel een inkoper legt een contract vast, dan krijgt het de status “Wacht op goedkeuring”.
+2. Stel ik ben de indiener, dan kan ik mijn eigen contract niet goedkeuren.
+3. Stel een collega keurt goed, dan wordt het contract actief en staat de goedkeurder in de historie.
 
 _Opmerking: Open vraag aan opdrachtgever: wie keurt contracten goed, en vanaf welk bedrag?_
 
@@ -326,13 +326,13 @@ _Ingekochte kamers worden op tijd verkocht; Marketing en Sales krijgen een signa
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 5 | Should | 6 | Interview I5 | R11 | IN-07 |
+| 5 | Zou moeten hebben | 6 | Interview I5 | R11 | IN-07 |
 
 **Acceptatiecriteria**
 
-1. Given een contract met aantal kamers, Then zie ik gecontracteerd, verkocht, beschikbaar en het bezettingspercentage.
-2. Given de bezetting is onder 50% en de periode begint binnen 8 weken, Then krijgt het contract het signaal “Actie nodig”.
-3. Given de bezetting is precies 50%, Then is er geen signaal.
+1. Stel een contract met aantal kamers, dan zie ik gecontracteerd, verkocht, beschikbaar en het bezettingspercentage.
+2. Stel de bezetting is onder 50% en de periode begint binnen 8 weken, dan krijgt het contract het signaal “Actie nodig”.
+3. Stel de bezetting is precies 50%, dan is er geen signaal.
 
 _Opmerking: Drempel 50% en 8 weken zijn aannames; staan als open vraag bij de opdrachtgever._
 
@@ -342,12 +342,12 @@ _Opmerking: Drempel 50% en 8 weken zijn aannames; staan als open vraag bij de op
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 3 | Should | 6 | Interview I5 · Marketing GP2 | R11 | IN-11, Marketing-team |
+| 3 | Zou moeten hebben | 6 | Interview I5 · Marketing GP2 | R11 | IN-11, Marketing-team |
 
 **Acceptatiecriteria**
 
-1. Given een contract heeft het signaal “Actie nodig”, When ik op “Doorgeven aan verkoop” klik, Then ziet het Marketing-team het contract in hun lijst met de bezetting en periode.
-2. Given het signaal is doorgegeven, Then staat bij het contract wie het wanneer heeft doorgegeven.
+1. Stel een contract heeft het signaal “Actie nodig”, als ik op “Doorgeven aan verkoop” klik, dan ziet het Marketing-team het contract in hun lijst met de bezetting en periode.
+2. Stel het signaal is doorgegeven, dan staat bij het contract wie het wanneer heeft doorgegeven.
 
 _Opmerking: Overstijgende story: afstemmen met het Marketing-team._
 
@@ -361,13 +361,13 @@ _Reisproducten hebben vaste kenmerken, zodat verkoper en klant precies weten wat
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 5 | Should | 7 | GP1 · KP2 · interview I2, I7 | – | IN-07, IN-14 |
+| 5 | Zou moeten hebben | 7 | GP1 · KP2 · interview I2, I7 | – | IN-07, IN-14 |
 
 **Acceptatiecriteria**
 
-1. Given ik maak een reisproduct aan, When ik kamertypes kies, Then kan ik alleen kiezen uit de vaste lijst (geen vrije tekst).
-2. Given ik vink faciliteiten aan (bijv. lange bedden, keukenblok), Then kunnen verkopers daarop filteren.
-3. Given een reisproduct is gekoppeld aan een contract, Then zie ik bij het product de prijs en de annuleringsvoorwaarden van dat contract.
+1. Stel ik maak een reisproduct aan, als ik kamertypes kies, dan kan ik alleen kiezen uit de vaste lijst (geen vrije tekst).
+2. Stel ik vink faciliteiten aan (bijv. lange bedden, keukenblok), dan kunnen verkopers daarop filteren.
+3. Stel een reisproduct is gekoppeld aan een contract, dan zie ik bij het product de prijs en de annuleringsvoorwaarden van dat contract.
 
 _Opmerking: Lost de onduidelijke kamertypes uit beddenbanken op (interview I7)._
 
@@ -377,12 +377,12 @@ _Opmerking: Lost de onduidelijke kamertypes uit beddenbanken op (interview I7)._
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 3 | Should | 7 | GP1 · interview I7 | – | IN-00 |
+| 3 | Zou moeten hebben | 7 | GP1 · interview I7 | – | IN-00 |
 
 **Acceptatiecriteria**
 
-1. Given ik voeg een kamertype toe, Then is het direct te kiezen bij contracten en reisproducten.
-2. Given een kamertype is in gebruik, When ik het wil verwijderen, Then kan dat niet en zie ik waar het gebruikt wordt.
+1. Stel ik voeg een kamertype toe, dan is het direct te kiezen bij contracten en reisproducten.
+2. Stel een kamertype is in gebruik, als ik het wil verwijderen, dan kan dat niet en zie ik waar het gebruikt wordt.
 
 #### IN-15 Voortgang productontwikkeling volgen
 
@@ -390,13 +390,13 @@ _Opmerking: Lost de onduidelijke kamertypes uit beddenbanken op (interview I7)._
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 5 | Should | 7 | KP4 · GP2 | – | IN-13 |
+| 5 | Zou moeten hebben | 7 | KP4 · GP2 | – | IN-13 |
 
 **Acceptatiecriteria**
 
-1. Given een reisproduct heeft een eigenaar en streefdatum, Then staat het in het overzicht met zijn fase.
-2. Given de streefdatum is verstreken en de fase is niet Live, Then is de regel rood gemarkeerd.
-3. Given ik zet een product een fase verder, Then legt het systeem datum en medewerker vast.
+1. Stel een reisproduct heeft een eigenaar en streefdatum, dan staat het in het overzicht met zijn fase.
+2. Stel de streefdatum is verstreken en de fase is niet Live, dan is de regel rood gemarkeerd.
+3. Stel ik zet een product een fase verder, dan legt het systeem datum en medewerker vast.
 
 #### IN-16 Productcatalogus voor andere afdelingen
 
@@ -404,12 +404,12 @@ _Opmerking: Lost de onduidelijke kamertypes uit beddenbanken op (interview I7)._
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 3 | Could | Reserve | KP3 · GP1 | – | IN-13 |
+| 3 | Kan hebben | Reserve | KP3 · GP1 | – | IN-13 |
 
 **Acceptatiecriteria**
 
-1. Given ik ben medewerker Sales of Klantenservice, Then kan ik reisproducten en hun kenmerken bekijken maar niet wijzigen.
-2. Given Inkoop wijzigt een product, Then zie ik de wijziging direct.
+1. Stel ik ben medewerker Sales of Klantenservice, dan kan ik reisproducten en hun kenmerken bekijken maar niet wijzigen.
+2. Stel Inkoop wijzigt een product, dan zie ik de wijziging direct.
 
 _Opmerking: Overstijgende story: afstemmen met Sales en Klantenservice._
 
@@ -419,12 +419,12 @@ _Opmerking: Overstijgende story: afstemmen met Sales en Klantenservice._
 
 | SP | MoSCoW | Sprint | Bron | Risico | Afhankelijk van |
 | --- | --- | --- | --- | --- | --- |
-| 3 | Could | Reserve | Interview I1, I2 | – | IN-15 |
+| 3 | Kan hebben | Reserve | Interview I1, I2 | – | IN-15 |
 
 **Acceptatiecriteria**
 
-1. Given ik maak een productidee aan, Then kan ik één of meer klantwensen met bron (klantpanel, klantenservice, marketing) toevoegen.
-2. Given een klantwens hoort bij meerdere ideeën, Then zie ik bij de wens alle gekoppelde ideeën.
+1. Stel ik maak een productidee aan, dan kan ik één of meer klantwensen met bron (klantpanel, klantenservice, marketing) toevoegen.
+2. Stel een klantwens hoort bij meerdere ideeën, dan zie ik bij de wens alle gekoppelde ideeën.
 
 ## 8. Importeren in Azure DevOps
 
