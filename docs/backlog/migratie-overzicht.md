@@ -12,6 +12,8 @@ De issues van **Sales & Boekingen**, **IT & Innovatie** en de **hele klas** hore
 | IT & Innovatie | #18–#25 | #10, #27–#33 |
 | Hele klas (designsprint, standup) | #11–#17, #33–#36, #38–#45, #56, #57, #73, #74 | #1, #6, #9, #11–#15, #34–#47 |
 
+De test- en lege issues (VoyageVista #1, #27–#32) zijn ook weer geopend; die beheert de klas zelf.
+
 In GroepInkoop blijven alleen de issues van Productontwikkeling & Inkoop en Klantenservice & Support open (epics #2–#5 met hun stories en taken).
 
 ## Wat er is gebeurd
