@@ -2,6 +2,17 @@
 
 Op 29 september 2026 zijn de issues van ons team uit [VoyageVista1/VoyageVista](https://github.com/VoyageVista1/VoyageVista/issues) overgezet naar [GroepInkoop](https://github.com/VoyageVista1/GroepInkoop/issues). **De issues in GroepInkoop zijn vanaf nu de backlog.**
 
+## Correctie 30 september 2026
+
+De issues van **Sales & Boekingen** en **IT & Innovatie** horen niet bij ons team en waren per ongeluk meegekopieerd. De originelen in VoyageVista zijn weer geopend en de kopieën in GroepInkoop zijn gesloten (not planned):
+
+| Team | VoyageVista (heropend) | GroepInkoop (gesloten) |
+| --- | --- | --- |
+| Sales & Boekingen | #4, #5–#10, #26, #67–#72 | #7, #8, #16–#26 |
+| IT & Innovatie | #18–#25 | #10, #27–#33 |
+
+Nog te bepalen: de algemene designsprint-issues (#1, #6, #9, #11–#15, #34–#47 in GroepInkoop). Die zijn niet van één afdeling; afstemmen met de andere groepen wie ze beheert.
+
 ## Wat er is gebeurd
 
 | | Aantal |
