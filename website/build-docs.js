@@ -16,7 +16,6 @@ const DOCS = {
   'docs/figma-board.md': ['figma-board.html', 'FigJam-board', 'Overzicht van het FigJam-board met use cases Inkoop'],
   'docs/interview-analyse.md': ['interview-analyse.html', 'Interviewanalyse', 'Bevindingen uit het interview met de opdrachtgever'],
   'docs/backlog/inkoop-product-backlog.md': ['inkoop-product-backlog.html', 'Product backlog Inkoop', 'User stories, Definition of Ready/Done en sprintdoelen'],
-  'docs/backlog/migratie-overzicht.md': ['migratie-overzicht.html', 'Migratie backlog', 'Overzetten van de issues naar GroepInkoop'],
   'docs/productrisicoanalyse-teststrategie.md': ['productrisicoanalyse-teststrategie.html', 'Risicoanalyse & teststrategie', 'Productrisico’s, risicomatrix en testaanpak'],
 };
 
@@ -39,6 +38,8 @@ function rewriteHref(href, srcRel) {
   const abs = path.normalize(path.join(path.dirname(srcRel), file));
   if (DOCS[abs]) return DOCS[abs][0] + (hash ? '#' + hash : '');
   if (!fs.existsSync(path.join(ROOT, abs))) throw new Error(`Link naar onbekend bestand: ${href} in ${srcRel}`);
+  // Markdown zonder eigen webpagina: naar GitHub (alleen voor teamleden)
+  if (abs.endsWith('.md')) return 'https://github.com/VoyageVista1/GroepInkoop/blob/HEAD/' + abs.split(path.sep).join('/') + (hash ? '#' + hash : '');
   return path.relative('website/docs', abs).split(path.sep).join('/') + (hash ? '#' + hash : '');
 }
 

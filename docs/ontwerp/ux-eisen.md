@@ -1,6 +1,6 @@
 # UX-eisen Productontwikkeling & Inkoop en Klantenservice & Support
 
-**Status:** concept voor de sprintreview van 1 oktober 2026, nog te controleren door het team · **GitHub:** #52 (#159, #160) en #75 (#181, #182, #183) staan nog open · **Bronnen:** FigJam-sectie *Proces* (randgevallen), [interviewanalyse](../interview-analyse.md), [risicoanalyse](../productrisicoanalyse-teststrategie.md), [use cases Klantenservice](use-cases-klantenservice.md)
+**Status:** concept voor de sprintreview van 1 oktober 2026, nog te controleren door het team · **GitHub:** #159 en #181 zijn gesloten; #160, #182 en #183 staan nog open · **Bronnen:** FigJam-sectie *Proces* (randgevallen), [interviewanalyse](../interview-analyse.md), [risicoanalyse](../productrisicoanalyse-teststrategie.md), [use cases Klantenservice](use-cases-klantenservice.md)
 
 Een UX-eis beschrijft wat de gebruiker moet kunnen begrijpen of doen, niet hoe het scherm eruitziet. Elke eis is terug te voeren op een gebruikersprobleem, een toegankelijkheidsrichtlijn (WCAG 2.2 AA) of een projectbesluit, en is te controleren met een schermbeoordeling of een gebruikstaak. Labels, statussen en tijdsnormen leggen we pas definitief vast als de onderliggende regel is bevestigd (zie [scope, open besluiten](scope.md#6-open-besluiten)).
 
