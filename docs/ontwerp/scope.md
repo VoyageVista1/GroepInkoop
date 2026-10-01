@@ -1,6 +1,6 @@
 # Scope Productontwikkeling & Inkoop en Klantenservice & Support
 
-**Stand:** 1 oktober 2026 (sprintreview) · **Bronnen:** FigJam-board (sectie *Scope Productontwikkeling & Inkoop* en *Proces*), [interviewanalyse](../interview-analyse.md), [conceptueel ERD](erd-conceptueel.md), [product backlog](../backlog/inkoop-product-backlog.md) · **GitHub:** #48 en #69 (afgerond)
+**Stand:** 1 oktober 2026 (sprintreview) · **Bronnen:** FigJam-board (sectie *Scope Productontwikkeling & Inkoop* en *Proces*), [interviewanalyse](../interview-analyse.md), [ERD](erd.md), [product backlog](../backlog/inkoop-product-backlog.md) · **GitHub:** #48 en #69 (afgerond)
 
 Dit document legt vast welk probleem we oplossen, voor wie, wat in de eerste versie zit en waar ons werk ophoudt. Use cases, flows en schermen staan in de aparte ontwerpdocumenten.
 

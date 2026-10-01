@@ -73,3 +73,4 @@ a{color:var(--primary);text-underline-offset:3px}
 .figure img{display:block;width:100%;height:auto}
 .mermaid-wrap{overflow-x:auto;margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
 .mermaid-wrap pre.mermaid{margin:0;background:none;padding:0;font-size:13px;color:var(--ink)}
+.doc img.fig-img{display:block;width:100%;height:auto;margin:18px 0;border:1px solid var(--line);border-radius:10px;background:#fff}

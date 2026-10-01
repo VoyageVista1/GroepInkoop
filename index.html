@@ -568,6 +568,14 @@ footer a:hover{color:#fff}
   .uc-head,.uc-foot,.uc-extra{padding-left:16px;padding-right:16px}
   .test-strip{grid-template-columns:1fr}
 }
+
+.rel-list{list-style:none;margin:4px 0 0;padding:12px 0 0;border-top:1px solid var(--line);display:grid;gap:6px;font-size:13px;color:var(--muted)}
+.rel-list li{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline}
+.rel-list b{color:var(--ink);font-weight:600}
+.rel-list em{font-style:normal;margin-left:auto;font-variant-numeric:tabular-nums;font-size:12px;font-weight:600;color:var(--primary);background:var(--primary-soft);padding:1px 7px;border-radius:5px}
+.erd-ks .rel-list em{color:var(--accent);background:var(--accent-soft)}
+.erd-figs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:28px;align-items:start}
+@media (max-width:720px){.erd-figs{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="no-js">
@@ -648,7 +656,7 @@ footer a:hover{color:#fff}
     <div>
       <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Sprintreview · 1 oktober 2026 · Team 3 GroepInkoop</span>
       <h1>Eén werkplek voor <em>Inkoop</em> en <em>Klantenservice</em></h1>
-      <p class="lede">Deze sprint hebben we het ontwerp van de werkplek vastgelegd: alle use cases met beschrijvingen en user flows, de hoofdentiteiten van het datamodel, de UX-eisen en een duidelijke scope. Hieronder ziet u per sprintdoel wat er af is, gecontroleerd met de issues op GitHub.</p>
+      <p class="lede">Deze sprint hebben we het ontwerp van de werkplek vastgelegd: alle use cases met beschrijvingen en user flows, de hoofdentiteiten in het ERD, de UX-eisen en een duidelijke scope. Hieronder ziet u per sprintdoel wat er af is, gecontroleerd met de issues op GitHub.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#sprint">Bekijk de sprintdoelen <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn-ghost" href="prototype/index.html">Open het prototype</a>
@@ -701,7 +709,7 @@ footer a:hover{color:#fff}
   <div class="wrap">
     <dl class="stats-grid reveal">
       <div class="stat"><dt class="sr">Use cases</dt><dd style="margin:0"><strong data-count="18">18</strong><span>use cases uitgewerkt: 9 Inkoop en 9 Klantenservice</span></dd></div>
-      <div class="stat"><dt class="sr">Entiteiten</dt><dd style="margin:0"><strong data-count="15">15</strong><span>hoofdentiteiten in het conceptuele ERD</span></dd></div>
+      <div class="stat"><dt class="sr">Entiteiten</dt><dd style="margin:0"><strong data-count="9">9</strong><span>hoofdentiteiten in de ERD’s van beide afdelingen</span></dd></div>
       <div class="stat"><dt class="sr">UX-eisen</dt><dd style="margin:0"><strong data-count="15">15</strong><span>toetsbare UX-eisen, als concept ter controle</span></dd></div>
       <div class="stat"><dt class="sr">Issues gesloten</dt><dd style="margin:0"><strong data-count="28">28</strong><span>ontwerpissues deze sprint gesloten op GitHub</span></dd></div>
     </dl>
@@ -738,8 +746,8 @@ footer a:hover{color:#fff}
           <span class="state st-ok">Gehaald</span>
         </div>
         <ul class="done-list">
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>15 entiteiten met sleutels en kardinaliteiten, voor Inkoop en Klantenservice samen</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Bedrijfsregels in het model, zoals vier-ogenprincipe en einddatum ≥ begindatum</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Twee ERD’s met 9 entiteiten, sleutels en kardinaliteiten: één voor Inkoop, één voor Klantenservice</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>SysteemGebruiker en Reisonderdeel verbinden de twee afdelingen</li>
           <li class="todo"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Volgende stap (sprint 3): alle attributen, logisch ERD en gegevensdefinities</li>
         </ul>
         <div class="goal-meter"><span class="meter"><i style="width:100%"></i></span>2 van 2 issues gesloten · vervolg staat klaar</div>
@@ -837,50 +845,55 @@ footer a:hover{color:#fff}
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow chapter">Doel 2 · Datamodel</span>
-      <h2>Vijftien hoofdentiteiten, één gedeeld model</h2>
-      <p>Het conceptuele ERD bevat alleen wat nodig is om de use cases uit te voeren. Medewerker verbindt de twee afdelingen. Boeking is eigendom van Sales &amp; Boekingen; wij lezen alleen de datums en de reissom.</p>
+      <h2>Negen hoofdentiteiten in twee ERD’s</h2>
+      <p>Eén ERD per afdeling. SysteemGebruiker komt in beide voor, en een ticket van Klantenservice kan verwijzen naar een reisonderdeel van Inkoop. Zo werken beide afdelingen met dezelfde gegevens.</p>
     </div>
 
     <div class="erd reveal" role="group" aria-label="Hoofdentiteiten per afdeling">
       <div class="erd-group">
-        <h3><span>Productontwikkeling &amp; Inkoop</span><span>7</span></h3>
+        <h3><span>Productontwikkeling &amp; Inkoop</span><span>4</span></h3>
         <div class="ents">
-          <div class="ent"><b>LEVERANCIER</b><span class="pk">LeverancierID</span><span>Naam · Type · Land</span></div>
-          <div class="ent"><b>ONDERHANDELING</b><span class="pk">OnderhandelingID</span><span>Status · Inkoopprijs · Deadline</span></div>
-          <div class="ent"><b>CONTRACT</b><span class="pk">ContractID</span><span>Begin- en einddatum · Kamers</span></div>
-          <div class="ent"><b>ANNULERINGSREGEL</b><span class="pk">RegelID</span><span>DagenVoorVertrek · Kosten%</span></div>
-          <div class="ent"><b>REISPRODUCT</b><span class="pk">ReisproductID</span><span>Naam · Bestemming · Versie</span></div>
-          <div class="ent"><b>REISONDERDEEL</b><span class="pk">OnderdeelID</span><span>Soort · Volgorde</span></div>
-          <div class="ent"><b>KAMERTYPE</b><span class="pk">KamertypeID</span><span>Omschrijving (vaste lijst)</span></div>
+          <div class="ent"><b>OntwikkelProject</b><span class="pk">ProjectID</span><span>ProjectNaam · DeadlineLancering · Status</span></div>
+          <div class="ent"><b>Leverancier</b><span class="pk">LeverancierID</span><span>Naam · Type · StatusOnderhandeling</span></div>
+          <div class="ent"><b>Reisonderdeel</b><span class="pk">OnderdeelID</span><span>LeverancierID (FK) · Naam · Inkoopprijs · ActueleBeschikbaarheid</span></div>
+          <div class="ent"><b>Contract</b><span class="pk">ContractID</span><span>LeverancierID (FK) · Startdatum · Einddatum · Status</span></div>
         </div>
+        <ul class="rel-list">
+          <li><b>SysteemGebruiker</b> beheert / voert uit <b>OntwikkelProject</b><em>1 : 0..n</em></li>
+          <li><b>OntwikkelProject</b> bevat <b>Reisonderdeel</b><em>1..n : 1..n</em></li>
+          <li><b>Leverancier</b> levert <b>Reisonderdeel</b><em>1 : 0..n</em></li>
+          <li><b>Leverancier</b> heeft <b>Contract</b><em>1 : 0..n</em></li>
+        </ul>
       </div>
       <div class="erd-mid">
-        <div class="ent"><b>MEDEWERKER</b><span class="pk">MedewerkerID</span><span>Naam · Afdeling · Rol</span></div>
-        <p>Verantwoordelijk voor onderhandelingen en producten, behandelt zaken en keurt voorstellen goed.</p>
+        <div class="ent"><b>SysteemGebruiker</b><span class="pk">GebruikerID</span><span>Naam · Afdeling · Rol</span></div>
+        <p>Gedeeld door beide afdelingen: beheert projecten, krijgt tickets toegewezen en legt contactmomenten vast.</p>
       </div>
       <div class="erd-group erd-ks">
-        <h3><span>Klantenservice &amp; Support</span><span>7</span></h3>
+        <h3><span>Klantenservice &amp; Support</span><span>4</span></h3>
         <div class="ents">
-          <div class="ent"><b>KLANT</b><span class="pk">KlantID</span><span>Naam · Geboortedatum · Email (uniek)</span></div>
-          <div class="ent ext"><b>BOEKING · Sales</b><span class="pk">BoekingID</span><span>Vertrek · Terugkomst · Reissom</span></div>
-          <div class="ent"><b>KLANTZAAK</b><span class="pk">ZaakID</span><span>Categorie · Urgentie · Status</span></div>
-          <div class="ent"><b>CONTACTMOMENT</b><span class="pk">ContactID</span><span>Kanaal · Tijdstip · Samenvatting</span></div>
-          <div class="ent"><b>KLACHT</b><span class="pk">KlachtID</span><span>Bedrag · Voorgesteld/Goedgekeurd door</span></div>
-          <div class="ent"><b>COMPENSATIERICHTLIJN</b><span class="pk">RichtlijnID</span><span>Klachtcategorie · Percentage</span></div>
-          <div class="ent"><b>VERVOLGACTIE</b><span class="pk">ActieID</span><span>Eigenaar · Deadline · Afgerond</span></div>
+          <div class="ent"><b>Klant</b><span class="pk">KlantID</span><span>Voornaam · Achternaam · Email</span></div>
+          <div class="ent"><b>Ticket</b><span class="pk">TicketID</span><span>KlantID · ToegewezenAanID · OnderdeelID (FK) · Prioriteit · Status · SLA_Deadline</span></div>
+          <div class="ent"><b>Contactmoment</b><span class="pk">ContactID</span><span>TicketID · GebruikerID (FK) · Richting · Inhoud · Tijdstip</span></div>
+          <div class="ent"><b>Klanttevredenheid</b><span class="pk">FeedbackID</span><span>TicketID (FK) · Score · Opmerking</span></div>
         </div>
+        <ul class="rel-list">
+          <li><b>Klant</b> dient in <b>Ticket</b><em>1 : 0..n</em></li>
+          <li><b>Ticket</b> wordt toegewezen aan <b>SysteemGebruiker</b><em>0..n : 1</em></li>
+          <li><b>Ticket</b> bevat <b>Contactmoment</b><em>1 : 0..n</em></li>
+          <li><b>Ticket</b> ontvangt <b>Klanttevredenheid</b><em>1 : 0..1</em></li>
+          <li><b>Ticket</b> heeft betrekking op <b>Reisonderdeel</b><em>0..n : 0..1</em></li>
+        </ul>
       </div>
     </div>
 
-    <div class="rules">
-      <div class="rule reveal"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg><span><code>GoedgekeurdDoor ≠ VoorgesteldDoor</code>: niemand keurt zijn eigen compensatie goed.</span></div>
-      <div class="rule reveal"><svg class="icon" aria-hidden="true"><use href="#i-contract"/></svg><span><code>Einddatum ≥ Begindatum</code> en <code>AantalKamers &gt; 0</code> bij elk contract.</span></div>
-      <div class="rule reveal"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg><span>Geen IBAN of paspoortnummer; klant pas verwijderen als alle terugkomdatums voorbij zijn.</span></div>
+    <div class="erd-figs">
+      <figure class="bpmn-fig reveal"><a href="docs/ontwerp/erd-inkoop.webp"><img src="docs/ontwerp/erd-inkoop.webp" width="1461" height="2000" alt="ERD Productontwikkeling en Inkoop met SysteemGebruiker, OntwikkelProject, Leverancier, Reisonderdeel en Contract" loading="lazy"></a><figcaption><span>ERD Productontwikkeling &amp; Inkoop</span><span>Klik om te vergroten</span></figcaption></figure>
+      <figure class="bpmn-fig reveal"><a href="docs/ontwerp/erd-klantenservice.webp"><img src="docs/ontwerp/erd-klantenservice.webp" width="1361" height="2000" alt="ERD Klantenservice en Support met SysteemGebruiker, Klant, Ticket, Contactmoment, Klanttevredenheid en Reisonderdeel" loading="lazy"></a><figcaption><span>ERD Klantenservice &amp; Support</span><span>Klik om te vergroten</span></figcaption></figure>
     </div>
 
     <div class="btn-row">
-      <a class="btn btn-dark" href="website/docs/erd-conceptueel.html">ERD met alle relaties <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      <a class="btn btn-soft" href="docs/ontwerp/erd-conceptueel.png">ERD als afbeelding</a>
+      <a class="btn btn-dark" href="website/docs/erd.html">ERD met toelichting <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
   </div>
 </section>
@@ -1139,11 +1152,11 @@ footer a:hover{color:#fff}
         <p>UC01–UC09 met user flows, en een overzicht van het FigJam-board.</p>
         <span class="d-go">Lees het document <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
       </a>
-      <a class="d-card reveal" href="website/docs/erd-conceptueel.html">
+      <a class="d-card reveal" href="website/docs/erd.html">
         <span class="d-type">Sprint</span>
         <div class="card-ic" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-flow"/></svg></div>
-        <h3>Conceptueel ERD</h3>
-        <p>15 entiteiten, relaties, toelichting en bedrijfsregels.</p>
+        <h3>ERD Inkoop &amp; Klantenservice</h3>
+        <p>9 entiteiten, relaties en aandachtspunten voor sprint 3.</p>
         <span class="d-go">Lees het document <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
       </a>
       <a class="d-card reveal" href="website/docs/ux-eisen.html">
@@ -1229,7 +1242,7 @@ footer a:hover{color:#fff}
       </div>
       <div>
         <h4>Opleveringen</h4>
-        <ul><li><a href="prototype/index.html">Prototype</a></li><li><a href="website/docs/scope.html">Scope</a></li><li><a href="website/docs/use-cases-klantenservice.html">Use cases Klantenservice</a></li><li><a href="website/docs/erd-conceptueel.html">Conceptueel ERD</a></li><li><a href="website/docs/ux-eisen.html">UX-eisen</a></li><li><a href="website/docs/inkoop-product-backlog.html">Backlog</a></li><li><a href="website/docs/productrisicoanalyse-teststrategie.html">Teststrategie</a></li></ul>
+        <ul><li><a href="prototype/index.html">Prototype</a></li><li><a href="website/docs/scope.html">Scope</a></li><li><a href="website/docs/use-cases-klantenservice.html">Use cases Klantenservice</a></li><li><a href="website/docs/erd.html">ERD</a></li><li><a href="website/docs/ux-eisen.html">UX-eisen</a></li><li><a href="website/docs/inkoop-product-backlog.html">Backlog</a></li><li><a href="website/docs/productrisicoanalyse-teststrategie.html">Teststrategie</a></li></ul>
       </div>
       <div>
         <h4>Team <span style="text-transform:none;letter-spacing:0;font-weight:500;opacity:.7">(met toegang)</span></h4>

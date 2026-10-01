@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ERD · VoyageVista Werkplek</title>
+<meta name="description" content="ERD Inkoop en Klantenservice: entiteiten, relaties en aandachtspunten">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b2536'/%3E%3Cpath d='M8 10l8 13 8-13' stroke='%23fb923c' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="doc.css">
+<script id="mermaid-lib" src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>window.mermaid&&mermaid.initialize({startOnLoad:true,theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"neutral"})</script>
+<script>try{var t=localStorage.getItem("vv-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#inhoud">Naar de inhoud</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../../index.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6l7 12 7-12" stroke="#fb923c" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>VoyageVista <span class="muted">Werkplek</span></a>
+    <a class="back" href="../../index.html#documenten">← Terug naar de website</a>
+  </div>
+  <nav class="wrap tabs" aria-label="Documenten"><a href="scope.html">Scope</a><a href="use-cases-klantenservice.html">Use cases Klantenservice</a><a href="erd.html" aria-current="page">ERD</a><a href="ux-eisen.html">UX-eisen</a><a href="figma-board.html">FigJam-board</a><a href="interview-analyse.html">Interviewanalyse</a><a href="inkoop-product-backlog.html">Product backlog Inkoop</a><a href="migratie-overzicht.html">Migratie backlog</a><a href="productrisicoanalyse-teststrategie.html">Risicoanalyse & teststrategie</a></nav>
+</header>
+<div class="wrap layout">
+  <aside class="toc" aria-label="Inhoud van dit document"><strong>Op deze pagina</strong><a href="#1-erd-productontwikkeling--inkoop">1. ERD Productontwikkeling &amp; Inkoop</a><a href="#2-erd-klantenservice--support">2. ERD Klantenservice &amp; Support</a><a href="#3-waarom-deze-entiteiten">3. Waarom deze entiteiten</a><a href="#4-aandachtspunten-voor-het-logisch-erd-sprint-3">4. Aandachtspunten voor het logisch ERD (sprint 3)</a></aside>
+  <main id="inhoud" class="doc"><h1 id="erd-productontwikkeling--inkoop-en-klantenservice--support">ERD Productontwikkeling &amp; Inkoop en Klantenservice &amp; Support</h1>
+<p><strong>Stand:</strong> 1 oktober 2026 (sprintreview) · <strong>GitHub:</strong> #158 en #178 (hoofdentiteiten, afgerond) · <strong>Vervolg:</strong> #156, #157, #179, #180</p>
+<p>Het datamodel van Team 3 bestaat uit twee ERD’s, één per afdeling. <strong>SysteemGebruiker</strong> komt in beide voor, en een ticket van Klantenservice kan verwijzen naar een <strong>Reisonderdeel</strong> van Inkoop. Samen zijn het negen entiteiten.</p>
+<h2 id="1-erd-productontwikkeling--inkoop">1. ERD Productontwikkeling &amp; Inkoop</h2>
+<p><a href="../../docs/ontwerp/erd-inkoop.webp"><img class="fig-img" src="../../docs/ontwerp/erd-inkoop.webp" alt="ERD Productontwikkeling &amp; Inkoop" loading="lazy"></a></p>
+<div class="mermaid-wrap"><pre class="mermaid">erDiagram
+    SysteemGebruiker ||--o{ OntwikkelProject : "beheert / voert uit"
+    OntwikkelProject }|--|{ Reisonderdeel : "bevat"
+    Leverancier ||--o{ Reisonderdeel : "levert"
+    Leverancier ||--o{ Contract : "heeft"
+
+    SysteemGebruiker {
+        int GebruikerID PK
+        string Naam
+        string Afdeling
+        string Rol
+    }
+    OntwikkelProject {
+        int ProjectID PK
+        string ProjectNaam
+        string DeadlineLancering
+        string Status
+    }
+    Leverancier {
+        int LeverancierID PK
+        string Naam
+        string Type
+        string StatusOnderhandeling
+    }
+    Reisonderdeel {
+        int OnderdeelID PK
+        int LeverancierID FK
+        string Naam
+        float Inkoopprijs
+        int ActueleBeschikbaarheid
+    }
+    Contract {
+        int ContractID PK
+        int LeverancierID FK
+        string Startdatum
+        string Einddatum
+        string Status
+    }</pre></div>
+<div class="table"><table><thead><tr>
+<th>Relatie</th>
+<th>Kardinaliteit</th>
+<th>Betekenis</th>
+</tr>
+</thead><tbody><tr>
+<td>SysteemGebruiker – OntwikkelProject</td>
+<td>1 : 0..n</td>
+<td>Een gebruiker beheert of voert nul of meer ontwikkelprojecten uit.</td>
+</tr>
+<tr>
+<td>OntwikkelProject – Reisonderdeel</td>
+<td>1..n : 1..n</td>
+<td>Een project bevat één of meer reisonderdelen; een reisonderdeel kan in meerdere projecten zitten.</td>
+</tr>
+<tr>
+<td>Leverancier – Reisonderdeel</td>
+<td>1 : 0..n</td>
+<td>Een leverancier levert nul of meer reisonderdelen.</td>
+</tr>
+<tr>
+<td>Leverancier – Contract</td>
+<td>1 : 0..n</td>
+<td>Een leverancier heeft nul of meer contracten.</td>
+</tr>
+</tbody></table></div>
+<h2 id="2-erd-klantenservice--support">2. ERD Klantenservice &amp; Support</h2>
+<p><a href="../../docs/ontwerp/erd-klantenservice.webp"><img class="fig-img" src="../../docs/ontwerp/erd-klantenservice.webp" alt="ERD Klantenservice &amp; Support" loading="lazy"></a></p>
+<div class="mermaid-wrap"><pre class="mermaid">erDiagram
+    SysteemGebruiker ||--o{ Ticket : "wordt toegewezen aan"
+    Klant ||--o{ Ticket : "dient in"
+    SysteemGebruiker ||--o{ Contactmoment : "reageert via"
+    Ticket ||--o{ Contactmoment : "bevat"
+    Ticket ||--o| Klanttevredenheid : "ontvangt"
+    Ticket }o--o| Reisonderdeel : "heeft betrekking op"
+
+    SysteemGebruiker {
+        int GebruikerID PK
+        string Naam
+        string Afdeling
+        string Rol
+    }
+    Klant {
+        int KlantID PK
+        string Voornaam
+        string Achternaam
+        string Email
+    }
+    Ticket {
+        int TicketID PK
+        int KlantID FK
+        int ToegewezenAanID FK
+        int OnderdeelID FK
+        string Prioriteit
+        string Status
+        datetime SLA_Deadline
+    }
+    Contactmoment {
+        int ContactID PK
+        int TicketID FK
+        int GebruikerID FK
+        string Richting
+        string Inhoud
+        datetime Tijdstip
+    }
+    Klanttevredenheid {
+        int FeedbackID PK
+        int TicketID FK
+        int Score
+        string Opmerking
+    }
+    Reisonderdeel {
+        int OnderdeelID PK
+    }</pre></div>
+<div class="table"><table><thead><tr>
+<th>Relatie</th>
+<th>Kardinaliteit</th>
+<th>Betekenis</th>
+</tr>
+</thead><tbody><tr>
+<td>Klant – Ticket</td>
+<td>1 : 0..n</td>
+<td>Een klant dient nul of meer tickets in (vraag of klacht).</td>
+</tr>
+<tr>
+<td>SysteemGebruiker – Ticket</td>
+<td>1 : 0..n</td>
+<td>Een ticket wordt toegewezen aan één medewerker.</td>
+</tr>
+<tr>
+<td>Ticket – Contactmoment</td>
+<td>1 : 0..n</td>
+<td>Alle contacten over een ticket staan bij elkaar.</td>
+</tr>
+<tr>
+<td>SysteemGebruiker – Contactmoment</td>
+<td>1 : 0..n</td>
+<td>Vastgelegd wie heeft gereageerd.</td>
+</tr>
+<tr>
+<td>Ticket – Klanttevredenheid</td>
+<td>1 : 0..1</td>
+<td>Na afhandeling kan de klant één beoordeling geven.</td>
+</tr>
+<tr>
+<td>Ticket – Reisonderdeel</td>
+<td>0..n : 0..1</td>
+<td>Een ticket kan over een reisonderdeel gaan, bijvoorbeeld een hotel.</td>
+</tr>
+</tbody></table></div>
+<h2 id="3-waarom-deze-entiteiten">3. Waarom deze entiteiten</h2>
+<div class="table"><table><thead><tr>
+<th>Entiteit</th>
+<th>Afdeling</th>
+<th>Waarom nodig</th>
+<th>Bron</th>
+</tr>
+</thead><tbody><tr>
+<td>SysteemGebruiker</td>
+<td>Beide</td>
+<td>Wie een project beheert, een ticket behandelt of reageert</td>
+<td>Use cases, interview K5</td>
+</tr>
+<tr>
+<td>OntwikkelProject</td>
+<td>Inkoop</td>
+<td>Voortgang en deadline van een nieuw reisproduct volgen</td>
+<td>UC01, UC09, interview I1</td>
+</tr>
+<tr>
+<td>Leverancier</td>
+<td>Inkoop</td>
+<td>Eén centrale plek voor hotels en andere leveranciers, met de stand van de onderhandeling</td>
+<td>UC04, UC05, UC07, interview I3–I4</td>
+</tr>
+<tr>
+<td>Reisonderdeel</td>
+<td>Inkoop</td>
+<td>Product opgebouwd uit onderdelen van leveranciers, met prijs en beschikbaarheid</td>
+<td>UC01, interview I5, I7</td>
+</tr>
+<tr>
+<td>Contract</td>
+<td>Inkoop</td>
+<td>Looptijd en status van afspraken met een leverancier</td>
+<td>UC08, UC09</td>
+</tr>
+<tr>
+<td>Klant</td>
+<td>Klantenservice</td>
+<td>Klant uniek terugvinden, op e-mailadres</td>
+<td>UC-K02, interview K1</td>
+</tr>
+<tr>
+<td>Ticket</td>
+<td>Klantenservice</td>
+<td>Eén dossier per vraag of klacht, met prioriteit en SLA-deadline</td>
+<td>UC-K04, UC-K05, UC-K06</td>
+</tr>
+<tr>
+<td>Contactmoment</td>
+<td>Klantenservice</td>
+<td>Elk contact gestructureerd vastleggen in plaats van één vrij tekstveld</td>
+<td>UC-K01, UC-K03, interview K3</td>
+</tr>
+<tr>
+<td>Klanttevredenheid</td>
+<td>Klantenservice</td>
+<td>Afhandeling laten beoordelen en trends zien</td>
+<td>UC-K08</td>
+</tr>
+</tbody></table></div>
+<h2 id="4-aandachtspunten-voor-het-logisch-erd-sprint-3">4. Aandachtspunten voor het logisch ERD (sprint 3)</h2>
+<p>Dit zijn suggesties voor de uitwerking in #157 en #179; het team beslist.</p>
+<ul>
+<li><strong>Veel-op-veel tussen OntwikkelProject en Reisonderdeel</strong> wordt in het logisch ERD een koppeltabel (bijvoorbeeld <em>ProjectOnderdeel</em>).</li>
+<li><strong>Datums als datum opslaan:</strong> <code>Contract.Startdatum</code>, <code>Contract.Einddatum</code> en <code>OntwikkelProject.DeadlineLancering</code> staan nu als <em>string</em>. Als <em>date</em> kan het systeem controleren dat de einddatum na de begindatum ligt en een signaal geven bij aflopende contracten (UC09).</li>
+<li><strong>Status van de onderhandeling</strong> staat nu als één veld bij Leverancier. Wil het team eerdere voorstellen bewaren (UC04), dan wordt <em>Onderhandeling</em> een eigen entiteit.</li>
+<li><strong>Klant:</strong> voor UC-K02 (gelijknamige klanten onderscheiden) en de AVG-blokkade zolang een klant op reis is (UC-K09) zijn geboortedatum, telefoon en een koppeling naar de reis nodig. Geen IBAN of paspoortnummer opslaan (interview P1–P2).</li>
+<li><strong>Compensatie bij klachten</strong> (UC-K07, vier-ogenprincipe) heeft nog geen plek: denk aan velden <em>VoorgesteldDoor</em> en <em>GoedgekeurdDoor</em> bij Ticket, of een aparte entiteit.</li>
+<li><strong>SysteemGebruiker</strong> is in beide ERD’s gelijk; houd hem in het gezamenlijke model als één tabel.</li>
+</ul>
+</main>
+</div>
+<footer class="wrap foot">Gegenereerd uit de Markdown-bron in <code>docs/</code> · Team GroepInkoop · casus VoyageVista</footer>
+</body>
+</html>

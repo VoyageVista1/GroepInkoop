@@ -11,7 +11,7 @@ const OUT = path.join(__dirname, 'docs');
 const DOCS = {
   'docs/ontwerp/scope.md': ['scope.html', 'Scope', 'Probleem, eerste versie, buiten scope en open besluiten'],
   'docs/ontwerp/use-cases-klantenservice.md': ['use-cases-klantenservice.html', 'Use cases Klantenservice', 'Use-casebeschrijvingen en user flows UC-K01 t/m UC-K09'],
-  'docs/ontwerp/erd-conceptueel.md': ['erd-conceptueel.html', 'Conceptueel ERD', 'Hoofdentiteiten, relaties en bedrijfsregels'],
+  'docs/ontwerp/erd.md': ['erd.html', 'ERD', 'ERD Inkoop en Klantenservice: entiteiten, relaties en aandachtspunten'],
   'docs/ontwerp/ux-eisen.md': ['ux-eisen.html', 'UX-eisen', 'Toetsbare UX-eisen per taak (concept)'],
   'docs/figma-board.md': ['figma-board.html', 'FigJam-board', 'Overzicht van het FigJam-board met use cases Inkoop'],
   'docs/interview-analyse.md': ['interview-analyse.html', 'Interviewanalyse', 'Bevindingen uit het interview met de opdrachtgever'],
@@ -94,7 +94,7 @@ for (const [src, [out, title, desc]] of Object.entries(DOCS)) {
     return `<a href="${h}"${t ? ` title="${t}"` : ''}${ext}>${text}</a>`;
   };
   renderer.image = (href, t, text) =>
-    `<a class="figure" href="${rewriteHref(href, src)}"><img src="${rewriteHref(href, src)}" alt="${text || t || ''}" loading="lazy"></a>`;
+    `<img class="fig-img" src="${rewriteHref(href, src)}" alt="${text || t || ''}" loading="lazy">`;
   renderer.code = (code, lang) => lang === 'mermaid'
     ? `<div class="mermaid-wrap"><pre class="mermaid">${code.replace(/</g, '&lt;')}</pre></div>\n`
     : `<pre><code>${code.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</code></pre>\n`;
