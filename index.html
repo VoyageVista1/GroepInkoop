@@ -424,7 +424,8 @@ footer a:hover{color:#fff}
 .iss.c i{background:#8250df}
 .iss.o i{background:#1a7f37}
 .goal-meter{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
-.goal-meter .meter{flex:1;height:8px;border-radius:9px;background:var(--bg-alt);overflow:hidden}
+.goal-meter{flex-wrap:wrap}
+.goal-meter .meter{flex:1 1 120px;height:8px;border-radius:9px;background:var(--bg-alt);overflow:hidden}
 .goal-meter .meter i{display:block;height:100%;border-radius:9px;background:var(--ok)}
 .goal-meter .meter i.part{background:var(--warn)}
 .note{margin-top:28px;display:flex;gap:14px;align-items:flex-start;padding:18px 22px;border-radius:12px;background:var(--surface);border:1px dashed var(--line);color:var(--ink-2);font-size:15px}
@@ -607,6 +608,21 @@ footer a:hover{color:#fff}
 .plan-foot{margin-top:18px;font-size:13.5px;color:var(--muted)}
 @media (max-width:1080px){.s3-cols{grid-template-columns:1fr}.plan-line{grid-template-columns:1fr 1fr}.plan-line::before{display:none}}
 @media (max-width:720px){.s3{padding:22px}.plan{padding:22px}.plan-line{grid-template-columns:1fr}.s3-head{flex-direction:column}}
+
+.uc-cols > .rev{grid-column:1/-1;margin-top:4px}
+.rev{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px 28px}
+.rev-head{display:grid;gap:8px;margin-bottom:18px}
+.rev-head .state{justify-self:start}
+.rev-head h3{font-size:19px;font-weight:650}
+.rev-head p{color:var(--muted);font-size:15px;max-width:62em}
+.rev-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.rev-cols h4{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.rev-list{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.rev-list a{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px;padding:6px 8px;border-radius:8px;text-decoration:none;color:var(--ink-2);font-size:14.5px}
+.rev-list a:hover{background:var(--bg-alt);color:var(--ink)}
+.rev-list b{color:var(--primary);font-size:12.5px;font-variant-numeric:tabular-nums;padding-top:2px}
+.plan-line.plan-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:720px){.rev-cols,.plan-line.plan-3{grid-template-columns:1fr}.rev{padding:22px}}
 </style>
 </head>
 <body class="no-js">
@@ -742,7 +758,7 @@ footer a:hover{color:#fff}
       <div class="stat"><dt class="sr">Use cases</dt><dd style="margin:0"><strong data-count="18">18</strong><span>use cases uitgewerkt: 9 Inkoop en 9 Klantenservice</span></dd></div>
       <div class="stat"><dt class="sr">Entiteiten</dt><dd style="margin:0"><strong data-count="9">9</strong><span>hoofdentiteiten in de ERD’s van beide afdelingen</span></dd></div>
       <div class="stat"><dt class="sr">UX-eisen</dt><dd style="margin:0"><strong data-count="15">15</strong><span>toetsbare UX-eisen, als concept ter controle</span></dd></div>
-      <div class="stat"><dt class="sr">Issues gesloten</dt><dd style="margin:0"><strong data-count="32">32</strong><span>ontwerpissues deze sprint gesloten op GitHub</span></dd></div>
+      <div class="stat"><dt class="sr">Issues gesloten</dt><dd style="margin:0"><strong data-count="29">29</strong><span>ontwerpissues deze sprint gesloten op GitHub</span></dd></div>
     </dl>
   </div>
 </div>
@@ -766,9 +782,10 @@ footer a:hover{color:#fff}
           <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Primaire en secundaire use-casediagrammen voor beide afdelingen, met «include» en «extend»</li>
           <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>18 beschrijvingen: UC01–UC09 Inkoop en UC-K01–UC-K09 Klantenservice</li>
           <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>User flow per use case, van START tot EINDE met beslispunten</li>
+          <li class="todo"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Sprint 3: model herzien naar P1–P10 (Inkoop) en K1–K13 (Klantenservice); daarom staan #49, #50, #70 en #73 weer open</li>
         </ul>
-        <div class="goal-meter"><span class="meter"><i style="width:100%"></i></span>14 van 14 issues gesloten</div>
-        <div class="issues"><span class="issues-label">GitHub</span><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/49" title="Issue 49 (gesloten)"><i aria-hidden="true"></i>#49</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/50" title="Issue 50 (gesloten)"><i aria-hidden="true"></i>#50</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/60" title="Issue 60 (gesloten)"><i aria-hidden="true"></i>#60</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/153" title="Issue 153 (gesloten)"><i aria-hidden="true"></i>#153</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/154" title="Issue 154 (gesloten)"><i aria-hidden="true"></i>#154</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/61" title="Issue 61 (gesloten)"><i aria-hidden="true"></i>#61</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/155" title="Issue 155 (gesloten)"><i aria-hidden="true"></i>#155</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/70" title="Issue 70 (gesloten)"><i aria-hidden="true"></i>#70</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/73" title="Issue 73 (gesloten)"><i aria-hidden="true"></i>#73</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/173" title="Issue 173 (gesloten)"><i aria-hidden="true"></i>#173</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/174" title="Issue 174 (gesloten)"><i aria-hidden="true"></i>#174</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/175" title="Issue 175 (gesloten)"><i aria-hidden="true"></i>#175</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/176" title="Issue 176 (gesloten)"><i aria-hidden="true"></i>#176</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/177" title="Issue 177 (gesloten)"><i aria-hidden="true"></i>#177</a></div>
+        <div class="goal-meter"><span class="meter"><i style="width:100%"></i></span>10 van 10 taken gesloten · 4 hoofdissues heropend voor herziening</div>
+        <div class="issues"><span class="issues-label">GitHub</span><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/60" title="Issue 60 (gesloten)"><i aria-hidden="true"></i>#60</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/153" title="Issue 153 (gesloten)"><i aria-hidden="true"></i>#153</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/154" title="Issue 154 (gesloten)"><i aria-hidden="true"></i>#154</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/61" title="Issue 61 (gesloten)"><i aria-hidden="true"></i>#61</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/155" title="Issue 155 (gesloten)"><i aria-hidden="true"></i>#155</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/173" title="Issue 173 (gesloten)"><i aria-hidden="true"></i>#173</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/174" title="Issue 174 (gesloten)"><i aria-hidden="true"></i>#174</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/175" title="Issue 175 (gesloten)"><i aria-hidden="true"></i>#175</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/176" title="Issue 176 (gesloten)"><i aria-hidden="true"></i>#176</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/177" title="Issue 177 (gesloten)"><i aria-hidden="true"></i>#177</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/49" title="Issue 49 (open)"><i aria-hidden="true"></i>#49</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/50" title="Issue 50 (open)"><i aria-hidden="true"></i>#50</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/70" title="Issue 70 (open)"><i aria-hidden="true"></i>#70</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/73" title="Issue 73 (open)"><i aria-hidden="true"></i>#73</a></div>
       </article>
 
       <article class="goal reveal">
@@ -819,7 +836,7 @@ footer a:hover{color:#fff}
 
     <div class="note reveal">
       <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
-      <div><strong>Na te lopen op GitHub.</strong> <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/71" title="Issue 71 (open)"><i aria-hidden="true"></i>#71</a> <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/72" title="Issue 72 (open)"><i aria-hidden="true"></i>#72</a> <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/151" title="Issue 151 (open)"><i aria-hidden="true"></i>#151</a> <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/152" title="Issue 152 (open)"><i aria-hidden="true"></i>#152</a> staan nog open, maar dat werk is af: de taken eronder zijn gesloten en de documenten staan in de repository. Ook <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/166" title="Issue 166 (open)"><i aria-hidden="true"></i>#166</a> BPMN-hoofdproces Inkoop staat open, terwijl het model hieronder klaar is. Kan dicht na akkoord van de Product Owner.</div>
+      <div><strong>Na te lopen op GitHub.</strong> <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/71" title="Issue 71 (open)"><i aria-hidden="true"></i>#71</a> <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/72" title="Issue 72 (open)"><i aria-hidden="true"></i>#72</a> <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/151" title="Issue 151 (open)"><i aria-hidden="true"></i>#151</a> <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/152" title="Issue 152 (open)"><i aria-hidden="true"></i>#152</a> staan nog open, maar dat werk is af: de taken eronder zijn gesloten. <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/166" title="Issue 166 (open)"><i aria-hidden="true"></i>#166</a> BPMN-hoofdproces Inkoop staat open, terwijl het model hieronder klaar is. Kan dicht na akkoord van de Product Owner.</div>
     </div>
   </div>
 </section>
@@ -868,7 +885,15 @@ footer a:hover{color:#fff}
         <p class="uc-extra">Elke beschrijving bevat doel, actor, trigger, pre- en postconditie, hoofdscenario en alternatieve scenario’s.</p>
         <div class="uc-foot"><a href="website/docs/use-cases-klantenservice.html">Alle beschrijvingen en flows <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a href="docs/ontwerp/user-flows-klantenservice.png">User flows als afbeelding <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
       </div>
+    
+    <div class="rev reveal">
+      <div class="rev-head"><span class="state st-info">Sprint 3</span><h3>Herzien use-casemodel</h3><p>We controleren de use cases tegen de casus, het interview, de backlog en het proces. Waar nodig voegen we ze samen of hernoemen we ze, en we vullen aan wat nog ontbrak. Bij elke use case hoort een user story op GitHub; beschrijvingen en user flows passen we hierop aan.</p></div>
+      <div class="rev-cols">
+        <div><h4>Productontwikkeling &amp; Inkoop · P1–P10</h4><ol class="rev-list"><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/189"><b>P1</b>Productkans onderzoeken</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/190"><b>P2</b>Nieuw reisproduct ontwikkelen</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/191"><b>P3</b>Bestaand reisproduct bijwerken</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/192"><b>P4</b>Leveranciersrelatie beheren</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/193"><b>P5</b>Leveranciersaanbod vastleggen</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/194"><b>P6</b>Onderhandeling opvolgen</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/195"><b>P7</b>Leverancierscontract beheren</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/196"><b>P8</b>Contractverplichtingen bewaken</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/197"><b>P9</b>Productontwikkeling plannen en volgen</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/198"><b>P10</b>Productgegevens beschikbaar stellen</a></li></ol></div>
+        <div><h4>Klantenservice &amp; Support · K1–K13</h4><ol class="rev-list"><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/199"><b>K1</b>Klant en boeking opzoeken</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/200"><b>K2</b>Klantcontact registreren</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/201"><b>K3</b>Klantdossier en contactgeschiedenis raadplegen</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/202"><b>K4</b>Klantzaak beheren</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/203"><b>K5</b>Klantzaken prioriteren en toewijzen</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/204"><b>K6</b>Werkvoorraad en reactietijden bewaken</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/205"><b>K7</b>Klantvraag onderzoeken en beantwoorden</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/206"><b>K8</b>Klacht volgens vaste werkwijze afhandelen</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/207"><b>K9</b>Oplossing of compensatie vastleggen</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/208"><b>K10</b>Klant informeren en zaak opvolgen</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/209"><b>K11</b>Klachten en klantfeedback analyseren</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/210"><b>K12</b>Klantgegevens en bewaartermijnen beheren</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues/211"><b>K13</b>Privacy en gevoelige gegevens bewaken</a></li></ol></div>
+      </div>
     </div>
+</div>
   </div>
 </section>
 
@@ -1100,51 +1125,47 @@ footer a:hover{color:#fff}
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow chapter">Planning</span>
-      <h2>Volgende sprint: ontwerp afronden en beginnen met bouwen</h2>
-      <p>Sprint 3 loopt van 1 tot 22 oktober en duurt drie weken, inclusief de herfstvakantie. We ronden het ontwerp af en bouwen de eerste Inkoop-stories in de low-code tool.</p>
+      <h2>Volgende sprint: use cases herzien en het ontwerp afronden</h2>
+      <p>Sprint 3 loopt van 1 tot 22 oktober en duurt drie weken, inclusief de herfstvakantie. We herzien het use-casemodel en ronden het ontwerp af. De taken komen van ons projectbord “Groep 3 Inkoop &amp; Klantenservice”.</p>
     </div>
 
     <article class="s3 reveal">
       <div class="s3-head">
         <div><span class="s-now">Volgende sprint</span><h3>Sprint 3 <span>1 – 22 oktober 2026</span></h3></div>
-        <div class="s-sp"><strong>13</strong><span>storypoints bouwen</span></div>
+        <div class="s-sp"><strong>24</strong><span>taken op het sprintbord</span></div>
       </div>
-      <p class="s3-goal"><b>Sprintdoel:</b> een productmanager kan een leverancier registreren en na een bezoek de onderhandeling met marge vastleggen, op basis van een goedgekeurd datamodel.</p>
+      <p class="s3-goal"><b>Focus:</b> het use-casemodel herzien en het ontwerp afronden, zodat we daarna de nieuwe user stories kunnen bouwen.</p>
       <div class="s3-cols">
         <div>
-          <h4>Ontwerp afronden</h4>
+          <h4>Taken op het bord · GroepInkoop</h4>
           <ul class="s3-list">
-            <li><span><strong>Logisch ERD</strong> met alle attributen, gegevensdefinities en controle met de klantzaken</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/157" title="Issue 157 (open)"><i aria-hidden="true"></i>#157</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/156" title="Issue 156 (open)"><i aria-hidden="true"></i>#156</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/179" title="Issue 179 (open)"><i aria-hidden="true"></i>#179</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/180" title="Issue 180 (open)"><i aria-hidden="true"></i>#180</a></span></li>
-            <li><span><strong>UX-eisen</strong> controleren en koppelen aan de stories; foutafhandeling per scherm</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/160" title="Issue 160 (open)"><i aria-hidden="true"></i>#160</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/182" title="Issue 182 (open)"><i aria-hidden="true"></i>#182</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/183" title="Issue 183 (open)"><i aria-hidden="true"></i>#183</a></span></li>
-            <li><span><strong>Wireframes</strong> voor medewerkers en klanten</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/161" title="Issue 161 (open)"><i aria-hidden="true"></i>#161</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/162" title="Issue 162 (open)"><i aria-hidden="true"></i>#162</a></span></li>
-            <li><span><strong>Prototype</strong> klikbaar maken en testen met gebruikstaken</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/163" title="Issue 163 (open)"><i aria-hidden="true"></i>#163</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/186" title="Issue 186 (open)"><i aria-hidden="true"></i>#186</a></span></li>
-            <li><span><strong>BPMN</strong> van beide afdelingen afronden</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/165" title="Issue 165 (open)"><i aria-hidden="true"></i>#165</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/166" title="Issue 166 (open)"><i aria-hidden="true"></i>#166</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/168" title="Issue 168 (open)"><i aria-hidden="true"></i>#168</a></span></li>
+            <li><span><strong>Use cases herzien</strong> naar P1–P10 en K1–K13, met beschrijvingen en user flows</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/49" title="Issue 49 (open)"><i aria-hidden="true"></i>#49</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/50" title="Issue 50 (open)"><i aria-hidden="true"></i>#50</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/70" title="Issue 70 (open)"><i aria-hidden="true"></i>#70</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/73" title="Issue 73 (open)"><i aria-hidden="true"></i>#73</a></span></li>
+            <li><span><strong>Logisch ERD</strong> per afdeling, met gegevensdefinities, attributen en relaties</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/156" title="Issue 156 (open)"><i aria-hidden="true"></i>#156</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/157" title="Issue 157 (open)"><i aria-hidden="true"></i>#157</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/179" title="Issue 179 (open)"><i aria-hidden="true"></i>#179</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/180" title="Issue 180 (open)"><i aria-hidden="true"></i>#180</a></span></li>
             <li><span><strong>Afspraken met andere teams</strong> over productgegevens en klantzaken</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/188" title="Issue 188 (open)"><i aria-hidden="true"></i>#188</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/187" title="Issue 187 (open)"><i aria-hidden="true"></i>#187</a></span></li>
+            <li><span><strong>UX-eisen</strong>: interactie en foutafhandeling, controleren en koppelen</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/160" title="Issue 160 (open)"><i aria-hidden="true"></i>#160</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/182" title="Issue 182 (open)"><i aria-hidden="true"></i>#182</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/183" title="Issue 183 (open)"><i aria-hidden="true"></i>#183</a></span></li>
+            <li><span><strong>Wireframes</strong> voor medewerkers en klanten, prototype testen met gebruikstaken</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/161" title="Issue 161 (open)"><i aria-hidden="true"></i>#161</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/162" title="Issue 162 (open)"><i aria-hidden="true"></i>#162</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/186" title="Issue 186 (open)"><i aria-hidden="true"></i>#186</a></span></li>
+            <li><span><strong>BPMN</strong> van beide afdelingen afronden</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/165" title="Issue 165 (open)"><i aria-hidden="true"></i>#165</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/166" title="Issue 166 (open)"><i aria-hidden="true"></i>#166</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/168" title="Issue 168 (open)"><i aria-hidden="true"></i>#168</a></span></li>
           </ul>
         </div>
         <div>
-          <h4>Eerste stories bouwen · Inkoop</h4>
+          <h4>Klaar op de backlog voor de bouw</h4>
           <ul class="s3-list s3-build">
-            <li><span class="uc-id">IN-00</span><span>Datamodel Inkoop opstellen</span><b>3</b></li>
-            <li><span class="uc-id">IN-01</span><span>Leverancier registreren</span><b>3</b></li>
-            <li><span class="uc-id">IN-02</span><span>Leveranciers zoeken en filteren</span><b>2</b></li>
-            <li><span class="uc-id">IN-04</span><span>Bezoek en onderhandeling vastleggen</span><b>5</b></li>
+            <li><span class="uc-id">P1–P10</span><span>10 user stories Inkoop</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/189"><i aria-hidden="true"></i>#189–#198</a></span></li>
+            <li><span class="uc-id">K1–K13</span><span>13 user stories Klantenservice</span><span class="s3-iss"><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/199"><i aria-hidden="true"></i>#199–#211</a></span></li>
           </ul>
-          <p class="s3-note">Planning van de Klantenservice-stories volgt na de refinement met de Product Owner.</p>
+          <p class="s3-note">De stories staan nog niet in sprint 3. Welke we in sprint 4 als eerste bouwen, bepaalt de Product Owner bij de refinement.</p>
         </div>
       </div>
     </article>
 
     <div class="plan reveal">
       <h3>Planning daarna</h3>
-      <ol class="plan-line">
-        <li><b>Sprint 4</b><span>22 – 29 okt</span><p>Overzicht van alle onderhandelingen; wijzigingen aan leveranciers herleidbaar.</p></li>
-        <li><b>Sprint 5</b><span>12 – 19 nov</span><p>Contracten vastleggen en zien welke binnenkort aflopen.</p></li>
-        <li><b>Sprint 6</b><span>19 nov – 3 dec</span><p>Annuleringsvoorwaarden en bezetting; lage bezetting naar Marketing en Sales.</p></li>
-        <li><b>Sprint 7</b><span>3 – 17 dec</span><p>Vaste kenmerken voor reisproducten en voortgang van productontwikkeling.</p></li>
+      <ol class="plan-line plan-3">
+        <li><b>Sprint 3</b><span>1 – 22 okt</span><p>Use cases herzien en het ontwerp afronden: ERD, UX-eisen, wireframes en BPMN.</p></li>
+        <li><b>Sprint 4 – 7</b><span>22 okt – 17 dec</span><p>Bouwen van de user stories P1–P10 en K1–K13, belangrijkste eerst.</p></li>
         <li class="muted-step"><b>Januari</b><span>sprint 8</span><p>Gereserveerd voor herkansing, niet gepland.</p></li>
       </ol>
-      <p class="plan-foot">Volgorde uit de <a href="website/docs/inkoop-product-backlog.html#6-releaseplanning-en-sprintdoelen">product backlog Inkoop</a>; de Product Owner bevestigt die met de opdrachtgever.</p>
+      <p class="plan-foot">Sprintdata uit de <a href="website/docs/inkoop-product-backlog.html#6-releaseplanning-en-sprintdoelen">product backlog</a>. De verdeling van de stories over sprint 4 tot en met 7 volgt na de refinement.</p>
     </div>
   </div>
 </section>
@@ -1264,7 +1285,7 @@ footer a:hover{color:#fff}
         <span class="d-type">Issues</span>
         <div class="card-ic green"><svg class="icon" aria-hidden="true"><use href="#i-git"/></svg></div>
         <div style="flex:1"><h3>Backlog op GitHub</h3>
-        <p>188 issues op 1 oktober: 113 open en 75 gesloten, met epics, user stories en taken als sub-issues. Alleen voor teamleden met toegang tot de repository.</p></div>
+        <p>211 issues op 1 oktober: 139 open en 72 gesloten, met epics, user stories en taken als sub-issues. Alleen voor teamleden met toegang tot de repository.</p></div>
         <span class="d-go">Naar de issues <svg class="icon" aria-hidden="true"><use href="#i-ext"/></svg></span>
       </a>
     </div>
@@ -1276,8 +1297,8 @@ footer a:hover{color:#fff}
   <div class="wrap">
     <div class="cta-box reveal">
       <div>
-        <h2 id="cta-title">Volgende sprint: van ontwerp naar bouwen</h2>
-        <p>In sprint 3 werken we het ERD uit tot alle attributen, ronden we de UX-eisen af met het team en beginnen we met de eerste stories: leveranciers registreren en onderhandelingen vastleggen.</p>
+        <h2 id="cta-title">Volgende sprint: ontwerp afronden, daarna bouwen</h2>
+        <p>In sprint 3 herzien we de use cases, werken we het logisch ERD uit en ronden we UX-eisen, wireframes en BPMN af. Daarna bouwen we de user stories P1–P10 en K1–K13.</p>
       </div>
       <div class="cta-actions">
         <a class="btn btn-primary" href="#roadmap">Bekijk de planning <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
