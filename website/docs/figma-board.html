@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FigJam-board · VoyageVista Werkplek</title>
+<meta name="description" content="Overzicht van het FigJam-board met use cases Inkoop">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b2536'/%3E%3Cpath d='M8 10l8 13 8-13' stroke='%23fb923c' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="doc.css">
+<script>try{var t=localStorage.getItem("vv-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#inhoud">Naar de inhoud</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../../index.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6l7 12 7-12" stroke="#fb923c" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>VoyageVista <span class="muted">Werkplek</span></a>
+    <a class="back" href="../../index.html#documenten">← Terug naar de website</a>
+  </div>
+  <nav class="wrap tabs" aria-label="Documenten"><a href="scope.html">Scope</a><a href="use-cases-klantenservice.html">Use cases Klantenservice</a><a href="erd-conceptueel.html">Conceptueel ERD</a><a href="ux-eisen.html">UX-eisen</a><a href="figma-board.html" aria-current="page">FigJam-board</a><a href="interview-analyse.html">Interviewanalyse</a><a href="inkoop-product-backlog.html">Product backlog Inkoop</a><a href="migratie-overzicht.html">Migratie backlog</a><a href="productrisicoanalyse-teststrategie.html">Risicoanalyse & teststrategie</a></nav>
+</header>
+<div class="wrap layout">
+  <aside class="toc" aria-label="Inhoud van dit document"><strong>Op deze pagina</strong><a href="#1-indeling-van-het-board">1. Indeling van het board</a><a href="#2-use-cases-productontwikkeling--inkoop">2. Use cases Productontwikkeling &amp; Inkoop</a><a href="#3-use-cases-klantenservice--support">3. Use cases Klantenservice &amp; Support</a><a href="#4-scope-en-gegevens-uit-het-board">4. Scope en gegevens (uit het board)</a><a href="#5-retrospective-sprint-1">5. Retrospective sprint 1</a><a href="#6-verbeterpunten-voor-het-board">6. Verbeterpunten voor het board</a></aside>
+  <main id="inhoud" class="doc"><h1 id="figjam-board-project-agile-board">FigJam-board: Project Agile Board</h1>
+<p><strong>Link:</strong> <a href="https://www.figma.com/board/ManUSFsMrVgktm6UwReajA/Project-Agile-Board?node-id=0-1&p=f&t=Bxb2WEIrRXCM9J36-0" target="_blank" rel="noopener">Project Agile Board (FigJam)</a></p>
+<p>Dit document beschrijft wat er op het FigJam-board staat, zodat de repo en het board naar elkaar verwijzen. Stand: 30 september 2026. Het board zelf blijft de bron; dit is een overzicht plus een lijst met verbeterpunten.</p>
+<hr>
+<h2 id="1-indeling-van-het-board">1. Indeling van het board</h2>
+<div class="table"><table><thead><tr>
+<th>Sectie</th>
+<th>Inhoud</th>
+</tr>
+</thead><tbody><tr>
+<td><strong>Productontwikkeling &amp; Inkoop</strong></td>
+<td>Primaire use cases (actoren Inkoper, Manager, Medewerker), toelichting casus, problemen uit de casus en de uitgewerkte use cases met <code>&lt;&lt;include&gt;&gt;</code>/<code>&lt;&lt;extend&gt;&gt;</code>.</td>
+</tr>
+<tr>
+<td><strong>Klantenservice &amp; Support</strong></td>
+<td>Primaire use cases (Klantenservicemedewerker, Manager) en de uitgewerkte use cases.</td>
+</tr>
+<tr>
+<td><strong>Use case descriptions: Productontwikkeling &amp; inkoop</strong></td>
+<td>Tabellen voor US01–US09: doel, primaire actor, trigger, preconditie, hoofdscenario, postconditie, alternatieve scenario&#39;s.</td>
+</tr>
+<tr>
+<td><strong>User flows productontwikkeling &amp; inkoop</strong></td>
+<td>Activiteitendiagrammen (START → EINDE, met beslisruiten) voor use case 1 t/m 9.</td>
+</tr>
+<tr>
+<td><strong>Scope Productontwikkeling &amp; Inkoop</strong></td>
+<td>Wat we bouwen, welke schermen nodig zijn en welke gegevens een reisproduct en reisonderdeel hebben.</td>
+</tr>
+<tr>
+<td><strong>Proces</strong></td>
+<td>Tabel met randgevallen en het verwachte gedrag van het systeem.</td>
+</tr>
+<tr>
+<td><strong>ERD</strong></td>
+<td>Datamodel (als afbeelding).</td>
+</tr>
+<tr>
+<td><strong>Retrospectives</strong></td>
+<td>Wat ging goed / blijven doen / stoppen / kan beter.</td>
+</tr>
+<tr>
+<td><strong>Interview TUI</strong></td>
+<td>Tekst van de sprintreview van sprint 1 (sprintdoel, rollen, status backlog).</td>
+</tr>
+<tr>
+<td><strong>Kopie Work Area</strong></td>
+<td>Tweede, oudere versie van de primaire use cases Productontwikkeling &amp; Inkoop.</td>
+</tr>
+<tr>
+<td><strong>Literatuurlijst</strong></td>
+<td>Links naar de UML 2.5.1-specificatie (OMG) en een voorbeeldhoofdstuk over use cases (Pearson).</td>
+</tr>
+</tbody></table></div>
+<h2 id="2-use-cases-productontwikkeling--inkoop">2. Use cases Productontwikkeling &amp; Inkoop</h2>
+<div class="table"><table><thead><tr>
+<th>Nr.</th>
+<th>Use case</th>
+<th>Actor</th>
+<th>Kern van de user flow</th>
+</tr>
+</thead><tbody><tr>
+<td>US01</td>
+<td>Nieuw reisproduct aanmaken</td>
+<td>Inkoper</td>
+<td>Formulier invullen → reisonderdelen en optionele gegevens toevoegen → opslaan → velden geldig? → publiceren of als concept opslaan.</td>
+</tr>
+<tr>
+<td>US02</td>
+<td>Reisproduct bijwerken / productinfo wijzigen</td>
+<td>Inkoper</td>
+<td>Productdashboard → zoeken/filteren → product selecteren → aanpassen → velden geldig? → publiceren of als concept opslaan.</td>
+</tr>
+<tr>
+<td>US03</td>
+<td>Reisproduct filteren</td>
+<td>Inkoper</td>
+<td>Productdashboard → zoeken → eventueel filters → product selecteren en bekijken.</td>
+</tr>
+<tr>
+<td>US04</td>
+<td>Onderhandeling met leverancier bijwerken</td>
+<td>Inkoper</td>
+<td>Onderhandelingsdashboard → zoeken/filteren → status invoeren, leverancier koppelen → opslaan → velden geldig? → eventueel escaleren naar een persoon.</td>
+</tr>
+<tr>
+<td>US05</td>
+<td>Leveranciersoverzicht raadplegen</td>
+<td>Inkoper</td>
+<td>Leveranciersdashboard → overzicht en prijsgeschiedenis → filteren → leverancier selecteren → contractstatus → exporteren naar PDF of delen met manager.</td>
+</tr>
+<tr>
+<td>US06</td>
+<td>Productinfo raadplegen door andere afdeling</td>
+<td>Medewerker andere afdeling</td>
+<td>Productdashboard → zoeken/filteren → informatie bekijken → feedback geven, exporteren naar PDF of als favoriet opslaan.</td>
+</tr>
+<tr>
+<td>US07</td>
+<td>Nieuwe leverancier registreren</td>
+<td>Inkoper / medewerker P&amp;I</td>
+<td>Leveranciersdashboard → &quot;Nieuw&quot; → gegevens invullen → opslaan → gegevens geldig? (verplichte velden, e-mailadres).</td>
+</tr>
+<tr>
+<td>US08</td>
+<td>Contract vastleggen/opvolgen bij leverancier</td>
+<td>Inkoper</td>
+<td>Leverancier zoeken en selecteren → contract aanmaken → gegevens en start-/einddatum invullen → gegevens geldig? → koppelen aan leverancier → versturen naar leverancier.</td>
+</tr>
+<tr>
+<td>US09</td>
+<td>Contractvervaldatum bewaken / deadline monitoren</td>
+<td>Inkoper</td>
+<td>Contractdashboard → contracten ophalen → datums controleren → bijna verlopen? → waarschuwing → contract kiezen → verlengen (datums aanpassen) of onderhandelen (naar US04).</td>
+</tr>
+</tbody></table></div>
+<p>Daarnaast staan in het use-casediagram nog: <em>Dashboard bekijken</em>, <em>Melding ontvangen</em> en <em>Marktonderzoek verwerken</em>. Die hebben (nog) geen beschrijving of user flow.</p>
+<h2 id="3-use-cases-klantenservice--support">3. Use cases Klantenservice &amp; Support</h2>
+<p>Klantcontact registreren · Klantgeschiedenis/klacht raadplegen · Openstaande zaken prioriteren en verdelen · Klantvraag beantwoorden · Klacht behandelen · Terugkerende klantproblemen onderzoeken · Vergoedingsvoorstel controleren · Klantgegevens verwijderen (AVG) · Klant zoeken op e-mailadres.</p>
+<p>Deze sluiten aan op de interviewbevindingen K1–K11 en P1–P5 in <a href="interview-analyse.html">interview-analyse.md</a>.</p>
+<h2 id="4-scope-en-gegevens-uit-het-board">4. Scope en gegevens (uit het board)</h2>
+<p><strong>Schermen:</strong> reisproducten-overzicht (zoekveld, lijst met naam en bestemming, knop &quot;Nieuw reisproduct&quot;), reisproduct aanmaken/bewerken (velden, lijst met reisonderdelen, Opslaan/Annuleren) en reisproduct bekijken (knop Bewerken, terug naar overzicht).</p>
+<p><strong>Reisproduct:</strong> productnummer (automatisch, uniek, niet aanpasbaar), productnaam (verplicht), bestemming (verplicht), omschrijving (optioneel), reisonderdelen (0..n), laatst gewijzigd (automatisch), versienummer (automatisch, tegen ongemerkt overschrijven).</p>
+<p><strong>Reisonderdeel:</strong> onderdeelnummer (automatisch, uniek), soort (accommodatie, vervoer of activiteit), naam (verplicht), omschrijving (optioneel), bijbehorend reisproduct (automatisch gekoppeld).</p>
+<p><strong>Randgevallen (sectie Proces):</strong> verplicht veld ontbreekt, onvolledig onderdeel, annuleren bij aanmaken of bewerken, geen zoekresultaten, opslaan mislukt, gelijktijdige wijziging door een collega, geen toegang (ook bij direct openen van de pagina of de opslagactie) en een productnummer dat niet bestaat. Deze sluiten aan op de teststrategie in <a href="productrisicoanalyse-teststrategie.html">productrisicoanalyse-teststrategie.md</a>.</p>
+<h2 id="5-retrospective-sprint-1">5. Retrospective sprint 1</h2>
+<ul>
+<li>Echt vaste contactmomenten aan het begin van elke projectdag (daily stand-up).</li>
+<li>De communicatie via Discord werkt niet goed.</li>
+<li>Meer contact met de andere teams in onze groep.</li>
+<li>Een beter overzicht van de backlog maken.</li>
+</ul>
+<hr>
+<h2 id="6-verbeterpunten-voor-het-board">6. Verbeterpunten voor het board</h2>
+<p>Gevonden bij het doorlezen. Handig om voor de volgende review op te pakken.</p>
+<p><strong>Nummering en consistentie</strong></p>
+<ul>
+<li>De wireframe-lijst (sectie &quot;Toelichting Casus&quot;) gebruikt een andere nummering dan de use case descriptions: <em>Contractafspraken (UC06)</em> en <em>Productontwikkeling volgen (UC07)</em>, terwijl US06 = productinfo raadplegen en US07 = leverancier registreren. Ook worden US10 en US13 genoemd, die niet in de beschrijvingen staan. Kies één nummering (US01–US14) en gebruik die overal, ook in de GitHub-issues.</li>
+<li>De sprintreview noemt 14 user stories; op het board staan er 9 beschreven. Geef aan waar US10–US14 staan.</li>
+<li>Er zijn twee versies van &quot;Primaire Use Cases – Productontwikkeling &amp; Inkoop&quot; (de versie in <em>Kopie Work Area</em> heeft andere use cases, zoals <em>Productkans onderzoeken</em> en <em>Inkoopvoorstel registreren</em>). Markeer de oude versie als verouderd of verwijder hem.</li>
+</ul>
+<p><strong>Use case descriptions</strong></p>
+<ul>
+<li>De stappen in het hoofdscenario staan bij meerdere use cases in de verkeerde volgorde. Voorbeelden: bij US07 valideert het systeem vóórdat de gebruiker iets invult; bij US02 past de gebruiker velden aan vóórdat het product is geselecteerd; bij US06 wordt feedback gegeven vóór het filteren en selecteren.</li>
+<li>De preconditie is alleen bij US01 ingevuld (&quot;De gebruiker is ingelogd&quot;); bij US02–US09 is die leeg.</li>
+<li>De alternatieve scenario&#39;s lijken verschoven: onder US07 staan stappen over contracten (afspraken, start-/einddatum, koppelen aan leverancier) die bij US08 horen, en onder US08 staat verlengen/heronderhandelen, wat bij US09 hoort. Onder US02 staan stappen over een onderhandeling (hoort bij US04).</li>
+<li>De user flow van US08 eindigt met &quot;Contract versturen naar leverancier&quot;; dat staat niet in de beschrijving.</li>
+<li>Wijzigingsgeschiedenis, AVG en foutafhandeling staan wel in de uitgewerkte use cases en de sectie Proces, maar niet als alternatief scenario in de beschrijvingen.</li>
+</ul>
+<p><strong>User flows</strong></p>
+<ul>
+<li>US09: &quot;Verlengen kiezen&quot; staat twee keer.</li>
+<li>US05: er staat een los label &quot;SS&quot; bij een pijl.</li>
+</ul>
+<p><strong>Typfouten</strong></p>
+<p>BEWAGEN → BEWAKEN (titel use case 9), Leveranciersdasboard → Leveranciersdashboard, selectereb → selecteren, Inkopere → Inkoper, raadplagen → raadplegen, <code>&lt;&lt;incldue&gt;&gt;</code> → <code>&lt;&lt;include&gt;&gt;</code>, Klantenserive → Klantenservice, afdelng → afdeling, &quot;der vervaldatums&quot; → &quot;de vervaldatums&quot;. Ook zijn sommige spaties weggevallen (Onderhandelingbijwerken, Zoekfilterstoepassen, Feedback gevenaan inkoper, Meldingontvangen).</p>
+<p><strong>Structuur</strong></p>
+<ul>
+<li>De sectie &quot;Interview TUI&quot; bevat de tekst van de sprintreview, niet het interview. Hernoem de sectie naar bijvoorbeeld &quot;Sprintreview sprint 1&quot;.</li>
+<li>De sectie &quot;Toelichting Casus&quot; bij Productontwikkeling &amp; Inkoop bevat de lijst met wireframes.</li>
+<li>De secties &quot;Section 1&quot; en &quot;Interview&quot; zijn leeg.</li>
+<li>In de sectie Klantenservice &amp; Support staat een kleine, lege tekstlaag (id <code>60:1078</code>) met een ongepaste laagnaam. Die is op het canvas bijna niet te zien, maar wel in het lagenpaneel. Verwijder hem voordat het board gedeeld of beoordeeld wordt.</li>
+</ul>
+</main>
+</div>
+<footer class="wrap foot">Gegenereerd uit de Markdown-bron in <code>docs/</code> · Team GroepInkoop · casus VoyageVista</footer>
+</body>
+</html>

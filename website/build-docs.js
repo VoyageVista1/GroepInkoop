@@ -9,6 +9,11 @@ const OUT = path.join(__dirname, 'docs');
 
 // bron (t.o.v. repo) -> [uitvoerbestand, paginatitel, korte omschrijving]
 const DOCS = {
+  'docs/ontwerp/scope.md': ['scope.html', 'Scope', 'Probleem, eerste versie, buiten scope en open besluiten'],
+  'docs/ontwerp/use-cases-klantenservice.md': ['use-cases-klantenservice.html', 'Use cases Klantenservice', 'Use-casebeschrijvingen en user flows UC-K01 t/m UC-K09'],
+  'docs/ontwerp/erd-conceptueel.md': ['erd-conceptueel.html', 'Conceptueel ERD', 'Hoofdentiteiten, relaties en bedrijfsregels'],
+  'docs/ontwerp/ux-eisen.md': ['ux-eisen.html', 'UX-eisen', 'Toetsbare UX-eisen per taak (concept)'],
+  'docs/figma-board.md': ['figma-board.html', 'FigJam-board', 'Overzicht van het FigJam-board met use cases Inkoop'],
   'docs/interview-analyse.md': ['interview-analyse.html', 'Interviewanalyse', 'Bevindingen uit het interview met de opdrachtgever'],
   'docs/backlog/inkoop-product-backlog.md': ['inkoop-product-backlog.html', 'Product backlog Inkoop', 'User stories, Definition of Ready/Done en sprintdoelen'],
   'docs/backlog/migratie-overzicht.md': ['migratie-overzicht.html', 'Migratie backlog', 'Overzetten van de issues naar GroepInkoop'],
@@ -37,7 +42,7 @@ function rewriteHref(href, srcRel) {
   return path.relative('website/docs', abs).split(path.sep).join('/') + (hash ? '#' + hash : '');
 }
 
-function page(title, desc, body, toc) {
+function page(title, desc, body, toc, mermaid) {
   const nav = Object.values(DOCS).map(([f, t]) =>
     `<a href="${f}"${t === title ? ' aria-current="page"' : ''}>${t}</a>`).join('');
   return `<!doctype html>
@@ -52,7 +57,7 @@ function page(title, desc, body, toc) {
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b2536'/%3E%3Cpath d='M8 10l8 13 8-13' stroke='%23fb923c' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="doc.css">
-<script>try{var t=localStorage.getItem("vv-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+${mermaid ? '<script id="mermaid-lib" src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>\n<script>window.mermaid&&mermaid.initialize({startOnLoad:true,theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"neutral"})</script>\n' : ''}<script>try{var t=localStorage.getItem("vv-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 </head>
 <body>
 <a class="skip" href="#inhoud">Naar de inhoud</a>
@@ -88,9 +93,14 @@ for (const [src, [out, title, desc]] of Object.entries(DOCS)) {
     const ext = /^https?:/.test(h) ? ' target="_blank" rel="noopener"' : '';
     return `<a href="${h}"${t ? ` title="${t}"` : ''}${ext}>${text}</a>`;
   };
+  renderer.image = (href, t, text) =>
+    `<a class="figure" href="${rewriteHref(href, src)}"><img src="${rewriteHref(href, src)}" alt="${text || t || ''}" loading="lazy"></a>`;
+  renderer.code = (code, lang) => lang === 'mermaid'
+    ? `<div class="mermaid-wrap"><pre class="mermaid">${code.replace(/</g, '&lt;')}</pre></div>\n`
+    : `<pre><code>${code.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</code></pre>\n`;
   renderer.table = (header, body) =>
     `<div class="table"><table><thead>${header}</thead><tbody>${body}</tbody></table></div>\n`;
   const body = marked.parse(md, { renderer, gfm: true });
-  fs.writeFileSync(path.join(OUT, out), page(title, desc, body, toc.join('')));
+  fs.writeFileSync(path.join(OUT, out), page(title, desc, body, toc.join(''), /```mermaid/.test(md)));
   console.log('✓', src, '→', path.join('website/docs', out));
 }

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VoyageVista Werkplek</title>
-<meta name="description" content="Eén werkplek voor Inkoop en Klantenservice van VoyageVista. Van interview tot backlog, proces, prototype en teststrategie – het werk van team GroepInkoop.">
+<meta name="description" content="Sprintreview van Team 3 GroepInkoop: use cases, ERD, UX-eisen, scope en BPMN voor de VoyageVista Werkplek.">
 <meta name="theme-color" content="#0b2536">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -397,6 +397,177 @@ footer a:hover{color:#fff}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
+
+/* ---------- Sprintreview ---------- */
+.review-bar{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin-top:30px;padding:14px 18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#cfe3f1;font-size:14px;max-width:560px}
+.review-bar b{color:#fff}
+.goals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.goal{display:flex;flex-direction:column;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px;box-shadow:var(--shadow-sm)}
+.goal-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.goal-no{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.goal h3{font-size:20px;font-weight:650;letter-spacing:-.01em;margin-top:4px;text-wrap:balance}
+.goal p{color:var(--muted);font-size:15px}
+.state{flex:none;display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:650;padding:5px 11px;border-radius:999px;white-space:nowrap}
+.state::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.st-ok{background:var(--ok-soft);color:var(--ok)}
+.st-part{background:var(--warn-soft);color:var(--warn)}
+.st-info{background:var(--primary-soft);color:var(--primary)}
+.done-list{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.done-list li{display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--ink-2)}
+.done-list .icon{width:19px;height:19px;color:var(--ok);margin-top:2px}
+.done-list li.todo .icon{color:var(--warn)}
+.issues{display:flex;flex-wrap:wrap;gap:6px;padding-top:14px;border-top:1px solid var(--line);margin-top:auto}
+.issues-label{width:100%;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.iss{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;text-decoration:none;padding:4px 9px;border-radius:7px;border:1px solid var(--line);color:var(--ink-2);background:var(--bg);font-variant-numeric:tabular-nums;transition:border-color .15s,color .15s}
+.iss:hover{border-color:var(--primary);color:var(--primary)}
+.iss i{width:8px;height:8px;border-radius:50%;flex:none}
+.iss.c i{background:#8250df}
+.iss.o i{background:#1a7f37}
+.goal-meter{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.goal-meter .meter{flex:1;height:8px;border-radius:9px;background:var(--bg-alt);overflow:hidden}
+.goal-meter .meter i{display:block;height:100%;border-radius:9px;background:var(--ok)}
+.goal-meter .meter i.part{background:var(--warn)}
+.note{margin-top:28px;display:flex;gap:14px;align-items:flex-start;padding:18px 22px;border-radius:12px;background:var(--surface);border:1px dashed var(--line);color:var(--ink-2);font-size:15px}
+.note .icon{color:var(--accent);margin-top:2px}
+.note strong{color:var(--ink)}
+.legend-iss{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--muted)}
+.legend-iss span{display:inline-flex;align-items:center;gap:6px}
+.legend-iss i{width:8px;height:8px;border-radius:50%}
+
+/* Use cases */
+.uc-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.uc-col{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.uc-head{display:flex;align-items:center;gap:14px;padding:20px 24px;border-bottom:1px solid var(--line);background:var(--bg-alt)}
+.uc-head h3{font-size:18px;font-weight:650}
+.uc-head small{display:block;color:var(--muted);font-size:13.5px;font-weight:500;margin-top:2px}
+.uc-head .card-ic{margin:0;width:42px;height:42px}
+.uc-list{list-style:none;margin:0;padding:6px 0}
+.uc-list li{border-top:1px solid var(--line)}
+.uc-list li:first-child{border-top:0}
+.uc-list details summary{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 24px;cursor:pointer;list-style:none;min-height:48px}
+.uc-list details summary::-webkit-details-marker{display:none}
+.uc-list summary:hover{background:var(--bg-alt)}
+.uc-id{font-size:12.5px;font-weight:700;color:var(--primary);font-variant-numeric:tabular-nums}
+.uc-name{font-weight:600;font-size:15px;color:var(--ink)}
+.uc-actor{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.uc-list summary::after{content:"";grid-column:3;display:none}
+.uc-body{padding:0 24px 18px 98px;color:var(--ink-2);font-size:14.5px;display:grid;gap:10px}
+.uc-body .chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;background:var(--bg-alt);border:1px solid var(--line);color:var(--ink-2)}
+.chip.inc{background:var(--primary-soft);border-color:transparent;color:var(--primary)}
+.chip.ext{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
+.uc-foot{display:flex;flex-wrap:wrap;gap:10px 18px;padding:16px 24px;border-top:1px solid var(--line);font-size:14px}
+.uc-foot a{font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px;min-height:32px}
+.uc-foot .icon{width:16px;height:16px}
+.uc-extra{padding:12px 24px;font-size:13.5px;color:var(--muted);border-top:1px solid var(--line)}
+.flowline{font-size:13.5px;color:var(--muted)}
+.flowline b{color:var(--ink-2);font-weight:600}
+
+/* ERD */
+.erd{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:stretch}
+.erd-group{border-radius:var(--r);padding:20px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:12px}
+.erd-group h3{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.ents{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.ent{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg);font-size:12.5px}
+.ent b{display:block;padding:7px 10px;font-size:12.5px;letter-spacing:.03em;background:var(--primary-soft);color:var(--primary)}
+.erd-ks .ent b{background:var(--accent-soft);color:var(--accent)}
+.ent span{display:block;padding:2px 10px;color:var(--muted);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px}
+.ent span:first-of-type{padding-top:6px}.ent span:last-child{padding-bottom:7px}
+.ent span.pk{color:var(--ink);font-weight:600}
+.ent.ext b{background:var(--bg-alt);color:var(--muted)}
+.erd-mid{display:flex;flex-direction:column;justify-content:center;gap:12px;width:200px}
+.erd-mid .ent b{background:var(--ink);color:var(--bg)}
+.erd-mid p{font-size:13px;color:var(--muted);text-align:center}
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
+.rule{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;font-size:14.5px;color:var(--ink-2)}
+.rule code{font-size:12.5px;background:var(--bg-alt);padding:1px 6px;border-radius:5px;color:var(--ink)}
+.rule .icon{color:var(--primary);width:20px;height:20px;margin-top:1px}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn-soft{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn-soft:hover{border-color:var(--primary);color:var(--primary)}
+
+/* UX-eisen */
+.ux-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.ux{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:12px}
+.ux h3{font-size:17px;font-weight:650}
+.ux ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.ux li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:8px;font-size:14.5px;color:var(--ink-2)}
+.ux li b{font-size:12px;color:var(--primary);font-variant-numeric:tabular-nums;padding-top:2px}
+.test-strip{margin-top:24px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;background:var(--deep);color:var(--deep-ink);border-radius:var(--r);padding:24px 28px}
+.test-strip strong{color:#fff;font-size:17px;display:block;margin-bottom:4px}
+.test-strip p{color:var(--deep-muted);font-size:14.5px}
+.test-tasks{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.test-tasks span{font-size:13px;font-weight:600;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:4px 10px;border-radius:999px}
+.test-strip .card-ic{margin:0;background:rgba(125,211,252,.14);color:#7dd3fc}
+
+/* Scope */
+.scope-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start}
+.scope-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.scope-box h3{font-size:17px;font-weight:650;display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.scope-box h3 .icon{width:20px;height:20px}
+.scope-in h3 .icon{color:var(--ok)}
+.scope-out h3 .icon{color:var(--crit)}
+.scope-list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.scope-list li{display:grid;grid-template-columns:minmax(0,1fr);gap:2px;font-size:14.5px;color:var(--muted);padding-bottom:12px;border-bottom:1px solid var(--line)}
+.scope-list li:last-child{border-bottom:0;padding-bottom:0}
+.scope-list strong{color:var(--ink);font-size:15px}
+.scope-sub{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:20px 0 10px}
+.scope-sub:first-of-type{margin-top:0}
+.open-q{margin-top:24px;background:var(--warn-soft);border-radius:var(--r);padding:22px 26px;color:var(--ink-2)}
+.open-q h3{font-size:16px;font-weight:650;color:var(--ink);margin-bottom:10px;display:flex;gap:10px;align-items:center}
+.open-q h3 .icon{color:var(--warn)}
+.open-q ul{margin:0;padding-left:20px;display:grid;gap:6px;font-size:14.5px}
+
+/* Processen */
+.proc-tabs{margin-bottom:28px}
+.bpmn-fig{margin:0;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm)}
+.bpmn-fig a{display:block}
+.bpmn-fig img{width:100%;height:auto;display:block}
+.bpmn-fig figcaption{padding:12px 18px;font-size:13.5px;color:#51667a;border-top:1px solid #dbe4ec;background:#f6f9fc;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.proc-panel{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:32px;align-items:start}
+.proc-panel[hidden]{display:none}
+.proc-side h3{font-family:var(--f-display);font-size:26px;font-weight:600;margin-bottom:12px}
+.proc-side p{color:var(--muted);font-size:15.5px}
+.proc-steps{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px;counter-reset:ps}
+.proc-steps li{counter-increment:ps;display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;font-size:14.5px;color:var(--ink-2)}
+.proc-steps li::before{content:counter(ps);width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12.5px;font-weight:700;background:var(--primary-soft);color:var(--primary)}
+.proc-steps strong{color:var(--ink)}
+
+/* Team */
+.team{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.member{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:10px}
+.avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:17px;color:#fff;background:linear-gradient(135deg,#0369a1,#0ea5e9)}
+.member:nth-child(2) .avatar{background:linear-gradient(135deg,#c2410c,#fb923c)}
+.member:nth-child(3) .avatar{background:linear-gradient(135deg,#0b2536,#174867)}
+.member:nth-child(4) .avatar{background:linear-gradient(135deg,#15803d,#4ade80)}
+.member:nth-child(5) .avatar{background:linear-gradient(135deg,#7c3aed,#a78bfa)}
+.member h3{font-size:16px;font-weight:650}
+.member .role{font-size:12.5px;font-weight:600;color:var(--accent)}
+.member p{font-size:13.5px;color:var(--muted)}
+.retro{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:24px}
+.retro div{border-radius:12px;padding:16px;font-size:14px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line)}
+.retro b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+
+@media (max-width:1080px){
+  .goals,.uc-cols,.scope-grid,.proc-panel{grid-template-columns:1fr}
+  .erd{grid-template-columns:1fr}
+  .erd-mid{width:auto;flex-direction:row;flex-wrap:wrap;justify-content:flex-start}
+  .erd-mid .ent{min-width:180px}
+  .rules,.ux-grid{grid-template-columns:1fr 1fr}
+  .team{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .retro{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  .goal{padding:22px}
+  .goal-top{flex-direction:column}
+  .ents{grid-template-columns:1fr 1fr}
+  .rules,.ux-grid,.team,.retro{grid-template-columns:1fr}
+  .uc-list details summary{grid-template-columns:54px minmax(0,1fr);padding:12px 16px}
+  .uc-actor{grid-column:2}
+  .uc-body{padding:0 16px 16px 16px}
+  .uc-head,.uc-foot,.uc-extra{padding-left:16px;padding-right:16px}
+  .test-strip{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body class="no-js">
@@ -449,11 +620,12 @@ footer a:hover{color:#fff}
       <span>VoyageVista<small>Werkplek</small></span>
     </a>
     <ul class="nav-links" id="nav-links">
-      <li><a href="#probleem">Probleem</a></li>
-      <li><a href="#oplossing">Oplossing</a></li>
-      <li><a href="#proces">Proces</a></li>
-      <li><a href="#kwaliteit">Kwaliteit</a></li>
-      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#sprint">Sprintdoelen</a></li>
+      <li><a href="#usecases">Use cases</a></li>
+      <li><a href="#erd">ERD</a></li>
+      <li><a href="#ux">UX-eisen</a></li>
+      <li><a href="#scope">Scope</a></li>
+      <li><a href="#proces">BPMN</a></li>
       <li><a href="#documenten">Documenten</a></li>
     </ul>
     <div class="nav-actions">
@@ -474,16 +646,17 @@ footer a:hover{color:#fff}
   <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Team GroepInkoop · casus VoyageVista</span>
+      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Sprintreview · 1 oktober 2026 · Team 3 GroepInkoop</span>
       <h1>Eén werkplek voor <em>Inkoop</em> en <em>Klantenservice</em></h1>
-      <p class="lede">Medewerkers van VoyageVista werken nu met zo’n dertig systemen die niet met elkaar praten. Wij ontwerpen één plek waar leveranciers, contracten, klanten en klachten samenkomen, zodat iedereen hetzelfde verhaal vertelt.</p>
+      <p class="lede">Deze sprint hebben we het ontwerp van de werkplek vastgelegd: alle use cases met beschrijvingen en user flows, de hoofdentiteiten van het datamodel, de UX-eisen en een duidelijke scope. Hieronder ziet u per sprintdoel wat er af is, gecontroleerd met de issues op GitHub.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="prototype/index.html">Bekijk het prototype <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        <a class="btn btn-ghost" href="#probleem">Lees het verhaal</a>
+        <a class="btn btn-primary" href="#sprint">Bekijk de sprintdoelen <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="prototype/index.html">Open het prototype</a>
       </div>
-      <div class="hero-meta">
-        <span><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg>Gebaseerd op interview opdrachtgever</span>
-        <span><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>AVG als harde eis</span>
+      <div class="review-bar">
+        <span><b>3 van 4</b> sprintdoelen gehaald</span>
+        <span><b>UX-eisen</b> als concept klaar</span>
+        <span><b>+ 3</b> BPMN-modellen</span>
       </div>
     </div>
 
@@ -527,160 +700,317 @@ footer a:hover{color:#fff}
 <div class="stats">
   <div class="wrap">
     <dl class="stats-grid reveal">
-      <div class="stat"><dt class="sr">Systemen</dt><dd style="margin:0"><strong data-count="30">30</strong><span>systemen, waarvan zo’n tien per dag in gebruik</span></dd></div>
-      <div class="stat"><dt class="sr">Servicevragen</dt><dd style="margin:0"><strong><span data-count="50">50</span><sup>%</sup></strong><span>van het klantcontact is een vraag die de klant zelf kan regelen</span></dd></div>
-      <div class="stat"><dt class="sr">Issues</dt><dd style="margin:0"><strong data-count="146">146</strong><span>issues op de backlog, met acceptatiecriteria in Stel/Als/Dan</span></dd></div>
-      <div class="stat"><dt class="sr">Risico’s</dt><dd style="margin:0"><strong data-count="15">15</strong><span>productrisico’s geanalyseerd, vijf in klasse A</span></dd></div>
+      <div class="stat"><dt class="sr">Use cases</dt><dd style="margin:0"><strong data-count="18">18</strong><span>use cases uitgewerkt: 9 Inkoop en 9 Klantenservice</span></dd></div>
+      <div class="stat"><dt class="sr">Entiteiten</dt><dd style="margin:0"><strong data-count="15">15</strong><span>hoofdentiteiten in het conceptuele ERD</span></dd></div>
+      <div class="stat"><dt class="sr">UX-eisen</dt><dd style="margin:0"><strong data-count="15">15</strong><span>toetsbare UX-eisen, als concept ter controle</span></dd></div>
+      <div class="stat"><dt class="sr">Issues gesloten</dt><dd style="margin:0"><strong data-count="28">28</strong><span>ontwerpissues deze sprint gesloten op GitHub</span></dd></div>
     </dl>
   </div>
 </div>
 
-<!-- ================= PROBLEEM ================= -->
-<section id="probleem">
+<!-- ================= SPRINTDOELEN ================= -->
+<section id="sprint">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow chapter">Hoofdstuk 1 · Het probleem</span>
-      <h2>Iedereen vertelt een ander verhaal</h2>
-      <p>In het interview met de opdrachtgever kwam steeds hetzelfde terug: gegevens staan verspreid, worden met de hand overgetypt en raken onderweg kwijt. Dat merkt de klant direct.</p>
+      <span class="eyebrow chapter">Sprintdoelen</span>
+      <h2>Wat we deze sprint wilden opleveren</h2>
+      <p>Het sprintdoel van Team 3 op het FigJam-board, met per doel wat er is opgeleverd en hoe de issues op GitHub ervoor staan (stand 1 oktober 2026, 09:30).</p>
     </div>
 
-    <figure class="quote reveal">
-      <svg class="icon" aria-hidden="true"><use href="#i-quote"/></svg>
+    <div class="goals">
+      <article class="goal reveal">
+        <div class="goal-top">
+          <div><span class="goal-no">Doel 1</span><h3>Alle use cases af: primair, secundair, beschrijvingen en user flows</h3></div>
+          <span class="state st-ok">Gehaald</span>
+        </div>
+        <ul class="done-list">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Primaire en secundaire use-casediagrammen voor beide afdelingen, met «include» en «extend»</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>18 beschrijvingen: UC01–UC09 Inkoop en UC-K01–UC-K09 Klantenservice</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>User flow per use case, van START tot EINDE met beslispunten</li>
+        </ul>
+        <div class="goal-meter"><span class="meter"><i style="width:100%"></i></span>14 van 14 issues gesloten</div>
+        <div class="issues"><span class="issues-label">GitHub</span><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/49" title="Issue 49 (gesloten)"><i aria-hidden="true"></i>#49</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/50" title="Issue 50 (gesloten)"><i aria-hidden="true"></i>#50</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/60" title="Issue 60 (gesloten)"><i aria-hidden="true"></i>#60</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/153" title="Issue 153 (gesloten)"><i aria-hidden="true"></i>#153</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/154" title="Issue 154 (gesloten)"><i aria-hidden="true"></i>#154</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/61" title="Issue 61 (gesloten)"><i aria-hidden="true"></i>#61</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/155" title="Issue 155 (gesloten)"><i aria-hidden="true"></i>#155</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/70" title="Issue 70 (gesloten)"><i aria-hidden="true"></i>#70</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/73" title="Issue 73 (gesloten)"><i aria-hidden="true"></i>#73</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/173" title="Issue 173 (gesloten)"><i aria-hidden="true"></i>#173</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/174" title="Issue 174 (gesloten)"><i aria-hidden="true"></i>#174</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/175" title="Issue 175 (gesloten)"><i aria-hidden="true"></i>#175</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/176" title="Issue 176 (gesloten)"><i aria-hidden="true"></i>#176</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/177" title="Issue 177 (gesloten)"><i aria-hidden="true"></i>#177</a></div>
+      </article>
+
+      <article class="goal reveal">
+        <div class="goal-top">
+          <div><span class="goal-no">Doel 2</span><h3>Hoofdentiteiten van het ERD vastleggen</h3></div>
+          <span class="state st-ok">Gehaald</span>
+        </div>
+        <ul class="done-list">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>15 entiteiten met sleutels en kardinaliteiten, voor Inkoop en Klantenservice samen</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Bedrijfsregels in het model, zoals vier-ogenprincipe en einddatum ≥ begindatum</li>
+          <li class="todo"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Volgende stap (sprint 3): alle attributen, logisch ERD en gegevensdefinities</li>
+        </ul>
+        <div class="goal-meter"><span class="meter"><i style="width:100%"></i></span>2 van 2 issues gesloten · vervolg staat klaar</div>
+        <div class="issues"><span class="issues-label">GitHub</span><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/158" title="Issue 158 (gesloten)"><i aria-hidden="true"></i>#158</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/178" title="Issue 178 (gesloten)"><i aria-hidden="true"></i>#178</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/156" title="Issue 156 (open)"><i aria-hidden="true"></i>#156</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/157" title="Issue 157 (open)"><i aria-hidden="true"></i>#157</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/179" title="Issue 179 (open)"><i aria-hidden="true"></i>#179</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/180" title="Issue 180 (open)"><i aria-hidden="true"></i>#180</a></div>
+      </article>
+
+      <article class="goal reveal">
+        <div class="goal-top">
+          <div><span class="goal-no">Doel 3</span><h3>UX-requirements uitwerken</h3></div>
+          <span class="state st-part">Concept klaar</span>
+        </div>
+        <ul class="done-list">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Informatiebehoefte per gebruiker en 15 toetsbare UX-eisen, elk met bron en controle</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Foutafhandeling uit de sectie Proces op het board verwerkt</li>
+          <li class="todo"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>Nog doen: team controleert de lijst en koppelt elke eis aan een story</li>
+        </ul>
+        <div class="goal-meter"><span class="meter"><i class="part" style="width:50%"></i></span>concept · 0 van 5 issues gesloten</div>
+        <div class="issues"><span class="issues-label">GitHub</span><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/159" title="Issue 159 (open)"><i aria-hidden="true"></i>#159</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/160" title="Issue 160 (open)"><i aria-hidden="true"></i>#160</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/181" title="Issue 181 (open)"><i aria-hidden="true"></i>#181</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/182" title="Issue 182 (open)"><i aria-hidden="true"></i>#182</a><a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/183" title="Issue 183 (open)"><i aria-hidden="true"></i>#183</a></div>
+      </article>
+
+      <article class="goal reveal">
+        <div class="goal-top">
+          <div><span class="goal-no">Doel 4</span><h3>Scope duidelijk vastleggen</h3></div>
+          <span class="state st-ok">Gehaald</span>
+        </div>
+        <ul class="done-list">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Probleem, gebruikers en gewenste resultaten per afdeling</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Eerste versie, wat buiten scope valt en afhankelijkheden van andere teams</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>7 open besluiten op een rij voor de opdrachtgever</li>
+        </ul>
+        <div class="goal-meter"><span class="meter"><i style="width:100%"></i></span>9 van 9 issues gesloten</div>
+        <div class="issues"><span class="issues-label">GitHub</span><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/48" title="Issue 48 (gesloten)"><i aria-hidden="true"></i>#48</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/69" title="Issue 69 (gesloten)"><i aria-hidden="true"></i>#69</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/147" title="Issue 147 (gesloten)"><i aria-hidden="true"></i>#147</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/148" title="Issue 148 (gesloten)"><i aria-hidden="true"></i>#148</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/149" title="Issue 149 (gesloten)"><i aria-hidden="true"></i>#149</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/150" title="Issue 150 (gesloten)"><i aria-hidden="true"></i>#150</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/170" title="Issue 170 (gesloten)"><i aria-hidden="true"></i>#170</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/171" title="Issue 171 (gesloten)"><i aria-hidden="true"></i>#171</a><a class="iss c" href="https://github.com/VoyageVista1/GroepInkoop/issues/172" title="Issue 172 (gesloten)"><i aria-hidden="true"></i>#172</a></div>
+      </article>
+    </div>
+
+    <div class="legend-iss"><span><i style="background:#8250df"></i>gesloten</span><span><i style="background:#1a7f37"></i>open</span><span>Issues zijn alleen te openen voor teamleden met toegang tot de repository.</span></div>
+
+    <div class="note reveal">
+      <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
+      <div><strong>Na te lopen op GitHub.</strong> <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/71" title="Issue 71 (open)"><i aria-hidden="true"></i>#71</a> <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/72" title="Issue 72 (open)"><i aria-hidden="true"></i>#72</a> <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/151" title="Issue 151 (open)"><i aria-hidden="true"></i>#151</a> <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/152" title="Issue 152 (open)"><i aria-hidden="true"></i>#152</a> staan nog open, maar dat werk is af: de taken eronder zijn gesloten en de documenten staan in de repository. Ook <a class="iss o" href="https://github.com/VoyageVista1/GroepInkoop/issues/166" title="Issue 166 (open)"><i aria-hidden="true"></i>#166</a> BPMN-hoofdproces Inkoop staat open, terwijl het model hieronder klaar is. Kan dicht na akkoord van de Product Owner.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= USE CASES ================= -->
+<section id="usecases" class="sec-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow chapter">Doel 1 · Use cases</span>
+      <h2>Achttien use cases, elk met beschrijving en user flow</h2>
+      <p>Per afdeling een primair diagram met de doelen van de gebruikers en een secundair diagram met «include» en «extend». Open een use case om de kern van de flow en de belangrijkste uitbreidingen te zien.</p>
+      <p class="legend-iss" style="margin-top:14px"><span class="chip inc">«include»</span><span class="chip ext">«extend»</span><span class="chip">secundaire use case uit het diagram</span></p>
+    </div>
+
+    <div class="uc-cols">
+      <div class="uc-col reveal">
+        <div class="uc-head"><span class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg></span><div><h3>Productontwikkeling &amp; Inkoop</h3><small>Actoren: inkoper, productmedewerker, manager, medewerker andere afdeling</small></div></div>
+        <ul class="uc-list">
+          <li><details><summary><span class="uc-id">UC01</span><span class="uc-name">Nieuw reisproduct aanmaken</span><span class="uc-actor">Inkoper</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> formulier invullen → reisonderdelen en optionele gegevens toevoegen → opslaan → velden geldig? → publiceren of als concept opslaan.</p><div class="chips" aria-label="Secundaire use cases"><span class="chip">Velden valideren</span><span class="chip">Product opslaan</span><span class="chip">Media toevoegen</span><span class="chip">Deadline instellen</span><span class="chip">Leverancier koppelen</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC02</span><span class="uc-name">Reisproduct bijwerken</span><span class="uc-actor">Inkoper</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> productdashboard → zoeken of filteren → product selecteren → aanpassen → velden geldig? → publiceren of als concept opslaan.</p><div class="chips" aria-label="Secundaire use cases"><span class="chip">Product opzoeken</span><span class="chip">Wijzigingsgeschiedenis loggen</span><span class="chip">Prijs aanpassen</span><span class="chip">Andere afdelingen informeren</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC03</span><span class="uc-name">Reisproduct filteren</span><span class="uc-actor">Inkoper</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> productdashboard → zoeken → eventueel filters toepassen → product selecteren en bekijken.</p><div class="chips" aria-label="Secundaire use cases"><span class="chip">Filteren op categorie</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC04</span><span class="uc-name">Onderhandeling met leverancier bijwerken</span><span class="uc-actor">Inkoper</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> onderhandelingsdashboard → zoeken of filteren → status invoeren → opslaan → velden geldig? → eventueel escaleren naar manager.</p><div class="chips" aria-label="Secundaire use cases"><span class="chip">Status invoeren</span><span class="chip">Wijziging opslaan</span><span class="chip">Notitie toevoegen</span><span class="chip">Vervolgafspraak inplannen</span><span class="chip">Escaleren naar manager</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC05</span><span class="uc-name">Leveranciersoverzicht raadplegen</span><span class="uc-actor">Inkoper</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> leveranciersdashboard → overzicht en prijsgeschiedenis → filteren → leverancier selecteren → contractstatus → exporteren of delen met manager.</p><div class="chips" aria-label="Secundaire use cases"><span class="chip">Leveranciers ophalen</span><span class="chip">Prijshistorie tonen</span><span class="chip">Filteren op regio/type</span><span class="chip">Delen met manager</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC06</span><span class="uc-name">Productinfo raadplegen door andere afdeling</span><span class="uc-actor">Medewerker</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> productdashboard → zoeken of filteren → informatie bekijken → feedback geven, exporteren naar PDF of als favoriet opslaan.</p><div class="chips" aria-label="Secundaire use cases"><span class="chip">Details tonen</span><span class="chip">Exporteren naar PDF</span><span class="chip">Feedback geven aan inkoper</span><span class="chip">Favoriet opslaan</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC07</span><span class="uc-name">Nieuwe leverancier registreren</span><span class="uc-actor">Inkoper</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> leveranciersdashboard → “Nieuw” → gegevens invullen → opslaan → gegevens geldig? (verplichte velden, e-mailadres).</p><div class="chips" aria-label="Secundaire use cases"><span class="chip">Velden valideren</span><span class="chip">Leveranciersgegevens wijzigen</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC08</span><span class="uc-name">Contract vastleggen en opvolgen</span><span class="uc-actor">Inkoper</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> leverancier zoeken → contract aanmaken → gegevens en start- en einddatum invullen → gegevens geldig? → koppelen aan leverancier.</p><div class="chips" aria-label="Secundaire use cases"><span class="chip">Contract registreren</span><span class="chip">Contractafspraken raadplegen</span><span class="chip">Contractwijziging vastleggen</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC09</span><span class="uc-name">Contractvervaldatum en deadlines bewaken</span><span class="uc-actor">Inkoper</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> contractdashboard → contracten ophalen → datums controleren → bijna verlopen? → waarschuwing → verlengen of opnieuw onderhandelen (naar UC04).</p><div class="chips" aria-label="Secundaire use cases"><span class="chip">Vervaldatum controleren</span><span class="chip">Verlenging aanvragen</span><span class="chip">Melding bij naderende deadline</span></div></div></details></li>
+        </ul>
+        <p class="uc-extra">Ook in het diagram, zonder eigen beschrijving: Dashboard bekijken, Melding ontvangen, Marktonderzoek verwerken.</p>
+        <div class="uc-foot"><a href="website/docs/figma-board.html#2-use-cases-productontwikkeling--inkoop">Overzicht use cases Inkoop <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a href="https://www.figma.com/board/ManUSFsMrVgktm6UwReajA/Project-Agile-Board">Beschrijvingen en flows op FigJam <svg class="icon" aria-hidden="true"><use href="#i-ext"/></svg></a></div>
+      </div>
+
+      <div class="uc-col reveal">
+        <div class="uc-head"><span class="card-ic orange"><svg class="icon" aria-hidden="true"><use href="#i-headset"/></svg></span><div><h3>Klantenservice &amp; Support</h3><small>Actoren: klantenservicemedewerker, teamleider, After Travel, klant</small></div></div>
+        <ul class="uc-list">
+          <li><details><summary><span class="uc-id">UC-K01</span><span class="uc-name">Klantcontact registreren</span><span class="uc-actor">Medewerker</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> klant zoeken → kanaal, categorie en samenvatting invullen → koppelen aan zaak → opslaan → geldig en geen IBAN of paspoortnummer? → in klanthistorie.</p><div class="chips"><span class="chip inc">«include» Klant zoeken</span><span class="chip ext">«extend» Nieuwe klant aanmaken</span><span class="chip ext">«extend» Koppelen aan bestaande zaak</span><span class="chip ext">«extend» Bijlage toevoegen</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC-K02</span><span class="uc-name">Klant zoeken op e-mailadres</span><span class="uc-actor">Medewerker</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> e-mail, telefoon, naam of boekingsnummer invullen → aantal resultaten? → één klant openen, of kiezen tussen gelijknamigen (Sr./Jr.).</p><div class="chips"><span class="chip">Nieuwe klant bij geen resultaat</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC-K03</span><span class="uc-name">Klantgeschiedenis raadplegen</span><span class="uc-actor">Medewerker</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> klantprofiel openen → tijdlijn met contacten, klachten en boekingen → open vervolgacties bovenaan.</p><div class="chips"><span class="chip ext">«extend» Filters toepassen</span><span class="chip ext">«extend» Klacht openen uit tijdlijn</span><span class="chip ext">«extend» Notitie toevoegen</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC-K04</span><span class="uc-name">Openstaande zaken prioriteren en verdelen</span><span class="uc-actor">Teamleider</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> overzicht op urgentie en ouderdom → klant op reis = Hoog → urgentie beoordelen → behandelaar toewijzen.</p><div class="chips"><span class="chip ext">«extend» Achterstallige zaken filteren</span><span class="chip ext">«extend» Herverdelen</span><span class="chip ext">«extend» Capaciteit inzien</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC-K05</span><span class="uc-name">Klantvraag beantwoorden</span><span class="uc-actor">Medewerker</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> vraag openen → klantgeschiedenis bekijken → antwoord schrijven → versturen en afhandelen → opgeslagen als contactmoment.</p><div class="chips"><span class="chip inc">«include» Klantgeschiedenis raadplegen</span><span class="chip ext">«extend» Info opvragen</span><span class="chip ext">«extend» Antwoordsjabloon</span><span class="chip ext">«extend» Doorzetten naar andere afdeling</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC-K06</span><span class="uc-name">Klacht behandelen</span><span class="uc-actor">Medewerker</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> klacht in behandeling → historie en “zelf gekozen?” → gegrond? → compensatievoorstel → klant akkoord? → afsluiten, of After Travel bij bezwaar.</p><div class="chips"><span class="chip inc">«include» Vergoedingsvoorstel controleren</span><span class="chip ext">«extend» Escaleren naar bestemming</span><span class="chip">Bewijsmateriaal toevoegen</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC-K07</span><span class="uc-name">Vergoedingsvoorstel controleren</span><span class="uc-actor">Medewerker + senior</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> klachttype → richtlijnpercentage × reissom → indienen → een andere medewerker keurt goed of af → vrijgeven aan klant.</p><div class="chips"><span class="chip">Percentage berekenen</span><span class="chip ext">«extend» Percentage aanpassen</span><span class="chip ext">«extend» Vergelijkbare klachten</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC-K08</span><span class="uc-name">Terugkerende klantproblemen onderzoeken</span><span class="uc-actor">Teamleider</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> klachtendashboard → periode kiezen → aantallen per categorie, bestemming en leverancier → verbeteractie met eigenaar en deadline.</p><div class="chips"><span class="chip ext">«extend» Naar andere afdeling sturen</span><span class="chip ext">«extend» Rapport delen met management</span></div></div></details></li>
+          <li><details><summary><span class="uc-id">UC-K09</span><span class="uc-name">Klantgegevens verwijderen (AVG)</span><span class="uc-actor">Medewerker</span></summary><div class="uc-body"><p class="flowline"><b>Flow:</b> reisstatus controleren → bewaartermijn controleren → tonen wat verdwijnt → bevestigen → anonimiseren en loggen. Geblokkeerd zolang de klant op reis is.</p><div class="chips"><span class="chip">Reisstatus controleren</span><span class="chip">Verwijdering loggen</span><span class="chip">Uitzondering vastleggen</span></div></div></details></li>
+        </ul>
+        <p class="uc-extra">Elke beschrijving bevat doel, actor, trigger, pre- en postconditie, hoofdscenario en alternatieve scenario’s.</p>
+        <div class="uc-foot"><a href="website/docs/use-cases-klantenservice.html">Alle beschrijvingen en flows <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a href="docs/ontwerp/user-flows-klantenservice.png">User flows als afbeelding <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ERD ================= -->
+<section id="erd">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow chapter">Doel 2 · Datamodel</span>
+      <h2>Vijftien hoofdentiteiten, één gedeeld model</h2>
+      <p>Het conceptuele ERD bevat alleen wat nodig is om de use cases uit te voeren. Medewerker verbindt de twee afdelingen. Boeking is eigendom van Sales &amp; Boekingen; wij lezen alleen de datums en de reissom.</p>
+    </div>
+
+    <div class="erd reveal" role="group" aria-label="Hoofdentiteiten per afdeling">
+      <div class="erd-group">
+        <h3><span>Productontwikkeling &amp; Inkoop</span><span>7</span></h3>
+        <div class="ents">
+          <div class="ent"><b>LEVERANCIER</b><span class="pk">LeverancierID</span><span>Naam · Type · Land</span></div>
+          <div class="ent"><b>ONDERHANDELING</b><span class="pk">OnderhandelingID</span><span>Status · Inkoopprijs · Deadline</span></div>
+          <div class="ent"><b>CONTRACT</b><span class="pk">ContractID</span><span>Begin- en einddatum · Kamers</span></div>
+          <div class="ent"><b>ANNULERINGSREGEL</b><span class="pk">RegelID</span><span>DagenVoorVertrek · Kosten%</span></div>
+          <div class="ent"><b>REISPRODUCT</b><span class="pk">ReisproductID</span><span>Naam · Bestemming · Versie</span></div>
+          <div class="ent"><b>REISONDERDEEL</b><span class="pk">OnderdeelID</span><span>Soort · Volgorde</span></div>
+          <div class="ent"><b>KAMERTYPE</b><span class="pk">KamertypeID</span><span>Omschrijving (vaste lijst)</span></div>
+        </div>
+      </div>
+      <div class="erd-mid">
+        <div class="ent"><b>MEDEWERKER</b><span class="pk">MedewerkerID</span><span>Naam · Afdeling · Rol</span></div>
+        <p>Verantwoordelijk voor onderhandelingen en producten, behandelt zaken en keurt voorstellen goed.</p>
+      </div>
+      <div class="erd-group erd-ks">
+        <h3><span>Klantenservice &amp; Support</span><span>7</span></h3>
+        <div class="ents">
+          <div class="ent"><b>KLANT</b><span class="pk">KlantID</span><span>Naam · Geboortedatum · Email (uniek)</span></div>
+          <div class="ent ext"><b>BOEKING · Sales</b><span class="pk">BoekingID</span><span>Vertrek · Terugkomst · Reissom</span></div>
+          <div class="ent"><b>KLANTZAAK</b><span class="pk">ZaakID</span><span>Categorie · Urgentie · Status</span></div>
+          <div class="ent"><b>CONTACTMOMENT</b><span class="pk">ContactID</span><span>Kanaal · Tijdstip · Samenvatting</span></div>
+          <div class="ent"><b>KLACHT</b><span class="pk">KlachtID</span><span>Bedrag · Voorgesteld/Goedgekeurd door</span></div>
+          <div class="ent"><b>COMPENSATIERICHTLIJN</b><span class="pk">RichtlijnID</span><span>Klachtcategorie · Percentage</span></div>
+          <div class="ent"><b>VERVOLGACTIE</b><span class="pk">ActieID</span><span>Eigenaar · Deadline · Afgerond</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rules">
+      <div class="rule reveal"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg><span><code>GoedgekeurdDoor ≠ VoorgesteldDoor</code>: niemand keurt zijn eigen compensatie goed.</span></div>
+      <div class="rule reveal"><svg class="icon" aria-hidden="true"><use href="#i-contract"/></svg><span><code>Einddatum ≥ Begindatum</code> en <code>AantalKamers &gt; 0</code> bij elk contract.</span></div>
+      <div class="rule reveal"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg><span>Geen IBAN of paspoortnummer; klant pas verwijderen als alle terugkomdatums voorbij zijn.</span></div>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn btn-dark" href="website/docs/erd-conceptueel.html">ERD met alle relaties <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-soft" href="docs/ontwerp/erd-conceptueel.png">ERD als afbeelding</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UX-EISEN ================= -->
+<section id="ux" class="sec-alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow chapter">Doel 3 · UX-eisen</span>
+      <h2>Wat de gebruiker moet kunnen begrijpen en doen</h2>
+      <p>Vijftien eisen, elk terug te voeren op het interview, een risico of de toegankelijkheidsrichtlijn WCAG 2.2, en te controleren met een schermbeoordeling of gebruikstaak. Dit is een concept: het team controleert de lijst nog (issue #183).</p>
+    </div>
+    <div class="ux-grid">
+      <div class="ux reveal"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg></div><h3>Fouten herstellen</h3><ul><li><b>UX-02</b>Foutmelding per veld; de rest van de invoer blijft staan</li><li><b>UX-03</b>Direct zien of opslaan gelukt of mislukt is</li><li><b>UX-04</b>Waarschuwing als een collega intussen iets heeft gewijzigd</li></ul></div>
+      <div class="ux reveal"><div class="card-ic orange"><svg class="icon" aria-hidden="true"><use href="#i-eye2"/></svg></div><h3>Status en overzicht</h3><ul><li><b>UX-07</b>Status in woorden, met de volgende stap erbij</li><li><b>UX-09</b>Zonder scrollen zien of de klant op reis is</li><li><b>UX-06</b>Zoeken en filteren, ook een nette lege staat</li></ul></div>
+      <div class="ux reveal"><div class="card-ic red"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg></div><h3>Privacy en geld</h3><ul><li><b>UX-10</b>Waarschuwing bij IBAN of paspoortnummer in een tekstveld</li><li><b>UX-11</b>Berekening van de compensatie zichtbaar; eigen voorstel niet goed te keuren</li><li><b>UX-12</b>Vóór verwijderen zien wat er verdwijnt en waarom het soms niet mag</li></ul></div>
+    </div>
+    <div class="test-strip reveal">
+      <span class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
+      <div><strong>Zo toetsen we het: usability-test met 3 gebruikers per sprint</strong><p>Hardop denken op drie vaste taken. Een eis is gehaald als twee van de drie testers de taak zonder hulp afronden. Toetsenbord en contrast (UX-13, UX-14) controleren we apart.</p><div class="test-tasks"><span>Klant zoeken</span><span>Klacht registreren</span><span>Contract vastleggen</span></div></div>
+    </div>
+    <div class="btn-row"><a class="btn btn-dark" href="website/docs/ux-eisen.html">Alle 15 UX-eisen <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+  </div>
+</section>
+
+<!-- ================= SCOPE ================= -->
+<section id="scope">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow chapter">Doel 4 · Scope</span>
+      <h2>Wat we bouwen, en waar ons werk ophoudt</h2>
+      <p>Medewerkers werken nu met zo’n dertig systemen, en de helft van het klantcontact is een vraag die de klant zelf zou kunnen regelen. De eerste versie richt zich op één bron van waarheid voor leveranciers, producten en klantdossiers.</p>
+    </div>
+    <div class="scope-grid">
+      <div class="scope-box scope-in reveal">
+        <h3><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>In de eerste versie</h3>
+        <p class="scope-sub">Productontwikkeling &amp; Inkoop</p>
+        <ul class="scope-list">
+          <li><strong>Reisproducten</strong>Overzicht, aanmaken en bewerken met reisonderdelen; versienummer tegen overschrijven</li>
+          <li><strong>Leveranciers en onderhandelingen</strong>Contactgegevens, status, afspraken en wat nog moet gebeuren</li>
+          <li><strong>Contracten en deadlines</strong>Looptijden, annuleringsregels en signaal bij aflopen</li>
+        </ul>
+        <p class="scope-sub">Klantenservice &amp; Support</p>
+        <ul class="scope-list">
+          <li><strong>Klantdossier</strong>Zoeken, tijdlijn en contact registreren met vaste velden</li>
+          <li><strong>Klachten en compensatie</strong>Urgentie bij klant op reis, voorstel volgens richtlijn, vier-ogenprincipe</li>
+          <li><strong>AVG</strong>Verwijderen op verzoek, geblokkeerd zolang de reis loopt</li>
+        </ul>
+      </div>
       <div>
-        <blockquote>“Als collega A, B en C allemaal iets anders zeggen, snapt de klant er niets meer van. Je hebt één verhaallijn nodig.”</blockquote>
-        <figcaption>Opdrachtgever, senior medewerker reisbureau · interview sprint 2 (vrij weergegeven)</figcaption>
+        <div class="scope-box scope-out reveal">
+          <h3><svg class="icon" aria-hidden="true"><use href="#i-ban"/></svg>Buiten scope</h3>
+          <ul class="scope-list">
+            <li><strong>Boekingen maken en wijzigen</strong>Team Sales &amp; Boekingen; wij lezen alleen datums en reissom</li>
+            <li><strong>Facturatie en uitbetaling</strong>Team Financiën; wij leveren het goedgekeurde bedrag aan</li>
+            <li><strong>Gesprekken automatisch opnemen</strong>Privacy en ondernemingsraad nog open (Won’t, #111)</li>
+            <li><strong>Koppeling met beddenbanken</strong>Integratie valt buiten de eerste versie</li>
+          </ul>
+        </div>
+        <div class="open-q reveal">
+          <h3><svg class="icon" aria-hidden="true"><use href="#i-msg"/></svg>Open besluiten voor de opdrachtgever</h3>
+          <ul>
+            <li>Wie keurt contracten goed, en vanaf welk bedrag?</li>
+            <li>Binnen hoeveel uur moet een klacht met urgentie Hoog opgepakt zijn?</li>
+            <li>Wie mag een compensatievoorstel goedkeuren?</li>
+            <li>Hoe lang na thuiskomst bewaren we klantgegevens?</li>
+          </ul>
+        </div>
       </div>
-    </figure>
-
-    <div class="cards">
-      <article class="card reveal">
-        <div class="card-ic red"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg></div>
-        <h3>Dertig losse systemen</h3>
-        <p>Medewerkers springen tussen systemen die niet met elkaar communiceren. Productdata wordt met de hand in de backoffice geladen.</p>
-        <span class="tag">I6 · I9</span>
-      </article>
-      <article class="card reveal">
-        <div class="card-ic orange"><svg class="icon" aria-hidden="true"><use href="#i-msg"/></svg></div>
-        <h3>Alles in één tekstveld</h3>
-        <p>Een gesprek met de klant verdwijnt als vrije tekst in één opmerkingenveld. Wie belde, wat is beloofd en wat moet er nog gebeuren? Niemand ziet het snel.</p>
-        <span class="tag">K3 · K5</span>
-      </article>
-      <article class="card reveal">
-        <div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-bed"/></svg></div>
-        <h3>Onduidelijke kamertypes</h3>
-        <p>Beddenbanken zetten automatisch kamertypes in het systeem. Verkoper en klant weten niet of een kamer een balkon heeft of op de begane grond ligt.</p>
-        <span class="tag">I7</span>
-      </article>
-      <article class="card reveal">
-        <div class="card-ic orange"><svg class="icon" aria-hidden="true"><use href="#i-handshake"/></svg></div>
-        <h3>Onderhandelingen uit het zicht</h3>
-        <p>Productmanagers bezoeken zo’n twintig hotels per week. Basisprijs, marge en volumekorting staan niet op één plek.</p>
-        <span class="tag">I3 · I4</span>
-      </article>
-      <article class="card reveal">
-        <div class="card-ic red"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></div>
-        <h3>Brieven op het verkeerde moment</h3>
-        <p>Door handmatige registratie krijgt een klant een brief over vertraging terwijl hij al op de bestemming is.</p>
-        <span class="tag">K6</span>
-      </article>
-      <article class="card reveal">
-        <div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-euro"/></svg></div>
-        <h3>Kamers die leeg blijven</h3>
-        <p>Het inkooprisico ligt bij VoyageVista. Zonder signaal naar Marketing en Sales blijven ingekochte kamers onverkocht.</p>
-        <span class="tag">I5</span>
-      </article>
     </div>
+    <div class="btn-row"><a class="btn btn-dark" href="website/docs/scope.html">Volledig scope-overzicht <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
   </div>
 </section>
 
-<!-- ================= OPLOSSING ================= -->
-<section id="oplossing" class="sec-alt">
+<!-- ================= PROCESSEN ================= -->
+<section id="proces" class="sec-alt">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow chapter">Hoofdstuk 2 · De oplossing</span>
-      <h2>Twee afdelingen, één bron van waarheid</h2>
-      <p>De werkplek geeft Klantenservice en Inkoop elk hun eigen schermen, maar ze delen dezelfde gegevens. Wat Inkoop vastlegt, ziet Klantenservice meteen.</p>
+      <span class="eyebrow chapter">Extra · BPMN 2.0</span>
+      <h2>De gewenste processen in BPMN</h2>
+      <p>Naast het sprintdoel hebben we BPMN geleerd en direct toegepast: één subproces voor Klantenservice en een hoofd- en deelproces voor Inkoop.</p>
     </div>
 
-    <div class="tabs reveal" role="tablist" aria-label="Kies een afdeling">
-      <button class="tab" role="tab" id="tab-ks" aria-selected="true" aria-controls="panel-ks" tabindex="0"><svg class="icon" aria-hidden="true"><use href="#i-headset"/></svg>Klantenservice</button>
-      <button class="tab" role="tab" id="tab-in" aria-selected="false" aria-controls="panel-in" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg>Inkoop</button>
+    <div class="tabs proc-tabs reveal" role="tablist" aria-label="Kies een proces">
+      <button class="tab" role="tab" id="tab-pks" aria-selected="true" aria-controls="panel-pks" tabindex="0"><svg class="icon" aria-hidden="true"><use href="#i-headset"/></svg>Klantenservice</button>
+      <button class="tab" role="tab" id="tab-pin" aria-selected="false" aria-controls="panel-pin" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg>Inkoop</button>
     </div>
 
-    <div class="panel" id="panel-ks" role="tabpanel" aria-labelledby="tab-ks">
-      <div class="panel-intro reveal">
-        <h3>Elke medewerker kent het hele verhaal van de klant</h3>
-        <p>Van shop tot contactcenter tot After Travel: één klantdossier met een tijdlijn van alle contactmomenten, klachten en afspraken.</p>
-        <ul class="checks">
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Vaste velden in plaats van één vrij opmerkingenveld</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Urgentie automatisch Hoog als de klant op reis is</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Een mens controleert altijd het compensatievoorstel</li>
-        </ul>
-      </div>
-      <div class="features">
-        <div class="feature reveal"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></div><h4>Klant zoeken</h4><p>Op e-mail, telefoon of naam. Vader en zoon met dezelfde naam? Onderscheid via Sr./Jr. en contactgegevens.</p></div>
-        <div class="feature reveal"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-timeline"/></svg></div><h4>Contactmoment &amp; tijdlijn</h4><p>Kanaal, categorie, samenvatting en vervolgactie. Datum en medewerker vult het systeem zelf in.</p></div>
-        <div class="feature reveal"><div class="card-ic orange"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg></div><h4>Klacht met urgentie</h4><p>Is de klant nu op reis, dan vraagt de medewerker eerst het hotel om een oplossing ter plaatse.</p></div>
-        <div class="feature reveal"><div class="card-ic green"><svg class="icon" aria-hidden="true"><use href="#i-scale"/></svg></div><h4>Compensatie volgens richtlijn</h4><p>Een voorstel als percentage van de reissom, goedgekeurd door een tweede medewerker. Nooit je eigen voorstel.</p></div>
-      </div>
-    </div>
-
-    <div class="panel" id="panel-in" role="tabpanel" aria-labelledby="tab-in" hidden>
-      <div class="panel-intro">
-        <h3>Van hotelbezoek tot verkochte kamer</h3>
-        <p>Inkoop legt leveranciers, onderhandelingen, contracten en reisproducten op één plek vast, zodat iedereen met dezelfde, betrouwbare gegevens werkt.</p>
-        <ul class="checks">
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Marge automatisch berekend, waarschuwing bij negatief</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Annuleringsvoorwaarden gestructureerd, niet als vrije tekst</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Signaal bij contracten die binnen 60 dagen aflopen</li>
-        </ul>
-      </div>
-      <div class="features">
-        <div class="feature"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg></div><h4>Leveranciersbeheer</h4><p>Hotels, vervoerders en rederijen centraal, met een waarschuwing bij een mogelijk dubbele invoer.</p></div>
-        <div class="feature"><div class="card-ic orange"><svg class="icon" aria-hidden="true"><use href="#i-handshake"/></svg></div><h4>Onderhandelingen</h4><p>Status van Gepland tot Akkoord, met basisprijs, marge en volumekorting per bezoek.</p></div>
-        <div class="feature"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-contract"/></svg></div><h4>Contractbeheer</h4><p>Looptijd, allotment, prijzen en voorwaarden per contract, gekoppeld aan precies één leverancier.</p></div>
-        <div class="feature"><div class="card-ic green"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></div><h4>Bezetting bewaken</h4><p>Zakt de bezetting onder de 50%, dan krijgen Marketing en Sales een signaal voor een campagne.</p></div>
+    <div class="proc-panel" id="panel-pks" role="tabpanel" aria-labelledby="tab-pks">
+      <figure class="bpmn-fig">
+        <a href="docs/proces/klantenservice-proces.html"><img src="docs/proces/klantenservice-proces.png" width="1601" height="567" alt="BPMN-subproces Klantvraag of klacht afhandelen met lanes Klant, Klantenservice, Senior klantenservice, After Travel, Financiën en Leverancier" loading="lazy"></a>
+        <figcaption><span>Klantvraag of klacht afhandelen · gewenste situatie</span><span>Klik voor het interactieve model</span></figcaption>
+      </figure>
+      <div class="proc-side">
+        <h3>Klantvraag of klacht afhandelen</h3>
+        <p>Vier lanes binnen VoyageVista, met de klant en het hotel als aparte pools. Vijf verbeteringen ten opzichte van nu:</p>
+        <ol class="proc-steps">
+          <li><span><strong>Vaste velden</strong> in plaats van één vrij opmerkingenveld</span></li>
+          <li><span><strong>Urgentie automatisch Hoog</strong> als de klant op reis is</span></li>
+          <li><span><strong>Eerst het hotel</strong> om een oplossing ter plaatse vragen</span></li>
+          <li><span><strong>Beoordelen met de hele historie</strong>, inclusief “zelf gekozen?”</span></li>
+          <li><span><strong>IBAN nooit opslaan</strong>; de klant vult het zelf in</span></li>
+        </ol>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ================= PROCES ================= -->
-<section id="proces">
-  <div class="wrap">
-    <div class="sec-head center reveal">
-      <span class="eyebrow chapter">Hoofdstuk 3 · Het proces</span>
-      <h2>Van eerste contact tot eindbesluit</h2>
-      <p>We hebben het klantenserviceproces in BPMN uitgewerkt, met vijf verbeteringen ten opzichte van nu. Zo loopt een vraag of klacht door de organisatie.</p>
-    </div>
-
-    <ol class="process">
-      <li class="step reveal"><span class="step-no">1</span><h3>Contact ontvangen</h3><p>Telefoon, e-mail, shop of social media. De klant wordt gezocht op e-mail.</p><span class="lane">Klantenservice</span></li>
-      <li class="step reveal"><span class="step-no">2</span><h3>Vastleggen</h3><p>Contactmoment met vaste velden in het klantdossier. Vraag of klacht?</p><span class="lane">Klantenservice</span></li>
-      <li class="step reveal"><span class="step-no">3</span><h3>Beoordelen</h3><p>Met de hele historie: heeft de klant de accommodatie zelf gekozen?</p><span class="lane">Klantenservice</span></li>
-      <li class="step reveal"><span class="step-no">4</span><h3>Escaleren</h3><p>Voorstel boven de richtlijn? Dan beslist een senior, of After Travel na de reis.</p><span class="lane">Senior · After Travel</span></li>
-      <li class="step reveal"><span class="step-no">5</span><h3>Afronden</h3><p>Klant akkoord? Financiën betaalt uit. De klant vult zelf zijn rekeningnummer in.</p><span class="lane">Financiën</span></li>
-    </ol>
-
-    <div class="improve">
-      <div class="imp reveal"><b>1</b>Vaste velden in plaats van vrije tekst</div>
-      <div class="imp reveal"><b>2</b>Automatische urgentie bij klant op reis</div>
-      <div class="imp reveal"><b>3</b>Eerst het hotel om een oplossing vragen</div>
-      <div class="imp reveal"><b>4</b>Beoordelen met volledige klanthistorie</div>
-      <div class="imp reveal"><b>5</b>IBAN nooit opslaan, klant vult zelf in</div>
-    </div>
-
-    <div class="process-foot">
-      <a class="btn btn-dark" href="docs/proces/klantenservice-proces.html">Bekijk het BPMN-model <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <div class="proc-panel" id="panel-pin" role="tabpanel" aria-labelledby="tab-pin" hidden>
+      <figure class="bpmn-fig">
+        <a href="docs/proces/inkoop-proces.png"><img src="docs/proces/inkoop-proces.png" width="847" height="697" alt="BPMN-hoofdproces Reisproduct ontwikkelen en inkopen en deelproces Reisonderdelen inkopen met de leverancier" loading="lazy"></a>
+        <figcaption><span>Hoofdproces en deelproces Inkoop</span><span>Klik om te vergroten</span></figcaption>
+      </figure>
+      <div class="proc-side">
+        <h3>Reisproduct ontwikkelen en inkopen</h3>
+        <p>Het hoofdproces loopt van een nieuw reisidee tot productinfo die beschikbaar is voor verkoop. Het deelproces werkt “Onderdelen inkopen” uit per reisonderdeel.</p>
+        <ol class="proc-steps">
+          <li><span><strong>Productontwikkelaar</strong> bepaalt het reisconcept, de onderdelen en deadlines</span></li>
+          <li><span><strong>Inkoper</strong> vraagt een aanbod aan, beoordeelt het en onderhandelt zo nodig met een tegenvoorstel</span></li>
+          <li><span><strong>Leverancier</strong> stelt het aanbod op en reageert, met hetzelfde aanbod-ID</span></li>
+          <li><span><strong>Applicatie</strong> controleert of de gegevens compleet zijn en meldt open deadlines</span></li>
+        </ol>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ================= KWALITEIT ================= -->
-<section id="kwaliteit" class="sec-alt">
+<section id="kwaliteit">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow chapter">Hoofdstuk 4 · Kwaliteit</span>
+      <span class="eyebrow chapter">Kwaliteit · teststrategie</span>
       <h2>We testen het zwaarst waar het de klant raakt</h2>
       <p>Per risico scoren we kans en impact van 1 tot 3. Vijf van de vijftien risico’s vallen in klasse A. Ze gaan allemaal over privacy, geld of een klant die op reis is.</p>
     </div>
@@ -720,28 +1050,11 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
-<!-- ================= PRIVACY ================= -->
-<section class="privacy" id="privacy">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow chapter">Randvoorwaarde · AVG</span>
-      <h2>Privacy zit in het ontwerp, niet erachteraan</h2>
-      <p>Deze regels uit het interview komen in bijna elke user story terug. Ze bepalen wat we wél en vooral wat we níét opslaan.</p>
-    </div>
-    <div class="p-grid">
-      <div class="p-card reveal"><div class="card-ic never"><svg class="icon" aria-hidden="true"><use href="#i-ban"/></svg></div><h3>Geen IBAN</h3><p>Ook niet na betaling. Voor een terugbetaling vult de klant het zelf in.</p></div>
-      <div class="p-card reveal"><div class="card-ic never"><svg class="icon" aria-hidden="true"><use href="#i-ban"/></svg></div><h3>Geen paspoortnummer</h3><p>Alleen voornaam, achternaam en geboortedatum zoals in het paspoort.</p></div>
-      <div class="p-card reveal"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-plane"/></svg></div><h3>Bewaren tot thuis</h3><p>Bij een calamiteit moeten we weten wie er op reis is. Pas daarna kan verwijderen.</p></div>
-      <div class="p-card reveal"><div class="card-ic"><svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg></div><h3>Verwijderen op verzoek</h3><p>Na de reis mag de klant om verwijdering vragen. Geblokkeerd zolang de reis loopt.</p></div>
-    </div>
-  </div>
-</section>
-
 <!-- ================= ROADMAP ================= -->
-<section id="roadmap">
+<section id="roadmap" class="sec-alt">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow chapter">Hoofdstuk 5 · De roadmap</span>
+      <span class="eyebrow chapter">Roadmap Inkoop</span>
       <h2>Vijf sprints naar een bruikbare eerste versie</h2>
       <p>De Inkoop-backlog telt 18 items en 62 storypoints in vijf epics. Sprint 3 tot en met 7 bevatten 50 punten; de rest staat klaar als er tijd over is.</p>
     </div>
@@ -764,13 +1077,38 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
+
+<!-- ================= TEAM ================= -->
+<section id="team">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow chapter">Team 3</span>
+      <h2>Wie deed wat</h2>
+      <p>Rollen zoals vastgelegd op het FigJam-board, met de verbeterpunten uit de retrospective van sprint 1 die we deze sprint hebben meegenomen.</p>
+    </div>
+    <div class="team">
+      <div class="member reveal"><span class="avatar" aria-hidden="true">J</span><div><h3>Jarred</h3><span class="role">Product Owner</span></div><p>Bepaalt de prioriteiten van de user stories en bewaakt dat de backlog past bij wat de opdrachtgever nodig heeft.</p></div>
+      <div class="member reveal"><span class="avatar" aria-hidden="true">K</span><div><h3>Khodor</h3><span class="role">Scrum Master</span></div><p>Bewaakt het proces en richtte de GitHub-backlog in: issues, labels, schattingen en sprints.</p></div>
+      <div class="member reveal"><span class="avatar" aria-hidden="true">B</span><div><h3>Brett</h3><span class="role">Ontwikkelteam</span></div><p>Use cases: actoren en primaire use cases van Productontwikkeling &amp; Inkoop, samen met Jarred en Khodor.</p></div>
+      <div class="member reveal"><span class="avatar" aria-hidden="true">Y</span><div><h3>Yaro</h3><span class="role">Ontwikkelteam</span></div><p>ERD en datamodel: leverancier, contract, reisonderdeel en de relaties daartussen.</p></div>
+      <div class="member reveal"><span class="avatar" aria-hidden="true">E</span><div><h3>Elia</h3><span class="role">Ontwikkelteam</span></div><p>ERD en datamodel, samen met Yaro.</p></div>
+    </div>
+    <div class="retro">
+      <div class="reveal"><b>Afgesproken</b>Vaste daily stand-up aan het begin van elke projectdag</div>
+      <div class="reveal"><b>Werkte niet</b>Afstemmen via Discord; daarom vaste momenten samen</div>
+      <div class="reveal"><b>Meer doen</b>Contact met de andere teams in onze groep</div>
+      <div class="reveal"><b>Beter overzicht</b>Backlog nu op GitHub, met epics en sub-issues</div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= DOCUMENTEN ================= -->
 <section id="documenten" class="sec-alt">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow chapter">Het werk</span>
-      <h2>Alles wat we hebben opgeleverd</h2>
-      <p>Elk document bouwt voort op het vorige: van interview naar backlog, proces, prototype en teststrategie.</p>
+      <span class="eyebrow chapter">Alle opleveringen</span>
+      <h2>Alles wat we tot nu toe hebben gemaakt</h2>
+      <p>Van interview naar scope, use cases, datamodel, UX-eisen, processen, prototype en teststrategie.</p>
     </div>
     <div class="deliv">
       <a class="d-card feat reveal" href="prototype/index.html">
@@ -780,18 +1118,53 @@ footer a:hover{color:#fff}
         <p>Probeer zelf hoe een medewerker een klant zoekt, een klacht registreert, compensatie laat goedkeuren en de bezetting van een contract bekijkt.</p>
         <span class="d-go">Open het prototype <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
       </a>
+      <a class="d-card reveal" href="website/docs/scope.html">
+        <span class="d-type">Sprint</span>
+        <div class="card-ic green" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-map"/></svg></div>
+        <h3>Scope</h3>
+        <p>Eerste versie, buiten scope, afhankelijkheden en open besluiten.</p>
+        <span class="d-go">Lees het document <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="d-card reveal" href="website/docs/use-cases-klantenservice.html">
+        <span class="d-type">Sprint</span>
+        <div class="card-ic orange" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-timeline"/></svg></div>
+        <h3>Use cases Klantenservice</h3>
+        <p>Beschrijvingen en user flows UC-K01 t/m UC-K09.</p>
+        <span class="d-go">Lees het document <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="d-card reveal" href="website/docs/figma-board.html">
+        <span class="d-type">Sprint</span>
+        <div class="card-ic" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg></div>
+        <h3>Use cases Inkoop &amp; FigJam</h3>
+        <p>UC01–UC09 met user flows, en een overzicht van het FigJam-board.</p>
+        <span class="d-go">Lees het document <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="d-card reveal" href="website/docs/erd-conceptueel.html">
+        <span class="d-type">Sprint</span>
+        <div class="card-ic" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-flow"/></svg></div>
+        <h3>Conceptueel ERD</h3>
+        <p>15 entiteiten, relaties, toelichting en bedrijfsregels.</p>
+        <span class="d-go">Lees het document <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="d-card reveal" href="website/docs/ux-eisen.html">
+        <span class="d-type">Concept</span>
+        <div class="card-ic red" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-eye2"/></svg></div>
+        <h3>UX-eisen</h3>
+        <p>Informatiebehoefte per gebruiker en 15 toetsbare eisen.</p>
+        <span class="d-go">Lees het document <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
       <a class="d-card reveal" href="docs/proces/klantenservice-proces.html">
         <span class="d-type">BPMN</span>
         <div class="card-ic" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-flow"/></svg></div>
-        <h3>Klantenserviceproces</h3>
-        <p>Procesmodel met vier lanes en vijf verbeteringen.</p>
+        <h3>BPMN Klantenservice</h3>
+        <p>Interactief procesmodel met vijf verbeteringen.</p>
         <span class="d-go">Bekijk model <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
       </a>
       <a class="d-card reveal" href="website/docs/interview-analyse.html">
         <span class="d-type">Analyse</span>
         <div class="card-ic orange" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg></div>
         <h3>Interviewanalyse</h3>
-        <p>Bevindingen I1–I10 en K1–K11, privacyregels en voorstel-epics.</p>
+        <p>Bevindingen I1–I10 en K1–K11 en de privacyregels.</p>
         <span class="d-go">Lees het document <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
       </a>
       <a class="d-card reveal" href="website/docs/inkoop-product-backlog.html">
@@ -805,14 +1178,21 @@ footer a:hover{color:#fff}
         <span class="d-type">Test</span>
         <div class="card-ic red" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg></div>
         <h3>Risicoanalyse &amp; teststrategie</h3>
-        <p>15 risico’s, testtechnieken en testproces in Azure DevOps.</p>
+        <p>15 risico’s, testtechnieken en testproces.</p>
+        <span class="d-go">Lees het document <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="d-card reveal" href="website/docs/migratie-overzicht.html">
+        <span class="d-type">Backlog</span>
+        <div class="card-ic green" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-git"/></svg></div>
+        <h3>Migratie backlog</h3>
+        <p>Hoe de issues naar GroepInkoop zijn overgezet en opgeschoond.</p>
         <span class="d-go">Lees het document <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span>
       </a>
       <a class="d-card wide reveal" href="https://github.com/VoyageVista1/GroepInkoop/issues">
         <span class="d-type">Issues</span>
-        <div class="card-ic green" style="margin-bottom:20px"><svg class="icon" aria-hidden="true"><use href="#i-git"/></svg></div>
+        <div class="card-ic green"><svg class="icon" aria-hidden="true"><use href="#i-git"/></svg></div>
         <div style="flex:1"><h3>Backlog op GitHub</h3>
-        <p>146 issues: epics, user stories en taken als sub-issues. Alleen voor teamleden met toegang tot de repository.</p></div>
+        <p>186 issues: epics, user stories en taken als sub-issues. Alleen voor teamleden met toegang tot de repository.</p></div>
         <span class="d-go">Naar de issues <svg class="icon" aria-hidden="true"><use href="#i-ext"/></svg></span>
       </a>
     </div>
@@ -824,12 +1204,12 @@ footer a:hover{color:#fff}
   <div class="wrap">
     <div class="cta-box reveal">
       <div>
-        <h2 id="cta-title">Zie het zelf werken</h2>
-        <p>Het prototype laat zien hoe Klantenservice en Inkoop straks samenwerken. Geef ons je feedback tijdens de refinement van sprint 3.</p>
+        <h2 id="cta-title">Volgende sprint: van ontwerp naar bouwen</h2>
+        <p>In sprint 3 werken we het ERD uit tot alle attributen, ronden we de UX-eisen af met het team en beginnen we met de eerste stories: leveranciers registreren en onderhandelingen vastleggen.</p>
       </div>
       <div class="cta-actions">
-        <a class="btn btn-primary" href="prototype/index.html">Open het prototype <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        <a class="btn btn-line" href="website/docs/inkoop-product-backlog.html">Lees de backlog</a>
+        <a class="btn btn-primary" href="#roadmap">Bekijk de roadmap <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-line" href="website/docs/scope.html#6-open-besluiten">Open besluiten</a>
       </div>
     </div>
   </div>
@@ -844,16 +1224,16 @@ footer a:hover{color:#fff}
         <p style="max-width:28em">Een schoolproject van team GroepInkoop: Productontwikkeling &amp; Inkoop en Klantenservice &amp; Support. VoyageVista is een fictieve casus; cijfers zijn indicatief.</p>
       </div>
       <div>
-        <h4>Verhaal</h4>
-        <ul><li><a href="#probleem">Probleem</a></li><li><a href="#oplossing">Oplossing</a></li><li><a href="#proces">Proces</a></li><li><a href="#kwaliteit">Kwaliteit</a></li></ul>
+        <h4>Sprintreview</h4>
+        <ul><li><a href="#sprint">Sprintdoelen</a></li><li><a href="#usecases">Use cases</a></li><li><a href="#erd">ERD</a></li><li><a href="#ux">UX-eisen</a></li><li><a href="#scope">Scope</a></li><li><a href="#proces">BPMN</a></li></ul>
       </div>
       <div>
         <h4>Opleveringen</h4>
-        <ul><li><a href="prototype/index.html">Prototype</a></li><li><a href="docs/proces/klantenservice-proces.html">BPMN-model</a></li><li><a href="website/docs/inkoop-product-backlog.html">Backlog</a></li><li><a href="website/docs/productrisicoanalyse-teststrategie.html">Teststrategie</a></li><li><a href="website/docs/interview-analyse.html">Interviewanalyse</a></li><li><a href="website/docs/migratie-overzicht.html">Migratie backlog</a></li></ul>
+        <ul><li><a href="prototype/index.html">Prototype</a></li><li><a href="website/docs/scope.html">Scope</a></li><li><a href="website/docs/use-cases-klantenservice.html">Use cases Klantenservice</a></li><li><a href="website/docs/erd-conceptueel.html">Conceptueel ERD</a></li><li><a href="website/docs/ux-eisen.html">UX-eisen</a></li><li><a href="website/docs/inkoop-product-backlog.html">Backlog</a></li><li><a href="website/docs/productrisicoanalyse-teststrategie.html">Teststrategie</a></li></ul>
       </div>
       <div>
         <h4>Team <span style="text-transform:none;letter-spacing:0;font-weight:500;opacity:.7">(met toegang)</span></h4>
-        <ul><li><a href="https://github.com/VoyageVista1/GroepInkoop">GitHub repository</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues">Issues</a></li></ul>
+        <ul><li><a href="https://github.com/VoyageVista1/GroepInkoop">GitHub repository</a></li><li><a href="https://github.com/VoyageVista1/GroepInkoop/issues">Issues</a></li><li><a href="https://www.figma.com/board/ManUSFsMrVgktm6UwReajA/Project-Agile-Board">FigJam-board</a></li></ul>
       </div>
     </div>
     <div class="f-bottom"><span>© 2026 Team GroepInkoop · casus VoyageVista</span><span>Gebouwd met toegankelijkheid en AVG in gedachten</span></div>
@@ -886,16 +1266,18 @@ footer a:hover{color:#fff}
   document.querySelectorAll('#nav-links a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');mb.setAttribute('aria-expanded','false');});});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){nav.classList.remove('open');mb.setAttribute('aria-expanded','false');mb.focus();}});
 
-  // Tabs (WAI-ARIA)
-  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
-  function select(tab){
-    tabs.forEach(function(t){var on=t===tab;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!on;});
-  }
-  tabs.forEach(function(t,i){
-    t.addEventListener('click',function(){select(t);});
-    t.addEventListener('keydown',function(e){
-      var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0; if(!d) return;
-      var n=tabs[(i+d+tabs.length)%tabs.length]; select(n); n.focus(); e.preventDefault();
+  // Tabs (WAI-ARIA), per tablist
+  [].slice.call(document.querySelectorAll('[role=tablist]')).forEach(function(list){
+    var tabs=[].slice.call(list.querySelectorAll('[role=tab]'));
+    function select(tab){
+      tabs.forEach(function(t){var on=t===tab;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!on;});
+    }
+    tabs.forEach(function(t,i){
+      t.addEventListener('click',function(){select(t);});
+      t.addEventListener('keydown',function(e){
+        var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0; if(!d) return;
+        var n=tabs[(i+d+tabs.length)%tabs.length]; select(n); n.focus(); e.preventDefault();
+      });
     });
   });
 

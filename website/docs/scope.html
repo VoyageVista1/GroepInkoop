@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scope · VoyageVista Werkplek</title>
+<meta name="description" content="Probleem, eerste versie, buiten scope en open besluiten">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b2536'/%3E%3Cpath d='M8 10l8 13 8-13' stroke='%23fb923c' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="doc.css">
+<script>try{var t=localStorage.getItem("vv-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#inhoud">Naar de inhoud</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../../index.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6l7 12 7-12" stroke="#fb923c" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>VoyageVista <span class="muted">Werkplek</span></a>
+    <a class="back" href="../../index.html#documenten">← Terug naar de website</a>
+  </div>
+  <nav class="wrap tabs" aria-label="Documenten"><a href="scope.html" aria-current="page">Scope</a><a href="use-cases-klantenservice.html">Use cases Klantenservice</a><a href="erd-conceptueel.html">Conceptueel ERD</a><a href="ux-eisen.html">UX-eisen</a><a href="figma-board.html">FigJam-board</a><a href="interview-analyse.html">Interviewanalyse</a><a href="inkoop-product-backlog.html">Product backlog Inkoop</a><a href="migratie-overzicht.html">Migratie backlog</a><a href="productrisicoanalyse-teststrategie.html">Risicoanalyse & teststrategie</a></nav>
+</header>
+<div class="wrap layout">
+  <aside class="toc" aria-label="Inhoud van dit document"><strong>Op deze pagina</strong><a href="#1-probleem-en-doel">1. Probleem en doel</a><a href="#2-in-scope-eerste-bruikbare-versie">2. In scope: eerste bruikbare versie</a><a href="#3-buiten-scope">3. Buiten scope</a><a href="#4-gegevens-die-we-bewust-niet-opslaan">4. Gegevens die we bewust niet opslaan</a><a href="#5-afhankelijkheden">5. Afhankelijkheden</a><a href="#6-open-besluiten">6. Open besluiten</a></aside>
+  <main id="inhoud" class="doc"><h1 id="scope-productontwikkeling--inkoop-en-klantenservice--support">Scope Productontwikkeling &amp; Inkoop en Klantenservice &amp; Support</h1>
+<p><strong>Stand:</strong> 1 oktober 2026 (sprintreview) · <strong>Bronnen:</strong> FigJam-board (sectie <em>Scope Productontwikkeling &amp; Inkoop</em> en <em>Proces</em>), <a href="interview-analyse.html">interviewanalyse</a>, <a href="erd-conceptueel.html">conceptueel ERD</a>, <a href="inkoop-product-backlog.html">product backlog</a> · <strong>GitHub:</strong> #48 en #69 (afgerond)</p>
+<p>Dit document legt vast welk probleem we oplossen, voor wie, wat in de eerste versie zit en waar ons werk ophoudt. Use cases, flows en schermen staan in de aparte ontwerpdocumenten.</p>
+<h2 id="1-probleem-en-doel">1. Probleem en doel</h2>
+<div class="table"><table><thead><tr>
+<th></th>
+<th>Productontwikkeling &amp; Inkoop</th>
+<th>Klantenservice &amp; Support</th>
+</tr>
+</thead><tbody><tr>
+<td>Probleem</td>
+<td>Leveranciers, onderhandelingen en contracten staan verspreid; productdata wordt met de hand overgetypt (I6, I9). Kamertypes zijn onduidelijk (I7).</td>
+<td>Gesprekken staan als vrije tekst in één veld (K3); collega’s geven verschillende antwoorden (K5); klachten worden niet volgens één werkwijze afgehandeld (K8, K9).</td>
+</tr>
+<tr>
+<td>Doel</td>
+<td>Eén plek voor leveranciers, onderhandelingen, contracten en reisproducten, met dezelfde actuele gegevens voor iedereen.</td>
+<td>Eén klantdossier met alle contactmomenten en klachten, en een vaste werkwijze voor compensatie met vier-ogenprincipe.</td>
+</tr>
+<tr>
+<td>Gebruikers</td>
+<td>Productmedewerker / productmanager, inkoper, manager; medewerkers van andere afdelingen (alleen raadplegen).</td>
+<td>Klantenservicemedewerker (ook shop), senior / teamleider, After Travel.</td>
+</tr>
+</tbody></table></div>
+<h2 id="2-in-scope-eerste-bruikbare-versie">2. In scope: eerste bruikbare versie</h2>
+<p><strong>Productontwikkeling &amp; Inkoop</strong></p>
+<div class="table"><table><thead><tr>
+<th>Onderdeel</th>
+<th>Wat de medewerker ermee kan</th>
+</tr>
+</thead><tbody><tr>
+<td>Reisproducten-overzicht</td>
+<td>Reisproducten zoeken, bekijken en een nieuw product aanmaken.</td>
+</tr>
+<tr>
+<td>Reisproduct-formulier en detailpagina</td>
+<td>Productinformatie vastleggen en wijzigen: bestemming, reisroute, accommodaties, vervoer en activiteiten.</td>
+</tr>
+<tr>
+<td>Leveranciersbeheer</td>
+<td>Leveranciers en contactgegevens vastleggen en koppelen aan reisonderdelen.</td>
+</tr>
+<tr>
+<td>Onderhandelingen bijhouden</td>
+<td>Per leverancier vastleggen waarover wordt onderhandeld, welke afspraken zijn gemaakt en wat nog moet gebeuren.</td>
+</tr>
+<tr>
+<td>Contractinformatie beheren</td>
+<td>Contractafspraken, looptijden en verwijzingen naar documenten terugvinden.</td>
+</tr>
+<tr>
+<td>Voortgang en deadlines</td>
+<td>Zien hoe ver een reisproduct is en welke acties nog openstaan.</td>
+</tr>
+<tr>
+<td>Productinformatie beschikbaar maken</td>
+<td>Andere onderdelen van de gezamenlijke applicatie werken met dezelfde actuele productgegevens.</td>
+</tr>
+</tbody></table></div>
+<p><strong>Klantenservice &amp; Support</strong></p>
+<div class="table"><table><thead><tr>
+<th>Onderdeel</th>
+<th>Wat de medewerker ermee kan</th>
+</tr>
+</thead><tbody><tr>
+<td>Klant zoeken</td>
+<td>Op e-mail, telefoon, naam of boekingsnummer; gelijknamige klanten onderscheiden (UC-K02).</td>
+</tr>
+<tr>
+<td>Klantdossier en tijdlijn</td>
+<td>Alle contactmomenten, klachten en boekingen chronologisch bekijken (UC-K03).</td>
+</tr>
+<tr>
+<td>Contact registreren</td>
+<td>Met vaste velden in plaats van één opmerkingenveld (UC-K01).</td>
+</tr>
+<tr>
+<td>Zaken prioriteren en verdelen</td>
+<td>Urgentie automatisch Hoog als de klant op reis is (UC-K04).</td>
+</tr>
+<tr>
+<td>Klacht en compensatie</td>
+<td>Voorstel volgens richtlijn, altijd gecontroleerd door een tweede medewerker (UC-K06, UC-K07).</td>
+</tr>
+<tr>
+<td>Gegevens verwijderen (AVG)</td>
+<td>Op verzoek, geblokkeerd zolang de klant op reis is (UC-K09).</td>
+</tr>
+</tbody></table></div>
+<p><strong>Schermen eerste versie (Inkoop):</strong> reisproducten-overzicht (zoekveld, lijst met naam en bestemming, knop “Nieuw reisproduct”), reisproduct aanmaken/bewerken (velden, lijst met reisonderdelen, onderdelen toevoegen/verwijderen, Opslaan en Annuleren) en reisproduct bekijken (Bewerken, terug naar overzicht).</p>
+<h2 id="3-buiten-scope">3. Buiten scope</h2>
+<div class="table"><table><thead><tr>
+<th>Onderwerp</th>
+<th>Waarom</th>
+<th>Wie wel</th>
+</tr>
+</thead><tbody><tr>
+<td>Boekingen maken en wijzigen</td>
+<td>Eigendom van Sales &amp; Boekingen; wij lezen alleen vertrek- en terugkomdatum en reissom.</td>
+<td>Team Sales &amp; Boekingen</td>
+</tr>
+<tr>
+<td>Facturatie, uitbetalen van compensatie, creditfacturen</td>
+<td>Financiële verwerking. Wij leveren het goedgekeurde bedrag aan.</td>
+<td>Team Financiën &amp; Administratie</td>
+</tr>
+<tr>
+<td>Klant wijzigt zelf online zijn boeking (selfservice)</td>
+<td>Vraagt eigen klantportaal en voorwaarden per reis (I10, K10).</td>
+<td>Later / Sales &amp; Boekingen</td>
+</tr>
+<tr>
+<td>Gesprekken automatisch opnemen of transcriberen</td>
+<td>Privacy van klant en medewerker en standpunt ondernemingsraad zijn nog open (K7).</td>
+<td>Nu niet (#111, Won’t)</td>
+</tr>
+<tr>
+<td>Koppeling met beddenbanken en externe systemen</td>
+<td>Technische integratie valt buiten de eerste versie.</td>
+<td>IT &amp; Innovatie</td>
+</tr>
+<tr>
+<td>Interne werkwijze van de leverancier (hotel)</td>
+<td>Hotel is een externe partij; in BPMN als dichtgeklapte pool.</td>
+<td>–</td>
+</tr>
+</tbody></table></div>
+<h2 id="4-gegevens-die-we-bewust-niet-opslaan">4. Gegevens die we bewust niet opslaan</h2>
+<ul>
+<li>Geen IBAN, ook niet na betaling (P1).</li>
+<li>Geen paspoortnummer of andere paspoortgegevens; alleen naam en geboortedatum zoals in het paspoort (P2).</li>
+<li>Klantgegevens blijven bewaard tot de klant thuis is; daarna kan de klant om verwijdering vragen (P3).</li>
+</ul>
+<h2 id="5-afhankelijkheden">5. Afhankelijkheden</h2>
+<div class="table"><table><thead><tr>
+<th>Van</th>
+<th>Wat we nodig hebben</th>
+<th>Voor</th>
+</tr>
+</thead><tbody><tr>
+<td>Sales &amp; Boekingen</td>
+<td>Boeking met vertrek- en terugkomdatum en reissom</td>
+<td>Urgentie bij klant op reis, compensatieberekening, AVG-blokkade</td>
+</tr>
+<tr>
+<td>Financiën &amp; Administratie</td>
+<td>Afspraak hoe een goedgekeurde compensatie en een contract doorlopen naar betaling en facturatie</td>
+<td>UC-K06, IN-07, IN-08</td>
+</tr>
+<tr>
+<td>IT &amp; Innovatie</td>
+<td>Gezamenlijk datamodel en low-code platform</td>
+<td>Alle stories</td>
+</tr>
+</tbody></table></div>
+<h2 id="6-open-besluiten">6. Open besluiten</h2>
+<div class="table"><table><thead><tr>
+<th>Vraag</th>
+<th>Raakt</th>
+<th>Wie beslist</th>
+</tr>
+</thead><tbody><tr>
+<td>Wie keurt contracten goed, en vanaf welk bedrag?</td>
+<td>IN-10</td>
+<td>Opdrachtgever</td>
+</tr>
+<tr>
+<td>Klopt de drempel van 50% bezetting en 8 weken vooraf?</td>
+<td>IN-11, R11</td>
+<td>Opdrachtgever</td>
+</tr>
+<tr>
+<td>Binnen hoeveel uur moet een klacht met urgentie Hoog opgepakt zijn?</td>
+<td>UC-K04, R5</td>
+<td>Opdrachtgever</td>
+</tr>
+<tr>
+<td>Mag een compensatie hoger zijn dan de reissom?</td>
+<td>UC-K07, R3</td>
+<td>Opdrachtgever</td>
+</tr>
+<tr>
+<td>Wie mag een compensatievoorstel goedkeuren: elke collega of alleen een senior?</td>
+<td>UC-K07, R4</td>
+<td>Opdrachtgever</td>
+</tr>
+<tr>
+<td>Hoe lang na thuiskomst bewaren we klantgegevens?</td>
+<td>UC-K09, R1</td>
+<td>Opdrachtgever / privacy officer</td>
+</tr>
+<tr>
+<td>Slaan we contractdocumenten zelf op, of alleen een verwijzing?</td>
+<td>Contractbeheer</td>
+<td>Opdrachtgever / IT</td>
+</tr>
+</tbody></table></div>
+</main>
+</div>
+<footer class="wrap foot">Gegenereerd uit de Markdown-bron in <code>docs/</code> · Team GroepInkoop · casus VoyageVista</footer>
+</body>
+</html>

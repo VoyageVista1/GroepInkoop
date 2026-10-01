@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UX-eisen · VoyageVista Werkplek</title>
+<meta name="description" content="Toetsbare UX-eisen per taak (concept)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b2536'/%3E%3Cpath d='M8 10l8 13 8-13' stroke='%23fb923c' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="doc.css">
+<script>try{var t=localStorage.getItem("vv-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#inhoud">Naar de inhoud</a>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="../../index.html"><span class="mark"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6l7 12 7-12" stroke="#fb923c" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>VoyageVista <span class="muted">Werkplek</span></a>
+    <a class="back" href="../../index.html#documenten">← Terug naar de website</a>
+  </div>
+  <nav class="wrap tabs" aria-label="Documenten"><a href="scope.html">Scope</a><a href="use-cases-klantenservice.html">Use cases Klantenservice</a><a href="erd-conceptueel.html">Conceptueel ERD</a><a href="ux-eisen.html" aria-current="page">UX-eisen</a><a href="figma-board.html">FigJam-board</a><a href="interview-analyse.html">Interviewanalyse</a><a href="inkoop-product-backlog.html">Product backlog Inkoop</a><a href="migratie-overzicht.html">Migratie backlog</a><a href="productrisicoanalyse-teststrategie.html">Risicoanalyse & teststrategie</a></nav>
+</header>
+<div class="wrap layout">
+  <aside class="toc" aria-label="Inhoud van dit document"><strong>Op deze pagina</strong><a href="#1-informatiebehoefte-per-gebruiker">1. Informatiebehoefte per gebruiker</a><a href="#2-ux-eisen">2. UX-eisen</a><a href="#3-zo-testen-we-de-ux-eisen">3. Zo testen we de UX-eisen</a><a href="#4-nog-te-doen">4. Nog te doen</a></aside>
+  <main id="inhoud" class="doc"><h1 id="ux-eisen-productontwikkeling--inkoop-en-klantenservice--support">UX-eisen Productontwikkeling &amp; Inkoop en Klantenservice &amp; Support</h1>
+<p><strong>Status:</strong> concept voor de sprintreview van 1 oktober 2026, nog te controleren door het team · <strong>GitHub:</strong> #52 (#159, #160) en #75 (#181, #182, #183) staan nog open · <strong>Bronnen:</strong> FigJam-sectie <em>Proces</em> (randgevallen), <a href="interview-analyse.html">interviewanalyse</a>, <a href="productrisicoanalyse-teststrategie.html">risicoanalyse</a>, <a href="use-cases-klantenservice.html">use cases Klantenservice</a></p>
+<p>Een UX-eis beschrijft wat de gebruiker moet kunnen begrijpen of doen, niet hoe het scherm eruitziet. Elke eis is terug te voeren op een gebruikersprobleem, een toegankelijkheidsrichtlijn (WCAG 2.2 AA) of een projectbesluit, en is te controleren met een schermbeoordeling of een gebruikstaak. Labels, statussen en tijdsnormen leggen we pas definitief vast als de onderliggende regel is bevestigd (zie <a href="scope.html#6-open-besluiten">scope, open besluiten</a>).</p>
+<h2 id="1-informatiebehoefte-per-gebruiker">1. Informatiebehoefte per gebruiker</h2>
+<div class="table"><table><thead><tr>
+<th>Gebruiker</th>
+<th>Moet in één oogopslag zien</th>
+<th>Taak die het vaakst voorkomt</th>
+</tr>
+</thead><tbody><tr>
+<td>Productmedewerker / productmanager</td>
+<td>Status van elk reisproduct, open acties en deadlines</td>
+<td>Reisproduct aanmaken en bijwerken (UC01, UC02)</td>
+</tr>
+<tr>
+<td>Inkoper</td>
+<td>Stand van onderhandelingen, contracten die binnenkort aflopen, bezetting</td>
+<td>Onderhandeling bijwerken, contract vastleggen (UC04, UC08)</td>
+</tr>
+<tr>
+<td>Manager</td>
+<td>Wat geëscaleerd is en wat te lang blijft liggen</td>
+<td>Dashboard bekijken, deadlines monitoren (UC09)</td>
+</tr>
+<tr>
+<td>Klantenservicemedewerker</td>
+<td>Wie de klant is, of de klant nu op reis is, open zaken en eerdere afspraken</td>
+<td>Klant zoeken en contact registreren (UC-K01, UC-K02)</td>
+</tr>
+<tr>
+<td>Senior / teamleider</td>
+<td>Openstaande zaken op urgentie, voorstellen die op goedkeuring wachten</td>
+<td>Zaken verdelen, voorstel controleren (UC-K04, UC-K07)</td>
+</tr>
+</tbody></table></div>
+<h2 id="2-ux-eisen">2. UX-eisen</h2>
+<div class="table"><table><thead><tr>
+<th>ID</th>
+<th>Geldt voor</th>
+<th>De gebruiker moet…</th>
+<th>Zo controleren we het</th>
+<th>Bron</th>
+</tr>
+</thead><tbody><tr>
+<td>UX-01</td>
+<td>Alle formulieren</td>
+<td>…zien welke velden verplicht zijn vóórdat hij opslaat.</td>
+<td>Schermbeoordeling: verplichte velden zijn gemarkeerd met tekst, niet alleen met kleur.</td>
+<td>WCAG 1.4.1, 3.3.2</td>
+</tr>
+<tr>
+<td>UX-02</td>
+<td>Alle formulieren</td>
+<td>…bij een fout per veld lezen wat er mis is en hoe hij het herstelt, terwijl de rest van zijn invoer blijft staan.</td>
+<td>Gebruikstaak: sla een reisproduct op zonder bestemming; de melding staat bij het veld en niets is gewist.</td>
+<td>FigJam <em>Proces</em>, WCAG 3.3.1, 3.3.3</td>
+</tr>
+<tr>
+<td>UX-03</td>
+<td>Opslaan en verzenden</td>
+<td>…direct zien of een wijziging is opgeslagen of mislukt. Bij mislukken blijft de invoer staan.</td>
+<td>Schermbeoordeling: succes- en foutmelding zijn verschillend en worden voorgelezen door een schermlezer.</td>
+<td>FigJam <em>Proces</em>, WCAG 4.1.3</td>
+</tr>
+<tr>
+<td>UX-04</td>
+<td>Bewerken</td>
+<td>…gewaarschuwd worden als een collega hetzelfde product of dossier intussen heeft gewijzigd, en de nieuwe versie kunnen laden.</td>
+<td>Gebruikstaak met twee testers die hetzelfde product tegelijk wijzigen.</td>
+<td>FigJam <em>Proces</em> (versienummer)</td>
+</tr>
+<tr>
+<td>UX-05</td>
+<td>Annuleren</td>
+<td>…bij annuleren weten dat er niets is opgeslagen en terugkeren naar het overzicht.</td>
+<td>Schermbeoordeling: na annuleren zijn de bestaande gegevens ongewijzigd.</td>
+<td>FigJam <em>Proces</em></td>
+</tr>
+<tr>
+<td>UX-06</td>
+<td>Overzichten (reisproducten, leveranciers, zaken)</td>
+<td>…kunnen zoeken en filteren, en bij geen resultaat een duidelijke melding met een manier om de zoekopdracht aan te passen.</td>
+<td>Gebruikstaak: zoek op een niet-bestaande bestemming.</td>
+<td>FigJam <em>Proces</em>, UC03</td>
+</tr>
+<tr>
+<td>UX-07</td>
+<td>Reisproduct, onderhandeling, klacht</td>
+<td>…de status in woorden zien (bijv. <em>Concept</em>, <em>In onderhandeling</em>, <em>Wacht op goedkeuring</em>) en weten wat de volgende stap is.</td>
+<td>Schermbeoordeling: status staat als tekstlabel; kleur is aanvullend.</td>
+<td>#160, WCAG 1.4.1</td>
+</tr>
+<tr>
+<td>UX-08</td>
+<td>Klant zoeken</td>
+<td>…bij gelijknamige klanten (vader/zoon) de juiste kiezen op basis van geboortedatum, woonplaats en Sr./Jr.</td>
+<td>Gebruikstaak: zoek “J. Bakker” en open de juiste klant.</td>
+<td>Interview P4, risico R8</td>
+</tr>
+<tr>
+<td>UX-09</td>
+<td>Klantdossier</td>
+<td>…zonder te scrollen zien of de klant nu op reis is en welke vervolgacties openstaan.</td>
+<td>Schermbeoordeling bij 1280 × 800 en op een tablet.</td>
+<td>Interview K5, K6</td>
+</tr>
+<tr>
+<td>UX-10</td>
+<td>Contact registreren</td>
+<td>…gewaarschuwd worden als hij een IBAN of paspoortnummer in een tekstveld typt, vóórdat het wordt opgeslagen.</td>
+<td>Gebruikstaak: plak een IBAN in de samenvatting.</td>
+<td>Interview P1, P2, risico R2</td>
+</tr>
+<tr>
+<td>UX-11</td>
+<td>Compensatievoorstel</td>
+<td>…zien hoe het bedrag is berekend (percentage × reissom) en wie het moet goedkeuren; zijn eigen voorstel kan hij niet goedkeuren.</td>
+<td>Gebruikstaak: dien een voorstel in en probeer het zelf goed te keuren.</td>
+<td>Interview K9, risico R3, R4</td>
+</tr>
+<tr>
+<td>UX-12</td>
+<td>Gegevens verwijderen (AVG)</td>
+<td>…vóór bevestiging zien wat er verwijderd wordt, en waarom verwijderen geblokkeerd is als de klant op reis is.</td>
+<td>Gebruikstaak met een klant die volgende week terugkomt.</td>
+<td>Interview P3, risico R1</td>
+</tr>
+<tr>
+<td>UX-13</td>
+<td>Alle schermen</td>
+<td>…alles met het toetsenbord kunnen bedienen, met een zichtbare focus.</td>
+<td>Toetsenbordtest van de drie vaste gebruikstaken.</td>
+<td>WCAG 2.1.1, 2.4.7, risico R14</td>
+</tr>
+<tr>
+<td>UX-14</td>
+<td>Alle schermen</td>
+<td>…tekst kunnen lezen met voldoende contrast, ook op een tablet in de shop.</td>
+<td>Contrastmeting: tekst minimaal 4,5 : 1.</td>
+<td>WCAG 1.4.3, risico R14</td>
+</tr>
+<tr>
+<td>UX-15</td>
+<td>Toegang</td>
+<td>…bij een pagina of actie waarvoor hij geen rechten heeft, een duidelijke melding krijgen in plaats van een lege of kapotte pagina.</td>
+<td>Gebruikstaak: open een product-URL als medewerker zonder rechten.</td>
+<td>FigJam <em>Proces</em></td>
+</tr>
+</tbody></table></div>
+<h2 id="3-zo-testen-we-de-ux-eisen">3. Zo testen we de UX-eisen</h2>
+<p>Per sprint een usability-test met drie gebruikers (hardop denken) op drie vaste taken: <strong>klant zoeken</strong>, <strong>klacht registreren</strong> en <strong>contract vastleggen</strong>. Een eis is gehaald als twee van de drie testers de taak zonder hulp afronden. Bevindingen gaan als issue naar de backlog. Dit sluit aan op de <a href="productrisicoanalyse-teststrategie.html">teststrategie</a>.</p>
+<h2 id="4-nog-te-doen">4. Nog te doen</h2>
+<ul>
+<li><input disabled="" type="checkbox"> Team controleert de lijst en koppelt elke eis aan de functionele story (#183).</li>
+<li><input disabled="" type="checkbox"> Interactie en foutafhandeling per scherm uitwerken in de wireframes (#182).</li>
+<li><input disabled="" type="checkbox"> Definitieve statuslabels en tijdsnormen vastleggen zodra de open besluiten in de <a href="scope.html#6-open-besluiten">scope</a> beantwoord zijn.</li>
+</ul>
+</main>
+</div>
+<footer class="wrap foot">Gegenereerd uit de Markdown-bron in <code>docs/</code> · Team GroepInkoop · casus VoyageVista</footer>
+</body>
+</html>
