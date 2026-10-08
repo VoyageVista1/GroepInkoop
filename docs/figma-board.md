@@ -2,7 +2,7 @@
 
 **Link:** [Project Agile Board (FigJam)](https://www.figma.com/board/ManUSFsMrVgktm6UwReajA/Project-Agile-Board?node-id=0-1&p=f&t=Bxb2WEIrRXCM9J36-0)
 
-Dit document beschrijft wat er op het FigJam-board staat, zodat de repo en het board naar elkaar verwijzen. Stand: 8 oktober 2026. Het board zelf blijft de bron; dit is een overzicht plus een lijst met verbeterpunten.
+Dit document beschrijft wat er op het FigJam-board staat, zodat de repo en het board naar elkaar verwijzen. Stand: 8 oktober 2026 (na het koppelen van de use cases aan de stories #189–#226). Het board zelf blijft de bron; dit is een overzicht plus een lijst met verbeterpunten.
 
 ---
 
@@ -30,53 +30,68 @@ Na de use case refinement (oktober) zijn er tien primaire use cases. De user flo
 
 Kleuren in de flows: blauw = start/einde, paars = actie van de gebruiker, turquoise = actie van het systeem, groen = beslissing, rood = foutmelding (terug naar de invoer).
 
-| Nr. | Use case | Actor | Kern van de user flow |
-| --- | --- | --- | --- |
-| UC01 | Nieuw reisproduct ontwikkelen | Inkoper | Formulier openen → productgegevens, reisonderdelen en kenmerken invullen → optioneel leverancier, deadline, media → opslaan → velden geldig? (nee: foutmelding, terug) → publiceren of opslaan als concept. |
-| UC02 | Onderhandeling opvolgen | Inkoper | Dashboard → zoeken/filteren → selecteren → status invoeren, leverancier koppelen, optioneel notitie/vervolgafspraak → opslaan → geldig? → escaleren naar manager? → onderhandeling afgerond? → afsluiten. |
-| UC03 | Bestaand reisproduct bijwerken | Inkoper | Dashboard → zoeken/filteren → product selecteren → aanpassen → opslaan → geldig? → systeem logt wijziging → publiceren of concept. |
-| UC04 | Productontwikkeling plannen en volgen | Inkoper | Planningsoverzicht → mijlpalen tonen → mijlpaal bijwerken? → opslaan → geldig? → deadline nadert? (ja: melding) → dashboard met voortgang. |
-| UC05 | Leverancierscontract beheren | Inkoper | Leverancier zoeken/filteren en selecteren → contract aanmaken → afspraken en start-/einddatum → opslaan → geldig? → contract gekoppeld aan leverancier. |
-| UC06 | Leveranciersrelatie beheren | Inkoper | Leveranciersoverzicht → filteren → *nieuwe leverancier registreren* (invullen → geldig? → opslaan) of *leverancier bekijken* (prijshistorie, contractstatus → exporteren naar PDF of delen met manager). |
-| UC07 | Leveranciersaanbod vastleggen | Inkoper | Leverancier selecteren → aanbod toevoegen → gegevens, prijs en voorwaarden → zelf controleren → opslaan → geldig? → aanbod zichtbaar in dashboard. |
-| UC08 | Contractverplichtingen bewaken | Inkoper | Contractendashboard → termijnen en bezetting bekijken → aflopend contract of lage bezetting? → melding → verlengen, heronderhandelen (naar UC02) of doorgeven aan Marketing & Sales → besluit vastleggen. |
-| UC09 | Productgegevens beschikbaar stellen | Medewerker andere afdeling | Productdashboard → zoeken/filteren → gevonden? (nee: "Geen reisproducten gevonden") → details bekijken → exporteren, feedback geven of als favoriet opslaan. |
-| UC10 | Productkans onderzoeken | Inkoper | Trends en klantbehoeftes vastleggen → klantwensen koppelen aan productideeën → onderzoeksrapport → kansrijk idee? → doorzetten naar UC01. |
+| Nr. | Use case | Actor | User stories | Kern van de user flow |
+| --- | --- | --- | --- | --- |
+| UC01 | Nieuw reisproduct ontwikkelen | Inkoper | #190–#192 | Formulier openen → productgegevens, reisonderdelen en kenmerken invullen → optioneel leverancier, deadline, media → opslaan → velden geldig? (nee: foutmelding, terug) → publiceren of opslaan als concept. |
+| UC02 | Onderhandeling opvolgen | Inkoper | #213–#215 | Dashboard → zoeken/filteren → selecteren → status invoeren, leverancier koppelen, optioneel notitie/vervolgafspraak → opslaan → geldig? → escaleren naar manager? → onderhandeling afgerond? → afsluiten. |
+| UC03 | Bestaand reisproduct bijwerken | Inkoper | #193 | Dashboard → zoeken/filteren → product selecteren → aanpassen → opslaan → geldig? → systeem logt wijziging → publiceren of concept. |
+| UC04 | Productontwikkeling plannen en volgen | Inkoper | #223–#225 | Planningsoverzicht → mijlpalen tonen → mijlpaal bijwerken? → opslaan → geldig? → deadline nadert? (ja: melding) → dashboard met voortgang. |
+| UC05 | Leverancierscontract beheren | Inkoper | #216–#219 | Leverancier zoeken/filteren en selecteren → contract aanmaken → afspraken en start-/einddatum → opslaan → geldig? → contract gekoppeld aan leverancier. |
+| UC06 | Leveranciersrelatie beheren | Inkoper | #194–#198 | Leveranciersoverzicht → filteren → *nieuwe leverancier registreren* (invullen → geldig? → opslaan) of *leverancier bekijken* (prijshistorie, contractstatus → exporteren naar PDF of delen met manager). |
+| UC07 | Leveranciersaanbod vastleggen | Inkoper | #212 | Leverancier selecteren → aanbod toevoegen → gegevens, prijs en voorwaarden → zelf controleren → opslaan → geldig? → aanbod zichtbaar in dashboard. |
+| UC08 | Contractverplichtingen bewaken | Inkoper | #220–#222 | Contractendashboard → termijnen en bezetting bekijken → aflopend contract of lage bezetting? → melding → verlengen, heronderhandelen (naar UC02) of doorgeven aan Marketing & Sales → besluit vastleggen. |
+| UC09 | Productgegevens beschikbaar stellen | Medewerker andere afdeling | #226 | Productdashboard → zoeken/filteren → gevonden? (nee: "Geen reisproducten gevonden") → details bekijken → exporteren, feedback geven of als favoriet opslaan. |
+| UC10 | Productkans onderzoeken | Inkoper | #189 | Trends en klantbehoeftes vastleggen → klantwensen koppelen aan productideeën → onderzoeksrapport → kansrijk idee? → doorzetten naar UC01. |
 
 ### Use case descriptions (bijgewerkt 8 oktober)
 
-De tien descriptions zijn op het board opnieuw opgezet, in dezelfde tabelstijl, zodat ze één op één aansluiten op de flows:
+De tien descriptions zijn op het board opnieuw opgezet, in dezelfde tabelstijl als Klantenservice, zodat ze één op één aansluiten op de flows en op GitHub:
 
 - Vaste opbouw: Use case, Nummer (met de GitHub-issues), Doel, Primaire actor, Trigger, Preconditie, genummerd hoofdscenario, Postconditie en genummerde alternatieve scenario's (bijv. "6a.").
-- Elke use case heeft een preconditie en verwijst naar de user stories in GitHub (geen "???" meer).
-- De stappen staan in de goede volgorde. Dubbele stappen zijn eruit gehaald (UC02: één keer opslaan), net als stappen die er niet bij hoorden (UC04: "publiceert het product"; UC07: "slaat de nieuwe leverancier op" is nu "het aanbod").
-- Foutpaden staan nu als alternatief scenario in elke description, net als in de flows.
+- Het veld Nummer verwijst naar de functionele stories van epic #4 (#189–#198, #212–#226), niet meer naar de oude stories #82–#146.
+- De stappen zijn gecontroleerd tegen de acceptatiecriteria van die stories. Dubbele of verkeerde stappen zijn eruit (UC07: "vergelijken" verwijderd; geldigheidsperiode toegevoegd).
+- Foutpaden staan als alternatief scenario in elke description, net als in de flows.
+- De sectie staat in een raster van vier kolommen, op volgorde UC01–UC10.
+
+**Nog open (Inkoop):** de reisroute en volgorde van reisonderdelen (#191) en het beheer van de vaste lijsten voor kamertypes en faciliteiten (#192) staan nog niet als stap in UC01. De flow van UC10 noemt nog een "onderzoeksrapport"; de description en #189 spreken van de conclusie van het onderzoek.
 
 ## 3. Use cases en user flows Klantenservice & Support
 
-Op 8 oktober zijn de descriptions van Klantenservice opnieuw opgezet (dezelfde opbouw als bij Inkoop) en zijn de user flows opnieuw gemaakt in de sectie **"User flows Klantenservice & Support (na refinement)"**. De oude flows (UC-K01–UC-K09 met de namen van vóór de refinement) hebben "(OUD – vóór refinement)" in de naam gekregen.
+Op 8 oktober zijn de descriptions van Klantenservice opnieuw opgezet en daarna gekoppeld aan de functionele stories van epic #5 (één story per use case, #199–#211). De volledige tekst staat ook in [ontwerp/use-cases-klantenservice.md](ontwerp/use-cases-klantenservice.md), met de flows als Mermaid-diagram. De sectie staat in een raster van vier kolommen, op volgorde UC-K01–UC-K13. De descriptions hebben dezelfde opbouw als bij Inkoop en de user flows zijn opnieuw gemaakt in de sectie **"User flows Klantenservice & Support (na refinement)"**. De oude flows (UC-K01–UC-K09 met de namen van vóór de refinement) hebben "(OUD – vóór refinement)" in de naam gekregen.
 
 Wat er mis was: de descriptions waren half omgenummerd (UC-K04 stond er twee keer in, UC-K06 had de postconditie en alternatieve scenario's van "Klacht behandelen"), en de flows hadden nog de oude namen, terwijl de use-casediagrammen dertien use cases hebben.
 
-| Nr. | Use case | Actor | User stories |
+| Nr. | Use case | Actor | User story |
 | --- | --- | --- | --- |
-| UC-K01 | Klant en boeking opzoeken | Klantenservicemedewerker | #120 |
-| UC-K02 | Klantcontact registreren | Klantenservicemedewerker | #121, #145 |
-| UC-K03 | Klantdossier en contactgeschiedenis raadplegen | Klantenservicemedewerker | #124 |
-| UC-K04 | Klantzaak beheren | Klantenservicemedewerker | #122, #123, #125, #133, #137, #138 |
-| UC-K05 | Klantzaken prioriteren en toewijzen | Manager (teamleider) | #126, #127 |
-| UC-K06 | Werkvoorraad en reactietijden bewaken | Klantenservicemedewerker | #128, #129 |
-| UC-K07 | Klantvraag onderzoeken en beantwoorden | Klantenservicemedewerker | #130, #112 |
-| UC-K08 | Klacht volgens vaste werkwijze afhandelen | Klantenservicemedewerker | #131, #143 |
-| UC-K09 | Oplossing of compensatie vastleggen | Indiener en senior medewerker | #132, #144 |
-| UC-K10 | Klant informeren en zaak opvolgen | Klantenservicemedewerker | #134, #135, #136, #146 |
-| UC-K11 | Klachten en klantfeedback analyseren | Manager (teamleider) | #140, #141 |
-| UC-K12 | Klantgegevens en bewaartermijnen beheren | Klantenservicemedewerker | #139 |
-| UC-K13 | Privacy en gevoelige gegevens bewaken | Systeem | #142 |
+| UC-K01 | Klant en boeking opzoeken | Klantenservicemedewerker | #199 |
+| UC-K02 | Klantcontact registreren | Klantenservicemedewerker | #200 |
+| UC-K03 | Klantdossier en contactgeschiedenis raadplegen | Klantenservicemedewerker | #201 |
+| UC-K04 | Klantzaak beheren | Klantenservicemedewerker | #202 |
+| UC-K05 | Klantzaken prioriteren en toewijzen | Manager (teamleider) | #203 |
+| UC-K06 | Werkvoorraad en reactietijden bewaken | Klantenservicemedewerker | #204 |
+| UC-K07 | Klantvraag onderzoeken en beantwoorden | Klantenservicemedewerker | #205 |
+| UC-K08 | Klacht volgens vaste werkwijze afhandelen | Klantenservicemedewerker | #206 |
+| UC-K09 | Oplossing of compensatie vastleggen | Indiener en senior medewerker | #207 |
+| UC-K10 | Klant informeren en zaak opvolgen | Klantenservicemedewerker | #208 |
+| UC-K11 | Klachten en klantfeedback analyseren | Manager (teamleider) | #209 |
+| UC-K12 | Klantgegevens en bewaartermijnen beheren | Klantenservicemedewerker | #210 |
+| UC-K13 | Privacy en gevoelige gegevens bewaken | Systeem | #211 |
 
 De descriptions gebruiken de interviewbevindingen uit [interview-analyse.md](interview-analyse.md): zoeken op e-mailadres (K1), escalatiepad naar After Travel (K8), compensatie als percentage van de reissom met controle door een tweede medewerker (K9), geen IBAN of paspoortnummer opslaan (P1, P2) en gegevens bewaren tot de klant thuis is (P3).
 
 **Nog te doen:** het primaire use-casediagram van Klantenservice toont negen use cases. Klantzaak beheren, Werkvoorraad en reactietijden bewaken, Klant informeren en zaak opvolgen en Privacy en gevoelige gegevens bewaken staan wel in de uitgewerkte diagrammen, maar nog niet in het primaire diagram en de refinement-tabel.
+
+**Nog open (Klantenservice), gevonden bij de controle tegen GitHub:**
+
+- UC-K02: de vervolgactie uit #200 staat niet in de stappen.
+- UC-K11: het opvolgen van een structurele verbeteractie (#209) ontbreekt.
+- UC-K13: de privacycontrole moet volgens #211 ook werken bij een directe opslagactie, niet alleen in het scherm.
+- Flows tegenover descriptions: in de flow van UC-K09 stelt het systeem het klachttype vast en berekent het het percentage, in de description doet de medewerker dat; de flow van UC-K06 heeft een stap "Zaak met hoogste urgentie oppakken" en de flow van UC-K10 een controle op reisstatus die niet in de description staan.
+
+### BPMN en sprintchecklist
+
+- **BPMN Klantenservice & Support** (issue #168): herzien op 8 oktober, met de lanes Klantenservice, Teamleider, Senior medewerker, After Travel en Financiën. Bron en export staan in [proces/](proces) (`gen_bpmn.py` maakt de .svg, .bpmn en .html).
+- **Sprint planning checklist:** op het board staat een afvinklijst voor de sprintplanning, om aan de docenten te laten zien.
 
 ## 4. Scope en gegevens (uit het board)
 

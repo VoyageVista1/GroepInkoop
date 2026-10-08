@@ -118,6 +118,33 @@ Gesorteerd op prioriteit. SP = storypoints.
 | E4 Bezetting en afstemming met verkoop | Ingekochte kamers worden op tijd verkocht; Marketing en Sales krijgen een signaal als dat achterloopt. | 2 | 8 |
 | E5 Gestandaardiseerde productdata | Reisproducten hebben vaste kenmerken, zodat verkoper en klant precies weten wat er geboekt wordt. | 5 | 19 |
 
+### Koppeling met GitHub-issues
+
+Voorstel van 8 oktober 2026, **nog te bevestigen door de Product Owner**. De functionele stories in GitHub (epic [#4](https://github.com/VoyageVista1/GroepInkoop/issues/4), #189–#198 en #212–#226) zijn fijner opgesplitst dan IN-00 t/m IN-17. Use case = beschrijving op het FigJam-board.
+
+| ID | User story | GitHub-issue(s) | Use case | Opmerking |
+| --- | --- | --- | --- | --- |
+| IN-00 | Datamodel Inkoop opstellen | [#157](https://github.com/VoyageVista1/GroepInkoop/issues/157), [#156](https://github.com/VoyageVista1/GroepInkoop/issues/156) | Epic #2 | Analyse/ontwerp-issues, geen functionele story |
+| IN-01 | Leverancier registreren | [#194](https://github.com/VoyageVista1/GroepInkoop/issues/194) | UC06 |  |
+| IN-02 | Leveranciers zoeken en filteren | [#195](https://github.com/VoyageVista1/GroepInkoop/issues/195) | UC06 |  |
+| IN-03 | Leveranciersgegevens wijzigen met historie | [#196](https://github.com/VoyageVista1/GroepInkoop/issues/196) | UC06 |  |
+| IN-04 | Bezoek en onderhandeling vastleggen | [#197](https://github.com/VoyageVista1/GroepInkoop/issues/197), [#213](https://github.com/VoyageVista1/GroepInkoop/issues/213) | UC06, UC02 | IN-04 is in GitHub gesplitst in bezoek (#197) en onderhandeling (#213) |
+| IN-05 | Overzicht van alle onderhandelingen | [#214](https://github.com/VoyageVista1/GroepInkoop/issues/214) | UC02 |  |
+| IN-06 | Signaal voor volgend leveranciersbezoek | [#198](https://github.com/VoyageVista1/GroepInkoop/issues/198) | UC06 |  |
+| IN-07 | Contract vastleggen | [#216](https://github.com/VoyageVista1/GroepInkoop/issues/216) | UC05 |  |
+| IN-08 | Annuleringsvoorwaarden gestructureerd vastleggen | [#218](https://github.com/VoyageVista1/GroepInkoop/issues/218) | UC05 |  |
+| IN-09 | Signaal aflopende contracten | [#220](https://github.com/VoyageVista1/GroepInkoop/issues/220) | UC08 |  |
+| IN-10 | Contract laten goedkeuren | [#219](https://github.com/VoyageVista1/GroepInkoop/issues/219) | UC05 |  |
+| IN-11 | Bezetting per contract bekijken | [#221](https://github.com/VoyageVista1/GroepInkoop/issues/221) | UC08 |  |
+| IN-12 | Lage bezetting doorgeven aan Marketing en Sales | [#222](https://github.com/VoyageVista1/GroepInkoop/issues/222) | UC08 |  |
+| IN-13 | Reisproduct aanmaken met vaste kenmerken | [#190](https://github.com/VoyageVista1/GroepInkoop/issues/190), [#191](https://github.com/VoyageVista1/GroepInkoop/issues/191) | UC01 | Reisroute (#191) is apart uitgewerkt |
+| IN-14 | Vaste lijsten voor kamertypes en faciliteiten beheren | [#192](https://github.com/VoyageVista1/GroepInkoop/issues/192) | UC01 |  |
+| IN-15 | Voortgang productontwikkeling volgen | [#224](https://github.com/VoyageVista1/GroepInkoop/issues/224), [#223](https://github.com/VoyageVista1/GroepInkoop/issues/223), [#225](https://github.com/VoyageVista1/GroepInkoop/issues/225) | UC04 | Gesplitst in voortgang, mijlpalen en signalering |
+| IN-16 | Productcatalogus voor andere afdelingen | [#226](https://github.com/VoyageVista1/GroepInkoop/issues/226) | UC09 |  |
+| IN-17 | Klantwensen koppelen aan productideeën | [#189](https://github.com/VoyageVista1/GroepInkoop/issues/189) | UC10 | Gedeeltelijk: #189 gaat over productkansen in het algemeen |
+
+GitHub-stories zonder eigen IN-nummer: [#193](https://github.com/VoyageVista1/GroepInkoop/issues/193) Reisproductgegevens wijzigen (UC03), [#212](https://github.com/VoyageVista1/GroepInkoop/issues/212) Leveranciersaanbod vastleggen (UC07), [#215](https://github.com/VoyageVista1/GroepInkoop/issues/215) Vervolgactie bij onderhandeling (UC02), [#217](https://github.com/VoyageVista1/GroepInkoop/issues/217) Contractgegevens wijzigen en archiveren (UC05).
+
 ## 6. Releaseplanning en sprintdoelen
 
 | Sprint | Periode | Duur | Sprintdoel | Stories | SP |
