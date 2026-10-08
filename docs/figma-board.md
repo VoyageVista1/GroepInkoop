@@ -43,24 +43,40 @@ Kleuren in de flows: blauw = start/einde, paars = actie van de gebruiker, turquo
 | UC09 | Productgegevens beschikbaar stellen | Medewerker andere afdeling | Productdashboard → zoeken/filteren → gevonden? (nee: "Geen reisproducten gevonden") → details bekijken → exporteren, feedback geven of als favoriet opslaan. |
 | UC10 | Productkans onderzoeken | Inkoper | Trends en klantbehoeftes vastleggen → klantwensen koppelen aan productideeën → onderzoeksrapport → kansrijk idee? → doorzetten naar UC01. |
 
-### Verschillen tussen de flows en de use case descriptions
+### Use case descriptions (bijgewerkt 8 oktober)
 
-De flows volgen de descriptions. Op deze punten wijken ze bewust af, of ontbreekt er iets in de descriptions:
+De tien descriptions zijn op het board opnieuw opgezet, in dezelfde tabelstijl, zodat ze één op één aansluiten op de flows:
 
-- **UC02:** in het hoofdscenario wordt twee keer opgeslagen ("slaat de wijzigingen op" en later "klikt op opslaan"), en het afsluiten staat vóór de melding. In de flow wordt één keer opgeslagen; afsluiten en escaleren komen daarna.
-- **UC04:** de stap "Het systeem publiceert het product" past niet bij plannen en volgen. Die stap staat niet in de flow.
-- **UC05:** de oude flow eindigde met "Contract versturen naar leverancier". Dat staat niet in de description en is dus uit de flow gehaald.
-- **UC06:** het doel noemt ook leveranciers *wijzigen* en *contact- en bezoekmomenten vastleggen*. Die stappen staan nog niet in het hoofdscenario en dus ook niet in de flow. Het hoofdscenario noemt ook nog niet het registreren van een leverancier (dat is volgens de refinement een secundaire use case van UC06); in de flow is het wel opgenomen.
-- **UC06:** in de description staat bij Nummer "UC05" in plaats van "UC06".
-- **UC07:** de laatste stap zegt "Systeem slaat de nieuwe leverancier op". Dat moet "het aanbod" zijn.
-- **Alle use cases:** de foutpaden (velden niet geldig → foutmelding → terug naar invoer) staan nu in de flows, maar nog niet als alternatief scenario in de descriptions. Alleen UC01 heeft een alternatief scenario (8a).
-- **Precondities** ontbreken nog bij UC02, UC03, UC05, UC06, UC07 en UC08. Bij UC04, UC07, UC08, UC09 en UC10 staat nog "user story ???" of "(?)".
+- Vaste opbouw: Use case, Nummer (met de GitHub-issues), Doel, Primaire actor, Trigger, Preconditie, genummerd hoofdscenario, Postconditie en genummerde alternatieve scenario's (bijv. "6a.").
+- Elke use case heeft een preconditie en verwijst naar de user stories in GitHub (geen "???" meer).
+- De stappen staan in de goede volgorde. Dubbele stappen zijn eruit gehaald (UC02: één keer opslaan), net als stappen die er niet bij hoorden (UC04: "publiceert het product"; UC07: "slaat de nieuwe leverancier op" is nu "het aanbod").
+- Foutpaden staan nu als alternatief scenario in elke description, net als in de flows.
 
-## 3. Use cases Klantenservice & Support
+## 3. Use cases en user flows Klantenservice & Support
 
-Klantcontact registreren · Klantgeschiedenis/klacht raadplegen · Openstaande zaken prioriteren en verdelen · Klantvraag beantwoorden · Klacht behandelen · Terugkerende klantproblemen onderzoeken · Vergoedingsvoorstel controleren · Klantgegevens verwijderen (AVG) · Klant zoeken op e-mailadres.
+Op 8 oktober zijn de descriptions van Klantenservice opnieuw opgezet (dezelfde opbouw als bij Inkoop) en zijn de user flows opnieuw gemaakt in de sectie **"User flows Klantenservice & Support (na refinement)"**. De oude flows (UC-K01–UC-K09 met de namen van vóór de refinement) hebben "(OUD – vóór refinement)" in de naam gekregen.
 
-Deze sluiten aan op de interviewbevindingen K1–K11 en P1–P5 in [interview-analyse.md](interview-analyse.md).
+Wat er mis was: de descriptions waren half omgenummerd (UC-K04 stond er twee keer in, UC-K06 had de postconditie en alternatieve scenario's van "Klacht behandelen"), en de flows hadden nog de oude namen, terwijl de use-casediagrammen dertien use cases hebben.
+
+| Nr. | Use case | Actor | User stories |
+| --- | --- | --- | --- |
+| UC-K01 | Klant en boeking opzoeken | Klantenservicemedewerker | #120 |
+| UC-K02 | Klantcontact registreren | Klantenservicemedewerker | #121, #145 |
+| UC-K03 | Klantdossier en contactgeschiedenis raadplegen | Klantenservicemedewerker | #124 |
+| UC-K04 | Klantzaak beheren | Klantenservicemedewerker | #122, #123, #125, #133, #137, #138 |
+| UC-K05 | Klantzaken prioriteren en toewijzen | Manager (teamleider) | #126, #127 |
+| UC-K06 | Werkvoorraad en reactietijden bewaken | Klantenservicemedewerker | #128, #129 |
+| UC-K07 | Klantvraag onderzoeken en beantwoorden | Klantenservicemedewerker | #130, #112 |
+| UC-K08 | Klacht volgens vaste werkwijze afhandelen | Klantenservicemedewerker | #131, #143 |
+| UC-K09 | Oplossing of compensatie vastleggen | Indiener en senior medewerker | #132, #144 |
+| UC-K10 | Klant informeren en zaak opvolgen | Klantenservicemedewerker | #134, #135, #136, #146 |
+| UC-K11 | Klachten en klantfeedback analyseren | Manager (teamleider) | #140, #141 |
+| UC-K12 | Klantgegevens en bewaartermijnen beheren | Klantenservicemedewerker | #139 |
+| UC-K13 | Privacy en gevoelige gegevens bewaken | Systeem | #142 |
+
+De descriptions gebruiken de interviewbevindingen uit [interview-analyse.md](interview-analyse.md): zoeken op e-mailadres (K1), escalatiepad naar After Travel (K8), compensatie als percentage van de reissom met controle door een tweede medewerker (K9), geen IBAN of paspoortnummer opslaan (P1, P2) en gegevens bewaren tot de klant thuis is (P3).
+
+**Nog te doen:** het primaire use-casediagram van Klantenservice toont negen use cases. Klantzaak beheren, Werkvoorraad en reactietijden bewaken, Klant informeren en zaak opvolgen en Privacy en gevoelige gegevens bewaken staan wel in de uitgewerkte diagrammen, maar nog niet in het primaire diagram en de refinement-tabel.
 
 ## 4. Scope en gegevens (uit het board)
 
