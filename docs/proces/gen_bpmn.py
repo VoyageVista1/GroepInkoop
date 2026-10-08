@@ -4,7 +4,6 @@ from xml.sax.saxutils import escape as xesc
 import os
 
 OUT = os.path.dirname(os.path.abspath(__file__))
-W = 3230
 FONT = "'IBM Plex Sans', 'Segoe UI', Roboto, Arial, sans-serif"
 
 # ---------------- Layout ----------------
@@ -17,21 +16,24 @@ LANE_BAND = 170           # lane-naam
 CX0 = X0 + POOL_BAND + LANE_BAND  # begin inhoud
 
 TITLE_H = 52
-POOL_K = (70, 222)        # Klant
-POOL_V = (240, 868)       # VoyageVista
+POOL_K = (70, 262)        # Klant
+POOL_V = (282, 1052)      # VoyageVista
 LANES = [                 # (id, naam, y0, y1, kleur)
-    ('L_ks', 'Klantenservice\n(shop en contactcenter)', 240, 530, '#ece4fb'),
-    ('L_sr', 'Senior\nklantenservice', 530, 640, '#e2d8f6'),
-    ('L_at', 'After Travel', 640, 750, '#f2e3f7'),
-    ('L_fi', 'Financiën &\nAdministratie', 750, 868, '#dde9f8'),
+    ('L_ks', 'Klantenservice-\nmedewerker\n(shop en\ncontactcenter)', 282, 642, '#ece4fb'),
+    ('L_tl', 'Teamleider\nklantenservice', 642, 742, '#e6ddf8'),
+    ('L_sr', 'Senior\nklantenservice', 742, 842, '#e2d8f6'),
+    ('L_at', 'After Travel', 842, 942, '#f2e3f7'),
+    ('L_fi', 'Financiën &\nAdministratie', 942, 1052, '#dde9f8'),
 ]
-POOL_L = (886, 940)       # Leverancier (dichtgeklapt)
-LEGEND_Y = 968
-H = 1060
+POOL_L = (1070, 1124)     # Leverancier (dichtgeklapt)
+LEGEND_Y = 1152
+H = 1244
+W = 4250
 
-yK = 146
-rU, rM, rL = 305, 395, 482
-ySR, yAT, yFI = 585, 695, 809
+yK, yKL = 135, 215
+rU, rM, rL = 340, 450, 560
+yLOW = 620                # retourroute onderin de lane Klantenservice
+yTL, ySR, yAT, yFI = 692, 792, 892, 997
 
 # element: id -> dict(type, x, y, label, lane, extra)
 E = {}
@@ -41,46 +43,61 @@ def el(i, t, x, y, label='', pool='V', lane=None, **kw):
 # Klant
 el('k_start', 'start', 270, yK, 'Klant heeft vraag\nof klacht', 'K')
 el('k1', 'task', 400, yK, 'Neemt contact op\n(telefoon, e-mail,\nshop, social media)', 'K')
-el('k2', 'task', 2210, yK, 'Ontvangt antwoord\nof voorstel', 'K')
-el('k3', 'task', 2370, yK, 'Reageert op\nvoorstel (akkoord\nof bezwaar)', 'K')
-el('k4', 'task', 2680, yK, 'Ontvangt\neindbesluit', 'K')
-el('k5', 'task', 2860, yK, 'Vult zelf\nrekeningnummer in', 'K', badge=5)
-el('k_end', 'end', 2990, yK, 'Klant\ngeholpen', 'K')
+el('k2', 'task', 2790, yK, 'Ontvangt antwoord,\nbesluit of voorstel', 'K')
+el('kg1', 'gateway', 2930, yK, 'Voorstel?', 'K')
+el('k_end0', 'end', 2930, yKL, 'Klant\ngeholpen', 'K', lblright=True)
+el('k3', 'task', 3070, yK, 'Reageert op\nvoorstel (akkoord\nof bezwaar)', 'K')
+el('kg2', 'gateway', 3210, yK, 'Akkoord?', 'K')
+el('k4', 'task', 3370, yKL, 'Ontvangt\neindbesluit', 'K')
+el('km', 'gateway', 3480, yK, '', 'K')
+el('k5', 'task', 3590, yK, 'Vult zelf rekening-\nnummer in (bij\ncompensatie)', 'K', badge=5)
+el('k_end', 'end', 3720, yK, 'Klant\ngeholpen', 'K', lblright=True)
 
-# Klantenservice
+# Klantenservice-medewerker
 el('ms', 'msgstart', 400, rM, 'Contact\nontvangen', lane='L_ks')
-el('m1', 'task', 530, rM, 'Klant zoeken\n(e-mail, telefoon,\nnaam)', lane='L_ks')
+el('m1', 'task', 530, rM, 'Klant en boeking\nzoeken (e-mail,\ntelefoon, naam)', lane='L_ks')
 el('m2', 'task', 700, rM, 'Contactmoment\nvastleggen in\nklantdossier', lane='L_ks', badge=1)
-el('gw1', 'gateway', 850, rM, 'Soort\ncontact?', lane='L_ks', below=True)
-el('m3', 'task', 980, rU, 'Vraag beantwoorden\nof wijziging\nverwerken', lane='L_ks')
-el('me1', 'msgend', 1120, rU, 'Vraag\nafgehandeld', lane='L_ks', lblright=True)
-el('m4', 'task', 980, rM, 'Klacht registreren\n(urgentie\nautomatisch)', lane='L_ks', badge=2)
-el('gw2', 'gateway', 1120, rM, 'Klant nu\nop reis?', lane='L_ks')
-el('m5', 'task', 1260, rM, 'Hotel vragen om\noplossing ter\nplaatse', lane='L_ks', badge=3)
-el('gm1', 'gateway', 1400, rM, '', lane='L_ks')
-el('m6', 'task', 1530, rM, 'Klacht beoordelen\n(historie, zelf\ngekozen?)', lane='L_ks', badge=4)
-el('gw3', 'gateway', 1670, rM, 'Klacht\ngegrond?', lane='L_ks', below=True)
-el('m7', 'task', 1670, rU, 'Ongegrond\nverklaren met\nonderbouwing', lane='L_ks')
-el('m8', 'task', 1810, rM, 'Compensatie-\nvoorstel volgens\nrichtlijn', lane='L_ks')
-el('gm2', 'gateway', 2090, rM, '', lane='L_ks')
-el('m10', 'task', 2210, rM, 'Klant informeren\nover besluit of\nvoorstel', lane='L_ks')
-el('m11', 'receive', 2370, rM, 'Reactie klant\nverwerken', lane='L_ks')
-el('gw4', 'gateway', 2500, rM, 'Klant\nakkoord?', lane='L_ks')
+el('gz', 'gateway', 850, rM, 'Bestaande\nzaak?', lane='L_ks', below=True)
+el('mz1', 'task', 980, rU, 'Contact toevoegen\naan zaak (zo nodig\nheropenen)', lane='L_ks', badge=8)
+el('mz2', 'task', 980, rM, 'Klantzaak aanmaken\nen classificeren', lane='L_ks')
+el('gzm', 'gateway', 1120, rM, '', lane='L_ks')
+el('gw1', 'gateway', 1390, rM, 'Soort\nzaak?', lane='L_ks', below=True)
+el('v1', 'task', 1530, rU, 'Vraag onderzoeken\n(FAQ, template,\ncollega)', lane='L_ks')
+el('v2', 'task', 1690, rU, 'Antwoord opstellen\nof doorzetten naar\nandere afdeling', lane='L_ks')
+el('gw2', 'gateway', 1530, rM, 'Klant nu\nop reis?', lane='L_ks')
+el('m5', 'task', 1670, rL, 'Hotel vragen om\noplossing ter\nplaatse', lane='L_ks', badge=3)
+el('got', 'gateway', 1810, rL, 'Opgelost ter\nplaatse?', lane='L_ks')
+el('gm1', 'gateway', 1950, rM, '', lane='L_ks')
+el('m6', 'task', 2090, rM, 'Klacht beoordelen\n(historie, bewijs,\nzelf gekozen?)', lane='L_ks', badge=4)
+el('gw3', 'gateway', 2230, rM, 'Klacht\ngegrond?', lane='L_ks')
+el('m7', 'task', 2230, rL, 'Ongegrond\nverklaren met\nonderbouwing', lane='L_ks')
+el('m8', 'task', 2370, rM, 'Compensatie-\nvoorstel volgens\nrichtlijn', lane='L_ks')
+el('gm2', 'gateway', 2650, rM, '', lane='L_ks')
+el('m10', 'task', 2790, rM, 'Klant informeren\n(antwoord, besluit\nof voorstel)', lane='L_ks', badge=7)
+el('gv2', 'gateway', 2930, rM, 'Voorstel\naan klant?', lane='L_ks')
+el('m11', 'receive', 3070, rM, 'Reactie klant\nverwerken', lane='L_ks')
+el('gw4', 'gateway', 3210, rM, 'Klant\nakkoord?', lane='L_ks')
+el('gc', 'gateway', 3370, rM, 'Compensatie\ntoegekend?', lane='L_ks', below=True, ldx=-62)
+el('ge1', 'gateway', 3700, rM, '', lane='L_ks')
+el('ge2', 'gateway', 3830, rM, '', lane='L_ks')
+el('m12', 'task', 3970, rM, 'Uitkomst vastleggen\nen klantzaak\nafsluiten', lane='L_ks', badge=9)
+el('m_end', 'end', 4120, rM, 'Zaak\nafgesloten', lane='L_ks')
 el('ds', 'datastore', 615, rL, 'Klantdossier\n(werkplek)', lane='L_ks')
 
+# Teamleider
+el('t1', 'task', 1250, yTL, 'Urgentie bepalen\nen behandelaar\ntoewijzen', lane='L_tl', badge=2)
+
 # Senior
-el('s1', 'task', 1810, ySR, 'Voorstel\ncontroleren\n(vier ogen)', lane='L_sr', badge=6)
-el('gs', 'gateway', 1950, ySR, 'Goed-\ngekeurd?', lane='L_sr', below=True)
-el('do', 'dataobject', 1650, ySR, 'Compensatie-\nrichtlijn\n(% van reissom)', lane='L_sr')
+el('s1', 'task', 2370, ySR, 'Voorstel\ncontroleren\n(vier ogen)', lane='L_sr', badge=6)
+el('gs', 'gateway', 2510, ySR, 'Goed-\ngekeurd?', lane='L_sr', below=True)
+el('do', 'dataobject', 2200, ySR, 'Compensatie-\nrichtlijn\n(% van reissom)', lane='L_sr')
 
 # After Travel
-el('a1', 'task', 2500, yAT, 'Klacht opnieuw\nbeoordelen\n(maatwerk)', lane='L_at')
-el('a2', 'task', 2680, yAT, 'Eindbesluit\nvastleggen en\ncommuniceren', lane='L_at')
+el('a1', 'task', 3210, yAT, 'Klacht opnieuw\nbeoordelen\n(maatwerk)', lane='L_at')
+el('a2', 'task', 3370, yAT, 'Eindbesluit\nvastleggen en\ncommuniceren', lane='L_at')
 
 # Financiën
-el('f1', 'task', 2830, yFI, 'Compensatie\nuitbetalen (indien\nvan toepassing)', lane='L_fi')
-el('f2', 'task', 2990, yFI, 'Klachtdossier\nafsluiten', lane='L_fi')
-el('f_end', 'end', 3120, yFI, 'Klacht\nafgehandeld', lane='L_fi')
+el('f1', 'task', 3560, yFI, 'Compensatie\nuitbetalen', lane='L_fi')
 
 def bounds(e):
     t = e['type']
@@ -99,67 +116,81 @@ def P(i, side):
     e = E[i]; x, y, w, h = bounds(e)
     return {'l': (x, y + h / 2), 'r': (x + w, y + h / 2), 't': (x + w / 2, y), 'b': (x + w / 2, y + h)}[side]
 
-def off(p, dx=0, dy=0):
-    return (p[0] + dx, p[1] + dy)
-
 # ---------------- Stromen ----------------
-# (id, bron, doel, waypoints, label, labelpos)
 SEQ = []
 def seq(i, s, t, pts, label='', lp=None, anchor='start'):
     SEQ.append(dict(id='sf_' + i, s=s, t=t, pts=pts, label=label, lp=lp, anchor=anchor))
+def line(i, s, t, label='', lp=None):
+    seq(i, s, t, [P(s, 'r'), P(t, 'l')], label, lp)
 
 # Klant
-seq('fk1', 'k_start', 'k1', [P('k_start', 'r'), P('k1', 'l')])
-seq('fk2', 'k1', 'k2', [P('k1', 'r'), P('k2', 'l')])
-seq('fk3', 'k2', 'k3', [P('k2', 'r'), P('k3', 'l')])
-seq('fk4', 'k3', 'k4', [P('k3', 'r'), P('k4', 'l')])
-seq('fk5', 'k4', 'k5', [P('k4', 'r'), P('k5', 'l')])
-seq('fk6', 'k5', 'k_end', [P('k5', 'r'), P('k_end', 'l')])
+line('fk1', 'k_start', 'k1')
+line('fk2', 'k1', 'k2')
+line('fk3', 'k2', 'kg1')
+line('fk4', 'kg1', 'k3', 'Ja', (2962, yK - 8))
+seq('fk5', 'kg1', 'k_end0', [P('kg1', 'b'), P('k_end0', 't')], 'Nee', (2938, yK + 44))
+line('fk6', 'k3', 'kg2')
+line('fk7', 'kg2', 'km', 'Ja', (3242, yK - 8))
+seq('fk8', 'kg2', 'k4', [P('kg2', 'b'), (3210, yKL), P('k4', 'l')], 'Nee (bezwaar)', (3218, yK + 46))
+seq('fk9', 'k4', 'km', [P('k4', 'r'), (3480, yKL), P('km', 'b')])
+line('fk10', 'km', 'k5')
+line('fk11', 'k5', 'k_end')
+
 # VoyageVista
-seq('f1', 'ms', 'm1', [P('ms', 'r'), P('m1', 'l')])
-seq('f2', 'm1', 'm2', [P('m1', 'r'), P('m2', 'l')])
-seq('f3', 'm2', 'gw1', [P('m2', 'r'), P('gw1', 'l')])
-seq('f4', 'gw1', 'm3', [P('gw1', 't'), (850, rU), P('m3', 'l')], 'Vraag of wijziging', (842, rU - 12), 'end')
-seq('f5', 'm3', 'me1', [P('m3', 'r'), P('me1', 'l')])
-seq('f6', 'gw1', 'm4', [P('gw1', 'r'), P('m4', 'l')], 'Klacht', (882, rM - 8))
-seq('f7', 'm4', 'gw2', [P('m4', 'r'), P('gw2', 'l')])
-seq('f8', 'gw2', 'm5', [P('gw2', 'r'), P('m5', 'l')], 'Ja', (1150, rM - 8))
-seq('f9', 'gw2', 'gm1', [P('gw2', 'b'), (1120, rL), (1400, rL), P('gm1', 'b')], 'Nee', (1128, rM + 44))
-seq('f10', 'm5', 'gm1', [P('m5', 'r'), P('gm1', 'l')])
-seq('f11', 'gm1', 'm6', [P('gm1', 'r'), P('m6', 'l')])
-seq('f12', 'm6', 'gw3', [P('m6', 'r'), P('gw3', 'l')])
-seq('f13', 'gw3', 'm8', [P('gw3', 'r'), P('m8', 'l')], 'Ja', (1700, rM - 8))
-seq('f14', 'gw3', 'm7', [P('gw3', 't'), P('m7', 'b')], 'Nee', (1678, rM - 40))
-seq('f15', 'm7', 'gm2', [P('m7', 'r'), (2090, rU), P('gm2', 't')])
-seq('f16', 'm8', 's1', [P('m8', 'b'), P('s1', 't')])
-seq('f17', 's1', 'gs', [P('s1', 'r'), P('gs', 'l')])
-seq('f18', 'gs', 'm8', [P('gs', 't'), (1950, rM), P('m8', 'r')], 'Nee, terug', (1958, 470))
-seq('f19', 'gs', 'gm2', [P('gs', 'r'), (2090, ySR), P('gm2', 'b')], 'Ja', (1984, ySR - 8))
-seq('f20', 'gm2', 'm10', [P('gm2', 'r'), P('m10', 'l')])
-seq('f21', 'm10', 'm11', [P('m10', 'r'), P('m11', 'l')])
-seq('f22', 'm11', 'gw4', [P('m11', 'r'), P('gw4', 'l')])
-seq('f23', 'gw4', 'f1', [P('gw4', 'r'), (2800, rM), (2800, yFI - TH / 2)], 'Ja', (2534, rM - 8))
-seq('f24', 'gw4', 'a1', [P('gw4', 'b'), P('a1', 't')], 'Nee (bezwaar)', (2508, 470))
-seq('f25', 'a1', 'a2', [P('a1', 'r'), P('a2', 'l')])
-seq('f26', 'a2', 'f1', [P('a2', 'b'), (2680, yFI), P('f1', 'l')])
-seq('f27', 'f1', 'f2', [P('f1', 'r'), P('f2', 'l')])
-seq('f28', 'f2', 'f_end', [P('f2', 'r'), P('f_end', 'l')])
-# f23 eindigt boven op f1 op x=2800 (links van het midden)
-SEQ[[s['id'] for s in SEQ].index('sf_f23')]['pts'][-1] = (2800, yFI - TH / 2)
+line('f1', 'ms', 'm1')
+line('f2', 'm1', 'm2')
+line('f3', 'm2', 'gz')
+seq('f4', 'gz', 'mz1', [P('gz', 't'), (850, rU), P('mz1', 'l')], 'Ja', (858, rU + 30))
+line('f5', 'gz', 'mz2', 'Nee', (874, rM - 8))
+seq('f6', 'mz1', 'gzm', [P('mz1', 'r'), (1120, rU), P('gzm', 't')])
+line('f7', 'mz2', 'gzm')
+seq('f8', 'gzm', 't1', [P('gzm', 'b'), (1120, yTL), P('t1', 'l')])
+seq('f9', 't1', 'gw1', [P('t1', 'r'), (1340, yTL), (1340, rM), P('gw1', 'l')])
+seq('f10', 'gw1', 'v1', [P('gw1', 't'), (1390, rU), P('v1', 'l')], 'Vraag of wijziging', (1382, rU - 12), 'end')
+line('f11', 'v1', 'v2')
+seq('f12', 'v2', 'gm2', [P('v2', 'r'), (2650, rU), P('gm2', 't')])
+line('f13', 'gw1', 'gw2', 'Klacht', (1422, rM - 8))
+seq('f14', 'gw2', 'm5', [P('gw2', 'b'), (1530, rL), P('m5', 'l')], 'Ja', (1538, rL - 10))
+line('f15', 'gw2', 'gm1', 'Nee', (1562, rM - 8))
+line('f16', 'm5', 'got')
+seq('f17', 'got', 'gm1', [P('got', 'r'), (1950, rL), P('gm1', 'b')], 'Nee', (1842, rL - 8))
+seq('f18', 'got', 'ge2', [P('got', 'b'), (1810, yLOW), (3830, yLOW), P('ge2', 'b')], 'Ja', (1818, rL + 46))
+line('f19', 'gm1', 'm6')
+line('f20', 'm6', 'gw3')
+line('f21', 'gw3', 'm8', 'Ja', (2262, rM - 8))
+seq('f22', 'gw3', 'm7', [P('gw3', 'b'), P('m7', 't')], 'Nee', (2238, rM + 46))
+seq('f23', 'm7', 'gm2', [P('m7', 'r'), (2600, rL), (2600, rM), P('gm2', 'l')])
+seq('f24', 'm8', 's1', [P('m8', 'b'), P('s1', 't')])
+line('f25', 's1', 'gs')
+seq('f26', 'gs', 'm8', [P('gs', 't'), (2510, rM), P('m8', 'r')], 'Nee, terug', (2518, rL + 20))
+seq('f27', 'gs', 'gm2', [P('gs', 'r'), (2650, ySR), P('gm2', 'b')], 'Ja', (2544, ySR - 8))
+line('f28', 'gm2', 'm10')
+line('f29', 'm10', 'gv2')
+line('f30', 'gv2', 'm11', 'Ja', (2962, rM - 8))
+seq('f31', 'gv2', 'ge2', [P('gv2', 'b'), (2930, yLOW), (3830, yLOW), P('ge2', 'b')], 'Nee', (2938, rM + 46))
+line('f32', 'm11', 'gw4')
+line('f33', 'gw4', 'gc', 'Ja', (3242, rM - 8))
+seq('f34', 'gw4', 'a1', [P('gw4', 'b'), P('a1', 't')], 'Nee (bezwaar)', (3218, yTL - 12))
+line('f35', 'a1', 'a2')
+seq('f36', 'a2', 'gc', [P('a2', 't'), P('gc', 'b')])
+seq('f37', 'gc', 'f1', [P('gc', 'r'), (3500, rM), (3500, yFI - TH / 2)], 'Ja', (3430, rM - 8))
+seq('f38', 'gc', 'ge1', [P('gc', 't'), (3370, rU), (3700, rU), P('ge1', 't')], 'Nee', (3378, rU + 30))
+seq('f39', 'f1', 'ge1', [P('f1', 'r'), (3700, yFI), P('ge1', 'b')])
+line('f40', 'ge1', 'ge2')
+line('f41', 'ge2', 'm12')
+line('f42', 'm12', 'm_end')
 
 MSG = []
 def msg(i, s, t, pts, label='', lp=None, anchor='start'):
     MSG.append(dict(id=i, s=s, t=t, pts=pts, label=label, lp=lp, anchor=anchor))
 
-GAP = 231  # tussen pools
-msg('mf1', 'k1', 'ms', [P('k1', 'b'), P('ms', 't')], 'Vraag of klacht', (408, 200))
-msg('mf2', 'me1', 'k2', [P('me1', 't'), (1120, GAP), (2180, GAP), (2180, yK + TH / 2)], 'Antwoord', (1128, 268))
-msg('mf3', 'm10', 'k2', [(2240, rM - TH / 2), (2240, yK + TH / 2)], 'Besluit of voorstel', (2248, 330))
-msg('mf4', 'k3', 'm11', [(2370, yK + TH / 2), (2370, rM - TH / 2)], 'Akkoord of bezwaar', (2378, 262))
-msg('mf5', 'a2', 'k4', [(2680, yAT - TH / 2), (2680, yK + TH / 2)], 'Eindbesluit', (2688, 262))
-msg('mf6', 'k5', 'f1', [(2860, yK + TH / 2), (2860, yFI - TH / 2)], 'Rekeningnummer via\nMijn VoyageVista', (2868, 268))
-msg('mf7', 'm5', 'LEV', [(1245, rM + TH / 2), (1245, POOL_L[0])], 'Verzoek om\noplossing', (1150, 610), 'end')
-msg('mf8', 'LEV', 'm5', [(1275, POOL_L[0]), (1275, rM + TH / 2)], 'Reactie hotel', (1283, 610))
+msg('mf1', 'k1', 'ms', [P('k1', 'b'), P('ms', 't')], 'Vraag of klacht', (408, 300))
+msg('mf2', 'm10', 'k2', [P('m10', 't'), P('k2', 'b')], 'Antwoord, besluit\nof voorstel', (2798, 300))
+msg('mf3', 'k3', 'm11', [P('k3', 'b'), P('m11', 't')], 'Akkoord of\nbezwaar', (3078, 300))
+msg('mf4', 'a2', 'k4', [(3420, yAT - TH / 2), (3420, yKL + TH / 2)], 'Eindbesluit', (3428, 520))
+msg('mf5', 'k5', 'f1', [(3600, yK + TH / 2), (3600, yFI - TH / 2)], 'Rekeningnummer via\nMijn VoyageVista', (3608, 300))
+msg('mf6', 'm5', 'LEV', [(1655, rL + TH / 2), (1655, POOL_L[0])], 'Verzoek om\noplossing', (1645, 760), 'end')
+msg('mf7', 'LEV', 'm5', [(1685, POOL_L[0]), (1685, rL + TH / 2)], 'Reactie hotel', (1693, 760))
 
 ASSOC = [  # (id, bron, doel, punten, richting)
     ('as1', 'ds', 'm1', [(E['ds']['x'] - 12, rL - 20), (560, rM + TH / 2)], 'in'),
@@ -167,30 +198,25 @@ ASSOC = [  # (id, bron, doel, punten, richting)
     ('as3', 'do', 's1', [(E['do']['x'] + 16, ySR), P('s1', 'l')], 'in'),
 ]
 
-
-# ---- ruimte tussen 'Soort contact?' en 'Klacht registreren' ----
-DX, TH_X = 40, 960
-for e in E.values():
-    if e['x'] >= TH_X: e['x'] += DX
-def _sh(pts): return [((px + DX) if px >= 900 else px, py) for px, py in pts]
-for f in SEQ + MSG:
-    f['pts'] = _sh(f['pts'])
-    if f['lp'] and f['lp'][0] >= TH_X: f['lp'] = (f['lp'][0] + DX, f['lp'][1])
-ASSOC = [(a, b, c, _sh(p), d) for a, b, c, p, d in ASSOC]
-
 VERBETERINGEN = [
-    (1, 'Contactmoment vastleggen met vaste velden (kanaal, categorie, samenvatting, vervolgactie) in plaats van één vrij opmerkingenveld. Datum en medewerker vult het systeem zelf in.',
-     'Handmatige registratie en geen uniforme afhandeling; collega’s geven verschillende antwoorden (KP1, KP3, GP1)'),
-    (2, 'De urgentie wordt automatisch Hoog als de klant op dat moment op reis is.',
-     'Moeilijk prioriteren van vragen, lange reactietijden (KP2, KP5)'),
-    (3, 'Bij een klant op reis vraagt de medewerker eerst het hotel om een oplossing ter plaatse.',
-     'Klachten die al op de bestemming opgelost hadden kunnen worden (interview)'),
-    (4, 'De klacht wordt beoordeeld met de volledige klanthistorie, inclusief of de klant de accommodatie zelf koos.',
-     'Beperkt inzicht in eerdere contacten (KP4, GP1)'),
+    (1, 'Contactmoment vastleggen met vaste velden (kanaal, categorie, samenvatting, vervolgactie) in plaats van één vrij opmerkingenveld. Datum en medewerker vult het systeem zelf in. IBAN- en paspoortnummers worden geblokkeerd.',
+     'Handmatige registratie en geen uniforme afhandeling (KP1, KP3, GP1); AVG: geen IBAN of paspoort opslaan (interview) · UC-K02, UC-K13'),
+    (2, 'De teamleider bepaalt de urgentie en wijst een behandelaar toe; is de klant op reis, dan is de urgentie automatisch Hoog. Herverdelen gaat met een overdrachtsnotitie.',
+     'Moeilijk prioriteren van vragen, lange reactietijden (KP2, KP5) · UC-K05, UC-K06'),
+    (3, 'Bij een klant op reis vraagt de medewerker eerst het hotel om een oplossing ter plaatse. Lukt dat, dan wordt de zaak meteen afgesloten.',
+     'Klachten die al op de bestemming opgelost hadden kunnen worden (interview) · UC-K08'),
+    (4, 'De klacht wordt beoordeeld met de volledige klanthistorie en het bewijs, inclusief of de klant de accommodatie zelf koos.',
+     'Beperkt inzicht in eerdere contacten (KP4, GP1) · UC-K03, UC-K08'),
     (5, 'De klant vult zelf het rekeningnummer in. VoyageVista slaat het nergens op.',
-     'AVG: geen IBAN opslaan (interview)'),
+     'AVG: geen IBAN opslaan (interview) · UC-K09, UC-K13'),
     (6, 'Een tweede medewerker keurt het compensatievoorstel goed. Wie het voorstel indient, mag het niet zelf goedkeuren.',
-     'Vier-ogenprincipe; het systeem doet nu een voorstel dat een mens altijd moet controleren (interview)'),
+     'Vier-ogenprincipe; het systeem doet nu een voorstel dat een mens altijd moet controleren (interview) · UC-K09'),
+    (7, 'Voor het versturen controleert het systeem de reisstatus, zodat de klant geen onterecht bericht krijgt (zoals een vertragingsbrief terwijl hij al op de bestemming is).',
+     'Fouten door handmatige registratie (interview K6, KP5) · UC-K10'),
+    (8, 'Nieuw contact over een bestaande zaak komt in die zaak; een afgesloten zaak wordt heropend in plaats van dubbel aangemaakt.',
+     'Versnipperde klantcommunicatie; collega’s geven verschillende antwoorden (GP1) · UC-K04'),
+    (9, 'Afsluiten kan pas met een vastgelegde uitkomst en als alle vervolgacties klaar zijn. Daarna mag de klant om verwijdering van gegevens vragen.',
+     'Geen uniforme afhandeling (KP3); bewaren tot de klant thuis is (interview P3) · UC-K04, UC-K12'),
 ]
 
 # ---------------- SVG ----------------
@@ -276,7 +302,7 @@ def svg_diagram():
         elif t == 'gateway':
             o.append(f'<path d="M{x} {y - GR} L{x + GR} {y} L{x} {y + GR} L{x - GR} {y} Z" fill="{C["gw"]}" stroke="{C["gwS"]}" stroke-width="1.5"/>')
             if e['label']:
-                o.append(text_lines(x, y + GR + 24 if e.get('below') else y - GR - 22, e['label'], size=12, weight=600))
+                o.append(text_lines(x + e.get('ldx', 0), y + GR + 24 if e.get('below') else y - GR - 22, e['label'], size=12, weight=600))
         elif t in ('start', 'msgstart'):
             o.append(f'<circle cx="{x}" cy="{y}" r="{ER}" fill="{C["start"]}" stroke="{C["startS"]}" stroke-width="1.8"/>')
             if t == 'msgstart':
@@ -404,7 +430,7 @@ def wps(pts):
     return ''.join(f'<di:waypoint x="{px:.0f}" y="{py:.0f}"/>' for px, py in pts)
 def lbl(e):
     if e['type'] == 'gateway' and e['label']:
-        return f'<bpmndi:BPMNLabel>{bnd((e["x"] - 40, (e["y"] + GR + 6) if e.get("below") else (e["y"] - GR - 44), 80, 34))}</bpmndi:BPMNLabel>'
+        return f'<bpmndi:BPMNLabel>{bnd((e["x"] - 40 + e.get("ldx", 0), (e["y"] + GR + 6) if e.get("below") else (e["y"] - GR - 44), 80, 34))}</bpmndi:BPMNLabel>'
     if e.get('lblright'):
         return f'<bpmndi:BPMNLabel>{bnd((e["x"] + ER + 6, e["y"] - 16, 90, 32))}</bpmndi:BPMNLabel>'
     if e['type'] in ('start', 'end', 'msgstart', 'msgend'):

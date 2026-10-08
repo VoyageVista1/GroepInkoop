@@ -62,8 +62,8 @@ ol.steps b { font-weight: 600; }
   <header>
     <div class="eyebrow">BPMN 2.0 · Klantenservice &amp; Support · gewenste situatie</div>
     <h1>Klantvraag of klacht afhandelen</h1>
-    <p class="lead">Elke vraag en klacht komt in één klantdossier, klachten van reizigers krijgen voorrang, en geen compensatie gaat naar de klant zonder tweede paar ogen. Dit subproces werkt de taak ‘Klantvraag of klacht afhandelen’ uit het hoofdproces ‘Reis verkopen en uitvoeren’ verder uit.</p>
-    <div class="chips"><span class="chip">3 pools · 4 lanes</span><span class="chip">20 activiteiten en events</span><span class="chip">6 verbeteringen</span><span class="chip">Gebaseerd op interview opdrachtgever</span></div>
+    <p class="lead">Elke vraag en klacht komt in één klantzaak in het klantdossier, de teamleider bepaalt de urgentie en de behandelaar, en geen compensatie gaat naar de klant zonder tweede paar ogen. Dit subproces werkt de taak ‘Klantvraag of klacht afhandelen’ uit het hoofdproces ‘Reis verkopen en uitvoeren’ verder uit.</p>
+    <div class="chips"><span class="chip">3 pools · 5 lanes</span><span class="chip">Sluit aan op UC-K01 t/m UC-K13</span><span class="chip">9 verbeteringen</span><span class="chip">Gebaseerd op interview opdrachtgever</span></div>
   </header>
 
   <section class="card" aria-labelledby="h-dia" style="max-width:none">
@@ -99,12 +99,13 @@ ol.steps b { font-weight: 600; }
       <section class="card" aria-labelledby="h-lees">
         <div class="card-h"><h2 id="h-lees">Zo loopt het proces</h2></div>
         <ol class="steps">
-          <li><b>Contact.</b> De klant belt, mailt, komt in de shop of stuurt een bericht. De medewerker zoekt de klant op en legt het contactmoment vast in het klantdossier.</li>
-          <li><b>Vraag of wijziging.</b> De medewerker beantwoordt de vraag of verwerkt de wijziging direct. Het proces eindigt met het antwoord aan de klant.</li>
-          <li><b>Klacht.</b> De medewerker registreert de klacht. Is de klant nu op reis, dan vraagt de medewerker eerst het hotel om een oplossing ter plaatse.</li>
-          <li><b>Beoordelen.</b> Met de klanthistorie beoordeelt de medewerker of de klacht gegrond is. Zo ja, dan volgt een compensatievoorstel volgens de richtlijn; een senior controleert het.</li>
-          <li><b>Reactie klant.</b> Gaat de klant akkoord, dan betaalt Financiën uit. Maakt de klant bezwaar, dan beoordeelt After Travel de klacht opnieuw en neemt een eindbesluit.</li>
-          <li><b>Afsluiten.</b> De klant vult zelf het rekeningnummer in. Financiën betaalt uit en sluit het klachtdossier af.</li>
+          <li><b>Contact.</b> De klant belt, mailt, komt in de shop of stuurt een bericht. De medewerker zoekt klant en boeking op en legt het contactmoment vast; IBAN- en paspoortnummers worden geblokkeerd.</li>
+          <li><b>Klantzaak.</b> Gaat het over een bestaande zaak, dan komt het contact in die zaak (een afgesloten zaak wordt heropend). Anders maakt de medewerker een nieuwe zaak aan en classificeert die.</li>
+          <li><b>Prioriteren en toewijzen.</b> De teamleider bepaalt de urgentie (klant op reis = Hoog) en wijst een behandelaar toe.</li>
+          <li><b>Vraag of wijziging.</b> De medewerker onderzoekt de vraag en stelt het antwoord op, of zet de vraag door naar een andere afdeling.</li>
+          <li><b>Klacht.</b> Is de klant nu op reis, dan vraagt de medewerker eerst het hotel om een oplossing ter plaatse. Lukt dat, dan wordt de zaak afgesloten. Anders beoordeelt de medewerker de klacht met de klanthistorie; is die gegrond, dan volgt een compensatievoorstel dat een senior controleert.</li>
+          <li><b>Klant informeren.</b> Voor het versturen controleert het systeem de reisstatus. Bij een voorstel reageert de klant; bij bezwaar neemt After Travel het eindbesluit.</li>
+          <li><b>Afsluiten.</b> Is er compensatie toegekend, dan vult de klant zelf het rekeningnummer in en betaalt Financiën uit. De medewerker legt de uitkomst vast en sluit de klantzaak af.</li>
         </ol>
       </section>
       <section class="card" aria-labelledby="h-files">
