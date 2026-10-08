@@ -2,7 +2,7 @@
 
 **Link:** [Project Agile Board (FigJam)](https://www.figma.com/board/ManUSFsMrVgktm6UwReajA/Project-Agile-Board?node-id=0-1&p=f&t=Bxb2WEIrRXCM9J36-0)
 
-Dit document beschrijft wat er op het FigJam-board staat, zodat de repo en het board naar elkaar verwijzen. Stand: 30 september 2026. Het board zelf blijft de bron; dit is een overzicht plus een lijst met verbeterpunten.
+Dit document beschrijft wat er op het FigJam-board staat, zodat de repo en het board naar elkaar verwijzen. Stand: 8 oktober 2026. Het board zelf blijft de bron; dit is een overzicht plus een lijst met verbeterpunten.
 
 ---
 
@@ -12,8 +12,10 @@ Dit document beschrijft wat er op het FigJam-board staat, zodat de repo en het b
 | --- | --- |
 | **Productontwikkeling & Inkoop** | Primaire use cases (actoren Inkoper, Manager, Medewerker), toelichting casus, problemen uit de casus en de uitgewerkte use cases met `<<include>>`/`<<extend>>`. |
 | **Klantenservice & Support** | Primaire use cases (Klantenservicemedewerker, Manager) en de uitgewerkte use cases. |
-| **Use case descriptions: Productontwikkeling & inkoop** | Tabellen voor US01–US09: doel, primaire actor, trigger, preconditie, hoofdscenario, postconditie, alternatieve scenario's. |
-| **User flows productontwikkeling & inkoop** | Activiteitendiagrammen (START → EINDE, met beslisruiten) voor use case 1 t/m 9. |
+| **Use case descriptions: Productontwikkeling & inkoop** | Tabellen voor UC01–UC10: doel, primaire actor, trigger, preconditie, hoofdscenario, postconditie, alternatieve scenario's. |
+| **Use case Refinement** | Tabel per afdeling: welke primaire use cases zijn hernoemd, verbreed of secundair geworden. |
+| **User flows Productontwikkeling & Inkoop (na refinement)** | Activiteitendiagrammen (START → EINDE, met beslisruiten en foutpaden) voor UC01–UC10. |
+| **User flows productontwikkeling & inkoop (OUD – vóór refinement)** | De eerdere flows met de oude nummering. Kunnen weg. |
 | **Scope Productontwikkeling & Inkoop** | Wat we bouwen, welke schermen nodig zijn en welke gegevens een reisproduct en reisonderdeel hebben. |
 | **Proces** | Tabel met randgevallen en het verwachte gedrag van het systeem. |
 | **ERD** | Datamodel (als afbeelding). |
@@ -22,21 +24,37 @@ Dit document beschrijft wat er op het FigJam-board staat, zodat de repo en het b
 | **Kopie Work Area** | Tweede, oudere versie van de primaire use cases Productontwikkeling & Inkoop. |
 | **Literatuurlijst** | Links naar de UML 2.5.1-specificatie (OMG) en een voorbeeldhoofdstuk over use cases (Pearson). |
 
-## 2. Use cases Productontwikkeling & Inkoop
+## 2. Use cases en user flows Productontwikkeling & Inkoop
+
+Na de use case refinement (oktober) zijn er tien primaire use cases. De user flows staan op het board in de sectie **"User flows Productontwikkeling & Inkoop (na refinement)"**. De oude flows (nummering van vóór de refinement) staan ernaast in de sectie met "(OUD – vóór refinement)" in de naam en kunnen weg.
+
+Kleuren in de flows: blauw = start/einde, paars = actie van de gebruiker, turquoise = actie van het systeem, groen = beslissing, rood = foutmelding (terug naar de invoer).
 
 | Nr. | Use case | Actor | Kern van de user flow |
 | --- | --- | --- | --- |
-| US01 | Nieuw reisproduct aanmaken | Inkoper | Formulier invullen → reisonderdelen en optionele gegevens toevoegen → opslaan → velden geldig? → publiceren of als concept opslaan. |
-| US02 | Reisproduct bijwerken / productinfo wijzigen | Inkoper | Productdashboard → zoeken/filteren → product selecteren → aanpassen → velden geldig? → publiceren of als concept opslaan. |
-| US03 | Reisproduct filteren | Inkoper | Productdashboard → zoeken → eventueel filters → product selecteren en bekijken. |
-| US04 | Onderhandeling met leverancier bijwerken | Inkoper | Onderhandelingsdashboard → zoeken/filteren → status invoeren, leverancier koppelen → opslaan → velden geldig? → eventueel escaleren naar een persoon. |
-| US05 | Leveranciersoverzicht raadplegen | Inkoper | Leveranciersdashboard → overzicht en prijsgeschiedenis → filteren → leverancier selecteren → contractstatus → exporteren naar PDF of delen met manager. |
-| US06 | Productinfo raadplegen door andere afdeling | Medewerker andere afdeling | Productdashboard → zoeken/filteren → informatie bekijken → feedback geven, exporteren naar PDF of als favoriet opslaan. |
-| US07 | Nieuwe leverancier registreren | Inkoper / medewerker P&I | Leveranciersdashboard → "Nieuw" → gegevens invullen → opslaan → gegevens geldig? (verplichte velden, e-mailadres). |
-| US08 | Contract vastleggen/opvolgen bij leverancier | Inkoper | Leverancier zoeken en selecteren → contract aanmaken → gegevens en start-/einddatum invullen → gegevens geldig? → koppelen aan leverancier → versturen naar leverancier. |
-| US09 | Contractvervaldatum bewaken / deadline monitoren | Inkoper | Contractdashboard → contracten ophalen → datums controleren → bijna verlopen? → waarschuwing → contract kiezen → verlengen (datums aanpassen) of onderhandelen (naar US04). |
+| UC01 | Nieuw reisproduct ontwikkelen | Inkoper | Formulier openen → productgegevens, reisonderdelen en kenmerken invullen → optioneel leverancier, deadline, media → opslaan → velden geldig? (nee: foutmelding, terug) → publiceren of opslaan als concept. |
+| UC02 | Onderhandeling opvolgen | Inkoper | Dashboard → zoeken/filteren → selecteren → status invoeren, leverancier koppelen, optioneel notitie/vervolgafspraak → opslaan → geldig? → escaleren naar manager? → onderhandeling afgerond? → afsluiten. |
+| UC03 | Bestaand reisproduct bijwerken | Inkoper | Dashboard → zoeken/filteren → product selecteren → aanpassen → opslaan → geldig? → systeem logt wijziging → publiceren of concept. |
+| UC04 | Productontwikkeling plannen en volgen | Inkoper | Planningsoverzicht → mijlpalen tonen → mijlpaal bijwerken? → opslaan → geldig? → deadline nadert? (ja: melding) → dashboard met voortgang. |
+| UC05 | Leverancierscontract beheren | Inkoper | Leverancier zoeken/filteren en selecteren → contract aanmaken → afspraken en start-/einddatum → opslaan → geldig? → contract gekoppeld aan leverancier. |
+| UC06 | Leveranciersrelatie beheren | Inkoper | Leveranciersoverzicht → filteren → *nieuwe leverancier registreren* (invullen → geldig? → opslaan) of *leverancier bekijken* (prijshistorie, contractstatus → exporteren naar PDF of delen met manager). |
+| UC07 | Leveranciersaanbod vastleggen | Inkoper | Leverancier selecteren → aanbod toevoegen → gegevens, prijs en voorwaarden → zelf controleren → opslaan → geldig? → aanbod zichtbaar in dashboard. |
+| UC08 | Contractverplichtingen bewaken | Inkoper | Contractendashboard → termijnen en bezetting bekijken → aflopend contract of lage bezetting? → melding → verlengen, heronderhandelen (naar UC02) of doorgeven aan Marketing & Sales → besluit vastleggen. |
+| UC09 | Productgegevens beschikbaar stellen | Medewerker andere afdeling | Productdashboard → zoeken/filteren → gevonden? (nee: "Geen reisproducten gevonden") → details bekijken → exporteren, feedback geven of als favoriet opslaan. |
+| UC10 | Productkans onderzoeken | Inkoper | Trends en klantbehoeftes vastleggen → klantwensen koppelen aan productideeën → onderzoeksrapport → kansrijk idee? → doorzetten naar UC01. |
 
-Daarnaast staan in het use-casediagram nog: *Dashboard bekijken*, *Melding ontvangen* en *Marktonderzoek verwerken*. Die hebben (nog) geen beschrijving of user flow.
+### Verschillen tussen de flows en de use case descriptions
+
+De flows volgen de descriptions. Op deze punten wijken ze bewust af, of ontbreekt er iets in de descriptions:
+
+- **UC02:** in het hoofdscenario wordt twee keer opgeslagen ("slaat de wijzigingen op" en later "klikt op opslaan"), en het afsluiten staat vóór de melding. In de flow wordt één keer opgeslagen; afsluiten en escaleren komen daarna.
+- **UC04:** de stap "Het systeem publiceert het product" past niet bij plannen en volgen. Die stap staat niet in de flow.
+- **UC05:** de oude flow eindigde met "Contract versturen naar leverancier". Dat staat niet in de description en is dus uit de flow gehaald.
+- **UC06:** het doel noemt ook leveranciers *wijzigen* en *contact- en bezoekmomenten vastleggen*. Die stappen staan nog niet in het hoofdscenario en dus ook niet in de flow. Het hoofdscenario noemt ook nog niet het registreren van een leverancier (dat is volgens de refinement een secundaire use case van UC06); in de flow is het wel opgenomen.
+- **UC06:** in de description staat bij Nummer "UC05" in plaats van "UC06".
+- **UC07:** de laatste stap zegt "Systeem slaat de nieuwe leverancier op". Dat moet "het aanbod" zijn.
+- **Alle use cases:** de foutpaden (velden niet geldig → foutmelding → terug naar invoer) staan nu in de flows, maar nog niet als alternatief scenario in de descriptions. Alleen UC01 heeft een alternatief scenario (8a).
+- **Precondities** ontbreken nog bij UC02, UC03, UC05, UC06, UC07 en UC08. Bij UC04, UC07, UC08, UC09 en UC10 staat nog "user story ???" of "(?)".
 
 ## 3. Use cases Klantenservice & Support
 
@@ -66,6 +84,8 @@ Deze sluiten aan op de interviewbevindingen K1–K11 en P1–P5 in [interview-an
 ## 6. Verbeterpunten voor het board
 
 Gevonden bij het doorlezen. Handig om voor de volgende review op te pakken.
+
+> Deze lijst is van 30 september en gebruikt de oude nummering (US01–US09). Sinds de refinement staan de stappen in de descriptions grotendeels in de goede volgorde. De punten onder **User flows** zijn opgelost met de nieuwe flows. De openstaande punten voor de descriptions staan in sectie 2.
 
 **Nummering en consistentie**
 
