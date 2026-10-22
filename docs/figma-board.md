@@ -91,6 +91,7 @@ De descriptions gebruiken de interviewbevindingen uit [interview-analyse.md](int
 ### BPMN en sprintchecklist
 
 - **BPMN Klantenservice & Support** (issue #168): herzien op 8 oktober, met de lanes Klantenservice, Teamleider, Senior medewerker, After Travel en Financiën. Bron en export staan in [proces/](proces) (`gen_bpmn.py` maakt de .svg, .bpmn en .html).
+- **Walkthrough BPMN** (test VoyageVista#266, 22 oktober): zeven scenario's doorlopen. Aangepast: lus voor aanvullende informatie, bevestiging aan de klant als het hotel het oplost, bezwaar ook bij een ongegronde klacht, rekeningnummer alleen bij toegekende compensatie, Financiën wacht op het rekeningnummer, herinnering na 7 dagen zonder reactie, en afkeuren door de senior alleen met reden. Het volledige testverslag staat in `proces/klantenservice-proces.html`. Open vraag voor de opdrachtgever: is 7 dagen de juiste termijn voor een herinnering?
 - **Sprint planning checklist:** op het board staat een afvinklijst voor de sprintplanning, om aan de docenten te laten zien.
 
 ## 4. Scope en gegevens (uit het board)

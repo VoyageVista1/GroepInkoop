@@ -28,11 +28,11 @@ LANES = [                 # (id, naam, y0, y1, kleur)
 POOL_L = (1070, 1124)     # Leverancier (dichtgeklapt)
 LEGEND_Y = 1152
 H = 1244
-W = 4250
+W = 4680
 
 yK, yKL = 135, 215
 rU, rM, rL = 340, 450, 560
-yLOW = 620                # retourroute onderin de lane Klantenservice
+yLOW = 632                # retourroute onderin de lane Klantenservice
 yTL, ySR, yAT, yFI = 692, 792, 892, 997
 
 # element: id -> dict(type, x, y, label, lane, extra)
@@ -43,15 +43,17 @@ def el(i, t, x, y, label='', pool='V', lane=None, **kw):
 # Klant
 el('k_start', 'start', 270, yK, 'Klant heeft vraag\nof klacht', 'K')
 el('k1', 'task', 400, yK, 'Neemt contact op\n(telefoon, e-mail,\nshop, social media)', 'K')
-el('k2', 'task', 2790, yK, 'Ontvangt antwoord,\nbesluit of voorstel', 'K')
-el('kg1', 'gateway', 2930, yK, 'Voorstel?', 'K')
-el('k_end0', 'end', 2930, yKL, 'Klant\ngeholpen', 'K', lblright=True)
-el('k3', 'task', 3070, yK, 'Reageert op\nvoorstel (akkoord\nof bezwaar)', 'K')
-el('kg2', 'gateway', 3210, yK, 'Akkoord?', 'K')
-el('k4', 'task', 3370, yKL, 'Ontvangt\neindbesluit', 'K')
-el('km', 'gateway', 3480, yK, '', 'K')
-el('k5', 'task', 3590, yK, 'Vult zelf rekening-\nnummer in (bij\ncompensatie)', 'K', badge=5)
-el('k_end', 'end', 3720, yK, 'Klant\ngeholpen', 'K', lblright=True)
+el('k2', 'task', 3070, yK, 'Ontvangt antwoord,\nbesluit of voorstel', 'K')
+el('kg1', 'gateway', 3210, yK, 'Besluit op\nklacht?', 'K')
+el('k_end0', 'end', 3210, yKL, 'Klant\ngeholpen', 'K', lblright=True)
+el('k3', 'task', 3350, yK, 'Reageert op\nbesluit (akkoord\nof bezwaar)', 'K')
+el('kg2', 'gateway', 3490, yK, 'Akkoord?', 'K')
+el('k4', 'task', 3650, yKL, 'Ontvangt\neindbesluit', 'K')
+el('km', 'gateway', 3760, yK, '', 'K')
+el('kc', 'gateway', 3870, yK, 'Compensatie\ntoegekend?', 'K')
+el('k_end2', 'end', 3870, yKL, 'Klant\ngeholpen', 'K', lblright=True)
+el('k5', 'task', 4010, yK, 'Vult zelf rekening-\nnummer in', 'K', badge=5)
+el('k_end', 'end', 4140, yK, 'Klant\ngeholpen', 'K', lblright=True)
 
 # Klantenservice-medewerker
 el('ms', 'msgstart', 400, rM, 'Contact\nontvangen', lane='L_ks')
@@ -61,43 +63,51 @@ el('gz', 'gateway', 850, rM, 'Bestaande\nzaak?', lane='L_ks', below=True)
 el('mz1', 'task', 980, rU, 'Contact toevoegen\naan zaak (zo nodig\nheropenen)', lane='L_ks', badge=8)
 el('mz2', 'task', 980, rM, 'Klantzaak aanmaken\nen classificeren', lane='L_ks')
 el('gzm', 'gateway', 1120, rM, '', lane='L_ks')
-el('gw1', 'gateway', 1390, rM, 'Soort\nzaak?', lane='L_ks', below=True)
-el('v1', 'task', 1530, rU, 'Vraag onderzoeken\n(FAQ, template,\ncollega)', lane='L_ks')
-el('v2', 'task', 1690, rU, 'Antwoord opstellen\nof doorzetten naar\nandere afdeling', lane='L_ks')
-el('gw2', 'gateway', 1530, rM, 'Klant nu\nop reis?', lane='L_ks')
-el('m5', 'task', 1670, rL, 'Hotel vragen om\noplossing ter\nplaatse', lane='L_ks', badge=3)
-el('got', 'gateway', 1810, rL, 'Opgelost ter\nplaatse?', lane='L_ks')
-el('gm1', 'gateway', 1950, rM, '', lane='L_ks')
-el('m6', 'task', 2090, rM, 'Klacht beoordelen\n(historie, bewijs,\nzelf gekozen?)', lane='L_ks', badge=4)
-el('gw3', 'gateway', 2230, rM, 'Klacht\ngegrond?', lane='L_ks')
-el('m7', 'task', 2230, rL, 'Ongegrond\nverklaren met\nonderbouwing', lane='L_ks')
-el('m8', 'task', 2370, rM, 'Compensatie-\nvoorstel volgens\nrichtlijn', lane='L_ks')
-el('gm2', 'gateway', 2650, rM, '', lane='L_ks')
-el('m10', 'task', 2790, rM, 'Klant informeren\n(antwoord, besluit\nof voorstel)', lane='L_ks', badge=7)
-el('gv2', 'gateway', 2930, rM, 'Voorstel\naan klant?', lane='L_ks')
-el('m11', 'receive', 3070, rM, 'Reactie klant\nverwerken', lane='L_ks')
-el('gw4', 'gateway', 3210, rM, 'Klant\nakkoord?', lane='L_ks')
-el('gc', 'gateway', 3370, rM, 'Compensatie\ntoegekend?', lane='L_ks', below=True, ldx=-62)
-el('ge1', 'gateway', 3700, rM, '', lane='L_ks')
-el('ge2', 'gateway', 3830, rM, '', lane='L_ks')
-el('m12', 'task', 3970, rM, 'Uitkomst vastleggen\nen klantzaak\nafsluiten', lane='L_ks', badge=9)
-el('m_end', 'end', 4120, rM, 'Zaak\nafgesloten', lane='L_ks')
+el('gim', 'gateway', 1340, rM, '', lane='L_ks')
+el('gi', 'gateway', 1440, rM, 'Informatie\nvolledig?', lane='L_ks', below=True)
+el('ma', 'task', 1440, rU, 'Klant om\naanvulling vragen', lane='L_ks', badge=10)
+el('gw1', 'gateway', 1670, rM, 'Soort\nzaak?', lane='L_ks', below=True)
+el('v1', 'task', 1810, rU, 'Vraag onderzoeken\n(FAQ, template,\ncollega)', lane='L_ks')
+el('v2', 'task', 1970, rU, 'Antwoord opstellen\nof doorzetten naar\nandere afdeling', lane='L_ks')
+el('gw2', 'gateway', 1810, rM, 'Klant nu\nop reis?', lane='L_ks')
+el('m5', 'task', 1950, rL, 'Hotel vragen om\noplossing ter\nplaatse', lane='L_ks', badge=3)
+el('got', 'gateway', 2090, rL, 'Opgelost ter\nplaatse?', lane='L_ks')
+el('gm1', 'gateway', 2230, rM, '', lane='L_ks')
+el('m6', 'task', 2370, rM, 'Klacht beoordelen\n(historie, bewijs,\nzelf gekozen?)', lane='L_ks', badge=4)
+el('gw3', 'gateway', 2510, rM, 'Klacht\ngegrond?', lane='L_ks')
+el('m7', 'task', 2510, rL, 'Ongegrond\nverklaren met\nonderbouwing', lane='L_ks')
+el('m8', 'task', 2650, rM, 'Compensatie-\nvoorstel volgens\nrichtlijn', lane='L_ks')
+el('gm3', 'gateway', 2880, rL, '', lane='L_ks')
+el('gm2', 'gateway', 2930, rM, '', lane='L_ks')
+el('m10', 'task', 3070, rM, 'Klant informeren\n(antwoord, besluit\nof voorstel)', lane='L_ks', badge=7)
+el('gv2', 'gateway', 3210, rM, 'Reactie klant\nnodig?', lane='L_ks')
+el('m11', 'receive', 3350, rM, 'Reactie klant\nverwerken', lane='L_ks')
+el('tm', 'timer', 3395, rM + TH / 2, 'Geen reactie\nna 7 dagen', lane='L_ks', attached='m11')
+el('mh', 'task', 3330, rL, 'Herinnering sturen\nen contactpoging\nvastleggen', lane='L_ks', badge=11)
+el('mh_end', 'end', 3448, rL, 'Herinnering\nverstuurd', lane='L_ks')
+el('gw4', 'gateway', 3490, rM, 'Klant\nakkoord?', lane='L_ks')
+el('gcm', 'gateway', 3570, rM, '', lane='L_ks')
+el('gc', 'gateway', 3650, rM, 'Compensatie\ntoegekend?', lane='L_ks', below=True)
+el('ge1', 'gateway', 4150, rM, '', lane='L_ks')
+el('ge2', 'gateway', 4280, rM, '', lane='L_ks')
+el('m12', 'task', 4420, rM, 'Uitkomst vastleggen\nen klantzaak\nafsluiten', lane='L_ks', badge=9)
+el('m_end', 'end', 4570, rM, 'Zaak\nafgesloten', lane='L_ks')
 el('ds', 'datastore', 615, rL, 'Klantdossier\n(werkplek)', lane='L_ks')
 
 # Teamleider
 el('t1', 'task', 1250, yTL, 'Urgentie bepalen\nen behandelaar\ntoewijzen', lane='L_tl', badge=2)
 
 # Senior
-el('s1', 'task', 2370, ySR, 'Voorstel\ncontroleren\n(vier ogen)', lane='L_sr', badge=6)
-el('gs', 'gateway', 2510, ySR, 'Goed-\ngekeurd?', lane='L_sr', below=True)
-el('do', 'dataobject', 2200, ySR, 'Compensatie-\nrichtlijn\n(% van reissom)', lane='L_sr')
+el('s1', 'task', 2650, ySR, 'Voorstel\ncontroleren\n(vier ogen)', lane='L_sr', badge=6)
+el('gs', 'gateway', 2790, ySR, 'Goed-\ngekeurd?', lane='L_sr', below=True)
+el('do', 'dataobject', 2480, ySR, 'Compensatie-\nrichtlijn\n(% van reissom)', lane='L_sr')
 
 # After Travel
-el('a1', 'task', 3210, yAT, 'Klacht opnieuw\nbeoordelen\n(maatwerk)', lane='L_at')
-el('a2', 'task', 3370, yAT, 'Eindbesluit\nvastleggen en\ncommuniceren', lane='L_at')
+el('a1', 'task', 3490, yAT, 'Klacht opnieuw\nbeoordelen\n(maatwerk)', lane='L_at')
+el('a2', 'task', 3650, yAT, 'Eindbesluit\nvastleggen en\ncommuniceren', lane='L_at')
 
 # Financiën
-el('f1', 'task', 3560, yFI, 'Compensatie\nuitbetalen', lane='L_fi')
+el('f1', 'receive', 4010, yFI, 'Rekeningnummer\nontvangen en\nuitbetalen', lane='L_fi')
 
 def bounds(e):
     t = e['type']
@@ -105,7 +115,7 @@ def bounds(e):
         return e['x'] - TW / 2, e['y'] - TH / 2, TW, TH
     if t == 'gateway':
         return e['x'] - GR, e['y'] - GR, 2 * GR, 2 * GR
-    if t in ('start', 'end', 'msgstart', 'msgend'):
+    if t in ('start', 'end', 'msgstart', 'msgend', 'timer'):
         return e['x'] - ER, e['y'] - ER, 2 * ER, 2 * ER
     if t == 'datastore':
         return e['x'] - 24, e['y'] - 20, 48, 40
@@ -127,14 +137,16 @@ def line(i, s, t, label='', lp=None):
 line('fk1', 'k_start', 'k1')
 line('fk2', 'k1', 'k2')
 line('fk3', 'k2', 'kg1')
-line('fk4', 'kg1', 'k3', 'Ja', (2962, yK - 8))
-seq('fk5', 'kg1', 'k_end0', [P('kg1', 'b'), P('k_end0', 't')], 'Nee', (2938, yK + 44))
+line('fk4', 'kg1', 'k3', 'Ja', (3242, yK - 8))
+seq('fk5', 'kg1', 'k_end0', [P('kg1', 'b'), P('k_end0', 't')], 'Nee', (3218, yK + 44))
 line('fk6', 'k3', 'kg2')
-line('fk7', 'kg2', 'km', 'Ja', (3242, yK - 8))
-seq('fk8', 'kg2', 'k4', [P('kg2', 'b'), (3210, yKL), P('k4', 'l')], 'Nee (bezwaar)', (3218, yK + 46))
-seq('fk9', 'k4', 'km', [P('k4', 'r'), (3480, yKL), P('km', 'b')])
-line('fk10', 'km', 'k5')
-line('fk11', 'k5', 'k_end')
+line('fk7', 'kg2', 'km', 'Ja', (3522, yK - 8))
+seq('fk8', 'kg2', 'k4', [P('kg2', 'b'), (3490, yKL), P('k4', 'l')], 'Nee (bezwaar)', (3482, yK + 46), 'end')
+seq('fk9', 'k4', 'km', [P('k4', 'r'), (3760, yKL), P('km', 'b')])
+line('fk10', 'km', 'kc')
+line('fk11', 'kc', 'k5', 'Ja', (3902, yK - 8))
+seq('fk12', 'kc', 'k_end2', [P('kc', 'b'), P('k_end2', 't')], 'Nee', (3878, yK + 44))
+line('fk13', 'k5', 'k_end')
 
 # VoyageVista
 line('f1', 'ms', 'm1')
@@ -145,37 +157,45 @@ line('f5', 'gz', 'mz2', 'Nee', (874, rM - 8))
 seq('f6', 'mz1', 'gzm', [P('mz1', 'r'), (1120, rU), P('gzm', 't')])
 line('f7', 'mz2', 'gzm')
 seq('f8', 'gzm', 't1', [P('gzm', 'b'), (1120, yTL), P('t1', 'l')])
-seq('f9', 't1', 'gw1', [P('t1', 'r'), (1340, yTL), (1340, rM), P('gw1', 'l')])
-seq('f10', 'gw1', 'v1', [P('gw1', 't'), (1390, rU), P('v1', 'l')], 'Vraag of wijziging', (1382, rU - 12), 'end')
+seq('f9', 't1', 'gim', [P('t1', 'r'), (1340, yTL), P('gim', 'b')])
+line('f9a', 'gim', 'gi')
+line('f9b', 'gi', 'gw1', 'Ja', (1472, rM - 8))
+seq('f9c', 'gi', 'ma', [P('gi', 't'), P('ma', 'b')], 'Nee', (1448, rU + 52))
+seq('f9d', 'ma', 'gim', [P('ma', 'l'), (1340, rU), P('gim', 't')])
+seq('f10', 'gw1', 'v1', [P('gw1', 't'), (1670, rU), P('v1', 'l')], 'Vraag of wijziging', (1662, rU - 12), 'end')
 line('f11', 'v1', 'v2')
-seq('f12', 'v2', 'gm2', [P('v2', 'r'), (2650, rU), P('gm2', 't')])
-line('f13', 'gw1', 'gw2', 'Klacht', (1422, rM - 8))
-seq('f14', 'gw2', 'm5', [P('gw2', 'b'), (1530, rL), P('m5', 'l')], 'Ja', (1538, rL - 10))
-line('f15', 'gw2', 'gm1', 'Nee', (1562, rM - 8))
+seq('f12', 'v2', 'gm2', [P('v2', 'r'), (2930, rU), P('gm2', 't')])
+line('f13', 'gw1', 'gw2', 'Klacht', (1702, rM - 8))
+seq('f14', 'gw2', 'm5', [P('gw2', 'b'), (1810, rL), P('m5', 'l')], 'Ja', (1818, rL - 10))
+line('f15', 'gw2', 'gm1', 'Nee', (1842, rM - 8))
 line('f16', 'm5', 'got')
-seq('f17', 'got', 'gm1', [P('got', 'r'), (1950, rL), P('gm1', 'b')], 'Nee', (1842, rL - 8))
-seq('f18', 'got', 'ge2', [P('got', 'b'), (1810, yLOW), (3830, yLOW), P('ge2', 'b')], 'Ja', (1818, rL + 46))
+seq('f17', 'got', 'gm1', [P('got', 'r'), (2230, rL), P('gm1', 'b')], 'Nee', (2122, rL - 8))
+seq('f18', 'got', 'gm3', [P('got', 'b'), (2090, yLOW), (2880, yLOW), P('gm3', 'b')], 'Ja', (2098, rL + 46))
 line('f19', 'gm1', 'm6')
 line('f20', 'm6', 'gw3')
-line('f21', 'gw3', 'm8', 'Ja', (2262, rM - 8))
-seq('f22', 'gw3', 'm7', [P('gw3', 'b'), P('m7', 't')], 'Nee', (2238, rM + 46))
-seq('f23', 'm7', 'gm2', [P('m7', 'r'), (2600, rL), (2600, rM), P('gm2', 'l')])
+line('f21', 'gw3', 'm8', 'Ja', (2542, rM - 8))
+seq('f22', 'gw3', 'm7', [P('gw3', 'b'), P('m7', 't')], 'Nee', (2518, rM + 46))
+line('f23', 'm7', 'gm3')
+seq('f23a', 'gm3', 'gm2', [P('gm3', 't'), (2880, rM), P('gm2', 'l')])
 seq('f24', 'm8', 's1', [P('m8', 'b'), P('s1', 't')])
 line('f25', 's1', 'gs')
-seq('f26', 'gs', 'm8', [P('gs', 't'), (2510, rM), P('m8', 'r')], 'Nee, terug', (2518, rL + 20))
-seq('f27', 'gs', 'gm2', [P('gs', 'r'), (2650, ySR), P('gm2', 'b')], 'Ja', (2544, ySR - 8))
+seq('f26', 'gs', 'm8', [P('gs', 't'), (2790, rM), P('m8', 'r')], 'Nee (met reden),\nterug', (2798, ySR - 70))
+seq('f27', 'gs', 'gm2', [P('gs', 'r'), (2930, ySR), P('gm2', 'b')], 'Ja', (2824, ySR - 8))
 line('f28', 'gm2', 'm10')
 line('f29', 'm10', 'gv2')
-line('f30', 'gv2', 'm11', 'Ja', (2962, rM - 8))
-seq('f31', 'gv2', 'ge2', [P('gv2', 'b'), (2930, yLOW), (3830, yLOW), P('ge2', 'b')], 'Nee', (2938, rM + 46))
+line('f30', 'gv2', 'm11', 'Ja', (3242, rM - 8))
+seq('f31', 'gv2', 'ge2', [P('gv2', 'b'), (3210, yLOW), (4280, yLOW), P('ge2', 'b')], 'Nee', (3218, rM + 46))
 line('f32', 'm11', 'gw4')
-line('f33', 'gw4', 'gc', 'Ja', (3242, rM - 8))
-seq('f34', 'gw4', 'a1', [P('gw4', 'b'), P('a1', 't')], 'Nee (bezwaar)', (3218, yTL - 12))
+seq('ft1', 'tm', 'mh', [P('tm', 'b'), (E['tm']['x'], rL - TH / 2)])
+line('ft2', 'mh', 'mh_end')
+line('f33', 'gw4', 'gcm', 'Ja', (3522, rM - 8))
+line('f33a', 'gcm', 'gc')
+seq('f34', 'gw4', 'a1', [P('gw4', 'b'), P('a1', 't')], 'Nee (bezwaar)', (3498, yTL - 12))
 line('f35', 'a1', 'a2')
-seq('f36', 'a2', 'gc', [P('a2', 't'), P('gc', 'b')])
-seq('f37', 'gc', 'f1', [P('gc', 'r'), (3500, rM), (3500, yFI - TH / 2)], 'Ja', (3430, rM - 8))
-seq('f38', 'gc', 'ge1', [P('gc', 't'), (3370, rU), (3700, rU), P('ge1', 't')], 'Nee', (3378, rU + 30))
-seq('f39', 'f1', 'ge1', [P('f1', 'r'), (3700, yFI), P('ge1', 'b')])
+seq('f36', 'a2', 'gcm', [P('a2', 't'), (3650, 600), (3570, 600), P('gcm', 'b')])
+seq('f37', 'gc', 'f1', [P('gc', 'r'), (3970, rM), (3970, yFI - TH / 2)], 'Ja', (3710, rM - 8))
+seq('f38', 'gc', 'ge1', [P('gc', 't'), (3650, rU), (4150, rU), P('ge1', 't')], 'Nee', (3658, rU + 30))
+seq('f39', 'f1', 'ge1', [P('f1', 'r'), (4150, yFI), P('ge1', 'b')])
 line('f40', 'ge1', 'ge2')
 line('f41', 'ge2', 'm12')
 line('f42', 'm12', 'm_end')
@@ -185,17 +205,20 @@ def msg(i, s, t, pts, label='', lp=None, anchor='start'):
     MSG.append(dict(id=i, s=s, t=t, pts=pts, label=label, lp=lp, anchor=anchor))
 
 msg('mf1', 'k1', 'ms', [P('k1', 'b'), P('ms', 't')], 'Vraag of klacht', (408, 300))
-msg('mf2', 'm10', 'k2', [P('m10', 't'), P('k2', 'b')], 'Antwoord, besluit\nof voorstel', (2798, 300))
-msg('mf3', 'k3', 'm11', [P('k3', 'b'), P('m11', 't')], 'Akkoord of\nbezwaar', (3078, 300))
-msg('mf4', 'a2', 'k4', [(3420, yAT - TH / 2), (3420, yKL + TH / 2)], 'Eindbesluit', (3428, 520))
-msg('mf5', 'k5', 'f1', [(3600, yK + TH / 2), (3600, yFI - TH / 2)], 'Rekeningnummer via\nMijn VoyageVista', (3608, 300))
-msg('mf6', 'm5', 'LEV', [(1655, rL + TH / 2), (1655, POOL_L[0])], 'Verzoek om\noplossing', (1645, 760), 'end')
-msg('mf7', 'LEV', 'm5', [(1685, POOL_L[0]), (1685, rL + TH / 2)], 'Reactie hotel', (1693, 760))
+msg('mf8', 'ma', 'KLANT', [(1425, rU - TH / 2), (1425, POOL_K[1])], 'Vraag om aanvulling', (1417, 292), 'end')
+msg('mf9', 'KLANT', 'ma', [(1455, POOL_K[1]), (1455, rU - TH / 2)], 'Aanvulling', (1463, 292))
+msg('mf2', 'm10', 'k2', [P('m10', 't'), P('k2', 'b')], 'Antwoord, besluit\nof voorstel', (3078, 300))
+msg('mf3', 'k3', 'm11', [P('k3', 'b'), P('m11', 't')], 'Akkoord of\nbezwaar', (3358, 300))
+msg('mf4', 'a2', 'k4', [(3700, yAT - TH / 2), (3700, yKL + TH / 2)], 'Eindbesluit', (3708, 520))
+msg('mf5', 'k5', 'f1', [(4040, yK + TH / 2), (4040, yFI - TH / 2)], 'Rekeningnummer via\nMijn VoyageVista', (4048, 300))
+msg('mf6', 'm5', 'LEV', [(1935, rL + TH / 2), (1935, POOL_L[0])], 'Verzoek om\noplossing', (1925, 760), 'end')
+msg('mf7', 'LEV', 'm5', [(1965, POOL_L[0]), (1965, rL + TH / 2)], 'Reactie hotel', (1973, 760))
 
 ASSOC = [  # (id, bron, doel, punten, richting)
     ('as1', 'ds', 'm1', [(E['ds']['x'] - 12, rL - 20), (560, rM + TH / 2)], 'in'),
     ('as2', 'm2', 'ds', [(670, rM + TH / 2), (E['ds']['x'] + 14, rL - 20)], 'out'),
     ('as3', 'do', 's1', [(E['do']['x'] + 16, ySR), P('s1', 'l')], 'in'),
+    ('as4', 'do', 'm8', [(E['do']['x'], ySR - 21), (E['do']['x'], 700), (2610, 700), (2610, rM + TH / 2)], 'in'),
 ]
 
 VERBETERINGEN = [
@@ -203,11 +226,11 @@ VERBETERINGEN = [
      'Handmatige registratie en geen uniforme afhandeling (KP1, KP3, GP1); AVG: geen IBAN of paspoort opslaan (interview) · UC-K02, UC-K13'),
     (2, 'De teamleider bepaalt de urgentie en wijst een behandelaar toe; is de klant op reis, dan is de urgentie automatisch Hoog. Herverdelen gaat met een overdrachtsnotitie.',
      'Moeilijk prioriteren van vragen, lange reactietijden (KP2, KP5) · UC-K05, UC-K06'),
-    (3, 'Bij een klant op reis vraagt de medewerker eerst het hotel om een oplossing ter plaatse. Lukt dat, dan wordt de zaak meteen afgesloten.',
+    (3, 'Bij een klant op reis vraagt de medewerker eerst het hotel om een oplossing ter plaatse. Lukt dat, dan bevestigt de medewerker de oplossing aan de klant en sluit de zaak af.',
      'Klachten die al op de bestemming opgelost hadden kunnen worden (interview) · UC-K08'),
     (4, 'De klacht wordt beoordeeld met de volledige klanthistorie en het bewijs, inclusief of de klant de accommodatie zelf koos.',
      'Beperkt inzicht in eerdere contacten (KP4, GP1) · UC-K03, UC-K08'),
-    (5, 'De klant vult zelf het rekeningnummer in. VoyageVista slaat het nergens op.',
+    (5, 'Alleen bij toegekende compensatie vult de klant zelf het rekeningnummer in. Financiën betaalt pas uit als het binnen is; VoyageVista slaat het nergens op.',
      'AVG: geen IBAN opslaan (interview) · UC-K09, UC-K13'),
     (6, 'Een tweede medewerker keurt het compensatievoorstel goed. Wie het voorstel indient, mag het niet zelf goedkeuren.',
      'Vier-ogenprincipe; het systeem doet nu een voorstel dat een mens altijd moet controleren (interview) · UC-K09'),
@@ -217,6 +240,10 @@ VERBETERINGEN = [
      'Versnipperde klantcommunicatie; collega’s geven verschillende antwoorden (GP1) · UC-K04'),
     (9, 'Afsluiten kan pas met een vastgelegde uitkomst en als alle vervolgacties klaar zijn. Daarna mag de klant om verwijdering van gegevens vragen.',
      'Geen uniforme afhandeling (KP3); bewaren tot de klant thuis is (interview P3) · UC-K04, UC-K12'),
+    (10, 'Is de informatie niet volledig, dan vraagt de behandelaar de klant om aanvulling (status Wacht op klant) en pakt de zaak daarna weer op.',
+     'Zaken die niet beoordeeld kunnen worden door ontbrekende gegevens (walkthrough #266) · UC-K07, UC-K08'),
+    (11, 'Reageert de klant niet op een besluit of voorstel, dan gaat na 7 dagen een herinnering en wordt de contactpoging vastgelegd. De zaak blijft wachten op de reactie.',
+     'Zaken die blijven openstaan als de klant niet reageert (walkthrough #266) · UC-K08, UC-K10'),
 ]
 
 # ---------------- SVG ----------------
@@ -308,6 +335,12 @@ def svg_diagram():
             if t == 'msgstart':
                 o.append(ENV(x - 8, y - 5.5, stroke=C['startS']))
             o.append(text_lines(x, y + ER + 20, e['label'], size=12, weight=500, fill=C['quiet']))
+        elif t == 'timer':
+            o.append(f'<circle cx="{x}" cy="{y}" r="{ER}" fill="#fff" stroke="{C["line"]}" stroke-width="1.5" stroke-dasharray="4 3"/>'
+                     f'<circle cx="{x}" cy="{y}" r="{ER - 4}" fill="#fff" stroke="{C["line"]}" stroke-width="1.3" stroke-dasharray="4 3"/>'
+                     f'<circle cx="{x}" cy="{y}" r="{ER - 8}" fill="none" stroke="{C["line"]}" stroke-width="1.3"/>'
+                     f'<path d="M{x} {y - 7} V{y} L{x + 5} {y + 3}" fill="none" stroke="{C["line"]}" stroke-width="1.4"/>')
+            o.append(text_lines(x - ER - 8, y + 18, e['label'], size=12, weight=500, anchor='end', fill=C['quiet']))
         elif t in ('end', 'msgend'):
             o.append(f'<circle cx="{x}" cy="{y}" r="{ER}" fill="{C["end"]}" stroke="{C["endS"]}" stroke-width="3.2"/>')
             if t == 'msgend':
@@ -342,6 +375,7 @@ def svg_diagram():
     item(62, lambda x, y: f'<rect x="{x}" y="{y - 20}" width="62" height="40" rx="7" fill="{C["task"]}" stroke="{C["taskS"]}" stroke-width="1.4"/>' + ENV(x + 6, y - 14), 'Ontvangst-\ntaak')
     item(60, lambda x, y: f'<path d="M{x} {y} H{x + 58}" stroke="{C["line"]}" stroke-width="1.5" marker-end="url(#seqArrow)"/>', 'Sequence flow')
     item(60, lambda x, y: f'<path d="M{x + 4} {y} H{x + 58}" stroke="{C["msg"]}" stroke-width="1.4" stroke-dasharray="6 5" marker-start="url(#msgStart)" marker-end="url(#msgArrow)"/>', 'Message flow')
+    item(34, lambda x, y: f'<circle cx="{x + 17}" cy="{y}" r="15" fill="#fff" stroke="{C["line"]}" stroke-width="1.5" stroke-dasharray="4 3"/><circle cx="{x + 17}" cy="{y}" r="11" fill="none" stroke="{C["line"]}" stroke-width="1.3" stroke-dasharray="4 3"/><path d="M{x + 17} {y - 6} V{y} L{x + 21} {y + 3}" fill="none" stroke="{C["line"]}" stroke-width="1.4"/>', 'Timer (niet-\nonderbrekend)')
     item(48, lambda x, y: f'<path d="M{x} {y} H{x + 46}" stroke="{C["quiet"]}" stroke-width="1.3" stroke-dasharray="2 4" marker-end="url(#assocArrow)"/>', 'Data-\nassociatie')
     item(30, lambda x, y: f'<path d="M{x + 3} {y - 13} v26 a12 5 0 0 0 24 0 v-26" fill="#f1f5f9" stroke="{C["line"]}" stroke-width="1.3"/><ellipse cx="{x + 15}" cy="{y - 13}" rx="12" ry="5" fill="#f1f5f9" stroke="{C["line"]}" stroke-width="1.3"/>', 'Datastore')
     item(26, lambda x, y: f'<path d="M{x + 3} {y - 16} h14 l8 8 v24 h-22 Z" fill="#f8fafc" stroke="{C["line"]}" stroke-width="1.3"/>', 'Data-\nobject')
@@ -354,7 +388,7 @@ open(os.path.join(OUT, 'klantenservice-proces.svg'), 'w').write(svg)
 
 # ---------------- BPMN XML ----------------
 BTYPE = {'task': 'userTask', 'receive': 'receiveTask', 'gateway': 'exclusiveGateway', 'start': 'startEvent',
-         'msgstart': 'startEvent', 'end': 'endEvent', 'msgend': 'endEvent'}
+         'msgstart': 'startEvent', 'end': 'endEvent', 'msgend': 'endEvent', 'timer': 'boundaryEvent'}
 DOC = {f'm{n}': None for n in range(20)}
 BADGE_DOC = {v[0]: v[1] for v in VERBETERINGEN}
 
@@ -379,11 +413,17 @@ def node_xml(e):
         inner += '<bpmn:property id="m1_prop" name="__targetRef_placeholder"/><bpmn:dataInputAssociation id="as1"><bpmn:sourceRef>ds</bpmn:sourceRef><bpmn:targetRef>m1_prop</bpmn:targetRef></bpmn:dataInputAssociation>'
     if e['id'] == 'm2':
         inner += '<bpmn:dataOutputAssociation id="as2"><bpmn:targetRef>ds</bpmn:targetRef></bpmn:dataOutputAssociation>'
+    if e['id'] == 'm8':
+        inner += '<bpmn:property id="m8_prop" name="__targetRef_placeholder"/><bpmn:dataInputAssociation id="as4"><bpmn:sourceRef>do</bpmn:sourceRef><bpmn:targetRef>m8_prop</bpmn:targetRef></bpmn:dataInputAssociation>'
     if e['id'] == 's1':
         inner += '<bpmn:property id="s1_prop" name="__targetRef_placeholder"/><bpmn:dataInputAssociation id="as3"><bpmn:sourceRef>do</bpmn:sourceRef><bpmn:targetRef>s1_prop</bpmn:targetRef></bpmn:dataInputAssociation>'
     if e['type'] in ('msgstart', 'msgend'):
         inner += f'<bpmn:messageEventDefinition id="{e["id"]}_med"/>'
+    if e['type'] == 'timer':
+        inner += f'<bpmn:timerEventDefinition id="{e["id"]}_ted"><bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P7D</bpmn:timeDuration></bpmn:timerEventDefinition>'
     attr = f' name="{name}"' if name else ''
+    if e['type'] == 'timer':
+        attr += f' attachedToRef="{e["attached"]}" cancelActivity="false"'
     if e['type'] == 'gateway' and e['id'] in ('gw1', 'gw2', 'gw3', 'gs', 'gw4'):
         default = None
     return f'<bpmn:{t} id="{e["id"]}"{attr}>{inner}</bpmn:{t}>'
@@ -399,15 +439,15 @@ v_seq = [s for s in SEQ if E[s['s']]['pool'] == 'V']
 
 x = ['<?xml version="1.0" encoding="UTF-8"?>',
      '<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" '
-     'xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" '
+     'xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
      'id="Defs_Klantenservice" targetNamespace="https://github.com/VoyageVista1/GroepInkoop" exporter="GroepInkoop" exporterVersion="1.0">',
      '<bpmn:collaboration id="Collab_Klantenservice">',
      '<bpmn:participant id="P_klant" name="Klant" processRef="Proc_klant"/>',
      '<bpmn:participant id="P_vv" name="VoyageVista" processRef="Proc_vv"/>',
      '<bpmn:participant id="P_lev" name="Leverancier (hotel op de bestemming)"/>']
 for m in MSG:
-    s = 'P_lev' if m['s'] == 'LEV' else m['s']
-    t = 'P_lev' if m['t'] == 'LEV' else m['t']
+    PART = {'LEV': 'P_lev', 'KLANT': 'P_klant'}
+    s, t = PART.get(m['s'], m['s']), PART.get(m['t'], m['t'])
     x.append(f'<bpmn:messageFlow id="{m["id"]}" name="{xesc(flat(m["label"]))}" sourceRef="{s}" targetRef="{t}"/>')
 x.append('</bpmn:collaboration>')
 x.append('<bpmn:process id="Proc_klant" isExecutable="false">')
@@ -435,6 +475,8 @@ def lbl(e):
         return f'<bpmndi:BPMNLabel>{bnd((e["x"] + ER + 6, e["y"] - 16, 90, 32))}</bpmndi:BPMNLabel>'
     if e['type'] in ('start', 'end', 'msgstart', 'msgend'):
         return f'<bpmndi:BPMNLabel>{bnd((e["x"] - 50, e["y"] + ER + 6, 100, 30))}</bpmndi:BPMNLabel>'
+    if e['type'] == 'timer':
+        return f'<bpmndi:BPMNLabel>{bnd((e["x"] - ER - 92, e["y"] + 2, 86, 32))}</bpmndi:BPMNLabel>'
     if e['type'] == 'datastore':
         return f'<bpmndi:BPMNLabel>{bnd((e["x"] + 34, e["y"] - 16, 110, 32))}</bpmndi:BPMNLabel>'
     if e['type'] == 'dataobject':

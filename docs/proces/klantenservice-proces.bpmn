@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Defs_Klantenservice" targetNamespace="https://github.com/VoyageVista1/GroepInkoop" exporter="GroepInkoop" exporterVersion="1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Defs_Klantenservice" targetNamespace="https://github.com/VoyageVista1/GroepInkoop" exporter="GroepInkoop" exporterVersion="1.0">
 <bpmn:collaboration id="Collab_Klantenservice">
 <bpmn:participant id="P_klant" name="Klant" processRef="Proc_klant"/>
 <bpmn:participant id="P_vv" name="VoyageVista" processRef="Proc_vv"/>
 <bpmn:participant id="P_lev" name="Leverancier (hotel op de bestemming)"/>
 <bpmn:messageFlow id="mf1" name="Vraag of klacht" sourceRef="k1" targetRef="ms"/>
+<bpmn:messageFlow id="mf8" name="Vraag om aanvulling" sourceRef="ma" targetRef="P_klant"/>
+<bpmn:messageFlow id="mf9" name="Aanvulling" sourceRef="P_klant" targetRef="ma"/>
 <bpmn:messageFlow id="mf2" name="Antwoord, besluit of voorstel" sourceRef="m10" targetRef="k2"/>
 <bpmn:messageFlow id="mf3" name="Akkoord of bezwaar" sourceRef="k3" targetRef="m11"/>
 <bpmn:messageFlow id="mf4" name="Eindbesluit" sourceRef="a2" targetRef="k4"/>
@@ -16,14 +18,16 @@
 <bpmn:startEvent id="k_start" name="Klant heeft vraag of klacht"><bpmn:outgoing>sf_fk1</bpmn:outgoing></bpmn:startEvent>
 <bpmn:userTask id="k1" name="Neemt contact op (telefoon, e-mail, shop, social media)"><bpmn:incoming>sf_fk1</bpmn:incoming><bpmn:outgoing>sf_fk2</bpmn:outgoing></bpmn:userTask>
 <bpmn:userTask id="k2" name="Ontvangt antwoord, besluit of voorstel"><bpmn:incoming>sf_fk2</bpmn:incoming><bpmn:outgoing>sf_fk3</bpmn:outgoing></bpmn:userTask>
-<bpmn:exclusiveGateway id="kg1" name="Voorstel?"><bpmn:incoming>sf_fk3</bpmn:incoming><bpmn:outgoing>sf_fk4</bpmn:outgoing><bpmn:outgoing>sf_fk5</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:exclusiveGateway id="kg1" name="Besluit op klacht?"><bpmn:incoming>sf_fk3</bpmn:incoming><bpmn:outgoing>sf_fk4</bpmn:outgoing><bpmn:outgoing>sf_fk5</bpmn:outgoing></bpmn:exclusiveGateway>
 <bpmn:endEvent id="k_end0" name="Klant geholpen"><bpmn:incoming>sf_fk5</bpmn:incoming></bpmn:endEvent>
-<bpmn:userTask id="k3" name="Reageert op voorstel (akkoord of bezwaar)"><bpmn:incoming>sf_fk4</bpmn:incoming><bpmn:outgoing>sf_fk6</bpmn:outgoing></bpmn:userTask>
+<bpmn:userTask id="k3" name="Reageert op besluit (akkoord of bezwaar)"><bpmn:incoming>sf_fk4</bpmn:incoming><bpmn:outgoing>sf_fk6</bpmn:outgoing></bpmn:userTask>
 <bpmn:exclusiveGateway id="kg2" name="Akkoord?"><bpmn:incoming>sf_fk6</bpmn:incoming><bpmn:outgoing>sf_fk7</bpmn:outgoing><bpmn:outgoing>sf_fk8</bpmn:outgoing></bpmn:exclusiveGateway>
 <bpmn:userTask id="k4" name="Ontvangt eindbesluit"><bpmn:incoming>sf_fk8</bpmn:incoming><bpmn:outgoing>sf_fk9</bpmn:outgoing></bpmn:userTask>
 <bpmn:exclusiveGateway id="km"><bpmn:incoming>sf_fk7</bpmn:incoming><bpmn:incoming>sf_fk9</bpmn:incoming><bpmn:outgoing>sf_fk10</bpmn:outgoing></bpmn:exclusiveGateway>
-<bpmn:userTask id="k5" name="Vult zelf rekening-nummer in (bij compensatie)"><bpmn:documentation>Verbetering 5: De klant vult zelf het rekeningnummer in. VoyageVista slaat het nergens op.</bpmn:documentation><bpmn:incoming>sf_fk10</bpmn:incoming><bpmn:outgoing>sf_fk11</bpmn:outgoing></bpmn:userTask>
-<bpmn:endEvent id="k_end" name="Klant geholpen"><bpmn:incoming>sf_fk11</bpmn:incoming></bpmn:endEvent>
+<bpmn:exclusiveGateway id="kc" name="Compensatie toegekend?"><bpmn:incoming>sf_fk10</bpmn:incoming><bpmn:outgoing>sf_fk11</bpmn:outgoing><bpmn:outgoing>sf_fk12</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:endEvent id="k_end2" name="Klant geholpen"><bpmn:incoming>sf_fk12</bpmn:incoming></bpmn:endEvent>
+<bpmn:userTask id="k5" name="Vult zelf rekening-nummer in"><bpmn:documentation>Verbetering 5: Alleen bij toegekende compensatie vult de klant zelf het rekeningnummer in. Financiën betaalt pas uit als het binnen is; VoyageVista slaat het nergens op.</bpmn:documentation><bpmn:incoming>sf_fk11</bpmn:incoming><bpmn:outgoing>sf_fk13</bpmn:outgoing></bpmn:userTask>
+<bpmn:endEvent id="k_end" name="Klant geholpen"><bpmn:incoming>sf_fk13</bpmn:incoming></bpmn:endEvent>
 <bpmn:sequenceFlow id="sf_fk1" sourceRef="k_start" targetRef="k1"/>
 <bpmn:sequenceFlow id="sf_fk2" sourceRef="k1" targetRef="k2"/>
 <bpmn:sequenceFlow id="sf_fk3" sourceRef="k2" targetRef="kg1"/>
@@ -33,11 +37,13 @@
 <bpmn:sequenceFlow id="sf_fk7" name="Ja" sourceRef="kg2" targetRef="km"/>
 <bpmn:sequenceFlow id="sf_fk8" name="Nee (bezwaar)" sourceRef="kg2" targetRef="k4"/>
 <bpmn:sequenceFlow id="sf_fk9" sourceRef="k4" targetRef="km"/>
-<bpmn:sequenceFlow id="sf_fk10" sourceRef="km" targetRef="k5"/>
-<bpmn:sequenceFlow id="sf_fk11" sourceRef="k5" targetRef="k_end"/>
+<bpmn:sequenceFlow id="sf_fk10" sourceRef="km" targetRef="kc"/>
+<bpmn:sequenceFlow id="sf_fk11" name="Ja" sourceRef="kc" targetRef="k5"/>
+<bpmn:sequenceFlow id="sf_fk12" name="Nee" sourceRef="kc" targetRef="k_end2"/>
+<bpmn:sequenceFlow id="sf_fk13" sourceRef="k5" targetRef="k_end"/>
 </bpmn:process>
 <bpmn:process id="Proc_vv" isExecutable="false"><bpmn:laneSet id="LaneSet_vv">
-<bpmn:lane id="L_ks" name="Klantenservice-medewerker (shop en contactcenter)"><bpmn:flowNodeRef>ms</bpmn:flowNodeRef><bpmn:flowNodeRef>m1</bpmn:flowNodeRef><bpmn:flowNodeRef>m2</bpmn:flowNodeRef><bpmn:flowNodeRef>gz</bpmn:flowNodeRef><bpmn:flowNodeRef>mz1</bpmn:flowNodeRef><bpmn:flowNodeRef>mz2</bpmn:flowNodeRef><bpmn:flowNodeRef>gzm</bpmn:flowNodeRef><bpmn:flowNodeRef>gw1</bpmn:flowNodeRef><bpmn:flowNodeRef>v1</bpmn:flowNodeRef><bpmn:flowNodeRef>v2</bpmn:flowNodeRef><bpmn:flowNodeRef>gw2</bpmn:flowNodeRef><bpmn:flowNodeRef>m5</bpmn:flowNodeRef><bpmn:flowNodeRef>got</bpmn:flowNodeRef><bpmn:flowNodeRef>gm1</bpmn:flowNodeRef><bpmn:flowNodeRef>m6</bpmn:flowNodeRef><bpmn:flowNodeRef>gw3</bpmn:flowNodeRef><bpmn:flowNodeRef>m7</bpmn:flowNodeRef><bpmn:flowNodeRef>m8</bpmn:flowNodeRef><bpmn:flowNodeRef>gm2</bpmn:flowNodeRef><bpmn:flowNodeRef>m10</bpmn:flowNodeRef><bpmn:flowNodeRef>gv2</bpmn:flowNodeRef><bpmn:flowNodeRef>m11</bpmn:flowNodeRef><bpmn:flowNodeRef>gw4</bpmn:flowNodeRef><bpmn:flowNodeRef>gc</bpmn:flowNodeRef><bpmn:flowNodeRef>ge1</bpmn:flowNodeRef><bpmn:flowNodeRef>ge2</bpmn:flowNodeRef><bpmn:flowNodeRef>m12</bpmn:flowNodeRef><bpmn:flowNodeRef>m_end</bpmn:flowNodeRef></bpmn:lane>
+<bpmn:lane id="L_ks" name="Klantenservice-medewerker (shop en contactcenter)"><bpmn:flowNodeRef>ms</bpmn:flowNodeRef><bpmn:flowNodeRef>m1</bpmn:flowNodeRef><bpmn:flowNodeRef>m2</bpmn:flowNodeRef><bpmn:flowNodeRef>gz</bpmn:flowNodeRef><bpmn:flowNodeRef>mz1</bpmn:flowNodeRef><bpmn:flowNodeRef>mz2</bpmn:flowNodeRef><bpmn:flowNodeRef>gzm</bpmn:flowNodeRef><bpmn:flowNodeRef>gim</bpmn:flowNodeRef><bpmn:flowNodeRef>gi</bpmn:flowNodeRef><bpmn:flowNodeRef>ma</bpmn:flowNodeRef><bpmn:flowNodeRef>gw1</bpmn:flowNodeRef><bpmn:flowNodeRef>v1</bpmn:flowNodeRef><bpmn:flowNodeRef>v2</bpmn:flowNodeRef><bpmn:flowNodeRef>gw2</bpmn:flowNodeRef><bpmn:flowNodeRef>m5</bpmn:flowNodeRef><bpmn:flowNodeRef>got</bpmn:flowNodeRef><bpmn:flowNodeRef>gm1</bpmn:flowNodeRef><bpmn:flowNodeRef>m6</bpmn:flowNodeRef><bpmn:flowNodeRef>gw3</bpmn:flowNodeRef><bpmn:flowNodeRef>m7</bpmn:flowNodeRef><bpmn:flowNodeRef>m8</bpmn:flowNodeRef><bpmn:flowNodeRef>gm3</bpmn:flowNodeRef><bpmn:flowNodeRef>gm2</bpmn:flowNodeRef><bpmn:flowNodeRef>m10</bpmn:flowNodeRef><bpmn:flowNodeRef>gv2</bpmn:flowNodeRef><bpmn:flowNodeRef>m11</bpmn:flowNodeRef><bpmn:flowNodeRef>tm</bpmn:flowNodeRef><bpmn:flowNodeRef>mh</bpmn:flowNodeRef><bpmn:flowNodeRef>mh_end</bpmn:flowNodeRef><bpmn:flowNodeRef>gw4</bpmn:flowNodeRef><bpmn:flowNodeRef>gcm</bpmn:flowNodeRef><bpmn:flowNodeRef>gc</bpmn:flowNodeRef><bpmn:flowNodeRef>ge1</bpmn:flowNodeRef><bpmn:flowNodeRef>ge2</bpmn:flowNodeRef><bpmn:flowNodeRef>m12</bpmn:flowNodeRef><bpmn:flowNodeRef>m_end</bpmn:flowNodeRef></bpmn:lane>
 <bpmn:lane id="L_tl" name="Teamleider klantenservice"><bpmn:flowNodeRef>t1</bpmn:flowNodeRef></bpmn:lane>
 <bpmn:lane id="L_sr" name="Senior klantenservice"><bpmn:flowNodeRef>s1</bpmn:flowNodeRef><bpmn:flowNodeRef>gs</bpmn:flowNodeRef></bpmn:lane>
 <bpmn:lane id="L_at" name="After Travel"><bpmn:flowNodeRef>a1</bpmn:flowNodeRef><bpmn:flowNodeRef>a2</bpmn:flowNodeRef></bpmn:lane>
@@ -50,25 +56,33 @@
 <bpmn:userTask id="mz1" name="Contact toevoegen aan zaak (zo nodig heropenen)"><bpmn:documentation>Verbetering 8: Nieuw contact over een bestaande zaak komt in die zaak; een afgesloten zaak wordt heropend in plaats van dubbel aangemaakt.</bpmn:documentation><bpmn:incoming>sf_f4</bpmn:incoming><bpmn:outgoing>sf_f6</bpmn:outgoing></bpmn:userTask>
 <bpmn:userTask id="mz2" name="Klantzaak aanmaken en classificeren"><bpmn:incoming>sf_f5</bpmn:incoming><bpmn:outgoing>sf_f7</bpmn:outgoing></bpmn:userTask>
 <bpmn:exclusiveGateway id="gzm"><bpmn:incoming>sf_f6</bpmn:incoming><bpmn:incoming>sf_f7</bpmn:incoming><bpmn:outgoing>sf_f8</bpmn:outgoing></bpmn:exclusiveGateway>
-<bpmn:exclusiveGateway id="gw1" name="Soort zaak?"><bpmn:incoming>sf_f9</bpmn:incoming><bpmn:outgoing>sf_f10</bpmn:outgoing><bpmn:outgoing>sf_f13</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:exclusiveGateway id="gim"><bpmn:incoming>sf_f9</bpmn:incoming><bpmn:incoming>sf_f9d</bpmn:incoming><bpmn:outgoing>sf_f9a</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:exclusiveGateway id="gi" name="Informatie volledig?"><bpmn:incoming>sf_f9a</bpmn:incoming><bpmn:outgoing>sf_f9b</bpmn:outgoing><bpmn:outgoing>sf_f9c</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:userTask id="ma" name="Klant om aanvulling vragen"><bpmn:documentation>Verbetering 10: Is de informatie niet volledig, dan vraagt de behandelaar de klant om aanvulling (status Wacht op klant) en pakt de zaak daarna weer op.</bpmn:documentation><bpmn:incoming>sf_f9c</bpmn:incoming><bpmn:outgoing>sf_f9d</bpmn:outgoing></bpmn:userTask>
+<bpmn:exclusiveGateway id="gw1" name="Soort zaak?"><bpmn:incoming>sf_f9b</bpmn:incoming><bpmn:outgoing>sf_f10</bpmn:outgoing><bpmn:outgoing>sf_f13</bpmn:outgoing></bpmn:exclusiveGateway>
 <bpmn:userTask id="v1" name="Vraag onderzoeken (FAQ, template, collega)"><bpmn:incoming>sf_f10</bpmn:incoming><bpmn:outgoing>sf_f11</bpmn:outgoing></bpmn:userTask>
 <bpmn:userTask id="v2" name="Antwoord opstellen of doorzetten naar andere afdeling"><bpmn:incoming>sf_f11</bpmn:incoming><bpmn:outgoing>sf_f12</bpmn:outgoing></bpmn:userTask>
 <bpmn:exclusiveGateway id="gw2" name="Klant nu op reis?"><bpmn:incoming>sf_f13</bpmn:incoming><bpmn:outgoing>sf_f14</bpmn:outgoing><bpmn:outgoing>sf_f15</bpmn:outgoing></bpmn:exclusiveGateway>
-<bpmn:userTask id="m5" name="Hotel vragen om oplossing ter plaatse"><bpmn:documentation>Verbetering 3: Bij een klant op reis vraagt de medewerker eerst het hotel om een oplossing ter plaatse. Lukt dat, dan wordt de zaak meteen afgesloten.</bpmn:documentation><bpmn:incoming>sf_f14</bpmn:incoming><bpmn:outgoing>sf_f16</bpmn:outgoing></bpmn:userTask>
+<bpmn:userTask id="m5" name="Hotel vragen om oplossing ter plaatse"><bpmn:documentation>Verbetering 3: Bij een klant op reis vraagt de medewerker eerst het hotel om een oplossing ter plaatse. Lukt dat, dan bevestigt de medewerker de oplossing aan de klant en sluit de zaak af.</bpmn:documentation><bpmn:incoming>sf_f14</bpmn:incoming><bpmn:outgoing>sf_f16</bpmn:outgoing></bpmn:userTask>
 <bpmn:exclusiveGateway id="got" name="Opgelost ter plaatse?"><bpmn:incoming>sf_f16</bpmn:incoming><bpmn:outgoing>sf_f17</bpmn:outgoing><bpmn:outgoing>sf_f18</bpmn:outgoing></bpmn:exclusiveGateway>
 <bpmn:exclusiveGateway id="gm1"><bpmn:incoming>sf_f15</bpmn:incoming><bpmn:incoming>sf_f17</bpmn:incoming><bpmn:outgoing>sf_f19</bpmn:outgoing></bpmn:exclusiveGateway>
 <bpmn:userTask id="m6" name="Klacht beoordelen (historie, bewijs, zelf gekozen?)"><bpmn:documentation>Verbetering 4: De klacht wordt beoordeeld met de volledige klanthistorie en het bewijs, inclusief of de klant de accommodatie zelf koos.</bpmn:documentation><bpmn:incoming>sf_f19</bpmn:incoming><bpmn:outgoing>sf_f20</bpmn:outgoing></bpmn:userTask>
 <bpmn:exclusiveGateway id="gw3" name="Klacht gegrond?"><bpmn:incoming>sf_f20</bpmn:incoming><bpmn:outgoing>sf_f21</bpmn:outgoing><bpmn:outgoing>sf_f22</bpmn:outgoing></bpmn:exclusiveGateway>
 <bpmn:userTask id="m7" name="Ongegrond verklaren met onderbouwing"><bpmn:incoming>sf_f22</bpmn:incoming><bpmn:outgoing>sf_f23</bpmn:outgoing></bpmn:userTask>
-<bpmn:userTask id="m8" name="Compensatie-voorstel volgens richtlijn"><bpmn:incoming>sf_f21</bpmn:incoming><bpmn:incoming>sf_f26</bpmn:incoming><bpmn:outgoing>sf_f24</bpmn:outgoing></bpmn:userTask>
-<bpmn:exclusiveGateway id="gm2"><bpmn:incoming>sf_f12</bpmn:incoming><bpmn:incoming>sf_f23</bpmn:incoming><bpmn:incoming>sf_f27</bpmn:incoming><bpmn:outgoing>sf_f28</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:userTask id="m8" name="Compensatie-voorstel volgens richtlijn"><bpmn:incoming>sf_f21</bpmn:incoming><bpmn:incoming>sf_f26</bpmn:incoming><bpmn:outgoing>sf_f24</bpmn:outgoing><bpmn:property id="m8_prop" name="__targetRef_placeholder"/><bpmn:dataInputAssociation id="as4"><bpmn:sourceRef>do</bpmn:sourceRef><bpmn:targetRef>m8_prop</bpmn:targetRef></bpmn:dataInputAssociation></bpmn:userTask>
+<bpmn:exclusiveGateway id="gm3"><bpmn:incoming>sf_f18</bpmn:incoming><bpmn:incoming>sf_f23</bpmn:incoming><bpmn:outgoing>sf_f23a</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:exclusiveGateway id="gm2"><bpmn:incoming>sf_f12</bpmn:incoming><bpmn:incoming>sf_f23a</bpmn:incoming><bpmn:incoming>sf_f27</bpmn:incoming><bpmn:outgoing>sf_f28</bpmn:outgoing></bpmn:exclusiveGateway>
 <bpmn:userTask id="m10" name="Klant informeren (antwoord, besluit of voorstel)"><bpmn:documentation>Verbetering 7: Voor het versturen controleert het systeem de reisstatus, zodat de klant geen onterecht bericht krijgt (zoals een vertragingsbrief terwijl hij al op de bestemming is).</bpmn:documentation><bpmn:incoming>sf_f28</bpmn:incoming><bpmn:outgoing>sf_f29</bpmn:outgoing></bpmn:userTask>
-<bpmn:exclusiveGateway id="gv2" name="Voorstel aan klant?"><bpmn:incoming>sf_f29</bpmn:incoming><bpmn:outgoing>sf_f30</bpmn:outgoing><bpmn:outgoing>sf_f31</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:exclusiveGateway id="gv2" name="Reactie klant nodig?"><bpmn:incoming>sf_f29</bpmn:incoming><bpmn:outgoing>sf_f30</bpmn:outgoing><bpmn:outgoing>sf_f31</bpmn:outgoing></bpmn:exclusiveGateway>
 <bpmn:receiveTask id="m11" name="Reactie klant verwerken"><bpmn:incoming>sf_f30</bpmn:incoming><bpmn:outgoing>sf_f32</bpmn:outgoing></bpmn:receiveTask>
+<bpmn:boundaryEvent id="tm" name="Geen reactie na 7 dagen" attachedToRef="m11" cancelActivity="false"><bpmn:outgoing>sf_ft1</bpmn:outgoing><bpmn:timerEventDefinition id="tm_ted"><bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P7D</bpmn:timeDuration></bpmn:timerEventDefinition></bpmn:boundaryEvent>
+<bpmn:userTask id="mh" name="Herinnering sturen en contactpoging vastleggen"><bpmn:documentation>Verbetering 11: Reageert de klant niet op een besluit of voorstel, dan gaat na 7 dagen een herinnering en wordt de contactpoging vastgelegd. De zaak blijft wachten op de reactie.</bpmn:documentation><bpmn:incoming>sf_ft1</bpmn:incoming><bpmn:outgoing>sf_ft2</bpmn:outgoing></bpmn:userTask>
+<bpmn:endEvent id="mh_end" name="Herinnering verstuurd"><bpmn:incoming>sf_ft2</bpmn:incoming></bpmn:endEvent>
 <bpmn:exclusiveGateway id="gw4" name="Klant akkoord?"><bpmn:incoming>sf_f32</bpmn:incoming><bpmn:outgoing>sf_f33</bpmn:outgoing><bpmn:outgoing>sf_f34</bpmn:outgoing></bpmn:exclusiveGateway>
-<bpmn:exclusiveGateway id="gc" name="Compensatie toegekend?"><bpmn:incoming>sf_f33</bpmn:incoming><bpmn:incoming>sf_f36</bpmn:incoming><bpmn:outgoing>sf_f37</bpmn:outgoing><bpmn:outgoing>sf_f38</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:exclusiveGateway id="gcm"><bpmn:incoming>sf_f33</bpmn:incoming><bpmn:incoming>sf_f36</bpmn:incoming><bpmn:outgoing>sf_f33a</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:exclusiveGateway id="gc" name="Compensatie toegekend?"><bpmn:incoming>sf_f33a</bpmn:incoming><bpmn:outgoing>sf_f37</bpmn:outgoing><bpmn:outgoing>sf_f38</bpmn:outgoing></bpmn:exclusiveGateway>
 <bpmn:exclusiveGateway id="ge1"><bpmn:incoming>sf_f38</bpmn:incoming><bpmn:incoming>sf_f39</bpmn:incoming><bpmn:outgoing>sf_f40</bpmn:outgoing></bpmn:exclusiveGateway>
-<bpmn:exclusiveGateway id="ge2"><bpmn:incoming>sf_f18</bpmn:incoming><bpmn:incoming>sf_f31</bpmn:incoming><bpmn:incoming>sf_f40</bpmn:incoming><bpmn:outgoing>sf_f41</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:exclusiveGateway id="ge2"><bpmn:incoming>sf_f31</bpmn:incoming><bpmn:incoming>sf_f40</bpmn:incoming><bpmn:outgoing>sf_f41</bpmn:outgoing></bpmn:exclusiveGateway>
 <bpmn:userTask id="m12" name="Uitkomst vastleggen en klantzaak afsluiten"><bpmn:documentation>Verbetering 9: Afsluiten kan pas met een vastgelegde uitkomst en als alle vervolgacties klaar zijn. Daarna mag de klant om verwijdering van gegevens vragen.</bpmn:documentation><bpmn:incoming>sf_f41</bpmn:incoming><bpmn:outgoing>sf_f42</bpmn:outgoing></bpmn:userTask>
 <bpmn:endEvent id="m_end" name="Zaak afgesloten"><bpmn:incoming>sf_f42</bpmn:incoming></bpmn:endEvent>
 
@@ -78,7 +92,7 @@
 
 <bpmn:userTask id="a1" name="Klacht opnieuw beoordelen (maatwerk)"><bpmn:incoming>sf_f34</bpmn:incoming><bpmn:outgoing>sf_f35</bpmn:outgoing></bpmn:userTask>
 <bpmn:userTask id="a2" name="Eindbesluit vastleggen en communiceren"><bpmn:incoming>sf_f35</bpmn:incoming><bpmn:outgoing>sf_f36</bpmn:outgoing></bpmn:userTask>
-<bpmn:userTask id="f1" name="Compensatie uitbetalen"><bpmn:incoming>sf_f37</bpmn:incoming><bpmn:outgoing>sf_f39</bpmn:outgoing></bpmn:userTask>
+<bpmn:receiveTask id="f1" name="Rekeningnummer ontvangen en uitbetalen"><bpmn:incoming>sf_f37</bpmn:incoming><bpmn:outgoing>sf_f39</bpmn:outgoing></bpmn:receiveTask>
 <bpmn:sequenceFlow id="sf_f1" sourceRef="ms" targetRef="m1"/>
 <bpmn:sequenceFlow id="sf_f2" sourceRef="m1" targetRef="m2"/>
 <bpmn:sequenceFlow id="sf_f3" sourceRef="m2" targetRef="gz"/>
@@ -87,7 +101,11 @@
 <bpmn:sequenceFlow id="sf_f6" sourceRef="mz1" targetRef="gzm"/>
 <bpmn:sequenceFlow id="sf_f7" sourceRef="mz2" targetRef="gzm"/>
 <bpmn:sequenceFlow id="sf_f8" sourceRef="gzm" targetRef="t1"/>
-<bpmn:sequenceFlow id="sf_f9" sourceRef="t1" targetRef="gw1"/>
+<bpmn:sequenceFlow id="sf_f9" sourceRef="t1" targetRef="gim"/>
+<bpmn:sequenceFlow id="sf_f9a" sourceRef="gim" targetRef="gi"/>
+<bpmn:sequenceFlow id="sf_f9b" name="Ja" sourceRef="gi" targetRef="gw1"/>
+<bpmn:sequenceFlow id="sf_f9c" name="Nee" sourceRef="gi" targetRef="ma"/>
+<bpmn:sequenceFlow id="sf_f9d" sourceRef="ma" targetRef="gim"/>
 <bpmn:sequenceFlow id="sf_f10" name="Vraag of wijziging" sourceRef="gw1" targetRef="v1"/>
 <bpmn:sequenceFlow id="sf_f11" sourceRef="v1" targetRef="v2"/>
 <bpmn:sequenceFlow id="sf_f12" sourceRef="v2" targetRef="gm2"/>
@@ -96,25 +114,29 @@
 <bpmn:sequenceFlow id="sf_f15" name="Nee" sourceRef="gw2" targetRef="gm1"/>
 <bpmn:sequenceFlow id="sf_f16" sourceRef="m5" targetRef="got"/>
 <bpmn:sequenceFlow id="sf_f17" name="Nee" sourceRef="got" targetRef="gm1"/>
-<bpmn:sequenceFlow id="sf_f18" name="Ja" sourceRef="got" targetRef="ge2"/>
+<bpmn:sequenceFlow id="sf_f18" name="Ja" sourceRef="got" targetRef="gm3"/>
 <bpmn:sequenceFlow id="sf_f19" sourceRef="gm1" targetRef="m6"/>
 <bpmn:sequenceFlow id="sf_f20" sourceRef="m6" targetRef="gw3"/>
 <bpmn:sequenceFlow id="sf_f21" name="Ja" sourceRef="gw3" targetRef="m8"/>
 <bpmn:sequenceFlow id="sf_f22" name="Nee" sourceRef="gw3" targetRef="m7"/>
-<bpmn:sequenceFlow id="sf_f23" sourceRef="m7" targetRef="gm2"/>
+<bpmn:sequenceFlow id="sf_f23" sourceRef="m7" targetRef="gm3"/>
+<bpmn:sequenceFlow id="sf_f23a" sourceRef="gm3" targetRef="gm2"/>
 <bpmn:sequenceFlow id="sf_f24" sourceRef="m8" targetRef="s1"/>
 <bpmn:sequenceFlow id="sf_f25" sourceRef="s1" targetRef="gs"/>
-<bpmn:sequenceFlow id="sf_f26" name="Nee, terug" sourceRef="gs" targetRef="m8"/>
+<bpmn:sequenceFlow id="sf_f26" name="Nee (met reden), terug" sourceRef="gs" targetRef="m8"/>
 <bpmn:sequenceFlow id="sf_f27" name="Ja" sourceRef="gs" targetRef="gm2"/>
 <bpmn:sequenceFlow id="sf_f28" sourceRef="gm2" targetRef="m10"/>
 <bpmn:sequenceFlow id="sf_f29" sourceRef="m10" targetRef="gv2"/>
 <bpmn:sequenceFlow id="sf_f30" name="Ja" sourceRef="gv2" targetRef="m11"/>
 <bpmn:sequenceFlow id="sf_f31" name="Nee" sourceRef="gv2" targetRef="ge2"/>
 <bpmn:sequenceFlow id="sf_f32" sourceRef="m11" targetRef="gw4"/>
-<bpmn:sequenceFlow id="sf_f33" name="Ja" sourceRef="gw4" targetRef="gc"/>
+<bpmn:sequenceFlow id="sf_ft1" sourceRef="tm" targetRef="mh"/>
+<bpmn:sequenceFlow id="sf_ft2" sourceRef="mh" targetRef="mh_end"/>
+<bpmn:sequenceFlow id="sf_f33" name="Ja" sourceRef="gw4" targetRef="gcm"/>
+<bpmn:sequenceFlow id="sf_f33a" sourceRef="gcm" targetRef="gc"/>
 <bpmn:sequenceFlow id="sf_f34" name="Nee (bezwaar)" sourceRef="gw4" targetRef="a1"/>
 <bpmn:sequenceFlow id="sf_f35" sourceRef="a1" targetRef="a2"/>
-<bpmn:sequenceFlow id="sf_f36" sourceRef="a2" targetRef="gc"/>
+<bpmn:sequenceFlow id="sf_f36" sourceRef="a2" targetRef="gcm"/>
 <bpmn:sequenceFlow id="sf_f37" name="Ja" sourceRef="gc" targetRef="f1"/>
 <bpmn:sequenceFlow id="sf_f38" name="Nee" sourceRef="gc" targetRef="ge1"/>
 <bpmn:sequenceFlow id="sf_f39" sourceRef="f1" targetRef="ge1"/>
@@ -125,25 +147,27 @@
 <bpmn:dataObjectReference id="do" name="Compensatierichtlijn (% van reissom)" dataObjectRef="do_obj"/><bpmn:dataObject id="do_obj"/>
 </bpmn:process>
 <bpmndi:BPMNDiagram id="Diagram_1"><bpmndi:BPMNPlane id="Plane_1" bpmnElement="Collab_Klantenservice">
-<bpmndi:BPMNShape id="P_klant_di" bpmnElement="P_klant" isHorizontal="true"><dc:Bounds x="20" y="70" width="4210" height="192"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="P_vv_di" bpmnElement="P_vv" isHorizontal="true"><dc:Bounds x="20" y="282" width="4210" height="770"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="L_ks_di" bpmnElement="L_ks" isHorizontal="true"><dc:Bounds x="50" y="282" width="4180" height="360"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="L_tl_di" bpmnElement="L_tl" isHorizontal="true"><dc:Bounds x="50" y="642" width="4180" height="100"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="L_sr_di" bpmnElement="L_sr" isHorizontal="true"><dc:Bounds x="50" y="742" width="4180" height="100"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="L_at_di" bpmnElement="L_at" isHorizontal="true"><dc:Bounds x="50" y="842" width="4180" height="100"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="L_fi_di" bpmnElement="L_fi" isHorizontal="true"><dc:Bounds x="50" y="942" width="4180" height="110"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="P_lev_di" bpmnElement="P_lev" isHorizontal="true"><dc:Bounds x="20" y="1070" width="4210" height="54"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="P_klant_di" bpmnElement="P_klant" isHorizontal="true"><dc:Bounds x="20" y="70" width="4640" height="192"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="P_vv_di" bpmnElement="P_vv" isHorizontal="true"><dc:Bounds x="20" y="282" width="4640" height="770"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="L_ks_di" bpmnElement="L_ks" isHorizontal="true"><dc:Bounds x="50" y="282" width="4610" height="360"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="L_tl_di" bpmnElement="L_tl" isHorizontal="true"><dc:Bounds x="50" y="642" width="4610" height="100"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="L_sr_di" bpmnElement="L_sr" isHorizontal="true"><dc:Bounds x="50" y="742" width="4610" height="100"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="L_at_di" bpmnElement="L_at" isHorizontal="true"><dc:Bounds x="50" y="842" width="4610" height="100"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="L_fi_di" bpmnElement="L_fi" isHorizontal="true"><dc:Bounds x="50" y="942" width="4610" height="110"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="P_lev_di" bpmnElement="P_lev" isHorizontal="true"><dc:Bounds x="20" y="1070" width="4640" height="54"/></bpmndi:BPMNShape>
 <bpmndi:BPMNShape id="k_start_di" bpmnElement="k_start"><dc:Bounds x="252" y="117" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="220" y="159" width="100" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
 <bpmndi:BPMNShape id="k1_di" bpmnElement="k1"><dc:Bounds x="325" y="104" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="k2_di" bpmnElement="k2"><dc:Bounds x="2715" y="104" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="kg1_di" bpmnElement="kg1" isMarkerVisible="true"><dc:Bounds x="2905" y="110" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="2890" y="66" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="k_end0_di" bpmnElement="k_end0"><dc:Bounds x="2912" y="197" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="2954" y="199" width="90" height="32"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="k3_di" bpmnElement="k3"><dc:Bounds x="2995" y="104" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="kg2_di" bpmnElement="kg2" isMarkerVisible="true"><dc:Bounds x="3185" y="110" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="3170" y="66" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="k4_di" bpmnElement="k4"><dc:Bounds x="3295" y="184" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="km_di" bpmnElement="km" isMarkerVisible="true"><dc:Bounds x="3455" y="110" width="50" height="50"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="k5_di" bpmnElement="k5"><dc:Bounds x="3515" y="104" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="k_end_di" bpmnElement="k_end"><dc:Bounds x="3702" y="117" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="3744" y="119" width="90" height="32"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="k2_di" bpmnElement="k2"><dc:Bounds x="2995" y="104" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="kg1_di" bpmnElement="kg1" isMarkerVisible="true"><dc:Bounds x="3185" y="110" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="3170" y="66" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="k_end0_di" bpmnElement="k_end0"><dc:Bounds x="3192" y="197" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="3234" y="199" width="90" height="32"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="k3_di" bpmnElement="k3"><dc:Bounds x="3275" y="104" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="kg2_di" bpmnElement="kg2" isMarkerVisible="true"><dc:Bounds x="3465" y="110" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="3450" y="66" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="k4_di" bpmnElement="k4"><dc:Bounds x="3575" y="184" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="km_di" bpmnElement="km" isMarkerVisible="true"><dc:Bounds x="3735" y="110" width="50" height="50"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="kc_di" bpmnElement="kc" isMarkerVisible="true"><dc:Bounds x="3845" y="110" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="3830" y="66" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="k_end2_di" bpmnElement="k_end2"><dc:Bounds x="3852" y="197" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="3894" y="199" width="90" height="32"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="k5_di" bpmnElement="k5"><dc:Bounds x="3935" y="104" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="k_end_di" bpmnElement="k_end"><dc:Bounds x="4122" y="117" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="4164" y="119" width="90" height="32"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
 <bpmndi:BPMNShape id="ms_di" bpmnElement="ms"><dc:Bounds x="382" y="432" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="350" y="474" width="100" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
 <bpmndi:BPMNShape id="m1_di" bpmnElement="m1"><dc:Bounds x="455" y="419" width="150" height="62"/></bpmndi:BPMNShape>
 <bpmndi:BPMNShape id="m2_di" bpmnElement="m2"><dc:Bounds x="625" y="419" width="150" height="62"/></bpmndi:BPMNShape>
@@ -151,46 +175,56 @@
 <bpmndi:BPMNShape id="mz1_di" bpmnElement="mz1"><dc:Bounds x="905" y="309" width="150" height="62"/></bpmndi:BPMNShape>
 <bpmndi:BPMNShape id="mz2_di" bpmnElement="mz2"><dc:Bounds x="905" y="419" width="150" height="62"/></bpmndi:BPMNShape>
 <bpmndi:BPMNShape id="gzm_di" bpmnElement="gzm" isMarkerVisible="true"><dc:Bounds x="1095" y="425" width="50" height="50"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="gw1_di" bpmnElement="gw1" isMarkerVisible="true"><dc:Bounds x="1365" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="1350" y="481" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="v1_di" bpmnElement="v1"><dc:Bounds x="1455" y="309" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="v2_di" bpmnElement="v2"><dc:Bounds x="1615" y="309" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="gw2_di" bpmnElement="gw2" isMarkerVisible="true"><dc:Bounds x="1505" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="1490" y="381" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="m5_di" bpmnElement="m5"><dc:Bounds x="1595" y="529" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="got_di" bpmnElement="got" isMarkerVisible="true"><dc:Bounds x="1785" y="535" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="1770" y="491" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="gm1_di" bpmnElement="gm1" isMarkerVisible="true"><dc:Bounds x="1925" y="425" width="50" height="50"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="m6_di" bpmnElement="m6"><dc:Bounds x="2015" y="419" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="gw3_di" bpmnElement="gw3" isMarkerVisible="true"><dc:Bounds x="2205" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="2190" y="381" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="m7_di" bpmnElement="m7"><dc:Bounds x="2155" y="529" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="m8_di" bpmnElement="m8"><dc:Bounds x="2295" y="419" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="gm2_di" bpmnElement="gm2" isMarkerVisible="true"><dc:Bounds x="2625" y="425" width="50" height="50"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="m10_di" bpmnElement="m10"><dc:Bounds x="2715" y="419" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="gv2_di" bpmnElement="gv2" isMarkerVisible="true"><dc:Bounds x="2905" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="2890" y="381" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="m11_di" bpmnElement="m11"><dc:Bounds x="2995" y="419" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="gw4_di" bpmnElement="gw4" isMarkerVisible="true"><dc:Bounds x="3185" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="3170" y="381" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="gc_di" bpmnElement="gc" isMarkerVisible="true"><dc:Bounds x="3345" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="3268" y="481" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="ge1_di" bpmnElement="ge1" isMarkerVisible="true"><dc:Bounds x="3675" y="425" width="50" height="50"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="ge2_di" bpmnElement="ge2" isMarkerVisible="true"><dc:Bounds x="3805" y="425" width="50" height="50"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="m12_di" bpmnElement="m12"><dc:Bounds x="3895" y="419" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="m_end_di" bpmnElement="m_end"><dc:Bounds x="4102" y="432" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="4070" y="474" width="100" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gim_di" bpmnElement="gim" isMarkerVisible="true"><dc:Bounds x="1315" y="425" width="50" height="50"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gi_di" bpmnElement="gi" isMarkerVisible="true"><dc:Bounds x="1415" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="1400" y="481" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="ma_di" bpmnElement="ma"><dc:Bounds x="1365" y="309" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gw1_di" bpmnElement="gw1" isMarkerVisible="true"><dc:Bounds x="1645" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="1630" y="481" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="v1_di" bpmnElement="v1"><dc:Bounds x="1735" y="309" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="v2_di" bpmnElement="v2"><dc:Bounds x="1895" y="309" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gw2_di" bpmnElement="gw2" isMarkerVisible="true"><dc:Bounds x="1785" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="1770" y="381" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m5_di" bpmnElement="m5"><dc:Bounds x="1875" y="529" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="got_di" bpmnElement="got" isMarkerVisible="true"><dc:Bounds x="2065" y="535" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="2050" y="491" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gm1_di" bpmnElement="gm1" isMarkerVisible="true"><dc:Bounds x="2205" y="425" width="50" height="50"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m6_di" bpmnElement="m6"><dc:Bounds x="2295" y="419" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gw3_di" bpmnElement="gw3" isMarkerVisible="true"><dc:Bounds x="2485" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="2470" y="381" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m7_di" bpmnElement="m7"><dc:Bounds x="2435" y="529" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m8_di" bpmnElement="m8"><dc:Bounds x="2575" y="419" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gm3_di" bpmnElement="gm3" isMarkerVisible="true"><dc:Bounds x="2855" y="535" width="50" height="50"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gm2_di" bpmnElement="gm2" isMarkerVisible="true"><dc:Bounds x="2905" y="425" width="50" height="50"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m10_di" bpmnElement="m10"><dc:Bounds x="2995" y="419" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gv2_di" bpmnElement="gv2" isMarkerVisible="true"><dc:Bounds x="3185" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="3170" y="381" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m11_di" bpmnElement="m11"><dc:Bounds x="3275" y="419" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="tm_di" bpmnElement="tm"><dc:Bounds x="3377" y="463" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="3285" y="483" width="86" height="32"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="mh_di" bpmnElement="mh"><dc:Bounds x="3255" y="529" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="mh_end_di" bpmnElement="mh_end"><dc:Bounds x="3430" y="542" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="3398" y="584" width="100" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gw4_di" bpmnElement="gw4" isMarkerVisible="true"><dc:Bounds x="3465" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="3450" y="381" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gcm_di" bpmnElement="gcm" isMarkerVisible="true"><dc:Bounds x="3545" y="425" width="50" height="50"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gc_di" bpmnElement="gc" isMarkerVisible="true"><dc:Bounds x="3625" y="425" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="3610" y="481" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="ge1_di" bpmnElement="ge1" isMarkerVisible="true"><dc:Bounds x="4125" y="425" width="50" height="50"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="ge2_di" bpmnElement="ge2" isMarkerVisible="true"><dc:Bounds x="4255" y="425" width="50" height="50"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m12_di" bpmnElement="m12"><dc:Bounds x="4345" y="419" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="m_end_di" bpmnElement="m_end"><dc:Bounds x="4552" y="432" width="36" height="36"/><bpmndi:BPMNLabel><dc:Bounds x="4520" y="474" width="100" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
 <bpmndi:BPMNShape id="ds_di" bpmnElement="ds"><dc:Bounds x="591" y="540" width="48" height="40"/><bpmndi:BPMNLabel><dc:Bounds x="649" y="544" width="110" height="32"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
 <bpmndi:BPMNShape id="t1_di" bpmnElement="t1"><dc:Bounds x="1175" y="661" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="s1_di" bpmnElement="s1"><dc:Bounds x="2295" y="761" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="gs_di" bpmnElement="gs" isMarkerVisible="true"><dc:Bounds x="2485" y="767" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="2470" y="823" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="do_di" bpmnElement="do"><dc:Bounds x="2184" y="771" width="32" height="42"/><bpmndi:BPMNLabel><dc:Bounds x="2060" y="768" width="116" height="48"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="a1_di" bpmnElement="a1"><dc:Bounds x="3135" y="861" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="a2_di" bpmnElement="a2"><dc:Bounds x="3295" y="861" width="150" height="62"/></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="f1_di" bpmnElement="f1"><dc:Bounds x="3485" y="966" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s1_di" bpmnElement="s1"><dc:Bounds x="2575" y="761" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="gs_di" bpmnElement="gs" isMarkerVisible="true"><dc:Bounds x="2765" y="767" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="2750" y="823" width="80" height="34"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="do_di" bpmnElement="do"><dc:Bounds x="2464" y="771" width="32" height="42"/><bpmndi:BPMNLabel><dc:Bounds x="2340" y="768" width="116" height="48"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="a1_di" bpmnElement="a1"><dc:Bounds x="3415" y="861" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="a2_di" bpmnElement="a2"><dc:Bounds x="3575" y="861" width="150" height="62"/></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="f1_di" bpmnElement="f1"><dc:Bounds x="3935" y="966" width="150" height="62"/></bpmndi:BPMNShape>
 <bpmndi:BPMNEdge id="sf_fk1_di" bpmnElement="sf_fk1"><di:waypoint x="288" y="135"/><di:waypoint x="325" y="135"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_fk2_di" bpmnElement="sf_fk2"><di:waypoint x="475" y="135"/><di:waypoint x="2715" y="135"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_fk3_di" bpmnElement="sf_fk3"><di:waypoint x="2865" y="135"/><di:waypoint x="2905" y="135"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_fk4_di" bpmnElement="sf_fk4"><di:waypoint x="2955" y="135"/><di:waypoint x="2995" y="135"/><bpmndi:BPMNLabel><dc:Bounds x="2962" y="115" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_fk5_di" bpmnElement="sf_fk5"><di:waypoint x="2930" y="160"/><di:waypoint x="2930" y="197"/><bpmndi:BPMNLabel><dc:Bounds x="2938" y="167" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_fk6_di" bpmnElement="sf_fk6"><di:waypoint x="3145" y="135"/><di:waypoint x="3185" y="135"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_fk7_di" bpmnElement="sf_fk7"><di:waypoint x="3235" y="135"/><di:waypoint x="3455" y="135"/><bpmndi:BPMNLabel><dc:Bounds x="3242" y="115" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_fk8_di" bpmnElement="sf_fk8"><di:waypoint x="3210" y="160"/><di:waypoint x="3210" y="215"/><di:waypoint x="3295" y="215"/><bpmndi:BPMNLabel><dc:Bounds x="3218" y="169" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_fk9_di" bpmnElement="sf_fk9"><di:waypoint x="3445" y="215"/><di:waypoint x="3480" y="215"/><di:waypoint x="3480" y="160"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_fk10_di" bpmnElement="sf_fk10"><di:waypoint x="3505" y="135"/><di:waypoint x="3515" y="135"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_fk11_di" bpmnElement="sf_fk11"><di:waypoint x="3665" y="135"/><di:waypoint x="3702" y="135"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_fk2_di" bpmnElement="sf_fk2"><di:waypoint x="475" y="135"/><di:waypoint x="2995" y="135"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_fk3_di" bpmnElement="sf_fk3"><di:waypoint x="3145" y="135"/><di:waypoint x="3185" y="135"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_fk4_di" bpmnElement="sf_fk4"><di:waypoint x="3235" y="135"/><di:waypoint x="3275" y="135"/><bpmndi:BPMNLabel><dc:Bounds x="3242" y="115" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_fk5_di" bpmnElement="sf_fk5"><di:waypoint x="3210" y="160"/><di:waypoint x="3210" y="197"/><bpmndi:BPMNLabel><dc:Bounds x="3218" y="167" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_fk6_di" bpmnElement="sf_fk6"><di:waypoint x="3425" y="135"/><di:waypoint x="3465" y="135"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_fk7_di" bpmnElement="sf_fk7"><di:waypoint x="3515" y="135"/><di:waypoint x="3735" y="135"/><bpmndi:BPMNLabel><dc:Bounds x="3522" y="115" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_fk8_di" bpmnElement="sf_fk8"><di:waypoint x="3490" y="160"/><di:waypoint x="3490" y="215"/><di:waypoint x="3575" y="215"/><bpmndi:BPMNLabel><dc:Bounds x="3412" y="169" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_fk9_di" bpmnElement="sf_fk9"><di:waypoint x="3725" y="215"/><di:waypoint x="3760" y="215"/><di:waypoint x="3760" y="160"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_fk10_di" bpmnElement="sf_fk10"><di:waypoint x="3785" y="135"/><di:waypoint x="3845" y="135"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_fk11_di" bpmnElement="sf_fk11"><di:waypoint x="3895" y="135"/><di:waypoint x="3935" y="135"/><bpmndi:BPMNLabel><dc:Bounds x="3902" y="115" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_fk12_di" bpmnElement="sf_fk12"><di:waypoint x="3870" y="160"/><di:waypoint x="3870" y="197"/><bpmndi:BPMNLabel><dc:Bounds x="3878" y="167" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_fk13_di" bpmnElement="sf_fk13"><di:waypoint x="4085" y="135"/><di:waypoint x="4122" y="135"/></bpmndi:BPMNEdge>
 <bpmndi:BPMNEdge id="sf_f1_di" bpmnElement="sf_f1"><di:waypoint x="418" y="450"/><di:waypoint x="455" y="450"/></bpmndi:BPMNEdge>
 <bpmndi:BPMNEdge id="sf_f2_di" bpmnElement="sf_f2"><di:waypoint x="605" y="450"/><di:waypoint x="625" y="450"/></bpmndi:BPMNEdge>
 <bpmndi:BPMNEdge id="sf_f3_di" bpmnElement="sf_f3"><di:waypoint x="775" y="450"/><di:waypoint x="825" y="450"/></bpmndi:BPMNEdge>
@@ -199,48 +233,59 @@
 <bpmndi:BPMNEdge id="sf_f6_di" bpmnElement="sf_f6"><di:waypoint x="1055" y="340"/><di:waypoint x="1120" y="340"/><di:waypoint x="1120" y="425"/></bpmndi:BPMNEdge>
 <bpmndi:BPMNEdge id="sf_f7_di" bpmnElement="sf_f7"><di:waypoint x="1055" y="450"/><di:waypoint x="1095" y="450"/></bpmndi:BPMNEdge>
 <bpmndi:BPMNEdge id="sf_f8_di" bpmnElement="sf_f8"><di:waypoint x="1120" y="475"/><di:waypoint x="1120" y="692"/><di:waypoint x="1175" y="692"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f9_di" bpmnElement="sf_f9"><di:waypoint x="1325" y="692"/><di:waypoint x="1340" y="692"/><di:waypoint x="1340" y="450"/><di:waypoint x="1365" y="450"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f10_di" bpmnElement="sf_f10"><di:waypoint x="1390" y="425"/><di:waypoint x="1390" y="340"/><di:waypoint x="1455" y="340"/><bpmndi:BPMNLabel><dc:Bounds x="1312" y="316" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f11_di" bpmnElement="sf_f11"><di:waypoint x="1605" y="340"/><di:waypoint x="1615" y="340"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f12_di" bpmnElement="sf_f12"><di:waypoint x="1765" y="340"/><di:waypoint x="2650" y="340"/><di:waypoint x="2650" y="425"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f13_di" bpmnElement="sf_f13"><di:waypoint x="1415" y="450"/><di:waypoint x="1505" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="1422" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f14_di" bpmnElement="sf_f14"><di:waypoint x="1530" y="475"/><di:waypoint x="1530" y="560"/><di:waypoint x="1595" y="560"/><bpmndi:BPMNLabel><dc:Bounds x="1538" y="538" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f15_di" bpmnElement="sf_f15"><di:waypoint x="1555" y="450"/><di:waypoint x="1925" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="1562" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f16_di" bpmnElement="sf_f16"><di:waypoint x="1745" y="560"/><di:waypoint x="1785" y="560"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f17_di" bpmnElement="sf_f17"><di:waypoint x="1835" y="560"/><di:waypoint x="1950" y="560"/><di:waypoint x="1950" y="475"/><bpmndi:BPMNLabel><dc:Bounds x="1842" y="540" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f18_di" bpmnElement="sf_f18"><di:waypoint x="1810" y="585"/><di:waypoint x="1810" y="620"/><di:waypoint x="3830" y="620"/><di:waypoint x="3830" y="475"/><bpmndi:BPMNLabel><dc:Bounds x="1818" y="594" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f19_di" bpmnElement="sf_f19"><di:waypoint x="1975" y="450"/><di:waypoint x="2015" y="450"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f20_di" bpmnElement="sf_f20"><di:waypoint x="2165" y="450"/><di:waypoint x="2205" y="450"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f21_di" bpmnElement="sf_f21"><di:waypoint x="2255" y="450"/><di:waypoint x="2295" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="2262" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f22_di" bpmnElement="sf_f22"><di:waypoint x="2230" y="475"/><di:waypoint x="2230" y="529"/><bpmndi:BPMNLabel><dc:Bounds x="2238" y="484" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f23_di" bpmnElement="sf_f23"><di:waypoint x="2305" y="560"/><di:waypoint x="2600" y="560"/><di:waypoint x="2600" y="450"/><di:waypoint x="2625" y="450"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f24_di" bpmnElement="sf_f24"><di:waypoint x="2370" y="481"/><di:waypoint x="2370" y="761"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f25_di" bpmnElement="sf_f25"><di:waypoint x="2445" y="792"/><di:waypoint x="2485" y="792"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f26_di" bpmnElement="sf_f26"><di:waypoint x="2510" y="767"/><di:waypoint x="2510" y="450"/><di:waypoint x="2445" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="2518" y="568" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f27_di" bpmnElement="sf_f27"><di:waypoint x="2535" y="792"/><di:waypoint x="2650" y="792"/><di:waypoint x="2650" y="475"/><bpmndi:BPMNLabel><dc:Bounds x="2544" y="772" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f28_di" bpmnElement="sf_f28"><di:waypoint x="2675" y="450"/><di:waypoint x="2715" y="450"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f29_di" bpmnElement="sf_f29"><di:waypoint x="2865" y="450"/><di:waypoint x="2905" y="450"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f30_di" bpmnElement="sf_f30"><di:waypoint x="2955" y="450"/><di:waypoint x="2995" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="2962" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f31_di" bpmnElement="sf_f31"><di:waypoint x="2930" y="475"/><di:waypoint x="2930" y="620"/><di:waypoint x="3830" y="620"/><di:waypoint x="3830" y="475"/><bpmndi:BPMNLabel><dc:Bounds x="2938" y="484" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f32_di" bpmnElement="sf_f32"><di:waypoint x="3145" y="450"/><di:waypoint x="3185" y="450"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f33_di" bpmnElement="sf_f33"><di:waypoint x="3235" y="450"/><di:waypoint x="3345" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="3242" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f34_di" bpmnElement="sf_f34"><di:waypoint x="3210" y="475"/><di:waypoint x="3210" y="861"/><bpmndi:BPMNLabel><dc:Bounds x="3218" y="668" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f35_di" bpmnElement="sf_f35"><di:waypoint x="3285" y="892"/><di:waypoint x="3295" y="892"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f36_di" bpmnElement="sf_f36"><di:waypoint x="3370" y="861"/><di:waypoint x="3370" y="475"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f37_di" bpmnElement="sf_f37"><di:waypoint x="3395" y="450"/><di:waypoint x="3500" y="450"/><di:waypoint x="3500" y="966"/><bpmndi:BPMNLabel><dc:Bounds x="3430" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f38_di" bpmnElement="sf_f38"><di:waypoint x="3370" y="425"/><di:waypoint x="3370" y="340"/><di:waypoint x="3700" y="340"/><di:waypoint x="3700" y="425"/><bpmndi:BPMNLabel><dc:Bounds x="3378" y="358" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f39_di" bpmnElement="sf_f39"><di:waypoint x="3635" y="997"/><di:waypoint x="3700" y="997"/><di:waypoint x="3700" y="475"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f40_di" bpmnElement="sf_f40"><di:waypoint x="3725" y="450"/><di:waypoint x="3805" y="450"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f41_di" bpmnElement="sf_f41"><di:waypoint x="3855" y="450"/><di:waypoint x="3895" y="450"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="sf_f42_di" bpmnElement="sf_f42"><di:waypoint x="4045" y="450"/><di:waypoint x="4102" y="450"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f9_di" bpmnElement="sf_f9"><di:waypoint x="1325" y="692"/><di:waypoint x="1340" y="692"/><di:waypoint x="1340" y="475"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f9a_di" bpmnElement="sf_f9a"><di:waypoint x="1365" y="450"/><di:waypoint x="1415" y="450"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f9b_di" bpmnElement="sf_f9b"><di:waypoint x="1465" y="450"/><di:waypoint x="1645" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="1472" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f9c_di" bpmnElement="sf_f9c"><di:waypoint x="1440" y="425"/><di:waypoint x="1440" y="371"/><bpmndi:BPMNLabel><dc:Bounds x="1448" y="380" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f9d_di" bpmnElement="sf_f9d"><di:waypoint x="1365" y="340"/><di:waypoint x="1340" y="340"/><di:waypoint x="1340" y="425"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f10_di" bpmnElement="sf_f10"><di:waypoint x="1670" y="425"/><di:waypoint x="1670" y="340"/><di:waypoint x="1735" y="340"/><bpmndi:BPMNLabel><dc:Bounds x="1592" y="316" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f11_di" bpmnElement="sf_f11"><di:waypoint x="1885" y="340"/><di:waypoint x="1895" y="340"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f12_di" bpmnElement="sf_f12"><di:waypoint x="2045" y="340"/><di:waypoint x="2930" y="340"/><di:waypoint x="2930" y="425"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f13_di" bpmnElement="sf_f13"><di:waypoint x="1695" y="450"/><di:waypoint x="1785" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="1702" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f14_di" bpmnElement="sf_f14"><di:waypoint x="1810" y="475"/><di:waypoint x="1810" y="560"/><di:waypoint x="1875" y="560"/><bpmndi:BPMNLabel><dc:Bounds x="1818" y="538" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f15_di" bpmnElement="sf_f15"><di:waypoint x="1835" y="450"/><di:waypoint x="2205" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="1842" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f16_di" bpmnElement="sf_f16"><di:waypoint x="2025" y="560"/><di:waypoint x="2065" y="560"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f17_di" bpmnElement="sf_f17"><di:waypoint x="2115" y="560"/><di:waypoint x="2230" y="560"/><di:waypoint x="2230" y="475"/><bpmndi:BPMNLabel><dc:Bounds x="2122" y="540" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f18_di" bpmnElement="sf_f18"><di:waypoint x="2090" y="585"/><di:waypoint x="2090" y="632"/><di:waypoint x="2880" y="632"/><di:waypoint x="2880" y="585"/><bpmndi:BPMNLabel><dc:Bounds x="2098" y="594" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f19_di" bpmnElement="sf_f19"><di:waypoint x="2255" y="450"/><di:waypoint x="2295" y="450"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f20_di" bpmnElement="sf_f20"><di:waypoint x="2445" y="450"/><di:waypoint x="2485" y="450"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f21_di" bpmnElement="sf_f21"><di:waypoint x="2535" y="450"/><di:waypoint x="2575" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="2542" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f22_di" bpmnElement="sf_f22"><di:waypoint x="2510" y="475"/><di:waypoint x="2510" y="529"/><bpmndi:BPMNLabel><dc:Bounds x="2518" y="484" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f23_di" bpmnElement="sf_f23"><di:waypoint x="2585" y="560"/><di:waypoint x="2855" y="560"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f23a_di" bpmnElement="sf_f23a"><di:waypoint x="2880" y="535"/><di:waypoint x="2880" y="450"/><di:waypoint x="2905" y="450"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f24_di" bpmnElement="sf_f24"><di:waypoint x="2650" y="481"/><di:waypoint x="2650" y="761"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f25_di" bpmnElement="sf_f25"><di:waypoint x="2725" y="792"/><di:waypoint x="2765" y="792"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f26_di" bpmnElement="sf_f26"><di:waypoint x="2790" y="767"/><di:waypoint x="2790" y="450"/><di:waypoint x="2725" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="2798" y="710" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f27_di" bpmnElement="sf_f27"><di:waypoint x="2815" y="792"/><di:waypoint x="2930" y="792"/><di:waypoint x="2930" y="475"/><bpmndi:BPMNLabel><dc:Bounds x="2824" y="772" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f28_di" bpmnElement="sf_f28"><di:waypoint x="2955" y="450"/><di:waypoint x="2995" y="450"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f29_di" bpmnElement="sf_f29"><di:waypoint x="3145" y="450"/><di:waypoint x="3185" y="450"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f30_di" bpmnElement="sf_f30"><di:waypoint x="3235" y="450"/><di:waypoint x="3275" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="3242" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f31_di" bpmnElement="sf_f31"><di:waypoint x="3210" y="475"/><di:waypoint x="3210" y="632"/><di:waypoint x="4280" y="632"/><di:waypoint x="4280" y="475"/><bpmndi:BPMNLabel><dc:Bounds x="3218" y="484" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f32_di" bpmnElement="sf_f32"><di:waypoint x="3425" y="450"/><di:waypoint x="3465" y="450"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_ft1_di" bpmnElement="sf_ft1"><di:waypoint x="3395" y="499"/><di:waypoint x="3395" y="529"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_ft2_di" bpmnElement="sf_ft2"><di:waypoint x="3405" y="560"/><di:waypoint x="3430" y="560"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f33_di" bpmnElement="sf_f33"><di:waypoint x="3515" y="450"/><di:waypoint x="3545" y="450"/><bpmndi:BPMNLabel><dc:Bounds x="3522" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f33a_di" bpmnElement="sf_f33a"><di:waypoint x="3595" y="450"/><di:waypoint x="3625" y="450"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f34_di" bpmnElement="sf_f34"><di:waypoint x="3490" y="475"/><di:waypoint x="3490" y="861"/><bpmndi:BPMNLabel><dc:Bounds x="3498" y="668" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f35_di" bpmnElement="sf_f35"><di:waypoint x="3565" y="892"/><di:waypoint x="3575" y="892"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f36_di" bpmnElement="sf_f36"><di:waypoint x="3650" y="861"/><di:waypoint x="3650" y="600"/><di:waypoint x="3570" y="600"/><di:waypoint x="3570" y="475"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f37_di" bpmnElement="sf_f37"><di:waypoint x="3675" y="450"/><di:waypoint x="3970" y="450"/><di:waypoint x="3970" y="966"/><bpmndi:BPMNLabel><dc:Bounds x="3710" y="430" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f38_di" bpmnElement="sf_f38"><di:waypoint x="3650" y="425"/><di:waypoint x="3650" y="340"/><di:waypoint x="4150" y="340"/><di:waypoint x="4150" y="425"/><bpmndi:BPMNLabel><dc:Bounds x="3658" y="358" width="80" height="16"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f39_di" bpmnElement="sf_f39"><di:waypoint x="4085" y="997"/><di:waypoint x="4150" y="997"/><di:waypoint x="4150" y="475"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f40_di" bpmnElement="sf_f40"><di:waypoint x="4175" y="450"/><di:waypoint x="4255" y="450"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f41_di" bpmnElement="sf_f41"><di:waypoint x="4305" y="450"/><di:waypoint x="4345" y="450"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="sf_f42_di" bpmnElement="sf_f42"><di:waypoint x="4495" y="450"/><di:waypoint x="4552" y="450"/></bpmndi:BPMNEdge>
 <bpmndi:BPMNEdge id="mf1_di" bpmnElement="mf1"><di:waypoint x="400" y="166"/><di:waypoint x="400" y="432"/><bpmndi:BPMNLabel><dc:Bounds x="408" y="286" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="mf2_di" bpmnElement="mf2"><di:waypoint x="2790" y="419"/><di:waypoint x="2790" y="166"/><bpmndi:BPMNLabel><dc:Bounds x="2798" y="286" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="mf3_di" bpmnElement="mf3"><di:waypoint x="3070" y="166"/><di:waypoint x="3070" y="419"/><bpmndi:BPMNLabel><dc:Bounds x="3078" y="286" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="mf4_di" bpmnElement="mf4"><di:waypoint x="3420" y="861"/><di:waypoint x="3420" y="246"/><bpmndi:BPMNLabel><dc:Bounds x="3428" y="506" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="mf5_di" bpmnElement="mf5"><di:waypoint x="3600" y="166"/><di:waypoint x="3600" y="966"/><bpmndi:BPMNLabel><dc:Bounds x="3608" y="286" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="mf6_di" bpmnElement="mf6"><di:waypoint x="1655" y="591"/><di:waypoint x="1655" y="1070"/><bpmndi:BPMNLabel><dc:Bounds x="1555" y="746" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="mf7_di" bpmnElement="mf7"><di:waypoint x="1685" y="1070"/><di:waypoint x="1685" y="591"/><bpmndi:BPMNLabel><dc:Bounds x="1693" y="746" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf8_di" bpmnElement="mf8"><di:waypoint x="1425" y="309"/><di:waypoint x="1425" y="262"/><bpmndi:BPMNLabel><dc:Bounds x="1327" y="278" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf9_di" bpmnElement="mf9"><di:waypoint x="1455" y="262"/><di:waypoint x="1455" y="309"/><bpmndi:BPMNLabel><dc:Bounds x="1463" y="278" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf2_di" bpmnElement="mf2"><di:waypoint x="3070" y="419"/><di:waypoint x="3070" y="166"/><bpmndi:BPMNLabel><dc:Bounds x="3078" y="286" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf3_di" bpmnElement="mf3"><di:waypoint x="3350" y="166"/><di:waypoint x="3350" y="419"/><bpmndi:BPMNLabel><dc:Bounds x="3358" y="286" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf4_di" bpmnElement="mf4"><di:waypoint x="3700" y="861"/><di:waypoint x="3700" y="246"/><bpmndi:BPMNLabel><dc:Bounds x="3708" y="506" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf5_di" bpmnElement="mf5"><di:waypoint x="4040" y="166"/><di:waypoint x="4040" y="966"/><bpmndi:BPMNLabel><dc:Bounds x="4048" y="286" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf6_di" bpmnElement="mf6"><di:waypoint x="1935" y="591"/><di:waypoint x="1935" y="1070"/><bpmndi:BPMNLabel><dc:Bounds x="1835" y="746" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="mf7_di" bpmnElement="mf7"><di:waypoint x="1965" y="1070"/><di:waypoint x="1965" y="591"/><bpmndi:BPMNLabel><dc:Bounds x="1973" y="746" width="110" height="30"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
 <bpmndi:BPMNEdge id="as1_di" bpmnElement="as1"><di:waypoint x="603" y="540"/><di:waypoint x="560" y="481"/></bpmndi:BPMNEdge>
 <bpmndi:BPMNEdge id="as2_di" bpmnElement="as2"><di:waypoint x="670" y="481"/><di:waypoint x="629" y="540"/></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="as3_di" bpmnElement="as3"><di:waypoint x="2216" y="792"/><di:waypoint x="2295" y="792"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="as3_di" bpmnElement="as3"><di:waypoint x="2496" y="792"/><di:waypoint x="2575" y="792"/></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="as4_di" bpmnElement="as4"><di:waypoint x="2480" y="771"/><di:waypoint x="2480" y="700"/><di:waypoint x="2610" y="700"/><di:waypoint x="2610" y="481"/></bpmndi:BPMNEdge>
 </bpmndi:BPMNPlane></bpmndi:BPMNDiagram></bpmn:definitions>
