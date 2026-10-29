@@ -57,7 +57,7 @@ docs/
 ├── figma-board.md                         overzicht van het FigJam-board
 ├── interview-analyse.md                   bevindingen uit het interview met de opdrachtgever
 └── productrisicoanalyse-teststrategie.md  productrisico's en teststrategie
-prototype/        klikbaar HTML-prototype (index.html)
+prototype/        klikbaar HTML-prototype (index.html) en klikbaar eindmodel werkplek-v2.html (stijl volgens de UI-guide)
 ```
 
 De BPMN opnieuw maken: `python3 docs/proces/gen_bpmn.py`.
