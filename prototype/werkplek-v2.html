@@ -60,7 +60,7 @@ p{margin:0}
 .app{display:grid;grid-template-columns:var(--side-w) minmax(0,1fr);min-height:100%}
 .side{background:var(--side);color:var(--side-ink);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:30}
 .brand{min-height:var(--top-h);display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--side-line);flex:none}
-.logo{background:var(--mint);color:#071525;font:700 15px/1 var(--f-head);border-radius:8px;width:34px;height:34px;display:grid;place-items:center}
+.logo{width:34px;height:34px;flex:none;display:block}
 .brand b{display:block;color:#fff;font:700 16px/1.1 var(--f-head);letter-spacing:.14em}
 .brand small{display:block;font-size:12px;opacity:.7;margin-top:3px;line-height:1.3}
 .nav{display:flex;flex-direction:column;gap:2px;padding:10px}
@@ -70,10 +70,11 @@ p{margin:0}
 .nav a[aria-current="page"]{background:var(--side-active);color:#fff;box-shadow:inset 3px 0 0 var(--mint)}
 .nav .nr{font:600 12px/1 var(--f-head);color:var(--mint);min-width:18px;opacity:.85}
 .nav a span:nth-of-type(2){flex:1}
-.count{font-size:11px;min-width:22px;text-align:center;background:rgba(255,255,255,.1);padding:1px 7px;border-radius:99px;font-variant-numeric:tabular-nums}
+.count{font-size:12px;min-width:22px;text-align:center;background:rgba(255,255,255,.1);padding:2px 7px;border-radius:6px;font-variant-numeric:tabular-nums}
 .count.alert{background:#C96F5D;color:#fff}
 .side-foot{margin-top:auto;padding:14px 16px 18px;border-top:1px solid var(--side-line);display:flex;flex-direction:column;gap:8px;font-size:12px}
-.side-foot button{all:unset;cursor:pointer;display:flex;gap:8px;align-items:center;opacity:.8;min-height:28px}
+.side-foot button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:center;opacity:.8;min-height:32px;font-size:13px}
+.side-foot .ico{width:16px;height:16px}
 .side-foot button:hover{opacity:1;color:#fff}
 .main{min-width:0;display:flex;flex-direction:column}
 .topbar{position:sticky;top:0;z-index:20;height:var(--top-h);background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 24px}
@@ -98,7 +99,7 @@ p{margin:0}
 .phead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
 .phead h1{font:700 32px/1.15 var(--f-head);letter-spacing:-.005em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .phead .sub{color:var(--muted);margin-top:4px}
-.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 /* buttons */
 .btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:var(--rb);border:1.5px solid var(--primary);background:var(--surface);font-weight:600;font-size:15px;text-decoration:none;color:var(--primary);white-space:nowrap;transition:border-color .15s,background .15s}
 .btn:hover{background:var(--primary-soft)}
@@ -124,23 +125,24 @@ p{margin:0}
 a.kpi:hover{border-color:var(--primary)}
 .kpi span{font-size:14px;color:var(--muted);font-weight:500}
 .kpi b{font:700 32px/1.1 var(--f-head);font-variant-numeric:tabular-nums}
-.kpi.warn{border-left-color:#D97706}.kpi.crit{border-left-color:var(--brand)}.kpi.ok{border-left-color:#16A34A}.kpi.warn b{color:var(--warn)} .kpi.crit b{color:var(--crit)} .kpi.ok b{color:var(--ok)}
+.kpi.warn{border-left-color:#D97706}.kpi.crit{border-left-color:var(--brand)}.kpi.ok{border-left-color:#16A34A}
 .kpi small{font-size:11.5px;color:var(--muted)}
 /* badges */
-.bd{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;border-radius:99px;padding:3px 10px;white-space:nowrap;background:var(--sunk);color:var(--muted)}
+.bd{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;border-radius:6px;padding:3px 9px;white-space:nowrap;background:var(--sunk);color:var(--muted)}
 .bd.ok{background:var(--ok-soft);color:var(--ok)}.bd.warn{background:var(--warn-soft);color:var(--warn)}.bd.crit{background:var(--crit-soft);color:var(--crit)}.bd.info{background:var(--info-soft);color:var(--info)}.bd.brand{background:var(--brand-soft);color:var(--brand-ink)}
 .bd .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
 /* notes */
-.note{display:flex;gap:10px;align-items:flex-start;border-radius:var(--rb);padding:12px 16px;font-weight:500;background:var(--info-soft);color:var(--info)}
+.note{display:flex;gap:10px;align-items:flex-start;border-radius:var(--rb);padding:12px 16px;font-size:15px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-left:4px solid var(--info)}
+.note > .ico{color:var(--info)}
 .note .ico{margin-top:1px}
 .note > div{flex:1;min-width:0}
-.note.ok{background:var(--ok-soft);color:var(--ok)}.note.warn{background:var(--warn-soft);color:var(--warn)}.note.crit{background:var(--crit-soft);color:var(--crit)}.note.brand{background:var(--brand-soft);color:var(--brand-ink)}
+.note.ok{border-left-color:#16A34A}.note.ok > .ico{color:var(--ok)}.note.warn{border-left-color:#D97706;background:var(--warn-soft)}.note.warn > .ico{color:var(--warn)}.note.crit{border-left-color:var(--crit);background:var(--crit-soft);color:var(--crit)}.note.crit > .ico{color:var(--crit)}.note.brand{border-left-color:var(--brand)}.note.brand > .ico{color:var(--brand-ink)}
 .note .btn{margin-left:auto;flex:none}
 .open-pt{display:inline-flex;gap:6px;align-items:center;font-size:12px;font-weight:600;color:var(--warn);background:var(--warn-soft);border-radius:6px;padding:3px 8px}
 /* tables */
 .tbl{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow-x:auto}
 table{border-collapse:collapse;width:100%}
-th{text-align:left;font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.03em;text-transform:uppercase;background:var(--surface-2);padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{text-align:left;font-size:14px;font-weight:600;color:var(--muted);background:var(--surface-2);padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
 td{padding:12px 14px;font-size:15px;border-bottom:1px solid var(--line-2);vertical-align:middle}
 tr:last-child td{border-bottom:0}
 tbody tr.click{cursor:pointer}
@@ -197,9 +199,9 @@ td .t2{font-size:12px;color:var(--muted)}
 .fld .msg{font-size:13.5px;font-weight:500;color:var(--crit);display:flex;gap:5px;align-items:center}
 .fld .help{font-size:13.5px;color:var(--muted)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:500;font-size:13px;background:var(--surface)}
+.chips label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;padding:0 14px;min-height:40px;cursor:pointer;font-weight:500;font-size:13px;background:var(--surface)}
 .chips input{position:absolute;opacity:0;pointer-events:none}
-.chips label:has(input:checked){background:var(--primary-soft);border-color:var(--primary);color:var(--primary)}
+.chips label:has(input:checked){background:var(--primary);border-color:var(--primary);color:var(--primary-ink)}
 .chips label:has(input:focus-visible){outline:2px solid var(--primary)}
 .fbar{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
 .check{display:flex;gap:8px;align-items:center;font-weight:500;cursor:pointer}
@@ -274,34 +276,36 @@ td .t2{font-size:12px;color:var(--muted)}
 .eyebrow{color:var(--brand-ink);font:600 15px/1.2 var(--f-head);margin-bottom:4px}
 .side .wl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mint);opacity:.8;padding:16px 12px 6px}
 /* uitlegpaneel per pagina */
-.func{background:var(--surface);border:1px dashed var(--primary);border-radius:var(--r);padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.func{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;display:flex;flex-direction:column;gap:12px}
 .func > header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.func > header h2{font:700 14px/1.2 var(--f-head);letter-spacing:.12em;text-transform:uppercase}
+.func > header h2{font:700 13px/1.2 var(--f-head);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .func > header small{color:var(--muted);font:600 13px var(--f-head)}
 .func .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .func h3{font:700 12.5px/1.2 var(--f-head);letter-spacing:.1em;text-transform:uppercase;color:var(--brand-ink);margin-bottom:6px}
 .func ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:15px}
 .func-tog{all:unset;cursor:pointer;display:flex;gap:8px;align-items:center;opacity:.8;min-height:28px}
 @media (max-width:860px){.func .cols{grid-template-columns:minmax(0,1fr)}.phead h1{font-size:26px}.band .iss{margin-left:0}}
+.func-open{font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.func-open b{color:var(--ink);font-weight:600}
 
 </style>
 </head>
 <body>
 <div class="app">
   <aside class="side" aria-label="Hoofdmenu">
-    <div class="brand"><span class="logo" aria-hidden="true">V</span><div><b>VOYAGEVISTA</b><small id="brandsub"></small></div></div>
+    <div class="brand"><svg class="logo" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#153B3B"/><path d="M8 11l9 14 9-14" fill="none" stroke="#8FE0C0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.5 11h9" stroke="#C96F5D" stroke-width="3" stroke-linecap="round"/></svg><div><b>VOYAGEVISTA</b><small id="brandsub"></small></div></div>
     <nav class="nav" id="nav"></nav>
     <div class="side-foot">
-      <button data-a="demoMenu" type="button">▶ Rondleiding en start</button>
-      <button data-a="uitleg" type="button" id="uitleg-lbl">Uitleg per scherm</button>
-      <button data-a="theme" type="button">◐ Licht / donker</button>
-      <button data-a="reset" type="button">↺ Voorbeeldgegevens herstellen</button>
+      <button data-a="demoMenu" type="button"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/></svg>Rondleiding en start</button>
+      <button data-a="uitleg" type="button" ><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span id="uitleg-lbl">Uitleg per scherm</span></button>
+      <button data-a="theme" type="button"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Licht / donker</button>
+      <button data-a="reset" type="button"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Voorbeeldgegevens herstellen</button>
       <span style="opacity:.6" id="sidefoot-afd">Groep 3 · klikbaar eindmodel · DEMO</span>
     </div>
   </aside>
   <div class="main">
     <header class="topbar">
-      <button class="menu-btn" data-a="menu" type="button" aria-label="Menu openen">☰</button>
+      <button class="menu-btn" data-a="menu" type="button" aria-label="Menu openen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
       <div class="gsearch"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="gq" type="search" placeholder="Zoeken in de werkplek" aria-label="Zoeken in de werkplek" autocomplete="off"><div class="gres" id="gres" hidden></div></div>
       <div class="top-right">
         <div class="rolebox"><span class="av" id="av"></span><label for="role" hidden>Ingelogd als</label><select id="role">
@@ -354,14 +358,14 @@ const ic = (n, c = '') => `<svg class="ico ${c}" viewBox="0 0 24 24" aria-hidden
 
 /* ================= rollen ================= */
 const ROLES = {
-  inkoper:  { naam:'Jeroen Bakker', fn:'Inkoper', ini:'JB', kleur:'#7c3aed', afd:'ink' },
-  product:  { naam:'Sanne de Vries', fn:'Productontwikkelaar', ini:'SV', kleur:'#0e7490', afd:'ink' },
-  ks:       { naam:'Fatima el Amrani', fn:'Klantenservice', ini:'FA', kleur:'#0f766e', afd:'ks' },
-  teamleider:{ naam:'Mark de Groot', fn:'Teamleider klantenservice', ini:'MG', kleur:'#4f46e5', afd:'ks' },
-  senior:   { naam:'Ingrid Visser', fn:'Senior klantenservice', ini:'IV', kleur:'#be185d', afd:'ks' },
-  after:    { naam:'Rob Kuipers', fn:'After Travel', ini:'RK', kleur:'#a16207', afd:'ks' },
-  sales:    { naam:'Lisa Vermeer', fn:'Sales & Boekingen', ini:'LV', kleur:'#db2777', afd:'cat' },
-  marketing:{ naam:'Daan Smit', fn:'Marketing', ini:'DS', kleur:'#0d9488', afd:'cat' },
+  inkoper:  { naam:'Jeroen Bakker', fn:'Inkoper', ini:'JB', kleur:'#153B3B', afd:'ink' },
+  product:  { naam:'Sanne de Vries', fn:'Productontwikkelaar', ini:'SV', kleur:'#2F5D5A', afd:'ink' },
+  ks:       { naam:'Fatima el Amrani', fn:'Klantenservice', ini:'FA', kleur:'#153B3B', afd:'ks' },
+  teamleider:{ naam:'Mark de Groot', fn:'Teamleider klantenservice', ini:'MG', kleur:'#071525', afd:'ks' },
+  senior:   { naam:'Ingrid Visser', fn:'Senior klantenservice', ini:'IV', kleur:'#A94D3D', afd:'ks' },
+  after:    { naam:'Rob Kuipers', fn:'After Travel', ini:'RK', kleur:'#526A68', afd:'ks' },
+  sales:    { naam:'Lisa Vermeer', fn:'Sales & Boekingen', ini:'LV', kleur:'#A94D3D', afd:'cat' },
+  marketing:{ naam:'Daan Smit', fn:'Marketing', ini:'DS', kleur:'#2F5D5A', afd:'cat' },
 };
 const me = () => ROLES[S.role];
 const myName = () => me().naam;
@@ -375,7 +379,7 @@ function load() { try { const v = JSON.parse(localStorage.getItem(KEY)); if (v &
 function resetData(role) { S = seed(); if (role) S.role = role; save(); }
 
 /* ================= ui-toestand (niet opgeslagen) ================= */
-const U = { q: {}, err: {}, modal: null, toasts: [], gq: '', focus: null };
+const U = { q: {}, err: {}, modal: null, toasts: [], gq: '', focus: null, open: [] };
 function toast(t, kind = 'ok') { const id = Math.random(); U.toasts.push({ id, t, kind }); U.toasts = U.toasts.slice(-3); drawToasts(); setTimeout(() => { U.toasts = U.toasts.filter(x => x.id !== id); drawToasts(); }, 3600); }
 function drawToasts() { const el = document.getElementById('toasts'); if (el) el.innerHTML = U.toasts.map(x => `<div class="toast" role="status">${ic(x.kind === 'ok' ? 'check' : 'info', 'sm')}<span>${esc(x.t)}</span></div>`).join(''); }
 function logH(obj, tekst) { (obj.historie ||= []).unshift({ t: nowIso(), door: myName(), tekst }); }
@@ -383,7 +387,7 @@ function logH(obj, tekst) { (obj.historie ||= []).unshift({ t: nowIso(), door: m
 /* ================= componenten ================= */
 const bd = (t, k = '') => `<span class="bd ${k}">${esc(t)}</span>`;
 const note = (t, k = 'info', btn = '') => `<div class="note ${k === 'info' ? '' : k}" role="${k === 'crit' ? 'alert' : 'note'}">${ic(k === 'ok' ? 'check' : k === 'crit' || k === 'warn' || k === 'brand' ? 'alert' : 'info')}<div>${t}</div>${btn}</div>`;
-const openPt = t => `<span class="open-pt">${ic('info', 'sm')}Open punt: ${esc(t)}</span>`;
+const openPt = t => { U.open.push(t); return ''; };
 const btn = (label, a, o = {}) => `<button type="${o.type || 'button'}" class="btn ${o.k || ''} ${o.sm ? 'sm' : ''}" ${a ? `data-a="${a}"` : ''} ${o.d ? `data-d='${esc(JSON.stringify(o.d))}'` : ''} ${o.dis ? 'disabled' : ''} ${o.id ? `id="${o.id}"` : ''} ${o.title ? `title="${esc(o.title)}"` : ''}>${o.ic ? ic(o.ic, 'sm') : ''}${esc(label)}</button>`;
 const lnk = (label, href, k = '', icn = '') => `<a class="btn ${k}" href="#${href}">${icn ? ic(icn, 'sm') : ''}${esc(label)}</a>`;
 const card = (title, body, right = '') => `<section class="card">${title ? `<div class="ch"><h2>${esc(title)}</h2>${right}</div>` : ''}<div class="cb">${body}</div></section>`;
@@ -399,10 +403,12 @@ function head(crumbs, title, sub = '', acts = '', tags = '') {
   return band + `<div class="crumb"><a href="#${homeOf()}">Werkplek</a><span>/</span><span>${esc(AFD[me().afd])}</span><span>/</span>${crumbs.map(([t, h]) => h ? `<a href="#${h}">${esc(t)}</a>` : `<span>${esc(t)}</span>`).join('<span>/</span>')}</div>
   <div class="phead"><div>${m[1] ? `<p class="eyebrow">${esc(m[1])}</p>` : ''}<h1>${esc(title)}${tags}</h1>${sub ? `<p class="sub">${sub}</p>` : ''}</div>${acts ? `<div class="acts">${acts}</div>` : ''}</div>`;
 }
+/* verwijzingen naar use cases en interviews horen in de documentatie, niet in het scherm */
+const clean = h => h.replace(/\s*\((?:UC|interview|P\d|#\d)[^)]*\)/g, '').replace(/<div><\/div>/g, '');
 function funcPanel() {
   const f = FUNC[U.act]; if (!f || !U.uitleg) return '';
   const m = MOD[U.act] || [];
-  return `<section class="func" aria-label="Functionaliteit op deze pagina"><header><h2>Functionaliteit op deze pagina</h2><small>${m[2] ? esc(m[2]) + ' · ' : ''}ontwerp en verwacht gedrag</small></header><div class="cols"><div><h3>Acties van de medewerker</h3><ul>${f[0].map(x => `<li>${esc(x)}</li>`).join('')}</ul></div><div><h3>Controles en systeemreacties</h3><ul>${f[1].map(x => `<li>${esc(x)}</li>`).join('')}</ul></div></div></section>`;
+  return `<section class="func" aria-label="Functionaliteit op deze pagina"><header><h2>Functionaliteit op deze pagina</h2><small>${m[2] ? esc(m[2]) + ' · ' : ''}ontwerp en verwacht gedrag</small></header><div class="cols"><div><h3>Acties van de medewerker</h3><ul>${f[0].map(x => `<li>${esc(x)}</li>`).join('')}</ul></div><div><h3>Controles en systeemreacties</h3><ul>${f[1].map(x => `<li>${esc(x)}</li>`).join('')}</ul></div></div>${U.open.length ? `<p class="func-open"><b>Nog af te stemmen:</b> ${U.open.map(esc).join(' · ')}</p>` : ''}</section>`;
 }
 const tabs = (base, items, act) => `<nav class="tabs" aria-label="Tabbladen">${items.map(([k, t]) => `<a href="#${base}.${k}" ${k === act ? 'aria-current="page"' : ''}>${esc(t)}</a>`).join('')}</nav>`;
 const steps = (items, cur) => `<div class="steps" aria-label="Status">${items.map((t, i) => `<div class="${i < cur ? 'done' : i === cur ? 'cur' : ''}"><i>${i < cur ? '✓' : i + 1}</i>${esc(t)}</div>`).join('')}</div>`;
@@ -432,7 +438,7 @@ function fieldHtml(fid, f, vals, errs) {
   const common = `id="${id}" name="${f.k}" ${f.req ? 'aria-required="true"' : ''} ${e ? `aria-invalid="true" aria-describedby="${id}-m"` : ''} ${f.live ? `data-live="${f.live}"` : ''}`;
   if (f.t === 'textarea') inp = `<textarea ${common} placeholder="${esc(f.ph || '')}" rows="${f.rows || 3}">${esc(v)}</textarea>`;
   else if (f.t === 'select') inp = `<select ${common}>${f.ph !== false ? `<option value="">${esc(f.ph || 'Kies…')}</option>` : ''}${(f.o || []).map(o => { const [ov, ol] = Array.isArray(o) ? o : [o, o]; return `<option value="${esc(ov)}" ${String(ov) === String(v) ? 'selected' : ''}>${esc(ol)}</option>`; }).join('')}</select>`;
-  else if (f.t === 'chips' || f.t === 'radio') inp = `<div class="chips" role="${f.t === 'radio' ? 'radiogroup' : 'group'}" aria-label="${esc(f.l)}">${(f.o || []).map((o, i) => { const [ov, ol] = Array.isArray(o) ? o : [o, o]; const on = f.t === 'chips' ? (v || []).includes(ov) : String(v) === String(ov); return `<label><input type="${f.t === 'chips' ? 'checkbox' : 'radio'}" name="${f.k}" value="${esc(ov)}" ${on ? 'checked' : ''} ${i === 0 ? `id="${id}"` : ''}>${f.t === 'radio' ? (on ? '◉ ' : '○ ') : (on ? '✓ ' : '+ ')}${esc(ol)}</label>`; }).join('')}</div>`;
+  else if (f.t === 'chips' || f.t === 'radio') inp = `<div class="chips" role="${f.t === 'radio' ? 'radiogroup' : 'group'}" aria-label="${esc(f.l)}">${(f.o || []).map((o, i) => { const [ov, ol] = Array.isArray(o) ? o : [o, o]; const on = f.t === 'chips' ? (v || []).includes(ov) : String(v) === String(ov); return `<label><input type="${f.t === 'chips' ? 'checkbox' : 'radio'}" name="${f.k}" value="${esc(ov)}" ${on ? 'checked' : ''} ${i === 0 ? `id="${id}"` : ''}><span>${esc(ol)}</span></label>`; }).join('')}</div>`;
   else if (f.t === 'check') return `<label class="check"><input type="checkbox" name="${f.k}" id="${id}" ${v ? 'checked' : ''}>${esc(f.l)}</label>`;
   else if (f.t === 'file') inp = `<input type="file" ${common} ${f.accept ? `accept="${f.accept}"` : ''}>`;
   else inp = `<input type="${f.t === 'ro' ? 'text' : (f.t || 'text')}" ${common} value="${esc(v)}" placeholder="${esc(f.ph || '')}" ${f.t === 'ro' ? 'readonly' : ''} ${f.step ? `step="${f.step}"` : ''}>`;
@@ -563,9 +569,10 @@ function redraw() {
   document.getElementById('role').value = S.role;
   const r0 = me(); document.getElementById('av').textContent = r0.ini; document.getElementById('av').style.background = r0.kleur;
   let html;
-  try { html = PAGES[r.p](r.id, r.tab) + funcPanel(); } catch (e) { console.error(e); html = card('', note('Deze pagina kon niet worden geladen: ' + esc(e.message), 'crit') + `<div>${lnk('Naar het dashboard', homeOf())}</div>`); }
+  U.open = [];
+  try { html = clean(PAGES[r.p](r.id, r.tab)) + funcPanel(); } catch (e) { console.error(e); html = card('', note('Deze pagina kon niet worden geladen: ' + esc(e.message), 'crit') + `<div>${lnk('Naar het dashboard', homeOf())}</div>`); }
   document.getElementById('view').innerHTML = html;
-  document.getElementById('modal').innerHTML = modalHtml();
+  document.getElementById('modal').innerHTML = clean(modalHtml());
   drawGres(); drawDemo();
   if (keep) { const el = document.getElementById(keep.id); if (el) { el.focus(); try { if (keep.s != null) el.setSelectionRange(keep.s, keep.e); } catch (e) {} } }
   const app = document.querySelector('.app'); app.classList.remove('nav-open');
@@ -617,7 +624,7 @@ function bindGlobal() {
     if (t.id === 'gq') { U.gq = t.value; drawGres(); return; }
     if (t.dataset.live && LIVE[t.dataset.live]) LIVE[t.dataset.live](t.form);
   });
-  document.addEventListener('change', ev => { const t = ev.target; if (t.tagName === 'SELECT' && t.dataset.q !== undefined) { U.q[t.dataset.q] = t.value; redraw(); return; } if (t.dataset.live && LIVE[t.dataset.live]) LIVE[t.dataset.live](t.form); if (t.type === 'radio' || t.type === 'checkbox') { const lab = t.closest('.chips'); if (lab) lab.querySelectorAll('label').forEach(l => { const i = l.querySelector('input'); const txt = l.textContent.replace(/^[◉○✓+] /, ''); l.lastChild.textContent = (i.type === 'radio' ? (i.checked ? '◉ ' : '○ ') : (i.checked ? '✓ ' : '+ ')) + txt; }); } });
+  document.addEventListener('change', ev => { const t = ev.target; if (t.tagName === 'SELECT' && t.dataset.q !== undefined) { U.q[t.dataset.q] = t.value; redraw(); return; } if (t.dataset.live && LIVE[t.dataset.live]) LIVE[t.dataset.live](t.form); });
   document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && U.modal) closeModal(); if (ev.key === 'Enter' && ev.target.closest('tr[data-href]')) go(ev.target.closest('tr[data-href]').dataset.href); });
   document.getElementById('role').addEventListener('change', ev => { S.role = ev.target.value; save(); U.modal = null; U.q = {}; toast('Je werkt nu als ' + me().naam + ' (' + me().fn + ')'); const r = parseHash(); if (!allowed(r.p)) go(homeOf()); else redraw(); });
   window.addEventListener('hashchange', () => { U.modal = null; redraw(); window.scrollTo(0, 0); });
@@ -792,7 +799,7 @@ PAGES.dash = () => {
   const sig = inkSignals();
   const mijn = S.onds.flatMap(o => o.acties.filter(a => !a.klaar && a.wie === myName()).map(a => ({ a, o }))).sort((x, y) => x.a.datum.localeCompare(y.a.datum));
   const mms = S.rps.flatMap(r => r.mijlpalen.filter(m => !m.klaar && m.wie === myName()).map(m => ({ m, r })));
-  return head([['Dashboard']], 'Goedemorgen, ' + me().naam.split(' ')[0], 'Donderdag 29 oktober 2026 · ' + me().fn) +
+  return head([['Dashboard']], 'Overzicht', 'Donderdag 29 oktober 2026 · ' + myName() + ', ' + me().fn.toLowerCase()) +
     kpis([['Reisproducten in ontwikkeling', S.rps.filter(r => r.status !== 'Gepubliceerd').length, '', 'planning'], ['Signalen', sig.length, sig.some(s => s.k === 'crit') ? 'crit' : 'warn'], ['Lopende onderhandelingen', S.onds.filter(o => o.status !== 'Afgerond' && o.status !== 'Geen akkoord').length, '', 'onds'], ['Contracten die binnen 90 dagen aflopen', S.cts.filter(c => !c.archief && days(c.eind) >= 0 && days(c.eind) <= 90).length, 'warn', 'cts']]) +
     `<div class="split"><div>${card('Signalen', sig.length ? sig.map(sigLi).join('') : empty('Geen signalen', 'Alles loopt volgens planning.', '', 'check'), bd(sig.length + ' open', sig.length ? 'brand' : 'ok'))}</div><div>` +
     card('Mijn vervolgacties', mijn.length ? mijn.map(({ a, o }) => li(esc(a.oms), `${esc(o.onderwerp)} · ${fd(a.datum)}`, lnk('Openen', 'ond.' + o.id, 'sm ghost'))).join('') : `<p class="muted">Geen open vervolgacties.</p>`) +
@@ -812,7 +819,7 @@ FORMS.kans = { submit: 'Opslaan', init: c => { const k = c.id && kansById(c.id);
   fields: () => [{ k: 'oms', l: 'Omschrijving', req: 1, ph: 'Bijv. wandelreis Madeira voor 55+' }, { k: 'trends', l: 'Trends', t: 'textarea', rows: 2 }, { k: 'behoeften', l: 'Behoeften van klanten', t: 'textarea', rows: 2 }, { k: 'conclusie', l: 'Onderzoeksconclusie', t: 'radio', o: ['In onderzoek', 'Kansrijk', 'Niet kansrijk'], req: 1, h: 'Kansrijk = je kunt hem doorzetten naar een nieuw reisproduct.' }, { k: 'toel', l: 'Toelichting op de conclusie', t: 'textarea', rows: 2 }],
   save: (v, c) => { let k = c.id && kansById(c.id); if (!k) { k = { id: uid('PK-', S.kansen), aangemaakt: TODAY, door: myName(), wensen: [] }; S.kansen.unshift(k); } Object.assign(k, v, { gewijzigd: TODAY }); toast('Productkans ' + k.id + ' opgeslagen'); return 'kans.' + k.id; } };
 PAGES.kans = (id, tab) => {
-  if (id === 'new' || tab === 'edit') { const k = id !== 'new' && kansById(id); return head([['Productkansen', 'kansen'], [k ? k.id : 'Nieuw']], k ? k.oms + ' wijzigen' : 'Nieuwe productkans') + `<div class="split"><div>${card('Productkans', formHtml('kans', { id: k ? k.id : '' }, { cancel: 'goBack' }))}</div><div>${card('Vult het systeem in', kv([['Productkans-ID', k ? k.id : 'bij opslaan'], ['Aanmaakdatum', fdl(k ? k.aangemaakt : TODAY)], ['Door', k ? k.door : myName()]]))}</div></div>`; }
+  if (id === 'new' || tab === 'edit') { const k = id !== 'new' && kansById(id); return head([['Productkansen', 'kansen'], [k ? k.id : 'Nieuw']], k ? k.oms + ' wijzigen' : 'Nieuwe productkans') + `<div class="split"><div>${card('Productkans', formHtml('kans', { id: k ? k.id : '' }, { cancel: 'goBack' }))}</div><div>${card('Automatisch ingevuld', kv([['Productkans-ID', k ? k.id : 'bij opslaan'], ['Aanmaakdatum', fdl(k ? k.aangemaakt : TODAY)], ['Door', k ? k.door : myName()]]))}</div></div>`; }
   const k = kansById(id); if (!k) return empty('Productkans niet gevonden', 'Deze productkans bestaat niet (meer).', lnk('Naar productkansen', 'kansen'));
   const r = k.rp && rp(k.rp);
   return head([['Productkansen', 'kansen'], [k.id]], k.oms, `Laatst gewijzigd ${fdl(k.gewijzigd)} · aangemaakt door ${esc(k.door)}`, lnk('Wijzigen', `kans.${k.id}.edit`, '', 'edit') + (k.conclusie === 'Kansrijk' && !r ? btn('Doorzetten naar reisproduct', 'kansToRp', { k: 'primary', ic: 'arrow', d: { id: k.id } }) : ''), bd(k.conclusie, conclK(k.conclusie))) +
@@ -844,7 +851,7 @@ U.rpOpen = {};
 const rpTabs = r => tabs('rp.' + r.id, [['basis', 'Basisgegevens'], ['route', `Reisonderdelen & route (${r.onderdelen.length})`], ['planning', 'Planning'], ['historie', 'Historie']], r._tab);
 function rpHead(r, extra = '') { return head([['Reisproducten', 'rps'], [r.id]], r.naam, `Versie ${r.versie} · laatst gewijzigd ${fdl(r.gewijzigd)} door ${esc(r.gewijzigdDoor)}`, extra, bd(r.status, rpK(r.status))) + rpTabs(r); }
 PAGES.rp = (id, tab = 'basis') => {
-  if (id === 'new') return head([['Reisproducten', 'rps'], ['Nieuw']], 'Nieuw reisproduct') + `<div class="split"><div>${card('Basisgegevens', formHtml('rp', {}, { cancel: 'goBack' }))}</div><div>${card('Vult het systeem in', kv([['Reisproduct-ID', 'bij opslaan'], ['Status', bd('Concept')], ['Aanmaakdatum', fdl(TODAY)], ['Door', myName()]]))}${card('Volgende stap', '<p>Na opslaan voeg je de reisonderdelen en de reisroute toe.</p>')}<div>${openPt('definitieve verplichte basisvelden (#190)')}</div></div></div>`;
+  if (id === 'new') return head([['Reisproducten', 'rps'], ['Nieuw']], 'Nieuw reisproduct') + `<div class="split"><div>${card('Basisgegevens', formHtml('rp', {}, { cancel: 'goBack' }))}</div><div>${card('Automatisch ingevuld', kv([['Reisproduct-ID', 'bij opslaan'], ['Status', bd('Concept')], ['Aanmaakdatum', fdl(TODAY)], ['Door', myName()]]))}${card('Volgende stap', '<p>Na opslaan voeg je de reisonderdelen en de reisroute toe.</p>')}<div>${openPt('definitieve verplichte basisvelden (#190)')}</div></div></div>`;
   const r = rp(id); if (!r) return empty('Reisproduct niet gevonden', 'Dit reisproduct bestaat niet (meer).', lnk('Naar reisproducten', 'rps'));
   if (tab === 'edit') {
     if (!U.rpOpen[r.id]) { U.rpOpen[r.id] = r.versie; if (r.id === 'RP-0142' && !S.conflictShown) { S.conflictShown = true; r.versie++; r.gewijzigdDoor = 'Jeroen Bakker' === myName() ? 'Sanne de Vries' : 'Jeroen Bakker'; r.gewijzigd = TODAY; r.oms = r.oms + ' Nieuw: excursie Samaria-kloof op dag 6.'; logH(r, `Omschrijving aangepast (versie ${r.versie})`); r.historie[0].door = r.gewijzigdDoor; save(); } }
@@ -957,7 +964,7 @@ FORMS.lev = { init: c => { const l = c.id && lev(c.id); return l && l.id ? { naa
   save: (v, c) => { let l = c.id && S.levs.find(x => x.id === c.id); if (!l) { l = { id: uid('LV-', S.levs), sinds: '2026', bezoek: '', bezoekWie: '', contacten: [], historie: [] }; S.levs.unshift(l); l.historie.unshift({ t: nowIso(), door: myName(), veld: 'Registratie', oud: '—', nieuw: 'Leverancier aangemaakt' }); } else { for (const [k, lab] of [['naam', 'Naam'], ['type', 'Type'], ['regio', 'Regio'], ['plaats', 'Plaats'], ['contact', 'Contactpersoon'], ['email', 'E-mail'], ['tel', 'Telefoon']]) if ((l[k] || '') !== v[k]) l.historie.unshift({ t: nowIso(), door: myName(), veld: lab, oud: l[k] || '—', nieuw: v[k] || '—' }); }
     Object.assign(l, v); toast('Leverancier ' + l.naam + ' opgeslagen'); return 'lev.' + l.id; } };
 PAGES.lev = (id, tab = 'overzicht') => {
-  if (id === 'new' || tab === 'edit') { const l = id !== 'new' && lev(id); return head([['Leveranciers', 'levs'], [l ? l.id : 'Nieuw']], l ? l.naam + ' wijzigen' : 'Nieuwe leverancier') + `<div class="split"><div>${card('Gegevens', formHtml('lev', { id: l ? l.id : '' }, { cancel: 'goBack' }))}</div><div>${card('Vult het systeem in', kv([['Leverancier-ID', l ? l.id : 'bij opslaan'], ['Datum', fdl(TODAY)], ['Door', myName()]]))}${l ? note('Elke wijziging komt met oude en nieuwe waarde in de historie.') : `<div>${openPt('welke velden verplicht zijn (#194)')}</div>`}</div></div>`; }
+  if (id === 'new' || tab === 'edit') { const l = id !== 'new' && lev(id); return head([['Leveranciers', 'levs'], [l ? l.id : 'Nieuw']], l ? l.naam + ' wijzigen' : 'Nieuwe leverancier') + `<div class="split"><div>${card('Gegevens', formHtml('lev', { id: l ? l.id : '' }, { cancel: 'goBack' }))}</div><div>${card('Automatisch ingevuld', kv([['Leverancier-ID', l ? l.id : 'bij opslaan'], ['Datum', fdl(TODAY)], ['Door', myName()]]))}${l ? note('Elke wijziging komt met oude en nieuwe waarde in de historie.') : `<div>${openPt('welke velden verplicht zijn (#194)')}</div>`}</div></div>`; }
   const l = S.levs.find(x => x.id === id); if (!l) return empty('Leverancier niet gevonden', '', lnk('Naar leveranciers', 'levs'));
   const ab = S.aanbod.filter(a => a.lev === l.id), os = S.onds.filter(o => o.lev === l.id), cs = S.cts.filter(c => c.lev === l.id);
   const H = head([['Leveranciers', 'levs'], [l.id]], l.naam, `${l.id} · ${esc(l.plaats)}, ${esc(l.regio)} · leverancier sinds ${l.sinds}`, lnk('Wijzigen', `lev.${l.id}.edit`, '', 'edit') + btn('Contactmoment', 'addContact', { k: 'primary', ic: 'plus', d: { id: l.id } }), bd(l.type)) +
@@ -1050,7 +1057,7 @@ FORMS.ct = { submit: 'Contract opslaan', init: c => { const o = c.ond && ond(c.o
   check: v => { const e = {}; if (v.start && v.eind && v.eind < v.start) { e.eind = 'De einddatum ligt vóór de startdatum.'; e._msg = 'Opslaan is niet gelukt: controleer de einddatum.'; } if (v.prijs && !(+v.prijs > 0)) e.prijs = 'Vul een prijs groter dan 0 in.'; [1, 2, 3, 4].forEach(i => { const p = v[`a${i}v`]; if (p !== '' && (+p < 0 || +p > 100)) e[`a${i}v`] = 'Kies een percentage tussen 0 en 100.'; if (p !== '' && !v[`a${i}p`]) e[`a${i}p`] = 'Vul de periode in.'; }); return e; },
   save: v => { const c = { id: uid('CT-', S.cts), lev: v.lev, ond: v.ond, start: v.start, eind: v.eind, cap: v.cap, prijs: +v.prijs, afspraken: v.afspraken, archief: false, annulering: [1, 2, 3, 4].filter(i => v[`a${i}p`]).map(i => [v[`a${i}p`], +v[`a${i}v`] || 0]), bez: [], besluiten: [], meldingen: [], historie: [{ t: nowIso(), door: myName(), tekst: 'Contract vastgelegd' }] }; S.cts.unshift(c); toast('Contract ' + c.id + ' vastgelegd'); return 'ct.' + c.id; } };
 PAGES.ct = (id, tab = 'overzicht') => {
-  if (id === 'new') return head([['Contracten', 'cts'], ['Nieuw']], 'Contract vastleggen') + `<div class="split"><div>${card('Contract', formHtml('ct', { ond: tab && tab !== 'overzicht' ? tab : '' }, { cancel: 'goBack' }))}</div><div>${card('Vult het systeem in', kv([['Contract-ID', 'bij opslaan'], ['Aanmaakdatum', fdl(TODAY)], ['Door', myName()]]))}<div>${openPt('contract eerst laten goedkeuren? (#219, Kan hebben)')}</div>${note('Komt dit contract uit een onderhandeling? Dan zijn leverancier en prijs al ingevuld.')}</div></div>`;
+  if (id === 'new') return head([['Contracten', 'cts'], ['Nieuw']], 'Contract vastleggen') + `<div class="split"><div>${card('Contract', formHtml('ct', { ond: tab && tab !== 'overzicht' ? tab : '' }, { cancel: 'goBack' }))}</div><div>${card('Automatisch ingevuld', kv([['Contract-ID', 'bij opslaan'], ['Aanmaakdatum', fdl(TODAY)], ['Door', myName()]]))}<div>${openPt('contract eerst laten goedkeuren? (#219, Kan hebben)')}</div>${note('Komt dit contract uit een onderhandeling? Dan zijn leverancier en prijs al ingevuld.')}</div></div>`;
   const c = ctr(id); if (!c) return empty('Contract niet gevonden', '', lnk('Naar contracten', 'cts'));
   const st = ctStat(c), l = lev(c.lev), dEnd = days(c.eind);
   const H = head([['Contracten', 'cts'], [c.id]], `${l.naam} · ${c.id}`, `${fd(c.start)} – ${fdl(c.eind)} · ${esc(c.cap)} · ${eur(c.prijs)}`, c.archief ? '' : btn('Archiveren', 'archCt', { d: { id: c.id } }) + (dEnd <= 90 && dEnd >= 0 ? btn('Besluit vastleggen', 'besluitCt', { d: { id: c.id } }) : '') + btn('Lage bezetting doorgeven', 'laagCt', { k: 'primary', d: { id: c.id } }), bd(st[0], st[1])) +
@@ -1124,12 +1131,12 @@ const reisTag = k => { const b = opReis(k); return b ? bd('Op reis tot ' + fd(b.
 /* ---------- dashboard ---------- */
 PAGES.kdash = () => {
   const mine = S.zaken.filter(z => open(z) && z.behandelaar === myName());
-  if (S.role === 'teamleider') { const o = S.zaken.filter(open); return head([['Dashboard']], 'Goedemorgen, Mark', 'Donderdag 29 oktober 2026 · teamleider klantenservice', lnk('Naar de werkvoorraad', 'wv', 'primary')) + kpis([['Open zaken', o.length, '', 'wv'], ['Niet toegewezen', o.filter(z => !z.behandelaar).length, 'crit', 'wv'], ['Klant nu op reis', o.filter(z => opReis(klant(z.klant))).length, 'warn'], ['Over de reactietermijn', o.filter(z => termijn(z)[1] === 'crit').length, 'crit']]) + card('Zaken zonder behandelaar', o.filter(z => !z.behandelaar).map(z => li(`${z.id} · ${esc(z.onderwerp)}`, `${esc(kn(klant(z.klant)))} · ${z.type} · wacht ${wacht(z)}`, `<span class="acts">${bd(z.urg, uK(z.urg))}${btn('Toewijzen', 'assign', { sm: 1, k: 'primary', d: { id: z.id } })}</span>`)).join('') || '<p class="muted">Alle zaken hebben een behandelaar.</p>'); }
-  if (S.role === 'senior') { const t = S.zaken.filter(z => z.voorstel && z.voorstel.status === 'Te controleren'); return head([['Dashboard']], 'Goedemorgen, Ingrid', 'Senior klantenservice · tweede beoordelaar van compensatievoorstellen') + kpis([['Te controleren', t.length, t.length ? 'warn' : '', 'comp'], ['Mijn open zaken', mine.length]]) + card('Compensatievoorstellen te controleren', t.map(z => li(`${z.id} · ${esc(kn(klant(z.klant)))}`, `${esc(z.voorstel.type)} · ${z.voorstel.pct}% = ${eur(z.voorstel.bedrag)} · ingediend door ${esc(z.voorstel.indiener)}`, lnk('Controleren', `zaak.${z.id}.controle`, 'sm primary'))).join('') || '<p class="muted">Niets te controleren.</p>'); }
-  if (S.role === 'after') { const b = S.zaken.filter(z => z.bezwaar && z.bezwaar.status === 'Bij After Travel'); return head([['Dashboard']], 'Goedemorgen, Rob', 'After Travel · eindbesluit bij bezwaar') + kpis([['Bezwaren te beoordelen', b.length, b.length ? 'warn' : '']]) + card('Bezwaren', b.map(z => li(`${z.id} · ${esc(z.onderwerp)}`, `${esc(kn(klant(z.klant)))} · besluit was "${esc(z.klacht.beoordeling)}" · bezwaar sinds ${fd(z.bezwaar.t)}`, lnk('Beoordelen', 'zaak.' + z.id, 'sm primary'))).join('') || '<p class="muted">Geen bezwaren.</p>'); }
+  if (S.role === 'teamleider') { const o = S.zaken.filter(open); return head([['Dashboard']], 'Overzicht team', 'Donderdag 29 oktober 2026 · Mark de Groot, teamleider klantenservice', lnk('Naar de werkvoorraad', 'wv', 'primary')) + kpis([['Open zaken', o.length, '', 'wv'], ['Niet toegewezen', o.filter(z => !z.behandelaar).length, 'crit', 'wv'], ['Klant nu op reis', o.filter(z => opReis(klant(z.klant))).length, 'warn'], ['Over de reactietermijn', o.filter(z => termijn(z)[1] === 'crit').length, 'crit']]) + card('Zaken zonder behandelaar', o.filter(z => !z.behandelaar).map(z => li(`${z.id} · ${esc(z.onderwerp)}`, `${esc(kn(klant(z.klant)))} · ${z.type} · wacht ${wacht(z)}`, `<span class="acts">${bd(z.urg, uK(z.urg))}${btn('Toewijzen', 'assign', { sm: 1, k: 'primary', d: { id: z.id } })}</span>`)).join('') || '<p class="muted">Alle zaken hebben een behandelaar.</p>'); }
+  if (S.role === 'senior') { const t = S.zaken.filter(z => z.voorstel && z.voorstel.status === 'Te controleren'); return head([['Dashboard']], 'Overzicht', 'Ingrid Visser, senior klantenservice · tweede beoordelaar van compensatievoorstellen') + kpis([['Te controleren', t.length, t.length ? 'warn' : '', 'comp'], ['Mijn open zaken', mine.length]]) + card('Compensatievoorstellen te controleren', t.map(z => li(`${z.id} · ${esc(kn(klant(z.klant)))}`, `${esc(z.voorstel.type)} · ${z.voorstel.pct}% = ${eur(z.voorstel.bedrag)} · ingediend door ${esc(z.voorstel.indiener)}`, lnk('Controleren', `zaak.${z.id}.controle`, 'sm primary'))).join('') || '<p class="muted">Niets te controleren.</p>'); }
+  if (S.role === 'after') { const b = S.zaken.filter(z => z.bezwaar && z.bezwaar.status === 'Bij After Travel'); return head([['Dashboard']], 'Overzicht', 'Rob Kuipers, After Travel · eindbesluit bij bezwaar') + kpis([['Bezwaren te beoordelen', b.length, b.length ? 'warn' : '']]) + card('Bezwaren', b.map(z => li(`${z.id} · ${esc(z.onderwerp)}`, `${esc(kn(klant(z.klant)))} · besluit was "${esc(z.klacht.beoordeling)}" · bezwaar sinds ${fd(z.bezwaar.t)}`, lnk('Beoordelen', 'zaak.' + z.id, 'sm primary'))).join('') || '<p class="muted">Geen bezwaren.</p>'); }
   const late = mine.filter(z => termijn(z)[1] === 'crit');
   const her = S.zaken.filter(z => z.behandelaar === myName() && z.berichten.some(b => b.wacht && days(b.t.slice(0, 10)) <= -7));
-  return head([['Dashboard']], 'Goedemorgen, ' + me().naam.split(' ')[0], 'Donderdag 29 oktober 2026 · ' + me().fn, lnk('Klant zoeken', 'klanten', 'primary', 'search')) +
+  return head([['Dashboard']], 'Overzicht', 'Donderdag 29 oktober 2026 · ' + myName() + ', ' + me().fn.toLowerCase(), lnk('Klant zoeken', 'klanten', 'primary', 'search')) +
     kpis([['Mijn open zaken', mine.length, '', 'wv'], ['Over de reactietermijn', late.length, late.length ? 'crit' : '', 'wv'], ['Klant nu op reis', mine.filter(z => opReis(klant(z.klant))).length, 'warn'], ['Wacht op klant', mine.filter(z => z.status === 'Wacht op klant').length]]) +
     (late.length ? note(`${late.map(z => z.id).join(', ')} ${late.length > 1 ? 'zijn' : 'is'} over de reactietermijn. Pak ${late.length > 1 ? 'ze' : 'hem'} als eerste op.`, 'crit') : '') +
     card('Mijn werkvoorraad', mine.sort((a, b) => URGO[a.urg] - URGO[b.urg]).map(z => { const t = termijn(z); return li(`${z.id} · ${esc(z.onderwerp)}`, `${esc(kn(klant(z.klant)))} · ${z.type} · ${z.status}`, `<span class="acts">${reisTag(klant(z.klant))}${bd(t[0], t[1])}${lnk('Openen', 'zaak.' + z.id, 'sm')}</span>`); }).join('') || '<p class="muted">Geen open zaken.</p>') + (her.length ? note('Herinnering verstuurd voor ' + her.map(z => z.id).join(', ') + ': de klant reageerde 7 dagen niet.', 'warn') : '');
@@ -1202,7 +1209,7 @@ FORMS.contact = { privacy: 1, submit: 'Opslaan', init: c => ({ kanaal: 'Telefoon
     toast(`Contact opgeslagen in ${z.id} · bevestiging verstuurd naar de klant`); return 'zaak.' + z.id; } };
 function contactPage(k) {
   return head([['Klanten', 'klanten'], [kn(k), 'klant.' + k.id], ['Contact registreren']], 'Contact registreren', `${esc(kn(k))} · ${k.id}${opReis(k) ? ' · op reis tot ' + fd(opReis(k).tot) : ''}`) +
-    `<div class="split"><div>${card('Contactmoment', formHtml('contact', { k: k.id }, { cancel: 'goBack' }))}</div><div>${card('Vult het systeem in', kv([['Datum en tijd', ft(nowIso())], ['Medewerker', myName()], ['Urgentie nieuwe zaak', opReis(k) ? bd('Hoog · klant op reis', 'brand') : 'Normaal']]))}${note('Bij opslaan controleert het systeem de verplichte velden en blokkeert het IBAN- en paspoortnummers (UC-K13). Die controle zit ook in de achterkant, niet alleen in dit scherm.')}${note('Tip voor de demo: typ in de samenvatting bijvoorbeeld "rekening NL91 ABNA 0417 1643 00".', 'brand')}</div></div>`;
+    `<div class="split"><div>${card('Contactmoment', formHtml('contact', { k: k.id }, { cancel: 'goBack' }))}</div><div>${card('Automatisch ingevuld', kv([['Datum en tijd', ft(nowIso())], ['Medewerker', myName()], ['Urgentie nieuwe zaak', opReis(k) ? bd('Hoog · klant op reis', 'brand') : 'Normaal']]))}${note('Bij opslaan controleert het systeem de verplichte velden en blokkeert het IBAN- en paspoortnummers (UC-K13). Die controle zit ook in de achterkant, niet alleen in dit scherm.')}</div></div>`;
 }
 
 /* ---------- klantzaken ---------- */
@@ -1479,8 +1486,8 @@ function drawDemo() {
   <div class="db"><div class="dbar">${R.steps.map((x, i) => `<i class="${i <= d.i ? 'on' : ''}"></i>`).join('')}</div><span class="dstep">Stap ${d.i + 1} van ${n} · als ${esc(ROLES[st[0]].naam)}</span><h3>${esc(st[2])}</h3><p>${esc(st[3])}</p></div>
   <footer>${btn('Vorige', 'demoPrev', { sm: 1, dis: d.i === 0 })}${btn(d.i === n - 1 ? 'Afronden' : 'Volgende', 'demoNext', { sm: 1, k: 'primary', ic: d.i === n - 1 ? 'check' : 'arrow' })}</footer>`;
 }
-PAGES.start = () => `<div class="band"><b><i>VV</i> / Werkplek</b><span>Klikbaar eindmodel · Groep 3 Inkoop &amp; Klantenservice</span></div>
-  <div class="phead"><div><p class="eyebrow">Welkom in de medewerkerssite</p><h1>VoyageVista Werkplek</h1><p class="sub">Alle schermen uit de wireframes werken echt: formulieren controleren je invoer, statussen lopen mee en wat je aanmaakt blijft bewaard in deze browser. Vandaag is het donderdag 29 oktober 2026.</p></div></div>
+PAGES.start = () => `<div class="band"><b>Werkplek</b><span>Medewerkerssite VoyageVista · demo-omgeving</span></div>
+  <div class="phead"><div><p class="eyebrow">Productontwikkeling &amp; Inkoop · Klantenservice &amp; Support</p><h1>VoyageVista Werkplek</h1><p class="sub">Klikbaar eindmodel. Invoer wordt gecontroleerd en wijzigingen blijven bewaard in deze browser. Peildatum: donderdag 29 oktober 2026.</p></div></div>
   <div class="start-demo">
     <button data-a="demo" data-d='{"r":"ink"}'><b>${ic('play')}Rondleiding Inkoop</b><span class="muted">8 stappen · van productkans tot catalogus</span></button>
     <button data-a="demo" data-d='{"r":"ks"}'><b>${ic('play')}Rondleiding Klantenservice</b><span class="muted">8 stappen · van klant zoeken tot privacy</span></button>
