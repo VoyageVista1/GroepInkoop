@@ -347,7 +347,7 @@
   "rol": "Klantenservice",
   "stappen": "KZ-1041 → sjabloon \"Transfer niet aanwezig\"",
   "verwacht": "Antwoordveld gevuld met sjabloontekst",
-  "werkelijk": "Antwoordveld gevuld: \"Beste Peter, De chauffeur van de transfer wacht bij de uitgang met een bordje \"V…\"",
+  "werkelijk": "Antwoordveld gevuld met: “Beste Peter, De chauffeur van de transfer wacht bij de uitgang…”",
   "ok": true,
   "foto": null
  },
@@ -358,7 +358,7 @@
   "rol": "Klantenservice",
   "stappen": "KZ-1041 → vervolgactie toevoegen → Afsluiten",
   "verwacht": "Afsluiten geblokkeerd tot de actie klaar is",
-  "werkelijk": "Afsluiten kan niet met open vervolgacties",
+  "werkelijk": "Er staat nog 1 vervolgactie open. Rond die eerst af of draag die over.",
   "ok": true,
   "foto": null
  },
