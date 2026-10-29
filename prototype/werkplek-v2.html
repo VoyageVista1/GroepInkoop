@@ -371,7 +371,7 @@ const isRole = (...r) => r.includes(S.role);
 let S;
 const KEY = 'vv-werkplek-2';
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
-function load() { try { const v = JSON.parse(localStorage.getItem(KEY)); if (v && v.v === 3) return v; } catch (e) {} return null; }
+function load() { try { const v = JSON.parse(localStorage.getItem(KEY)); if (v && v.v === 4) return v; } catch (e) {} return null; }
 function resetData(role) { S = seed(); if (role) S.role = role; save(); }
 
 /* ================= ui-toestand (niet opgeslagen) ================= */
@@ -551,7 +551,7 @@ let lastRoute = '';
 function redraw() {
   const r = parseHash();
   if (!r.p || !PAGES[r.p] || !allowed(r.p)) { const h = r.p === '' ? 'start' : homeOf(); if (location.hash !== '#' + h) { history.replaceState(null, '', '#' + h); } r.p = h; r.id = undefined; r.tab = undefined; }
-  const route = r.p + '.' + (r.id || '');
+  const route = r.p + '.' + (r.id || '') + '.' + (r.tab || '');
   if (route !== lastRoute) { for (const k in U.err) if (!k.startsWith('m-')) delete U.err[k]; lastRoute = route; }
   let act = { rp: 'rps', kans: 'kansen', lev: 'levs', ond: 'onds', ct: 'cts', catp: 'cat', klant: 'klanten', zaak: 'zaken' }[r.p] || r.p;
   if (r.p === 'zaak') { const z = S.zaken.find(x => x.id === r.id); if (r.tab === 'voorstel' || r.tab === 'controle') act = 'comp'; else if (z && z.type === 'Klacht') act = 'klachten'; }
@@ -628,8 +628,10 @@ const LIVE = {};
 function seed() {
   const SV = 'Sanne de Vries', JB = 'Jeroen Bakker', FA = 'Fatima el Amrani', AB = 'Ahmed Bouzid', SK = 'Sanne Kok', RH = 'Ruben Haddou';
   return {
-    v: 3, role: 'inkoper', clock: 0, favs: [], conflictShown: false,
+    v: 4, role: 'inkoper', clock: 0, favs: [], conflictShown: false,
     kansen: [
+      { id: 'PK-0013', oms: 'Fietsreis Puglia (Zuid-Italië)', trends: 'Actieve vakanties en minder drukke bestemmingen in het voor- en najaar.', behoeften: 'E-bikes, bagagevervoer, kleine masserie als verblijf.', conclusie: 'Kansrijk', toel: 'Klantpanel positief en twee geschikte leveranciers bekend. Klaar om door te zetten.', aangemaakt: '2026-10-20', door: SV, gewijzigd: '2026-10-27',
+        wensen: [['"Een fietsreis met e-bikes en bagagevervoer"', 'Klantenservice · klantfeedback · 21 okt'], ['"Liever in het voorjaar, niet in de zomerhitte"', 'Klantpanel · 14 okt']] },
       { id: 'PK-0012', oms: 'Wandelreis Madeira voor 55+', trends: 'Groei van actieve vakanties bij 55-plussers; Madeira scoort hoog op wandelroutes.', behoeften: 'Rustig tempo, kleine groepen, bagagevervoer tussen hotels.', conclusie: 'Kansrijk', toel: 'Genoeg vraag en geschikte leveranciers op Madeira. Uitwerken als 8-daagse reis.', aangemaakt: '2026-10-02', door: SV, gewijzigd: '2026-10-18', rp: 'RP-0141',
         wensen: [['"Graag een wandelreis waarbij de bagage wordt vervoerd"', 'Klantenservice · klantfeedback · 12 okt'], ['"Kleine groepen, niet meer dan 12 personen"', 'Klantpanel · 30 sep'], ['"Rustiger tempo dan de huidige rondreizen"', 'Klantenservice · klacht KZ-0921 · 21 sep']] },
       { id: 'PK-0011', oms: 'Treinreis Zuid-Frankrijk', trends: 'Duurzaam reizen zonder vliegtuig wint terrein.', behoeften: 'Comfortabele treinverbinding, bagage-afhandeling.', conclusie: 'In onderzoek', toel: '', aangemaakt: '2026-09-20', door: 'Mila Jansen', gewijzigd: '2026-10-12', wensen: [['"Kan ik met de trein naar de Provence?"', 'Klantenservice · vraag · 3 okt']] },
@@ -1437,7 +1439,7 @@ const ROUTES = {
   ink: { t: 'Productontwikkeling & Inkoop', steps: [
     ['inkoper', 'dash', 'Dashboard met signalen', 'Jeroen ziet meteen wat aandacht vraagt: deadlines, aflopende contracten en lage bezetting. Klik op een KPI om naar het overzicht te gaan.', '.kpis'],
     ['product', 'kansen', 'Productkansen', 'Sanne legt nieuwe reisideeën vast met trends, klantbehoeften en een conclusie. Zoek of filter op conclusie.', '.tbl'],
-    ['product', 'kans.PK-0012', 'Kansrijke kans doorzetten', 'Een kansrijke kans zet je met één knop door naar een nieuw reisproduct. Het systeem neemt de gegevens over.', '.phead .acts'],
+    ['product', 'kans.PK-0013', 'Kansrijke kans doorzetten', 'Een kansrijke kans zet je met één knop door naar een nieuw reisproduct. Het systeem neemt de gegevens over.', '.phead .acts'],
     ['product', 'rp.RP-0142.route', 'Reisonderdelen en route', 'Vervoer, verblijf en activiteiten in de volgorde van de reis. Kamertypes en faciliteiten komen uit vaste lijsten.', '.split'],
     ['inkoper', 'lev.LV-0045', 'Leveranciersdossier', 'Alle gegevens, contactmomenten, aanbiedingen, onderhandelingen en contracten van één leverancier op één plek.', '.tabs'],
     ['inkoper', 'ond.ON-0027.edit', 'Onderhandeling bijwerken', 'Pas inkoop- of verkoopprijs aan: de marge rekent live mee. Afsluiten kan pas als alle vervolgacties klaar zijn.', '.form'],
@@ -1484,7 +1486,7 @@ PAGES.start = () => `<div class="band"><b><i>VV</i> / Werkplek</b><span>Klikbaar
     <button data-a="demo" data-d='{"r":"ks"}'><b>${ic('play')}Rondleiding Klantenservice</b><span class="muted">8 stappen · van klant zoeken tot privacy</span></button>
   </div>
   <div class="g2">${card('Zelf rondkijken', `<p>Kies rechtsboven een rol. Elke rol ziet zijn eigen menu en dashboard.</p>${Object.entries(ROLES).map(([k, r]) => li(esc(r.naam), esc(r.fn) + ' · ' + esc(AFD[r.afd]), btn('Werk als ' + r.naam.split(' ')[0], 'asRole', { sm: 1, d: { r: k } }), `<span class="av" style="background:${r.kleur}">${r.ini}</span>`)).join('')}`)}
-  ${card('Om te proberen', `<ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px"><li>Sla een formulier op met lege verplichte velden.</li><li>Typ een IBAN in een klantnotitie: het systeem blokkeert het.</li><li>Open RP-0142 om te wijzigen: je krijgt een versieconflict.</li><li>Probeer als Fatima een compensatievoorstel goed te keuren: alleen een senior mag dat (vier ogen).</li><li>Zet een vaste waarde die in gebruik is op verwijderen: dat kan niet.</li></ul>`)}</div>
+  ${card('Om te proberen', `<ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px"><li>Sla een formulier op met lege verplichte velden.</li><li>Typ een IBAN in een klantnotitie: het systeem blokkeert het.</li><li>Open RP-0142 om te wijzigen: je krijgt een versieconflict.</li><li>Probeer als Fatima een compensatievoorstel goed te keuren: alleen een senior mag dat (vier ogen).</li><li>Bij Reisonderdelen → Kamertypes: een waarde die in gebruik is kun je alleen inactief zetten, niet verwijderen.</li></ul>`)}</div>
   ${note('Onder elk scherm staat het paneel <b>Functionaliteit op deze pagina</b>, zoals bij de wireframes. Zet het uit of aan via de knop onderaan het menu.')}`;
 A.asRole = (el, ev, d) => { S.role = d.r; save(); U.q = {}; toast('Je werkt nu als ' + me().naam + ' (' + me().fn + ')'); go(homeOf()); };
 
