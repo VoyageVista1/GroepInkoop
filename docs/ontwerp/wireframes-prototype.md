@@ -6,7 +6,13 @@
 
 Alle 71 wireframes zijn als klikbare schermen nagebouwd. Elk scherm heeft dezelfde inhoud, velden, knoppen en voorbeeldgegevens als in FigJam. Onder elk scherm staat het documentatieblok uit de wireframe: ERD-entiteiten, functiescheiding, navigatie en ERD-controle. Daar staan ook de uitgaande links.
 
-## In Figma Make zetten
+## Figma Make
+
+**Make-bestand:** https://www.figma.com/make/hgj5dVUs8nEYel700Fl1ET (team *739242's team*). Bestaat uit `index.html` (= `prototype/wireframes.html`) en `images/voyagevista-logo-light.png`.
+
+De zijbalk volgt de werkplek: **Algemeen** (Dashboard), **Productontwikkeling** (Productkansen, Reisproducten, Reisonderdelen, Planning, Catalogus), **Inkoop** (Leveranciers, Aanbiedingen, Onderhandelingen, Contracten) en **Beheer** (Autorisatie).
+
+## Handmatig in een ander Make-bestand zetten
 
 1. Open het Make-bestand *VoyageVista Stijl Demo 2.0*.
 2. Maak in de map `public/` een nieuw bestand `wireframes.html` en plak de volledige inhoud van `prototype/wireframes.html` erin.

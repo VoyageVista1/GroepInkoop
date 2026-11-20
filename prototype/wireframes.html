@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Urbanist:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--side:#2B4536;--side2:#355241;--sideTxt:#E8EEE9;--bg:#F4F5F0;--card:#FFFFFF;--line:#E3E7E0;--ink:#1F2D24;--muted:#5B6F61;--accent:#63786A;--pill:#E8EEE8;--field:#F6F8F4;--ro:#E6ECE5;--focus:#2F6B4A;--err:#B4232F;--errBg:#FDECEE;--warn:#8A5A00;--warnBg:#FFF5DE;--ok:#1E6B3D;--okBg:#E5F3EA;--rad:12px}
+:root{--side:#274638;--side2:#365747;--sideTxt:#E3ECE4;--bg:#F6F7F2;--card:#FFFFFF;--line:#DFE8DF;--ink:#22352A;--muted:#5B6F61;--accent:#63786A;--pill:#E8EEE8;--field:#F6F8F4;--ro:#E6ECE5;--focus:#2F6B4A;--err:#B4232F;--errBg:#FDECEE;--warn:#8A5A00;--warnBg:#FFF5DE;--ok:#1E6B3D;--okBg:#E5F3EA;--rad:12px}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Poppins,system-ui,sans-serif}
 h1,h2,h3{font-family:Urbanist,Poppins,sans-serif;margin:0}
@@ -19,14 +19,16 @@ button,input,select,textarea{font:inherit;color:inherit}
 .skip{position:absolute;left:-999px;top:8px;background:#fff;padding:8px 12px;border-radius:8px;z-index:50}.skip:focus{left:8px}
 .app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
 .side{background:var(--side);color:var(--sideTxt);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow:auto}
-.brand{padding:22px 22px 18px;font:800 20px Urbanist,sans-serif;letter-spacing:.06em;background:#24392D}
-.brand span{opacity:.9;margin-right:6px}
+.brand{padding:14px 18px;border-bottom:1px solid #ffffff20;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.sidebar-logo{width:205px;max-width:100%;padding:7px 9px;border-radius:9px;background:#f4f1eb;display:block}
+.brand small{width:205px;text-align:center;font-size:8px;letter-spacing:.13em;text-transform:uppercase;color:#c2d2c4}
+.nav h4{margin:18px 10px 6px;font:500 10px Poppins;letter-spacing:.12em;text-transform:uppercase;color:#bbcfbf}
 .side h4{margin:22px 22px 8px;font:600 11px Poppins;letter-spacing:.08em;opacity:.8}
 .nav a{display:flex;gap:10px;margin:2px 12px;padding:9px 12px;border-radius:9px;text-decoration:none;color:var(--sideTxt);font-size:14px}
 .nav a b{font-weight:500;opacity:.75;min-width:20px}
 .nav a:hover{background:var(--side2)}
-.nav a[aria-current=page]{background:#4A6655;font-weight:600}
-.side .foot{margin-top:auto;padding:14px 22px;background:#24392D;font-size:12px;font-weight:600}
+.nav a[aria-current=page]{background:#426650;box-shadow:inset 3px 0 0 #9fbba7;font-weight:600}
+.side .foot{margin-top:auto;padding:14px 22px;border-top:1px solid #ffffff20;font-size:12px;font-weight:600}
 .side .tools a{display:block;margin:2px 12px;padding:7px 12px;border-radius:9px;color:var(--sideTxt);font-size:13px;text-decoration:none;border:1px dashed #5d7a68}
 .side .tools a:hover{background:var(--side2)}
 .main{min-width:0;display:flex;flex-direction:column}
@@ -140,8 +142,7 @@ tbody tr.sel td{background:#E1EBE3!important}
 <a class="skip" href="#view">Direct naar de inhoud</a>
 <div class="app">
  <nav class="side" id="side" aria-label="Werkomgeving">
-  <div class="brand"><span>✦</span>VOYAGEVISTA</div>
-  <h4>WERKOMGEVING</h4>
+  <div class="brand"><img class="sidebar-logo" src="./images/voyagevista-logo-light.png" alt="VoyageVista"><small>Productontwikkeling &amp; Inkoop</small></div>
   <div class="nav" id="nav"></div>
   <h4>PROTOTYPE</h4>
   <div class="tools">
@@ -522,10 +523,12 @@ S('CA06',{t:'state',kind:'ok',title:'Feedback is verzonden',sub:'Bevestiging en 
 
 
 const MODS = [
- ['DA','00','Dashboard','DA01'],['PK','01','Productkansen','PK01'],['RP','02','Reisproducten','RP01'],
- ['RD','03','Reisonderdelen','RD01'],['LV','04','Leveranciers','LV01'],['AB','05','Aanbiedingen','AB01'],
- ['ON','06','Onderhandelingen','ON01'],['CT','07','Contracten','CT01'],['PL','08','Planning','PL01'],
- ['CA','09','Catalogus','CA01'],['AU','10','Autorisatie','AU01']];
+ ['DA','00','Dashboard','DA01','Algemeen'],
+ ['PK','01','Productkansen','PK01','Productontwikkeling'],['RP','02','Reisproducten','RP01','Productontwikkeling'],
+ ['RD','03','Reisonderdelen','RD01','Productontwikkeling'],['PL','08','Planning','PL01','Productontwikkeling'],['CA','09','Catalogus','CA01','Productontwikkeling'],
+ ['LV','04','Leveranciers','LV01','Inkoop'],['AB','05','Aanbiedingen','AB01','Inkoop'],
+ ['ON','06','Onderhandelingen','ON01','Inkoop'],['CT','07','Contracten','CT01','Inkoop'],
+ ['AU','10','Autorisatie','AU01','Beheer']];
 const MODNAME = Object.fromEntries(MODS.map(m => [m[0], m[2]]));
 const TYPE = {list:'LIST',detail:'DETAIL',form:'FORM',review:'REVIEW',state:'STATE',compare:'COMPARE',matrix:'DETAIL'};
 const POOL = {
@@ -772,14 +775,14 @@ function render(){
  v.innerHTML = html;
  document.title = (d?d.id+' · ':'') + title + ' · VoyageVista Wireframes';
  $('#nav').querySelectorAll('a').forEach(a => a.dataset.m === m ? a.setAttribute('aria-current','page') : a.removeAttribute('aria-current'));
- $('#crumb').innerHTML = `<a href="#/DA01">Werkplek</a>` + (m && MODNAME[m] ? ` / <a href="#/${MODS.find(x=>x[0]===m)[3]}">${esc(MODNAME[m])}</a>` : '') + ` / ${esc(title)}`;
+ const mm = MODS.find(x=>x[0]===m); $('#crumb').innerHTML = `<a href="#/DA01">Werkplek</a>` + (mm ? ` / ${esc(mm[4])} / <a href="#/${mm[3]}">${esc(mm[2])}</a>` : '') + ` / ${esc(title)}`;
  wire(d);
  $('#side').classList.remove('open'); $('#menuBtn').setAttribute('aria-expanded','false');
  window.scrollTo(0,0); v.focus({preventScroll:true});
  if (pendingToast) { toast(pendingToast); pendingToast = null; }
 }
 
-$('#nav').innerHTML = MODS.map(m => `<a href="#/${m[3]}" data-m="${m[0]}"><b>${m[1]}</b>${esc(m[2])}</a>`).join('');
+$('#nav').innerHTML = [...new Set(MODS.map(m=>m[4]))].map(g => `<h4>${esc(g)}</h4>` + MODS.filter(m=>m[4]===g).map(m => `<a href="#/${m[3]}" data-m="${m[0]}">${esc(m[2])}</a>`).join('')).join('');
 $('#screenlist').innerHTML = ORDER.map(i => `<option value="${i} ${esc(SCREENS[i].title)}">`).join('');
 $('#gsearch').addEventListener('keydown', e => { if (e.key !== 'Enter') return; const t = e.target.value.trim().toLowerCase(); if (!t) return;
  const hit = ORDER.find(i => i.toLowerCase() === t.slice(0,4)) || ORDER.find(i => (i+' '+SCREENS[i].title).toLowerCase().includes(t));
