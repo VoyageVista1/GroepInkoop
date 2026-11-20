@@ -6,7 +6,25 @@
 
 Alle 71 wireframes zijn als klikbare schermen nagebouwd. Elk scherm heeft dezelfde inhoud, velden, knoppen en voorbeeldgegevens als in FigJam. Onder elk scherm staat het documentatieblok uit de wireframe: ERD-entiteiten, functiescheiding, navigatie en ERD-controle. Daar staan ook de uitgaande links.
 
-## Figma Make
+## Figma Make — in de werkplek (hoofdversie)
+
+**Make-bestand:** https://www.figma.com/make/ii7T5U9jz3XvIrHVqe355R — *VoyageVista Stijl Demo 2.0 + nieuwe wireframes* (team *739242's team*).
+
+Dit is een volledige kopie van *VoyageVista Stijl Demo 2.0*, met de wireframes verwerkt in de werkplek. Open de demo-werkplek en ga naar **Productontwikkeling & Inkoop** in de zijbalk:
+
+- **Productontwikkeling:** Nieuw · Dashboard, Productkansen, Reisproducten, Reisonderdelen, Planning, Catalogus en Testflows user stories
+- **Inkoop:** Nieuw · Leveranciers, Aanbiedingen, Onderhandelingen, Contracten, Autorisatie en Schermindex
+
+De route is `#wf.<SCHERM>`, bijvoorbeeld `#wf.CT05`. De wireframe wordt binnen de werkplek getoond. Het kruimelpad, de actieve link in de zijbalk en de meldingen volgen het scherm. Wijzigingen ten opzichte van het origineel (zie `prototype/make-integratie/`):
+
+- `wireframes.html` en `wireframes-app.js` zijn nieuw.
+- `navigation.js`: de wireframe-items staan in de groepen Productontwikkeling en Inkoop, en de route `wf` hoort bij Inkoop.
+- `index.html`: één regel voor de actieve link in de zijbalk en één scripttag.
+- Paden naar afbeeldingen, data en video's zijn relatief gemaakt, zodat de app als statische site draait.
+
+Integratietest: `node tests/werkplek-wireframes.cjs <url-van-de-app>`. Laatste uitvoering: **30 geslaagd, 0 mislukt**. De test controleert dat de bestaande routes nog werken, de zijbalk, de iframe, een flow, of de zijbalk en het kruimelpad meeschuiven, een diepe link na herladen, en dat er geen 404's of JavaScript-fouten zijn.
+
+## Figma Make — losse versie
 
 **Make-bestand:** https://www.figma.com/make/hgj5dVUs8nEYel700Fl1ET (team *739242's team*). Bestaat uit `index.html` (= `prototype/wireframes.html`) en `images/voyagevista-logo-light.png`.
 
