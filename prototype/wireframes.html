@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoyageVista · Wireframes Productontwikkeling &amp; Inkoop</title>
+<meta name="description" content="Klikbaar prototype van de 71 nieuwe wireframes Productontwikkeling &amp; Inkoop (PK, RP, RD, LV, AB, ON, CT, PL, CA, DA, AU).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Urbanist:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--side:#2B4536;--side2:#355241;--sideTxt:#E8EEE9;--bg:#F4F5F0;--card:#FFFFFF;--line:#E3E7E0;--ink:#1F2D24;--muted:#5B6F61;--accent:#63786A;--pill:#E8EEE8;--field:#F6F8F4;--ro:#E6ECE5;--focus:#2F6B4A;--err:#B4232F;--errBg:#FDECEE;--warn:#8A5A00;--warnBg:#FFF5DE;--ok:#1E6B3D;--okBg:#E5F3EA;--rad:12px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Poppins,system-ui,sans-serif}
+h1,h2,h3{font-family:Urbanist,Poppins,sans-serif;margin:0}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;padding:8px 12px;border-radius:8px;z-index:50}.skip:focus{left:8px}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.side{background:var(--side);color:var(--sideTxt);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{padding:22px 22px 18px;font:800 20px Urbanist,sans-serif;letter-spacing:.06em;background:#24392D}
+.brand span{opacity:.9;margin-right:6px}
+.side h4{margin:22px 22px 8px;font:600 11px Poppins;letter-spacing:.08em;opacity:.8}
+.nav a{display:flex;gap:10px;margin:2px 12px;padding:9px 12px;border-radius:9px;text-decoration:none;color:var(--sideTxt);font-size:14px}
+.nav a b{font-weight:500;opacity:.75;min-width:20px}
+.nav a:hover{background:var(--side2)}
+.nav a[aria-current=page]{background:#4A6655;font-weight:600}
+.side .foot{margin-top:auto;padding:14px 22px;background:#24392D;font-size:12px;font-weight:600}
+.side .tools a{display:block;margin:2px 12px;padding:7px 12px;border-radius:9px;color:var(--sideTxt);font-size:13px;text-decoration:none;border:1px dashed #5d7a68}
+.side .tools a:hover{background:var(--side2)}
+.main{min-width:0;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:16px;background:#fff;border-bottom:1px solid var(--line);padding:12px 28px;position:sticky;top:0;z-index:5}
+.crumb{color:var(--muted);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crumb a{text-decoration:none}.crumb a:hover{text-decoration:underline}
+.gsearch{width:min(320px,40vw);padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--field)}
+.avatar{background:var(--pill);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:600}
+.menu-btn{display:none;border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 10px}
+.view{padding:28px;max-width:1240px;width:100%}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px}
+.head h1{font-size:30px;font-weight:700}
+.head p{margin:4px 0 0;color:var(--muted)}
+.pill{display:inline-block;background:var(--pill);border-radius:99px;padding:3px 12px;font-size:12px;font-weight:600;color:#3D5546;white-space:nowrap}
+.pill.err{background:var(--errBg);color:var(--err)}.pill.warn{background:var(--warnBg);color:var(--warn)}.pill.ok{background:var(--okBg);color:var(--ok)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:14px 18px;text-align:left;cursor:default}
+a.kpi,button.kpi{cursor:pointer;text-decoration:none;position:relative}a.kpi:hover{border-color:var(--accent)}a.kpi::after{content:"Bekijken →";position:absolute;right:16px;bottom:14px;font-size:12px;color:var(--focus);font-weight:600}
+.kpi span{color:var(--muted);font-size:13px}.kpi strong{display:block;font:700 26px Urbanist}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:20px 22px}
+.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;padding:10px 12px}
+.toolbar input{flex:1;min-width:120px;border:0;background:transparent;padding:6px}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 18px;font-weight:600;font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;min-height:40px}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--side);border-color:var(--side);color:#fff}.btn.pri:hover{background:#1f3428}
+.btn.sm{padding:6px 14px;min-height:34px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.actions .btn{min-width:180px;justify-content:flex-start}
+table{width:100%;border-collapse:separate;border-spacing:0 6px}
+th{background:#EEF2EC;text-align:left;font-size:12px;font-weight:600;color:#3D5546;padding:10px 14px}
+th:first-child{border-radius:8px 0 0 8px}th:last-child{border-radius:0 8px 8px 0}
+td{padding:12px 14px;font-size:13px}
+td:first-child{font-weight:600}
+tbody tr:nth-child(even) td{background:#F6F8F4}
+tbody tr.link{cursor:pointer}tbody tr.link:hover td{background:#EAF0E9}
+tbody tr.sel td{background:#E1EBE3!important}
+.tablewrap{overflow-x:auto}
+.help{color:var(--muted);font-size:12px;margin:10px 4px 0}
+.filters{display:none;gap:10px;align-items:center;margin:-6px 0 14px;padding:10px 14px}
+.filters.open{display:flex}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+.det{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
+.det div{border-bottom:1px solid var(--line);padding:12px 0 14px}
+.det dt{font-size:12px;color:var(--muted);font-weight:600}.det dd{margin:4px 0 0;font-size:15px}
+.det dd a{color:var(--focus);font-weight:500}
+.sec{font:600 12px Poppins;letter-spacing:.05em;color:#3D5546;text-transform:uppercase;margin:0 0 12px}
+.tl{list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid var(--line)}
+.tl li{position:relative;padding:0 0 26px 6px;font-size:13px}
+.tl li::before{content:"";position:absolute;left:-25px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.tl a{color:var(--focus)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px 28px}
+.f label{display:block;font-weight:600;font-size:13px;margin-bottom:6px}
+.f input,.f select,.f textarea{width:100%;border:1px solid var(--line);background:var(--field);border-radius:8px;padding:10px 12px}
+.f textarea{min-height:44px;resize:vertical}
+.f input[readonly]{background:var(--ro);color:var(--muted)}
+.f.bad input,.f.bad select,.f.bad textarea{border-color:var(--err);background:#fff8f8}
+.f .msg{color:var(--err);font-size:12px;margin-top:4px}
+.note-req{grid-column:1/-1;color:var(--muted);font-size:12px}
+.alert{border-radius:10px;padding:12px 16px;margin:0 0 16px;font-size:13px;border:1px solid}
+.alert.err{background:var(--errBg);border-color:#f3c3c8;color:#7d1720}
+.alert.warn{background:var(--warnBg);border-color:#efd9a6;color:#5e3e00}
+.alert.ok{background:var(--okBg);border-color:#bfe0cb;color:#174f2e}
+.alert .btn{margin-top:8px}
+.rhead{display:flex;justify-content:space-between;align-items:center;background:#EEF2EC;border-radius:10px;padding:14px 18px;margin-bottom:18px}
+.rhead h2{font-size:18px;font-weight:700}
+.checks label{display:flex;gap:12px;align-items:center;padding:10px 0;font-size:14px}
+.checks input{width:20px;height:20px;accent-color:var(--side)}
+.reason textarea{width:100%;min-height:70px;border:1px solid var(--line);background:var(--field);border-radius:8px;padding:10px 12px}
+.state{max-width:640px;margin:40px auto}
+.state h2{font-size:22px;margin:14px 0 12px}.state p{margin:0 0 8px;color:#3a4a3f}
+.state.err{border-color:#f0c6cb}.state.warn{border-color:#efd9a6}.state.ok{border-color:#bfe0cb}
+.demo{margin-top:16px;border:1.5px dashed #9fb3a5;border-radius:10px;padding:10px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:#fbfcfa}
+.demo span{font-size:12px;color:var(--muted);font-weight:600;margin-right:4px}
+.docs{margin-top:26px;background:#F7F9F5;border:1px solid var(--line);border-radius:var(--rad);padding:16px 20px}
+.docs summary{cursor:pointer;font:700 15px Urbanist;letter-spacing:.04em}
+.docs p{margin:8px 0 0;font-size:13px}.docs .erd{color:#3D5546;font-weight:600}.docs .nv{color:var(--muted)}
+.docs .out{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}.docs .out a{font-size:12px;background:#fff;border:1px solid var(--line);border-radius:99px;padding:2px 10px;text-decoration:none}
+.wfmark{color:var(--muted);font-size:11px;letter-spacing:.06em;margin-top:18px}
+.matrix td,.matrix th{text-align:center}.matrix td:first-child,.matrix th:first-child{text-align:left}
+.yes{color:var(--ok);font-weight:700}.no{color:#9aa59d}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--side);color:#fff;padding:12px 18px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);z-index:60;max-width:360px}
+.modal-bg{position:fixed;inset:0;background:rgba(20,30,24,.45);display:flex;align-items:center;justify-content:center;z-index:70;padding:16px}
+.modal{background:#fff;border-radius:14px;padding:22px 24px;max-width:440px;width:100%}
+.modal h2{font-size:20px;margin-bottom:8px}
+.flows{display:grid;gap:18px}
+.flow h3{font-size:17px;margin-bottom:4px}
+.flow ol{margin:8px 0 0;padding-left:20px}.flow li{margin:4px 0}
+.flow li a{color:var(--focus);font-weight:600}
+.story{background:#EEF2EC;border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:13px}
+.idx{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.idx ul{list-style:none;padding:0;margin:6px 0 0}.idx li{padding:3px 0;font-size:13px}
+.idx li a{color:var(--focus);font-weight:600;text-decoration:none}.idx li a:hover{text-decoration:underline}
+.tag{font-size:11px;color:var(--muted);margin-left:6px}
+@media (max-width:900px){
+ .app{grid-template-columns:1fr}
+ .side{position:fixed;inset:0 auto 0 0;width:260px;transform:translateX(-100%);transition:transform .2s;z-index:40}
+ .side.open{transform:none}
+ .menu-btn{display:inline-block}
+ .view{padding:18px 16px}
+ .top{padding:10px 16px}
+ .gsearch{display:none}
+ .kpis,.grid2,.form,.det{grid-template-columns:1fr}
+ .head h1{font-size:24px}
+ .actions .btn{min-width:0;flex:1 1 100%}
+}
+@media print{.side,.top,.demo,.actions,.docs{display:none}.app{display:block}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#view">Direct naar de inhoud</a>
+<div class="app">
+ <nav class="side" id="side" aria-label="Werkomgeving">
+  <div class="brand"><span>✦</span>VOYAGEVISTA</div>
+  <h4>WERKOMGEVING</h4>
+  <div class="nav" id="nav"></div>
+  <h4>PROTOTYPE</h4>
+  <div class="tools">
+   <a href="#/flows">▶ Testflows user stories</a>
+   <a href="#/index">☰ Schermindex (71)</a>
+  </div>
+  <div class="foot">Productontwikkeling &amp; Inkoop</div>
+ </nav>
+ <div class="main">
+  <header class="top">
+   <button class="menu-btn" id="menuBtn" aria-label="Menu openen" aria-controls="side" aria-expanded="false">☰</button>
+   <div class="crumb" id="crumb"></div>
+   <input class="gsearch" id="gsearch" type="search" placeholder="Zoek scherm (bijv. CT05 of contract)…" aria-label="Zoek scherm" list="screenlist">
+   <datalist id="screenlist"></datalist>
+   <span class="avatar" title="Ingelogde medewerker">VV</span>
+  </header>
+  <main class="view" id="view" tabindex="-1"></main>
+ </div>
+</div>
+<script>
+'use strict';
+const SCREENS = {}; const ORDER = [];
+function S(id, d){ d.id = id; SCREENS[id] = d; ORDER.push(id); }
+S('PK01',{t:'list',title:'Productkansenoverzicht',sub:'Zoeken, filteren, onderzoeken',role:'Inkoper',
+ kpis:[['Productkansen','4'],['In onderzoek','2'],['Goedgekeurd','1']],newTo:'PK03',
+ cols:['Productkans','Bestemming','Doelgroep','Fase','Eigenaar'],
+ rows:[['Winterzon Kaapverdië','Kaapverdië','Stellen 30–55','Onderzoek','J. de Vries'],['Wandelreis Azoren','Portugal','Actieve reizigers','Concept','S. Jansen'],['Noorderlicht IJsland','IJsland','Kleine groepen','Goedgekeurd','J. de Vries'],['Culinair Georgië','Georgië','Cultuurliefhebbers','Onderzoek','M. Peters']],rowTo:'PK02',
+ demo:[['Zoeken zonder resultaat','PK05']],
+ erd:'REISPRODUCT, MEDEWERKER',fs:'Inkoper',nav:'Nieuwe kans → PK03; rij openen → PK02; geen resultaten → PK05',chk:'Productkans als REISPRODUCT met fase Onderzoek; aparte entiteit vereist voor los ideeënbeheer'});
+S('PK02',{t:'detail',title:'Productkansdetails',sub:'Onderzoek en conclusie beoordelen',role:'Inkoper',
+ det:[['Naam','Winterzon Kaapverdië'],['Bestemming','Kaapverdië'],['Doelgroep','Stellen van 30 tot 55 jaar'],['Onderzoeksinformatie','Winterzon buiten Europa; vraag en aanbod onderzocht'],['Fase','Onderzoek'],['Streefdatum','30-11-2026']],
+ side:'Verloop & acties',tl:['Winterzon Kaapverdië','Kaapverdië · doelgroep stellen 30–55','Vraag naar winterzon buiten Europa','Onderzoeksfase · verantwoordelijke inkoper'],
+ btns:[['Bewerken','PK03',1],['Ter beoordeling','PK04'],['Nieuwe taak','PL03'],['Besluitgeschiedenis','PK06']],
+ erd:'REISPRODUCT, MEDEWERKER, TAAK',fs:'Inkoper (dient in; beoordeelt niet zelf)',nav:'Bewerken → PK03; ter beoordeling → PK04; nieuwe taak → PL03',chk:'Onderzoek staat nu in REISPRODUCT.Onderzoeksinformatie'});
+S('PK03',{t:'form',title:'Productkans aanmaken',sub:'Onderzoek vastleggen als eerste productfase',role:'Inkoper',
+ f:[['Naam*'],['Bestemming*','sel'],['Landcode','opt:CV|PT|IS|GE|JP'],['Doelgroep','sel'],['Onderzoeksinformatie*','area'],['Streefdatum','date'],['Eigenaar','sel'],['Fase','ro','Onderzoek (automatisch)']],
+ btns:[['Opslaan als concept','PK02',1,'save'],['Annuleren','PK01',0,'cancel']],
+ erd:'REISPRODUCT, MEDEWERKER',fs:'Inkoper',nav:'PK01, PK02',chk:'Los ProductkansID ontbreekt; gebruik tijdelijk ReisproductID'});
+S('PK04',{t:'review',title:'Productkans beoordelen',sub:'Besluit, beoordelaar en reden',role:'Beoordelaar',
+ head:['Winterzon Kaapverdië','Beoordelaar'],
+ checks:['Onderzoek volledig genoeg om te beslissen',"Onderbouwing en risico's gelezen",'Besluit vastleggen met reden indien afgewezen'],
+ reasonPh:'Bij parkeren of afwijzen: geef verplicht een reden op.',
+ btns:[['Kansrijk','RP03',1,'approve'],['Parkeren','PK02',0,'reason'],['Afwijzen','PK02',0,'reason'],['Besluitgeschiedenis','PK06']],
+ erd:'REISPRODUCT, BEOORDELING, MEDEWERKER',fs:'Beoordelaar (besluit vastleggen; niet zelf product wijzigen)',nav:'Kansrijk → RP03; parkeren/afwijzen → PK02; besluitgeschiedenis → PK06',chk:'BEOORDELING.ReisproductID kan besluit opslaan; exact resultaatwaarden afstemmen'});
+S('PK05',{t:'state',title:'Geen productkansen gevonden',sub:'Herstel lege resultaten zonder data te verliezen',role:'Inkoper',
+ box:['Inkoper','Geen resultaten gevonden','Controleer zoekterm of filters','Bestaande invoer blijft staan'],
+ btns:[['Filters wissen','PK01',1],['Terug naar overzicht','PK01']],
+ erd:'REISPRODUCT',fs:'Inkoper',nav:'PK01',chk:'Geen extra entiteiten'});
+S('PK06',{t:'detail',title:'Besluitgeschiedenis',sub:'Oude besluiten van productkansen raadplegen',role:'Inkoper / beoordelaar',
+ det:[['Product','Winterzon Kaapverdië','PK02'],['Resultaat','Kansrijk'],['Reden','Vraag en marge voldoende onderbouwd'],['Datum','02-11-2026'],['Beoordelaar','R. Bos']],
+ side:'Geschiedenis',tl:['12 okt · Onderzoek gestart','18 okt · Aanvullend onderzoek','27 okt · Ter beoordeling','02 nov · Kansrijk beoordeeld'],
+ btns:[['Bekijk beoordeling','PK04',1],['Terug','PK02']],
+ erd:'BEOORDELING, REISPRODUCT, MEDEWERKER',fs:'Inkoper raadpleegt historie; beoordelaar legt besluiten vast',nav:'PK02, PK04',chk:'Meerdere BEOORDELING-rijen toegestaan; fasehistorie buiten beoordelingen ontbreekt'});
+S('RP02',{t:'detail',title:'Reisproductdetails',sub:'Reisproduct en gekoppelde onderdelen',role:'Inkoper',
+ det:[['Naam','Rondreis Japan'],['Bestemming','Japan'],['Landcode','JP'],['Reisduur (dagen)','14 dagen'],['Fase','In ontwikkeling'],['Versienummer','3']],
+ side:'Controle & acties',tl:['Basisgegevens ingevuld',['Reisonderdelen controleren','RD04'],['Leveranciers bevestigen','AB01'],['Publicatie na goedkeuring','RP04']],
+ btns:[['Bewerken','RP03',1],['Route bekijken','RD01'],['Publicatie controleren','RP04'],['Taak toevoegen','PL03'],['Terug naar overzicht','RP01']],
+ demo:[['Openen als andere afdeling','RP09']],
+ erd:'REISPRODUCT, REISONDERDEEL, MEDEWERKER',fs:'Inkoper',nav:'Bewerken → RP03; route → RD01; controle → RP04',chk:'Richtprijs staat niet in REISPRODUCT; eventueel afleiden van AANBOD'});
+S('RP03',{t:'form',title:'Reisproduct aanmaken / wijzigen',sub:'Basisgegevens en productstatus vastleggen',role:'Inkoper',
+ f:[['Naam*'],['Bestemming*','sel'],['Landcode','opt:JP|IS|PT|IT|CV'],['Reisduur (dagen)*','num'],['Doelgroep','sel'],['Beschrijving','area'],['Eigenaar','sel'],['Streefdatum','date'],['Fase','ro','Concept (wijzigt via workflow)'],['Versienummer','ro','Wordt automatisch verhoogd']],
+ btns:[['Concept opslaan','RP07',1,'save'],['Annuleren','RP01',0,'cancel'],['Reisonderdelen','RD03']],
+ demo:[['Versieconflict bij opslaan','RP06'],['Verbinding valt weg bij opslaan','RP08']],
+ erd:'REISPRODUCT, MEDEWERKER',fs:'Inkoper',nav:'Concept opslaan → RP02; onderdelen → RD03; annuleren → RP01',chk:'Concept kan onvolledig; publicatie heeft aparte beoordeling'});
+S('RP04',{t:'review',title:'Reisproduct beoordelen vóór publicatie',sub:'Beoordelaar controleert inhoud en publicatievoorwaarden',role:'Beoordelaar',
+ head:['Rondreis Japan · versie 3 · ter beoordeling','Ter beoordeling'],
+ checks:['Basisgegevens en reisdagen volledig','Aanbod en contractvoorwaarden gecontroleerd','Geen blokkades voor publicatie'],
+ reasonPh:'Bij terugsturen: geef verplicht een reden op.',
+ btns:[['Goedkeuren','RP10',1,'approve'],['Terugsturen','RP05',0,'reason']],
+ demo:[['Route bevat gat','RD06']],
+ erd:'REISPRODUCT, REISONDERDEEL, CONTRACT, BEOORDELING',fs:'Beoordelaar (beslist; bewerkt product niet)',nav:'Goedgekeurd → RP10; teruggestuurd → RP05 → RP03',chk:'BEOORDELING registreert Resultaat, Reden, Datum en BeoordelaarID. Publicatie volgt na akkoord.'});
+S('RP05',{t:'review',title:'Product teruggestuurd',sub:'Beoordelaarscommentaar verwerken',role:'Inkoper',
+ head:['Rondreis Japan · versie 3','Teruggestuurd'],
+ checks:['Verblijf op dag 10–11 ontbreekt','Aanbod niet bevestigd','Pas product aan en dien opnieuw in'],
+ reasonPh:'Reactie op het commentaar van de beoordelaar…',
+ btns:[['Aanpassingen bekijken','RD04',1],['Bewerken','RP03'],['Opnieuw aanbieden','RP04']],
+ erd:'BEOORDELING, REISPRODUCT, REISONDERDEEL',fs:'Inkoper',nav:'Bewerken → RP03; na correctie opnieuw naar RP04',chk:'Geen historie van oude veldwaarden, wel BEOORDELING-reden'});
+S('RP06',{t:'state',kind:'err',title:'Versieconflict bij opslaan',sub:'Gelijktijdige wijzigingen veilig afhandelen',role:'Inkoper',
+ box:['Inkoper','Opslaan geblokkeerd','Een andere medewerker heeft dit product bijgewerkt (nu versie 4)','Jouw invoer is niet overschreven. Laad eerst de nieuwste versie.'],
+ btns:[['Nieuwe versie laden','RP03',1],['Terug','RP02'],['Annuleren','RP01']],
+ erd:'REISPRODUCT, MEDEWERKER',fs:'Inkoper',nav:'RP03',chk:'Versienummer ondersteunt conflictcontrole; volledige revisiehistorie ontbreekt'});
+S('RP07',{t:'state',kind:'ok',title:'Reisproduct opgeslagen',sub:'Opslagbevestiging en volgende stap',role:'Inkoper',
+ box:['Inkoper','Reisproduct opgeslagen','Rondreis Japan is opgeslagen als concept','Verder met reisonderdelen of productcontrole'],
+ btns:[['Ga naar details','RP02',1],['Route opbouwen','RD01']],
+ erd:'REISPRODUCT',fs:'Inkoper',nav:'RP02, RD01',chk:'Geen extra entiteit; fase Concept'});
+S('RP08',{t:'state',kind:'err',title:'Opslaan reisproduct mislukt',sub:'Foutmelding en invoer behouden',role:'Inkoper',
+ box:['Inkoper','Opslaan is niet gelukt','De invoer is lokaal nog zichtbaar; er is niets bevestigd','Probeer opnieuw zonder dubbele producten te maken'],
+ btns:[['Opnieuw opslaan','RP03',1],['Terug','RP02']],
+ erd:'REISPRODUCT',fs:'Inkoper',nav:'RP03',chk:'Geen bevestiging van geslaagde opslag bij fout'});
+S('RP09',{t:'state',kind:'err',title:'Geen rechten om product te wijzigen',sub:'Alleen-lezen voor onbevoegde rol',role:'Alleen lezen',
+ box:['Alleen lezen','Je hebt geen wijzigingsrechten','Dit reisproduct kan wel worden bekeken','Vraag de verantwoordelijke inkoper om hulp'],
+ btns:[['Reisproduct bekijken','CA02',1],['Terug','RP02']],
+ erd:'MEDEWERKER, REISPRODUCT',fs:'Andere afdeling kan lezen, niet bewerken',nav:'RP02, CA02',chk:'Rollen zijn nu één MEDEWERKER.Rol-tekstveld; RBAC uitbreiden indien nodig'});
+S('RP10',{t:'state',kind:'ok',title:'Reisproduct publiceren',sub:'Alleen mogelijk na goedkeuring en geslaagde controles',role:'Inkoper',
+ box:['Inkoper','Gereed voor publicatie','Rondreis Japan · versie 3 · goedgekeurd door bevoegde beoordelaar','Geen openstaande blokkades voor route, aanbod of contract'],
+ btns:[['Nu publiceren','CA02',1,'publish'],['Terug naar product','RP02']],
+ erd:'REISPRODUCT, REISONDERDEEL, BEOORDELING, CONTRACT',fs:'Bevoegde inkoper publiceert; beoordelaar beslist op RP04',nav:'Publiceren → CA01/CA02; terug naar RP02',chk:'REISPRODUCT.Fase pas Gepubliceerd na positief BEOORDELING.Resultaat.'});
+S('RD01',{t:'list',title:'Routeoverzicht',sub:'Reisonderdelen op dag en volgorde · Rondreis Japan',role:'Inkoper',
+ kpis:[['Reisonderdelen','4'],['Vervoer','2'],['Verblijf','1']],newTo:'RD03',
+ cols:['Dag','Onderdeel','Type','Aanbod','Duur'],
+ rows:[['Dag 1','Vlucht Tokio','Vervoer','–','1 dag'],['Dag 1–3','Hotel Sakura','Accommodatie','Sakura Hotels','3 dagen'],['Dag 4','Trein Kyoto','Vervoer','Tokyo Rail','1 dag'],['Dag 5','Kyoto tempels','Activiteit','City Experience','1 dag']],rowTo:'RD02',
+ btns:[['Route controleren','RD04'],['Volgorde wijzigen','RD05'],['Terug naar reisproduct','RP02']],
+ erd:'REISPRODUCT, REISONDERDEEL, AANBOD',fs:'Inkoper',nav:'Nieuw onderdeel → RD03; controle → RD04; onderdeel → RD02',chk:'Volgorde/StartDag staan in REISONDERDEEL'});
+S('RD02',{t:'detail',title:'Route en onderdeel bekijken',sub:'Duur, leverancier en gekoppeld aanbod',role:'Inkoper',
+ det:[['Reisproduct','Rondreis Japan','RP02'],['Type','Accommodatie'],['Startdag','1'],['Aantal dagen','3'],['Volgorde','2'],['Aanbod','AAN-008 · Sakura Hotels','AB02']],
+ side:'Verloop & acties',tl:['Rondreis Japan','Accommodatie','Dag 1 tot 3','3 nachten'],
+ btns:[['Onderdeel bewerken','RD05',1],['Koppeling bekijken','AB04'],['Kamervoorzieningen','RD07'],['Route controleren','RD04'],['Terug naar route','RD01']],
+ erd:'REISONDERDEEL, REISPRODUCT, AANBOD, CONTRACT',fs:'Inkoper',nav:'RD03, RD04',chk:'Start- en eindlocatie per onderdeel ontbreken'});
+S('RD03',{t:'form',title:'Reisonderdeel toevoegen',sub:'Onderdeel, dag en gekoppeld aanbod',role:'Inkoper',
+ f:[['Reisproduct*','sel','Rondreis Japan'],['Type*','opt:Accommodatie|Vervoer|Activiteit'],['Startdag*','num'],['Aantal dagen*','num'],['Volgorde*','num'],['Aanbod','sel'],['Contract','sel'],['Kamertype','opt:Eenpersoons|Tweepersoons|Familiekamer']],
+ btns:[['Opslaan','RD01',1,'save'],['Annuleren','RD01',0,'cancel']],
+ erd:'REISONDERDEEL, REISPRODUCT, AANBOD, CONTRACT',fs:'Inkoper',nav:'RD01, RD04',chk:'Kamertype en faciliteiten staan in REISONDERDEEL'});
+S('RD04',{t:'review',title:'Routecontrole',sub:'Gaten, overlap en geldige afspraken',role:'Inkoper',
+ head:['Rondreis Japan · Dag 4: trein naar Kyoto','Controle'],
+ checks:['Dag 7: hotel Nijo Kyoto','Dag 10–11: geen verblijf','Aanbod niet bevestigd'],
+ reasonPh:'Notitie bij de controle…',
+ btns:[['Route aanpassen','RD05',1],['Ontbrekend verblijf bekijken','RD06'],['Concept bewaren','RP02']],
+ erd:'REISONDERDEEL, REISPRODUCT, AANBOD, CONTRACT',fs:'Inkoper corrigeert route; beoordelaar beoordeelt product op RP04',nav:'Route aanpassen → RD05; resultaat terug naar RP02 / beoordeling RP04',chk:'Routecontrole is berekende validatie'});
+S('RD05',{t:'form',title:'Route wijzigen',sub:'Reisvolgorde en reisdagen aanpassen',role:'Inkoper',
+ f:[['Reisproduct*','sel','Rondreis Japan'],['Type*','opt:Accommodatie|Vervoer|Activiteit'],['Startdag*','num','1'],['Aantal dagen*','num','3'],['Volgorde*','num','2'],['Kamertype','opt:Tweepersoons|Eenpersoons|Familiekamer'],['Aanbod','sel','AAN-008'],['Contract','sel','CON-014']],
+ btns:[['Wijziging opslaan','RD01',1,'save'],['Annuleren','RD01',0,'cancel'],['Route controleren','RD04']],
+ erd:'REISONDERDEEL, REISPRODUCT, AANBOD',fs:'Inkoper',nav:'RD01, RD04',chk:'Controle op StartDag/AantalDagen'});
+S('RD06',{t:'state',kind:'warn',title:'Route heeft ontbrekend verblijf',sub:'Herstelactie bij ontbrekende dagen',role:'Inkoper',
+ box:['Inkoper','Route nog niet compleet','Dag 10–11 heeft geen accommodatie','Koppel een verblijf vóór publiceren'],
+ btns:[['Onderdeel toevoegen','RD03',1],['Terug naar route','RD01'],['Naar publicatiecontrole','RP04']],
+ erd:'REISONDERDEEL, REISPRODUCT',fs:'Inkoper',nav:'RD03, RP04',chk:'Routegaten berekenen uit REISONDERDEEL'});
+S('RD07',{t:'form',title:'Kamervoorzieningen vastleggen',sub:'Type accommodatie en aanwezige faciliteiten',role:'Inkoper',
+ f:[['Reisproduct*','sel','Rondreis Japan'],['Reisonderdeel*','sel','Hotel Sakura'],['Kamertype*','opt:Tweepersoons|Eenpersoons|Familiekamer'],['Lange bedden','num'],['Keukenblok','opt:Nee|Ja'],['Goede koelkast','opt:Nee|Ja'],['Startdag','num'],['Aantal dagen','num']],
+ btns:[['Opslaan','RD02',1,'save'],['Annuleren','RD02',0,'cancel']],
+ erd:'REISONDERDEEL, REISPRODUCT',fs:'Inkoper',nav:'RD02, RD04',chk:'Gebruikt nu REISONDERDEEL.LangeBedden/Keukenblok/GoedeKoelkast'});
+S('RP01',{t:'list',title:'Reisproductenoverzicht',sub:'Producten zoeken, status en eigenaar bekijken',role:'Inkoper',
+ kpis:[['Reisproducten','4'],['Gepubliceerd','2'],['Nog niet gepubliceerd','2']],newTo:'RP03',
+ cols:['Product','Bestemming','Reisduur','Fase','Eigenaar'],
+ rows:[['Rondreis Japan','Japan','14 dagen','In ontwikkeling','J. de Vries'],['IJsland Explorer','IJsland','8 dagen','Gepubliceerd','S. Jansen'],['Lissabon citytrip','Portugal','5 dagen','Gepubliceerd','S. Jansen'],['Dolomieten Hiking','Italië','7 dagen','Concept','M. Peters']],rowTo:['RP02','CA02','CA02','RP02'],
+ erd:'REISPRODUCT, MEDEWERKER',fs:'Inkoper',nav:'RP02, RP03',chk:'ReisduurDagen, Fase en EigenaarID bestaan'});
+S('DA02',{t:'list',title:'Mijn werk en meldingen',sub:'Persoonlijk overzicht van open taken en signalen',role:'Inkoper',
+ kpis:[['Mijn taken','3'],['Te laat','1','PL05'],['Openstaand','2']],noNew:1,noExport:1,
+ cols:['Taak','Reisproduct','Deadline','Status','Actie'],
+ rows:[['Prijscheck Japan','Rondreis Japan','28-10-2026','Te laat','Openen'],['Contract verlengen','Sakura Hotels','31-12-2026','Te doen','Openen'],['Aanbod controleren','Citytrip Lissabon','15-11-2026','Lopend','Openen']],rowTo:['PL05','CT07','PL02'],
+ btns:[['Taak openen','PL02',1],['Nieuwe taak','PL03'],['Alle meldingen','PL06']],
+ erd:'TAAK, MEDEWERKER, CONTRACT, REISPRODUCT',fs:'Inkoper',nav:'Mijn taak openen → PL02; nieuwe taak → PL03; alle taken → PL06',chk:'Meldingen afgeleid van deadlines en contracteinddatum; geen aparte meldingtabel'});
+S('LV01',{t:'list',title:'Leveranciersoverzicht',sub:'Leveranciers, status en contactgegevens',role:'Inkoper',
+ kpis:[['Leveranciers','4'],['Actief','3'],['Inactief','1']],newTo:'LV03',
+ cols:['Leverancier','Type','Plaats','Status','Contactpersoon'],
+ rows:[['Sakura Hotels','Hotel','Tokio','Actief','M. Tanaka'],['Alpine Tours','Reispartner','Innsbruck','Actief','A. Weber'],['City Experience','Activiteiten','Lissabon','Actief','T. Silva'],['Noordzee Travel','Reispartner','Den Helder','Inactief','K. Bakker']],rowTo:'LV02',
+ btns:[['Vervolgacties','LV06']],
+ erd:'LEVERANCIER, MEDEWERKER',fs:'Inkoper',nav:'Nieuwe leverancier → LV03; leverancier openen → LV02',chk:'Actief veld bestaat; aparte statustabel is feedback'});
+S('LV02',{t:'detail',title:'Leverancierdetails',sub:'Gegevens, contracten en aanbiedingen',role:'Inkoper',
+ det:[['Naam','Sakura Hotels'],['Type','Hotel'],['Adres','Voorbeeldadres 12'],['Plaats','Tokio'],['Landcode','JP'],['Contactpersoon','M. Tanaka']],
+ side:'Afspraken',tl:[['Aanbod Sakura Tokio','AB02'],['Contract CON-014','CT02'],['Lopende onderhandeling','ON02'],['Prijscontrole gepland','PL02']],
+ btns:[['Wijzigen','LV04',1],['Aanbiedingen','AB01'],['Contracten','CT01'],['Contactmoment','LV05'],['Historie','LV07'],['Terug','LV01']],
+ erd:'LEVERANCIER, CONTRACT, AANBOD',fs:'Inkoper',nav:'Wijzigen → LV04; aanbod → AB01; contract → CT01',chk:'Contacthistorie vereist aparte opslag'});
+S('LV03',{t:'form',title:'Leverancier registreren',sub:'Nieuwe leverancier met duplicaatcontrole',role:'Inkoper',
+ f:[['Naam*','txt','','Sakura Hotels'],['Type*','opt:Hotel|Appartement|Busvervoer|Rederij|Excursie|Reispartner|Activiteiten'],['Adres'],['Plaats','txt','','Tokio'],['Landcode','opt:JP|NL|PT|AT|IS'],['Contactpersoon'],['E-mail*','email'],['Telefoon','tel'],['Status','opt:Actief|Inactief','Actief']],
+ dup:1,
+ btns:[['Registreren','LV02',1,'save'],['Annuleren','LV01',0,'cancel']],
+ erd:'LEVERANCIER',fs:'Inkoper',nav:'Registreren → LV02; annuleren → LV01',chk:'Huidige LEVERANCIER.Actief; aparte statustabel/status-ID is nog een ontwerpbesluit'});
+S('LV04',{t:'form',title:'Leveranciersgegevens wijzigen',sub:'Wijzigingen en historie',role:'Inkoper',
+ f:[['Naam*','txt','Sakura Hotels'],['Type*','opt:Hotel|Appartement|Busvervoer|Rederij|Excursie|Reispartner|Activiteiten'],['Adres','txt','Voorbeeldadres 12'],['Plaats','txt','Tokio'],['Landcode','opt:JP|NL|PT|AT|IS'],['Contactpersoon','txt','M. Tanaka'],['E-mail*','email','sales@sakura.example'],['Telefoon','tel'],['Status','opt:Actief|Inactief']],
+ btns:[['Opslaan','LV02',1,'save'],['Annuleren','LV02',0,'cancel'],['Historie','LV07']],
+ erd:'LEVERANCIER, MEDEWERKER',fs:'Inkoper',nav:'LV02, LV07',chk:'Audit ontbreekt voor wijzigingen'});
+S('LV05',{t:'form',title:'Contactmoment vastleggen',sub:'Bezoek, gesprek en vervolg',role:'Inkoper',
+ f:[['Leverancier*','sel','Sakura Hotels'],['Medewerker*','sel'],['Bezoekdatum*','date'],['Gespreksonderwerp*'],['Notities','area'],['Vervolgdatum','date'],['Vervolgactie','opt:Geen|Prijsvoorstel|Contractcontrole|Belafspraak'],['Status','opt:Open|Afgerond']],
+ btns:[['Opslaan','LV07',1,'save'],['Taak maken','PL03'],['Annuleren','LV02',0,'cancel']],
+ erd:'LEVERANCIER, ONDERHANDELING, TAAK',fs:'Inkoper',nav:'LV06, ON02',chk:'Nieuwe CONTACTMOMENT-entiteit vereist voor volledig historisch logboek'});
+S('LV06',{t:'list',title:'Vervolgbezoeken en acties',sub:'Open afspraken met leverancier',role:'Inkoper',
+ kpis:[['Vervolgacties','3'],['Open','2'],['Te doen','1']],newTo:'LV05',
+ cols:['Leverancier','Actie','Medewerker','Deadline','Status'],
+ rows:[['Sakura Hotels','Prijsvoorstel','Inkoper','05-11-2026','Open'],['Alpine Tours','Contractcontrole','Inkoper','08-11-2026','Te doen'],['City Experience','Belafspraak','Inkoper','12-11-2026','Open']],rowTo:'PL02',
+ btns:[['Afvinken','PL04'],['Herplannen','PL03']],
+ erd:'LEVERANCIER, TAAK, MEDEWERKER',fs:'Inkoper',nav:'PL02, LV05',chk:'Vervolgacties via TAAK; bezoeklog ontbreekt'});
+S('LV07',{t:'detail',title:'Leverancierhistorie',sub:'Contact en wijzigingen chronologisch',role:'Inkoper',
+ det:[['Leverancier','Sakura Hotels','LV02'],['Contactpersoon','M. Tanaka'],['Datum','05-11-2026'],['Medewerker','Inkoper'],['Notities','Tarieven 2027 besproken; vervolgbezoek gepland']],
+ side:'Geschiedenis',tl:['03 okt · Eerste leveranciersgesprek','12 okt · Tarieven besproken',['23 okt · Tegenvoorstel','ON04'],'05 nov · Volgende afspraak'],
+ btns:[['Contact toevoegen','LV05',1],['Terug','LV02']],
+ erd:'LEVERANCIER, ONDERHANDELING, TAAK',fs:'Inkoper',nav:'LV05, ON04',chk:'Volledige contact- en wijzigingshistorie vergt CONTACTMOMENT/AUDIT'});
+// AB + AU
+S('AB01',{t:'list',title:'Leveranciersaanbiedingen',sub:'Prijs, capaciteit en geldigheid',role:'Inkoper',
+ kpis:[['Aanbiedingen','3'],['Geldig','3'],['Nog te beoordelen','0']],newTo:'AB03',
+ cols:['Leverancier','Omschrijving','Prijs','Capaciteit','Geldig tot'],
+ rows:[['Sakura Hotels','Kamers Tokio','€ 118','30','31-12-2027'],['Tokyo Rail','Treinpas Japan','€ 72','120','30-09-2027'],['City Experience','Excursie Lissabon','€ 19','50','31-07-2027']],rowTo:'AB02',
+ btns:[['Vergelijken','AB05']],
+ erd:'AANBOD, LEVERANCIER',fs:'Inkoper',nav:'Nieuw aanbod → AB03; vergelijken → AB05; detail → AB02',chk:'AANBOD.Prijs/Capaciteit/GeldigTot bestaan'});
+S('AB02',{t:'detail',title:'Aanbodgegevens',sub:'Prijs, geldigheid en voorwaarden',role:'Inkoper',
+ det:[['Leverancier','Sakura Hotels','LV02'],['Omschrijving','Kamers Tokio'],['Prijs','€ 118'],['Valutacode','EUR'],['Prijseenheid','per nacht'],['Capaciteit','30 kamers']],
+ side:'Geldigheid',tl:['Start geldigheid','Geldigheid controleren','Aanbod koppelen','Wijziging alleen bevoegd'],
+ btns:[['Bewerken','AB03',1],['Koppelen','AB04'],['Vergelijken','AB05']],
+ erd:'AANBOD, LEVERANCIER, REISONDERDEEL',fs:'Inkoper',nav:'AB03, AB04',chk:'Aanbod heeft voorwaarden maar geen versiehistorie'});
+S('AB03',{t:'form',title:'Aanbod registreren',sub:'Prijs per eenheid, voorwaarden en periode',role:'Inkoper',
+ f:[['Leverancier*','sel'],['Omschrijving*'],['Prijs*','num'],['Valutacode*','EUR'],['Prijseenheid*','num'],['Capaciteit','num'],['Geldig van*','date'],['Geldig tot*','date'],['Voorwaarden']],
+ btns:[['Opslaan','AB01',1,'save'],['Annuleren','AB01',0,'cancel']],
+ erd:'AANBOD, LEVERANCIER',fs:'Inkoper',nav:'AB01, AB04',chk:'Prijs, valuta en eenheid verplicht voor vergelijking'});
+S('AB04',{t:'form',title:'Aanbod aan reisonderdeel koppelen',sub:'Kies één geldig aanbod bij onderdeel',role:'Inkoper',
+ f:[['Reisproduct*','sel'],['Reisonderdeel*','sel'],['Type','opt'],['Aanbod*','sel'],['Leverancier','sel'],['Geldig van','date'],['Geldig tot','date'],['Contract','sel']],
+ btns:[['Koppelen','RD02',1,'save'],['Annuleren','AB02',0,'cancel']],
+ erd:'REISONDERDEEL, AANBOD, CONTRACT, LEVERANCIER',fs:'Inkoper',nav:'RD02, AB02',chk:'REISONDERDEEL.AanbodID ondersteunt koppeling'});
+S('AB05',{t:'compare',title:'Aanbiedingen vergelijken',sub:'Prijzen én voorwaarden naast elkaar',role:'Inkoper',
+ kpis:[['Vergelijkbare opties','3'],['Laagste prijs','€ 118'],['Hoogste prijs','€ 125']],
+ cols:['Leverancier','Prijs','Eenheid','Capaciteit','Geldig tot'],
+ rows:[['Sakura Hotels','€ 118','nacht','30','31-12-2027'],['Alpine Tours','€ 125','nacht','24','31-12-2027'],['Noordzee Travel','€ 121','nacht','28','30-11-2027']],
+ note:['Vergelijk op meer dan prijs','Alle opties: EUR per nacht. Controleer capaciteit, geldigheid en annuleringsvoorwaarden vóór selectie.'],
+ help:'Selecteer één aanbieding. Vergelijk altijd bij dezelfde valuta en prijseenheid.',
+ btns:[['Selecteren','AB02',1],['Onderhandeling starten','ON03']],
+ erd:'AANBOD, LEVERANCIER',fs:'Inkoper',nav:'Selecteren → AB02/AB04; onderhandeling starten → ON03',chk:'AANBOD.Prijs/Valutacode/Prijseenheid/GeldigTot, vergelijk geen afwijkende eenheden.'});
+S('AU01',{t:'matrix',title:'Rollen en functiescheiding',sub:'Wie mag aanmaken, wijzigen, beoordelen en lezen',role:'Beheerder',
+ btns:[['Rechten controleren','CT09',1],['Terug','DA01']],
+ erd:'MEDEWERKER, BEOORDELING',fs:'Beheerder / Projectteam',nav:'CT09, CA04, RP09',chk:'MEDEWERKER.Rol is basis; fijnmazige rechtenmatrix is voorstel'});
+S('ON01',{t:'list',title:'Onderhandelingenoverzicht',sub:'Status en volgende actie volgen',role:'Inkoper',
+ kpis:[['Onderhandelingen','3'],['Lopend / wachtend','2'],['Afgerond','1']],newTo:'ON03',
+ cols:['Onderwerp','Leverancier','Inkoopprijs','Status','Bezoekdatum'],
+ rows:[['Tarieven Japan','Sakura Hotels','€ 118','Lopend','29-10-2026'],['Groepsprijzen Italië','Alpine Tours','€ 122','Wacht reactie','03-11-2026'],['Treintickets Japan','Tokyo Rail','€ 72','Afgerond','16-10-2026']],rowTo:'ON02',
+ btns:[['Vervolgacties','ON06']],
+ demo:[['Zoeken zonder resultaat','ON07']],
+ erd:'ONDERHANDELING, LEVERANCIER, AANBOD',fs:'Inkoper',nav:'ON02, ON03',chk:'Actuele status in ONDERHANDELING.Status'});
+S('ON02',{t:'detail',title:'Onderhandelingsdetails',sub:'Afspraken, prijs en vervolg',role:'Inkoper',
+ det:[['Leverancier','Sakura Hotels','LV02'],['Aanbod','Hotel Sakura aanbod','AB02'],['Bezoekdatum','29-10-2026'],['Status','Lopend'],['Inkoopprijs','€ 118'],['Verkoopprijs','€ 139']],
+ side:'Afspraken',tl:['Onderhandeling gestart',['Prijsvoorstel geregistreerd','ON04'],['Vervolgactie gepland','ON06'],['Afsluiten of escaleren','ON05']],
+ btns:[['Bewerken','ON03',1],['Historie','ON04'],['Voorwaarden','ON08'],['Vervolgactie','ON06'],['Afsluiten','ON05']],
+ erd:'ONDERHANDELING, LEVERANCIER, AANBOD, TAAK',fs:'Inkoper',nav:'Onderhandelen → ON03; afronden → ON05; contract → CT03',chk:'Eén actuele prijs per ONDERHANDELING; voorstelhistorie ontbreekt'});
+S('ON03',{t:'form',title:'Onderhandeling vastleggen',sub:'Voorstel, prijs en afspraken',role:'Inkoper',
+ f:[['Leverancier*','sel'],['Aanbod*','sel'],['Inkoper*','sel'],['Bezoekdatum*','date'],['Status*','opt:Lopend|Wacht reactie|Afgerond'],['Inkoopprijs','num'],['Verkoopprijs','num'],['Valutacode','EUR'],['Volumekorting','num'],['Voorwaarden']],
+ btns:[['Opslaan','ON02',1,'save'],['Annuleren','ON01',0,'cancel']],
+ erd:'ONDERHANDELING, LEVERANCIER, AANBOD, MEDEWERKER',fs:'Inkoper',nav:'Opslaan → ON02; annuleren → ON01',chk:'Onderhandeling kent slechts huidige waarden'});
+S('ON04',{t:'detail',title:'Voorstelgeschiedenis',sub:'Eerdere prijsvoorstellen vergelijken',role:'Inkoper',
+ det:[['Datum','29-10-2026'],['Leverancier','Sakura Hotels','LV02'],['Prijs','€ 122 per nacht'],['Valutacode','EUR'],['Voorwaarden','Minimaal 10 kamers; akkoord nog niet bevestigd']],
+ side:'Geschiedenis',tl:['03 okt · Startprijs € 130','12 okt · Tegenvoorstel € 118','23 okt · Reactie € 122','29 okt · Akkoord in bespreking'],
+ btns:[['Nieuw voorstel','ON03',1],['Terug','ON02']],
+ erd:'ONDERHANDELING, AANBOD, MEDEWERKER',fs:'Inkoper',nav:'ON02, ON03',chk:'Nieuwe ONDERHANDELINGSVOORSTEL-entiteit vereist voor echte historie'});
+S('ON05',{t:'review',title:'Onderhandeling afsluiten',sub:'Akkoord, afwijzen of stoppen',role:'Inkoper',
+ head:['Sakura Hotels · Japan 2027','Inkoper'],
+ checks:['Vastgestelde prijs € 122 per nacht','Reden bij afwijzen vereist','Akkoord kan contractconcept starten'],
+ reasonPh:'Voeg een onderbouwing toe bij afwijzen of stoppen…',openActions:1,
+ btns:[['Akkoord','CT03',1,'close'],['Afwijzen','ON02',0,'reason'],['Gestopt','ON01',0,'reason']],
+ erd:'ONDERHANDELING, CONTRACT, MEDEWERKER',fs:'Inkoper',nav:'CT03, ON02',chk:'Status ondersteunt sluiting; historische besluitdatum apart nodig'});
+S('ON06',{t:'form',title:'Vervolgactie registreren',sub:'Eigenaar, deadline en opvolging',role:'Inkoper',
+ f:[['Onderhandeling*','sel','Tarieven Japan · Sakura Hotels'],['Omschrijving*'],['Verantwoordelijke*','sel'],['Deadline*','date'],['Status*','opt:Open|Afgerond'],['Is mijlpaal','opt:Nee|Ja'],['Leverancier','sel'],['Notities']],
+ btns:[['Taak opslaan','ON02',1,'save'],['Annuleren','ON02',0,'cancel']],
+ erd:'TAAK, ONDERHANDELING, MEDEWERKER',fs:'Inkoper',nav:'PL02, ON02',chk:'TAAK.OnderhandelingID en VerantwoordelijkeID bestaan'});
+S('ON07',{t:'state',title:'Geen onderhandeling gevonden',sub:'Heldere lege resultaten',role:'Inkoper',
+ box:['Inkoper','Geen onderhandeling gevonden','Probeer een andere leverancier of status','Wis filters zonder gegevens te wijzigen'],
+ btns:[['Filters wissen','ON01',1],['Terug','ON01']],
+ erd:'ONDERHANDELING, LEVERANCIER',fs:'Inkoper',nav:'ON01',chk:'Geen extra ERD-gegevens nodig'});
+S('ON08',{t:'detail',title:'Voorwaarden van de onderhandeling',sub:'Kortingen en nadere afspraken',role:'Inkoper',
+ det:[['Onderhandeling','ON-008'],['Leverancier','Sakura Hotels','LV02'],['Aanbod','Aanbod VV-008','AB02'],['Volumekorting','5% vanaf 10 kamers'],['Voorwaarden','Betaling binnen 30 dagen'],['Notities','Verzoek hotelreactie']],
+ side:'Verloop & acties',tl:['ON-008','Sakura Hotels','Aanbod VV-008','5% vanaf 10 kamers'],
+ btns:[['Bewerken','ON03',1],['Voorstellen','ON04'],['Terug','ON02']],
+ erd:'ONDERHANDELING, LEVERANCIER, AANBOD',fs:'Inkoper',nav:'ON03, ON04',chk:'ONDERHANDELING.Toelichting/Volumekorting/Voorwaarden worden gebruikt'});
+S('CT01',{t:'list',title:'Contractenoverzicht',sub:'Contracten, status, einddatum en inkoper',role:'Inkoper',
+ kpis:[['Contracten','3'],['Loopt af','1','CT08'],['Ter goedkeuring','1','CT05']],newTo:'CT03',
+ cols:['Contract','Leverancier','Einddatum','Status','Inkoper'],
+ rows:[['CON-014','Sakura Hotels','31-12-2026','Loopt af','Inkoper'],['CON-021','Alpine Tours','30-06-2027','Actief','Inkoper'],['CON-031','City Experience','15-11-2026','Ter goedkeuring','Inkoper']],rowTo:['CT02','CT02','CT05'],
+ btns:[['Signaal aflopend contract','CT08'],['Bezetting per contract','CT12']],
+ erd:'CONTRACT, LEVERANCIER, MEDEWERKER',fs:'Inkoper',nav:'Contract openen → CT02; nieuw → CT03; aflopend → CT08',chk:'Status in CONTRACT.Status; einddatum apart'});
+S('CT02',{t:'detail',title:'Contractdetails',sub:'Contractvoorwaarden, versie en status',role:'Inkoper',
+ det:[['Leverancier','Sakura Hotels','LV02'],['Onderhandeling','Groepsprijs Japan','ON02'],['Begindatum','01-01-2026'],['Einddatum','31-12-2026'],['Inkoopprijs','€ 118'],['Kamertype','Tweepersoons']],
+ side:'Contract & status',tl:['Contract gestart','Voorwaarden bijgewerkt','Controle looptijd','Verlenging beoordelen'],
+ btns:[['Bewerken','CT03',1],['Ter goedkeuring','CT05'],['Verlengen','CT07'],['Voorwaarden','CT04'],['Bezetting','CT12'],['Archiveren','CT11']],
+ erd:'CONTRACT, LEVERANCIER, ONDERHANDELING, BEOORDELING',fs:'Inkoper wijzigt/verlengt; beoordelaar beslist op CT05',nav:'Bewerken → CT03; ter goedkeuring → CT05; verlengen → CT07',chk:'CONTRACT.Documentlink bestaat, documentversies niet apart'});
+S('CT03',{t:'form',title:'Contract aanmaken',sub:'Leverancier, periode, prijs en afspraken',role:'Inkoper',
+ f:[['Leverancier*','sel'],['Onderhandeling','sel'],['Inkoper*','sel'],['Begindatum*','date'],['Einddatum*','date'],['Inkoopprijs*','num'],['Valutacode*','EUR'],['Kamertype','opt'],['Aantal kamers per nacht','num'],['Voorwaarden']],
+ dateCheck:['Begindatum*','Einddatum*'],
+ btns:[['Concept opslaan','CT02',1,'save'],['Annuleren','CT01',0,'cancel'],['Voorwaarden','CT04'],['Ter goedkeuring','CT05']],
+ demo:[['Verbinding valt weg bij opslaan','CT10'],['Openen zonder wijzigingsrechten','CT09']],
+ erd:'CONTRACT, LEVERANCIER, ONDERHANDELING, MEDEWERKER',fs:'Inkoper',nav:'Concept opslaan → CT02; voorwaarden → CT04; beoordeling → CT05',chk:'CONTRACT bevat AantalKamersPerNacht, Inkoopprijs, Begindatum en Einddatum. Goedkeuring in BEOORDELING.'});
+S('CT04',{t:'form',title:'Contractvoorwaarden en annuleringsregels',sub:'Gestructureerde annulering en document',role:'Inkoper',
+ f:[['Contract*','sel','CON-014 · Sakura Hotels'],['Voorwaarden*'],['Documentlink','url'],['Dagen voor vertrek*','num'],['Kostenpercentage*','num'],['Doorgeven aan verkoop op','date'],['Aantal kamers per nacht','num'],['Aantal verkocht','ro','Berekend vanuit verkoopgegevens']],
+ btns:[['Opslaan','CT02',1,'save'],['Regel toevoegen','#addrule'],['Ter goedkeuring','CT05']],
+ erd:'CONTRACT, ANNULERINGSREGEL',fs:'Inkoper',nav:'Opslaan → CT02; ter goedkeuring → CT05',chk:'ANNULERINGSREGEL ondersteunt meerdere regels; Documentlink alleen URL'});
+S('CT05',{t:'review',title:'Contract ter goedkeuring',sub:'Bevoegde beoordelaar controleert contract',role:'Beoordelaar',
+ head:['CON-031 · City Experience · Ter goedkeuring','Ter beoordeling'],
+ checks:['Leverancier en aanbod gecontroleerd','Contractdocument en annuleringsregels gecontroleerd','Begin- en einddatum en capaciteit gecontroleerd'],
+ reasonPh:'Bij terugsturen of afwijzen: geef verplicht een reden op.',
+ btns:[['Goedkeuren','CT02',1,'approve'],['Terugsturen','CT06',0,'reason'],['Afwijzen','CT06',0,'reason']],
+ erd:'CONTRACT, BEOORDELING, MEDEWERKER, ANNULERINGSREGEL',fs:'Beoordelaar (goedkeuren/terugsturen/afwijzen; niet wijzigen)',nav:'Goedkeuren → CT02; terugsturen/afwijzen → CT06',chk:'BEOORDELING.Resultaat/Reden/Datum/BeoordelaarID ondersteunen besluit'});
+S('CT06',{t:'review',title:'Contract terugsturen / afwijzen',sub:'Reden vastleggen en opvolging',role:'Beoordelaar',
+ head:['CON-031 · City Experience','Beoordelaar'],
+ checks:['Document ontbreekt of voorwaarden onduidelijk','Reden van afwijzing is verplicht','Nieuwe versie pas na correctie indienen'],
+ reasonPh:'Bij terugsturen of afwijzen: geef verplicht een reden op.',
+ btns:[['Terugsturen','CT03',1,'reason'],['Afwijzen','CT01',0,'reason'],['Annuleren','CT05',0,'cancel']],
+ erd:'BEOORDELING, CONTRACT, MEDEWERKER',fs:'Beoordelaar; reden verplicht bij terugsturen of afwijzen',nav:'Terugsturen → CT03; afwijzen → CT01',chk:'BEOORDELING legt resultaat en reden vast; herbeoordeling kan extra rij zijn'});
+S('CT07',{t:'form',title:'Contract verlengen',sub:'Nieuwe periode als concept; oude versie behouden',role:'Inkoper',
+ f:[['Leverancier*','sel','Sakura Hotels'],['Contract*','sel','CON-014'],['Begindatum*','date'],['Einddatum*','date'],['Inkoopprijs*','num'],['Voorwaarden'],['Versienummer','ro','Nieuw versienummer wordt bepaald'],['Status','ro','Concept (automatisch)']],
+ dateCheck:['Begindatum*','Einddatum*'],
+ btns:[['Verlengingsconcept maken','CT02',1,'save'],['Annuleren','CT02',0,'cancel']],
+ erd:'CONTRACT, LEVERANCIER, ONDERHANDELING',fs:'Inkoper',nav:'Verlengingsconcept → CT02; daarna opnieuw → CT05',chk:'Volgende contractversie koppelen vereist VorigContractID of historietabel'});
+S('CT08',{t:'state',kind:'warn',title:'Contract loopt binnenkort af',sub:'Aflopende looptijd en opzegtermijn',role:'Inkoper',
+ box:['Inkoper','Contract loopt binnenkort af','CON-014 · Sakura Hotels · einddatum 31 december','Controleer afspraken en plan vervolgstap'],
+ btns:[['Verlenging bekijken','CT07',1],['Taak maken','PL03'],['Terug naar contracten','CT01']],
+ erd:'CONTRACT, LEVERANCIER, TAAK',fs:'Inkoper',nav:'CT07, PL03',chk:'Waarschuwingsdrempel is nog geen vastgestelde casuswaarde'});
+S('CT09',{t:'state',kind:'err',title:'Geen wijzigingsrechten',sub:'Contract alleen-lezen voor onbevoegde rol',role:'Alleen lezen',
+ box:['Alleen lezen','Geen rechten om te wijzigen','Je mag dit contract wel bekijken, maar niet aanpassen','Neem contact op met bevoegde inkoper of beoordelaar'],
+ btns:[['Contract bekijken','CT02',1],['Terug','back']],
+ erd:'MEDEWERKER, CONTRACT',fs:'Onbevoegde rol kan contract raadplegen, niet aanpassen',nav:'CT02',chk:'Medewerker.Rol biedt basis; RBAC-matrix/back-end controle ontbreekt'});
+S('CT10',{t:'state',kind:'err',title:'Opslaan mislukt',sub:'Invoer behouden en herstelpad bieden',role:'Inkoper',
+ box:['Inkoper','Opslaan is niet gelukt','De verbinding is tijdelijk weggevallen; invoer blijft zichtbaar','Controleer gegevens en probeer opnieuw'],
+ btns:[['Opnieuw opslaan','CT03',1],['Annuleren','CT01']],
+ erd:'CONTRACT',fs:'Inkoper',nav:'CT03',chk:'Geen successtatus tonen voordat opslag geslaagd is'});
+S('CT11',{t:'review',title:'Contract archiveren',sub:'Bewuste archivering met reden',role:'Inkoper met beheerrecht',
+ head:['CON-014 · Sakura Hotels','Inkoper met beheerrecht'],
+ checks:['Controleer of contract nog actief gebruikt wordt','Historie en documentlink blijven raadpleegbaar','Archiveren vereist passende rechten'],
+ reasonPh:'Reden van archivering…',
+ btns:[['Archiveren','CT01',1,'reason'],['Annuleren','CT02',0,'cancel']],
+ erd:'CONTRACT, MEDEWERKER',fs:'Inkoper met beheerrecht',nav:'CT02',chk:'Aparte ArchiefDatum/Reden niet in ERD; gebruik Status of breid uit'});
+S('CT12',{t:'detail',title:'Bezetting en capaciteit per contract',sub:'Verkoopvolume tegenover afgesproken capaciteit',role:'Inkoper',
+ det:[['Leverancier','Sakura Hotels','LV02'],['Contract','CON-014','CT02'],['Aantal kamers per nacht','30 kamers per nacht'],['Aantal verkocht','18 verkocht'],['Begindatum','01-01-2026'],['Einddatum','31-12-2026']],
+ side:'Bezetting & vervolg',tl:['30 kamers per nacht','18 verkocht (60%)','Periode controleren','Lage bezetting melden'],
+ btns:[['Lage bezetting melden','CT13',1],['Contract bekijken','CT02']],
+ erd:'CONTRACT, LEVERANCIER, REISONDERDEEL',fs:'Inkoper meldt afwijking; Sales heeft alleen inzage',nav:'Lage bezetting → CT13; contract bekijken → CT02',chk:'Bezettingspercentage alleen berekenen met consistente periode/eenheden'});
+S('CT13',{t:'form',title:'Lage bezetting melden aan Sales',sub:'Vervolgtaak en overdracht voor Marketing & Sales',role:'Inkoper',
+ f:[['Contract*','sel','CON-014 · Sakura Hotels'],['Omschrijving*'],['Verantwoordelijke*','sel'],['Deadline*','date'],['Status','ro','Open (automatisch)'],['Reisproduct','sel'],['Doorgave op','date'],['Opmerking']],
+ btns:[['Melding registreren','PL02',1,'save'],['Annuleren','CT12',0,'cancel']],
+ erd:'CONTRACT, TAAK, MEDEWERKER, REISPRODUCT',fs:'Inkoper; Sales ontvangt',nav:'PL02, CT12',chk:'TAAK kan vervolgactie dragen; contractverwijzing op Taak ontbreekt'});
+S('DA01',{t:'list',title:'Dashboard Productontwikkeling & Inkoop',sub:'Producten, leveranciersafspraken, contracten en acties',role:'Inkoper / manager',
+ kpis:[['Werkstromen','3'],['Actie nodig','2','DA02'],['Contractsignalen','1','CT08']],noNew:1,
+ cols:['Werkstroom','Onderwerp','Verantwoordelijke','Deadline','Status'],
+ rows:[['Product','Rondreis Japan','Inkoper','12-11-2026','In ontwikkeling'],['Contract','CON-014 Sakura','Inkoper','31-12-2026','Loopt af'],['Planning','Prijscheck Japan','Inkoper','28-10-2026','Te laat']],rowTo:['RP02','CT08','PL05'],
+ btns:[['Contracten','CT01'],['Mijn taken','DA02'],['Rollen en rechten','AU01']],
+ erd:'REISPRODUCT, CONTRACT, TAAK, LEVERANCIER',fs:'Inkoper / manager',nav:'PL01, CT01, RP01',chk:"KPI's afgeleid uit bestaande status-, datum- en contractvelden"});
+S('PL01',{t:'list',title:'Planning en voortgang',sub:'Taken, mijlpalen en te late acties',role:'Inkoper / manager',
+ kpis:[['Taken','3'],['Te laat','1','PL05'],['Lopend','1']],newTo:'PL03',
+ cols:['Taak','Verantwoordelijke','Deadline','Status','Mijlpaal'],
+ rows:[['Productcontrole','Inkoper','28-10-2026','Te laat','Ja'],['Contractvoorwaarden','Inkoper','31-10-2026','Lopend','Nee'],['Leveranciers kiezen','Inkoper','04-11-2026','Te doen','Nee']],rowTo:['PL05','PL02','PL02'],
+ btns:[['Taak openen','PL02'],['Alle taken en mijlpalen','PL06']],
+ erd:'TAAK, MEDEWERKER, REISPRODUCT',fs:'Inkoper / Manager inzage',nav:'PL02, PL03',chk:'TAAK.IsMijlpaal/Deadline/Status ondersteunen overzicht'});
+S('PL02',{t:'detail',title:'Taak of mijlpaal bekijken',sub:'Verantwoordelijke, datum en status',role:'Taakeigenaar',
+ det:[['Reisproduct','Rondreis Japan','RP02'],['Omschrijving','Prijscheck'],['Verantwoordelijke','Inkoper'],['Deadline','28-10-2026'],['Status','Te laat'],['Is mijlpaal','Nee']],
+ side:'Taakverloop',tl:['Taak aangemaakt','Verantwoordelijke toegewezen','Deadline nadert','Status controleren'],
+ btns:[['Wijzigen','PL03',1],['Afronden','PL04'],['Herplannen','PL05'],['Terug naar planning','PL01']],
+ erd:'TAAK, REISPRODUCT, MEDEWERKER, ONDERHANDELING',fs:'Taakeigenaar / Inkoper',nav:'Wijzigen → PL03; afronden → PL04; achterstand → PL05',chk:'Voltooid-op metadata ontbreekt; status Afgerond is beschikbaar'});
+S('PL03',{t:'form',title:'Nieuwe taak / mijlpaal',sub:'Verantwoordelijke en deadline',role:'Inkoper',
+ f:[['Reisproduct*','sel','Rondreis Japan'],['Omschrijving*'],['Verantwoordelijke*','sel'],['Deadline*','date'],['Status','ro','Te doen (standaard)'],['Is mijlpaal','opt:Nee|Ja'],['Onderhandeling','sel'],['Prioriteit','ro','Nog niet vastgesteld in ERD']],
+ btns:[['Taak opslaan','PL02',1,'save'],['Annuleren','PL01',0,'cancel']],
+ erd:'TAAK, MEDEWERKER, REISPRODUCT, ONDERHANDELING',fs:'Inkoper',nav:'PL01, PL02',chk:'Prioriteit is géén veld in huidig TAAK ERD; markeer als uitbreiding'});
+S('PL04',{t:'review',title:'Taak afronden of heropenen',sub:'Statuswijziging bewust vastleggen',role:'Taakeigenaar',
+ head:['Prijscheck Rondreis Japan','Taakeigenaar'],
+ checks:['Contractprijs bevestigd','Selecteer Afgerond of terug naar Lopend','Voortgang moet direct worden bijgewerkt'],
+ reasonPh:'Toelichting bij heropenen…',
+ btns:[['Afronden','PL01',1,'approve'],['Heropenen','PL02',0,'reason'],['Annuleren','PL02',0,'cancel']],
+ erd:'TAAK, MEDEWERKER',fs:'Taakeigenaar / Inkoper',nav:'PL02, PL01',chk:'Voltooidatum en datum wijziging ontbreken'});
+S('PL05',{t:'state',kind:'warn',title:'Deadline verlopen',sub:'Achterstand en herstelactie',role:'Inkoper',
+ box:['Inkoper / manager','Deadline is verstreken','Prijscheck Rondreis Japan · deadline 28 oktober','Pas de planning aan of wijs de taak opnieuw toe'],
+ btns:[['Taak bekijken','PL02',1],['Deadline wijzigen','PL03']],
+ erd:'TAAK, MEDEWERKER',fs:'Inkoper wijzigt deadline; manager heeft alleen inzage',nav:'PL02',chk:'Achterstand berekend uit Deadline + Status'});
+S('PL06',{t:'list',title:'Taken en mijlpalenoverzicht',sub:'Filter op verantwoordelijke en status',role:'Inkoper / manager',
+ kpis:[['Taken','3'],['Te laat','1','PL05'],['Te doen','1']],newTo:'PL03',
+ cols:['Omschrijving','Reisproduct','Medewerker','Deadline','Status'],
+ rows:[['Leveranciers kiezen','Rondreis Japan','Inkoper','04-11-2026','Lopend'],['Contractcontrole','IJsland Explorer','Inkoper','31-10-2026','Te doen'],['Prijscheck','Rondreis Japan','Inkoper','28-10-2026','Te laat']],rowTo:['PL02','PL02','PL05'],
+ btns:[['Terug naar planning','PL01']],
+ erd:'TAAK, REISPRODUCT, MEDEWERKER',fs:'Inkoper / Manager inzage',nav:'PL02, PL03',chk:'Te laat = berekende status, geen zelfstandig veld'});
+S('CA01',{t:'list',title:'Gepubliceerde reisproducten',sub:'Alleen toegestane actuele producten',role:'Alleen lezen',
+ kpis:[['Gepubliceerd','3'],['Bestemmingen','3'],['Concepten zichtbaar','0']],noNew:1,
+ cols:['Reisproduct','Bestemming','Reisduur','Fase','Doelgroep'],
+ rows:[['IJsland Explorer','IJsland','8 dagen','Gepubliceerd','Avontuur'],['Lissabon citytrip','Portugal','5 dagen','Gepubliceerd','Stedentrip'],['Curaçao Dive','Curaçao','10 dagen','Gepubliceerd','Duikers']],rowTo:'CA02',
+ btns:[['Product bekijken','CA02',1]],
+ demo:[['Zoeken zonder resultaat','CA03'],['Openen zonder leesrechten','CA04']],
+ erd:'REISPRODUCT, REISONDERDEEL',fs:'Andere afdeling: lezen',nav:'Gepubliceerd product openen → CA02; leeg → CA03; geen toegang → CA04',chk:'Filter op REISPRODUCT.Fase Gepubliceerd; inkoopprijzen afschermen'});
+S('CA02',{t:'detail',title:'Gepubliceerd product bekijken',sub:'Alleen-lezen productkaart',role:'Alleen lezen',
+ det:[['Naam','IJsland Explorer'],['Bestemming','IJsland'],['Landcode','IS'],['Reisduur (dagen)','8 dagen'],['Doelgroep','Avonturiers'],['Fase','Gepubliceerd']],
+ side:'Reisonderdelen',tl:['Dag 1 · Vertrek','Dag 2–5 · Verblijf','Dag 6 · Excursie','Dag 8 · Terugreis'],
+ btns:[['Export PDF','#print',1],['Feedback geven','CA05'],['Terug','CA01']],
+ erd:'REISPRODUCT, REISONDERDEEL',fs:'Andere afdeling kan gepubliceerde gegevens raadplegen en feedback geven',nav:'Feedback → CA05; terug → CA01; export PDF (geen wijzigen)',chk:'Geen bewerken; weergave mag geen concept tonen'});
+S('CA03',{t:'state',title:'Geen gepubliceerde reizen gevonden',sub:'Lege resultaten, geen systeemfout',role:'Alleen lezen',
+ box:['Alleen lezen','Geen producten gevonden','Je zoekopdracht levert geen gepubliceerde reizen op','Controleer filters of zoek een andere bestemming'],
+ btns:[['Filters wissen','CA01',1],['Terug','CA01']],
+ erd:'REISPRODUCT',fs:'Andere afdeling: lezen',nav:'CA01',chk:'Status filter voorkomt uitlekken conceptproducten'});
+S('CA04',{t:'state',kind:'err',title:'Geen toegang tot productgegevens',sub:'Gedeelde informatie is afgeschermd',role:'Alleen lezen',
+ box:['Alleen lezen','Toegang geweigerd','Je hebt geen rechten voor deze productinformatie','Vraag de juiste rol aan bij de beheerder'],
+ btns:[['Terug','back',1],['Overzicht','CA01']],
+ erd:'MEDEWERKER, REISPRODUCT',fs:'Niet bevoegd',nav:'CA01',chk:'MEDEWERKER.Rol basis; server autorisatie vereist'});
+S('CA05',{t:'form',title:'Feedback over productinformatie',sub:'Melding aan bevoegde inkoper',role:'Andere afdeling: melden',
+ f:[['Reisproduct*','sel','IJsland Explorer'],['Melder','ro','Ingelogde medewerker'],['Onderwerp*'],['Omschrijving*','area'],['Verantwoordelijke','sel'],['Deadline','date'],['Status','ro','Open (automatisch)']],
+ btns:[['Feedback verzenden','CA06',1,'save'],['Annuleren','CA02',0,'cancel']],
+ erd:'TAAK, REISPRODUCT, MEDEWERKER',fs:'Andere afdeling: melding; inkoper: opvolging',nav:'Feedback verzenden → CA06; annuleren → CA02',chk:'TAAK kan feedbacktaak opslaan; melder/herkomst ontbreken expliciet'});
+S('CA06',{t:'state',kind:'ok',title:'Feedback is verzonden',sub:'Bevestiging en terug naar product',role:'Feedback',
+ box:['Feedback','Feedback geregistreerd','Een vervolgtaak is aangemaakt voor de producteigenaar','Je kunt het gepubliceerde product blijven bekijken'],
+ btns:[['Terug naar catalogus','CA01',1],['Product bekijken','CA02']],
+ erd:'TAAK, REISPRODUCT, MEDEWERKER',fs:'Andere afdeling: feedback',nav:'CA02, PL02',chk:'TAAK moet herkomst/melder kunnen vastleggen bij formele feedback'});
+
+
+const MODS = [
+ ['DA','00','Dashboard','DA01'],['PK','01','Productkansen','PK01'],['RP','02','Reisproducten','RP01'],
+ ['RD','03','Reisonderdelen','RD01'],['LV','04','Leveranciers','LV01'],['AB','05','Aanbiedingen','AB01'],
+ ['ON','06','Onderhandelingen','ON01'],['CT','07','Contracten','CT01'],['PL','08','Planning','PL01'],
+ ['CA','09','Catalogus','CA01'],['AU','10','Autorisatie','AU01']];
+const MODNAME = Object.fromEntries(MODS.map(m => [m[0], m[2]]));
+const TYPE = {list:'LIST',detail:'DETAIL',form:'FORM',review:'REVIEW',state:'STATE',compare:'COMPARE',matrix:'DETAIL'};
+const POOL = {
+ 'Leverancier':['Sakura Hotels','Alpine Tours','City Experience','Tokyo Rail','Noordzee Travel'],
+ 'Reisproduct':['Rondreis Japan','IJsland Explorer','Lissabon citytrip','Dolomieten Hiking'],
+ 'Contract':['CON-014 · Sakura Hotels','CON-021 · Alpine Tours','CON-031 · City Experience'],
+ 'Onderhandeling':['Tarieven Japan · Sakura Hotels','Groepsprijzen Italië · Alpine Tours','Treintickets Japan · Tokyo Rail'],
+ 'Aanbod':['AAN-008 · Kamers Tokio','AAN-011 · Treinpas Japan','AAN-015 · Excursie Lissabon'],
+ 'Bestemming':['Japan','IJsland','Portugal','Italië','Kaapverdië','Georgië'],
+ 'Doelgroep':['Stellen 30–55','Actieve reizigers','Kleine groepen','Avonturiers','Cultuurliefhebbers'],
+ 'Reisonderdeel':['Hotel Sakura','Vlucht Tokio','Trein Kyoto','Kyoto tempels'],
+ 'Medewerker':['J. de Vries','S. Jansen','M. Peters','R. Bos']};
+['Inkoper','Verantwoordelijke','Eigenaar'].forEach(k => POOL[k] = POOL.Medewerker);
+const ST = { onActionsDone:false };
+let dirty = false, pendingToast = null;
+
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const href = t => SCREENS[t] ? '#/' + t : null;
+const mod = id => id.slice(0,2);
+
+function toast(msg){ document.querySelectorAll('.toast').forEach(x=>x.remove()); const t = document.createElement('div'); t.className='toast'; t.setAttribute('role','status'); t.textContent = msg; document.body.appendChild(t); setTimeout(()=>t.remove(), 3200); }
+function modal(title, text, okLabel, onOk){
+ const bg = document.createElement('div'); bg.className='modal-bg';
+ bg.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><h2 id="mt">${esc(title)}</h2><p>${esc(text)}</p><div class="actions"><button class="btn pri" data-ok>${esc(okLabel)}</button><button class="btn" data-no>Blijven</button></div></div>`;
+ const prev = document.activeElement; document.body.appendChild(bg);
+ const close = () => { bg.remove(); prev && prev.focus(); };
+ bg.querySelector('[data-ok]').onclick = () => { close(); onOk(); };
+ bg.querySelector('[data-no]').onclick = close;
+ bg.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+ bg.querySelector('[data-ok]').focus();
+}
+function go(target){
+ if (target === 'back') { history.length > 1 ? history.back() : (location.hash = '#/DA01'); return; }
+ if (target === '#print') { window.print(); return; }
+ if (target === '#addrule') { toast('Extra annuleringsregel toegevoegd (voorbeeld).'); return; }
+ location.hash = '#/' + target;
+}
+function leave(target){
+ if (dirty) modal('Wijzigingen niet opgeslagen','Je hebt gegevens ingevuld die nog niet zijn opgeslagen. Wil je dit scherm toch verlaten?','Verlaten zonder opslaan',()=>{ dirty=false; go(target); });
+ else go(target);
+}
+
+/* ---------- renderers ---------- */
+function btnHtml(b){
+ const [label, target, pri, kind] = b;
+ return `<button type="button" class="btn${pri?' pri':''}" data-go="${esc(target)}" data-kind="${esc(kind||'')}">${esc(label)}</button>`;
+}
+function actions(d){ return d.btns && d.btns.length ? `<div class="actions">${d.btns.map(btnHtml).join('')}</div>` : ''; }
+function demo(d){ return d.demo ? `<div class="demo" aria-label="Testscenario's"><span>Testscenario (uitzondering):</span>${d.demo.map(x=>`<a class="btn sm" href="#/${x[1]}">${esc(x[0])} → ${x[1]}</a>`).join('')}</div>` : ''; }
+function head(d){ return `<div class="head"><div><h1>${esc(d.title)}</h1><p>${esc(d.sub)}</p></div><span class="pill">${esc(d.role)}</span></div>`; }
+function outLinks(d){
+ const set = new Set();
+ (d.btns||[]).forEach(b=>SCREENS[b[1]]&&set.add(b[1])); (d.demo||[]).forEach(b=>set.add(b[1]));
+ if (d.newTo) set.add(d.newTo); [].concat(d.rowTo||[]).forEach(x=>x&&set.add(x));
+ (d.kpis||[]).forEach(k=>k[2]&&set.add(k[2])); (d.det||[]).forEach(x=>x[2]&&set.add(x[2]));
+ (d.tl||[]).forEach(x=>Array.isArray(x)&&set.add(x[1]));
+ return [...set];
+}
+function docs(d){
+ const open = (()=>{ try { return localStorage.getItem('wfDocs') !== '0'; } catch(e){ return true; } })();
+ return `<details class="docs" ${open?'open':''} id="docs"><summary>${d.id} · ${esc(MODNAME[mod(d.id)]).toUpperCase()} · ${TYPE[d.t]}</summary>
+ <p class="erd">ERD-ENTITEITEN: ${esc(d.erd)}</p><p><b>Functiescheiding:</b> ${esc(d.fs)}</p>
+ <p class="nv"><b>Navigatie (wireframe):</b> ${esc(d.nav)}</p><p class="nv"><b>ERD-controle:</b> ${esc(d.chk)}</p>
+ <div class="out" aria-label="Uitgaande links">${outLinks(d).map(t=>`<a href="#/${t}">→ ${t} ${esc(SCREENS[t].title)}</a>`).join('')}</div></details>
+ <div class="wfmark">WIREFRAME · VOORBEELDGEGEVENS · NIET FUNCTIONEEL</div>`;
+}
+
+function rList(d, compare){
+ const rt = i => Array.isArray(d.rowTo) ? d.rowTo[i] : d.rowTo;
+ const kp = (d.kpis||[]).map(k => k[2] ? `<a class="kpi" href="#/${k[2]}"><span>${esc(k[0])}</span><strong>${esc(k[1])}</strong></a>` : `<div class="kpi"><span>${esc(k[0])}</span><strong>${esc(k[1])}</strong></div>`).join('');
+ const stCol = d.cols.findIndex(c => /status|fase/i.test(c));
+ const stVals = stCol >= 0 ? [...new Set(d.rows.map(r => r[stCol]))] : [];
+ const rows = d.rows.map((r,i) => {
+   const t = compare ? null : rt(i);
+   return `<tr ${t?`class="link" tabindex="0" data-go="${t}" aria-label="${esc(r[0])} openen"`:''} data-i="${i}">${r.map((c,j)=>`<td>${compare&&j===0?`<label><input type="radio" name="pick" value="${i}"> ${esc(c)}</label>`:esc(c)}</td>`).join('')}</tr>`;}).join('');
+ const empty = {PK:'PK05',CA:'CA03',ON:'ON07'}[mod(d.id)];
+ return head(d) + `<div class="kpis">${kp}</div>
+ <div class="card toolbar"><span aria-hidden="true">⌕</span><input type="search" id="q" placeholder="Zoeken op naam, nummer of omschrijving" aria-label="Zoeken in tabel">
+  <button class="btn sm" id="fbtn" aria-expanded="false" aria-controls="frow">Filters ▾</button>${d.noExport?'':'<button class="btn sm" id="exp">Export</button>'}
+  ${d.newTo?`<button class="btn sm pri" data-go="${d.newTo}">+ Nieuw</button>`:''}</div>
+ ${stCol>=0?`<div class="card filters" id="frow"><label for="fsel">${esc(d.cols[stCol])}</label><select id="fsel"><option value="">Alle</option>${stVals.map(v=>`<option>${esc(v)}</option>`).join('')}</select></div>`:''}
+ <div class="card"><div class="tablewrap"><table><thead><tr>${d.cols.map(c=>`<th scope="col">${esc(c)}</th>`).join('')}</tr></thead><tbody id="tb">${rows}</tbody></table></div>
+ <p id="none" class="help" hidden>Geen resultaten voor deze zoekopdracht. ${empty?`<a href="#/${empty}">Bekijk het lege-resultatenscherm (${empty})</a>`:''}</p>
+ ${d.note?`<div class="alert ok" style="margin-top:12px"><b>${esc(d.note[0])}</b><br>${esc(d.note[1])}</div>`:''}</div>
+ <p class="help">${esc(d.help || (compare ? '' : 'Klik op een rij voor details · Gebruik filters om de lijst te verfijnen.'))}</p>
+ <div id="pickerr" class="alert err" hidden role="alert">Selecteer eerst één aanbieding.</div>
+ ${actions(d)}${demo(d)}`;
+}
+function tlItem(x){ return Array.isArray(x) ? `<li><a href="#/${x[1]}">${esc(x[0])}</a></li>` : `<li>${esc(x)}</li>`; }
+function rDetail(d){
+ return head(d) + `<div class="grid2"><section class="card"><h2 class="sec">Detailgegevens</h2><dl class="det">${d.det.map(x=>`<div><dt>${esc(x[0])}</dt><dd>${x[2]?`<a href="#/${x[2]}">${esc(x[1])}</a>`:esc(x[1])}</dd></div>`).join('')}</dl></section>
+ <section class="card"><h2 class="sec">${esc(d.side)}</h2><ul class="tl">${d.tl.map(tlItem).join('')}</ul></section></div>${actions(d)}${demo(d)}`;
+}
+function fieldHtml(f, i){
+ const [raw, kind='txt', val=''] = f; const req = raw.endsWith('*'); const label = raw.replace(/\*$/,''); const id = 'f'+i;
+ const base = label.replace(/^(Is |Aantal )/,'');
+ let ctl;
+ if (kind === 'ro') ctl = `<input id="${id}" readonly value="${esc(val)}">`;
+ else if (kind === 'area') ctl = `<textarea id="${id}" placeholder="Vul gegevens in">${esc(val)}</textarea>`;
+ else if (kind === 'EUR') ctl = `<select id="${id}"><option>EUR</option><option>USD</option><option>JPY</option></select>`;
+ else if (kind.startsWith('opt:')) ctl = `<select id="${id}"><option value="">Kies optie</option>${kind.slice(4).split('|').map(o=>`<option ${o===val?'selected':''}>${esc(o)}</option>`).join('')}</select>`;
+ else if (kind === 'sel') { const pool = POOL[label] || POOL[base] || []; const opts = val && !pool.includes(val) ? [val, ...pool] : pool;
+   ctl = `<select id="${id}"><option value="">Zoek en selecteer</option>${opts.map(o=>`<option ${o===val?'selected':''}>${esc(o)}</option>`).join('')}</select>`; }
+ else { const type = {num:'number',date:'date',email:'email',tel:'tel',url:'url'}[kind] || 'text';
+   const ph = {num:'Voer getal in',email:'naam@bedrijf.nl',tel:'+31 …',url:'https://…'}[kind] || 'Vul gegevens in';
+   ctl = `<input id="${id}" type="${type}" ${type==='number'?'min="0"':''} placeholder="${ph}" value="${esc(val)}">`; }
+ return `<div class="f" data-label="${esc(label)}" data-req="${req?1:''}" data-kind="${esc(kind)}"><label for="${id}">${esc(label)}${req?' *':''}${kind==='ro'?' · alleen lezen':''}</label>${ctl}<div class="msg" id="${id}m" aria-live="polite"></div></div>`;
+}
+function rForm(d){
+ return head(d) + `<div id="ferr" class="alert err" hidden role="alert" tabindex="-1"></div><div id="fwarn" class="alert warn" hidden role="alert"></div>
+ <form class="card" id="frm" novalidate><h2 class="sec">Gegevens</h2><div class="form">${d.f.map(fieldHtml).join('')}<p class="note-req">* Verplicht veld · Invoer wordt gecontroleerd vóór opslag.</p></div></form>${actions(d)}${demo(d)}`;
+}
+function rReview(d){
+ const block = d.openActions && !ST.onActionsDone;
+ return head(d) + `<div id="ferr" class="alert err" hidden role="alert" tabindex="-1"></div>
+ <section class="card"><div class="rhead"><h2>${esc(d.head[0])}</h2><span class="pill">${esc(d.head[1])}</span></div>
+ ${d.openActions?`<p class="help" style="margin:0 0 10px">${block?'⚠ Er staat nog 1 vervolgactie open (Prijsvoorstel Sakura Hotels).':'✓ Alle vervolgacties zijn afgerond.'}</p>`:''}
+ <h3 class="sec">Controlepunten</h3><div class="checks">${d.checks.map((c,i)=>`<label><input type="checkbox" id="c${i}"> ${esc(c)}</label>`).join('')}</div>
+ <div class="reason"><h3 class="sec" style="margin-top:18px"><label for="reason">Beoordeling / reden</label></h3><textarea id="reason" placeholder="${esc(d.reasonPh)}"></textarea><div class="msg" id="reasonm" style="color:var(--err);font-size:12px"></div></div></section>
+ ${actions(d)}${demo(d)}`;
+}
+function rState(d){
+ const k = d.kind || '';
+ return head(d) + `<section class="card state ${k}" role="${k==='err'?'alert':'status'}"><span class="pill ${k}">${esc(d.box[0])}</span><h2>${esc(d.box[1])}</h2><p>${esc(d.box[2])}</p><p>${esc(d.box[3])}</p></section>${actions(d)}${demo(d)}`;
+}
+function rMatrix(d){
+ const acts = ['Aanmaken / wijzigen','Beoordelen (goedkeuren, terugsturen)','Publiceren','Lezen (gepubliceerd)','Feedback geven','Rollen beheren'];
+ const roles = [['Inkoper',[1,0,1,1,1,0]],['Beoordelaar',[0,1,0,1,1,0]],['Manager',[0,0,0,1,1,0]],['Andere afdeling (Sales, Marketing)',[0,0,0,1,1,0]],['Beheerder',[0,0,0,1,0,1]]];
+ return head(d) + `<div class="grid2"><section class="card"><h2 class="sec">Rechten per rol</h2><div class="tablewrap"><table class="matrix"><thead><tr><th scope="col">Rol</th>${acts.map(a=>`<th scope="col">${esc(a)}</th>`).join('')}</tr></thead>
+ <tbody>${roles.map(r=>`<tr><td>${esc(r[0])}</td>${r[1].map(v=>`<td>${v?'<span class="yes" aria-label="ja">✓</span>':'<span class="no" aria-label="nee">–</span>'}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+ <p class="help">Vier-ogenprincipe: wie vastlegt, beoordeelt niet zelf. Gebaseerd op MEDEWERKER.Rol; fijnmazige matrix is een voorstel.</p></section>
+ <section class="card"><h2 class="sec">Waar wordt dit afgedwongen?</h2><ul class="tl"><li><a href="#/CT09">CT09 · Contract zonder wijzigingsrechten</a></li><li><a href="#/RP09">RP09 · Reisproduct zonder wijzigingsrechten</a></li><li><a href="#/CA04">CA04 · Geen leesrechten productgegevens</a></li><li><a href="#/CT05">CT05 · Alleen beoordelaar keurt contract goed</a></li></ul></section></div>${actions(d)}`;
+}
+
+/* ---------- flows & index ---------- */
+const FLOWS = [
+ {story:'Contractbeheerder', text:'Als contractbeheerder wil ik de belangrijkste contracthandelingen in een prototype kunnen doorlopen, zodat ik kan beoordelen of registreren, goedkeuren en verlengen logisch verlopen.', flows:[
+  ['C1 · Contract registreren',[['CT01','Open het contractenoverzicht en kies + Nieuw'],['CT03','Klik eerst op Concept opslaan zonder invoer: verplichte velden worden rood. Vul daarna in, met een einddatum vóór de begindatum: foutmelding. Corrigeer en kies Voorwaarden'],['CT04','Vul de annuleringsregels in en kies Opslaan'],['CT02','Contractdetails worden getoond']]],
+  ['C2 · Contract goedkeuren of terugsturen',[['CT01','Klik op CON-031 (Ter goedkeuring)'],['CT05','Klik Terugsturen zonder reden: geweigerd. Of vink alle controlepunten aan en kies Goedkeuren'],['CT06','Bij terugsturen: reden invullen en Terugsturen'],['CT03','Inkoper past het contract aan']]],
+  ['C3 · Contract verlengen',[['CT01','Klik op de KPI Loopt af'],['CT08','Signaal: CON-014 loopt binnenkort af · kies Verlenging bekijken'],['CT07','Vul de nieuwe periode in · Verlengingsconcept maken'],['CT02','Kies Ter goedkeuring'],['CT05','Beoordelaar keurt de verlenging goed']]],
+  ['C4 · Onderhandeling afsluiten naar contract',[['ON02','Open onderhandeling Tarieven Japan en kies Afsluiten'],['ON05','Akkoord wordt geweigerd: er staat nog een vervolgactie open'],['ON06','Leg de vervolgactie vast en kies Taak opslaan'],['ON05','Nu Akkoord → contractformulier'],['CT03','Contract aanmaken']]],
+  ['C5 · Bezetting melden en archiveren',[['CT02','Kies Bezetting'],['CT12','Kies Lage bezetting melden'],['CT13','Melding registreren → taak voor Sales'],['CT11','Via CT02 · Archiveren: reden verplicht']]],
+  ['Uitzonderingen contract',[['CT08','Contract loopt binnenkort af'],['CT09','Geen wijzigingsrechten'],['CT10','Opslaan mislukt'],['CT06','Terugsturen / afwijzen']]]]},
+ {story:'Productmanager', text:'Als productmanager wil ik de belangrijkste product- en leveranciersprocessen in een klikbaar prototype kunnen doorlopen, zodat ik kan beoordelen of de navigatie logisch werkt.', flows:[
+  ['P1 · Productkans → reisproduct',[['PK01','Kies + Nieuw'],['PK03','Vul in en kies Opslaan als concept'],['PK02','Kies Ter beoordeling'],['PK04','Vink alles aan · Kansrijk'],['RP03','Reisproduct aanmaken']]],
+  ['P2 · Reisproduct opbouwen en publiceren',[['RP01','Kies + Nieuw'],['RP03','Vul in · Concept opslaan'],['RP07','Kies Route opbouwen'],['RD01','Kies + Nieuw'],['RD03','Reisonderdeel toevoegen · Opslaan'],['RD04','Route controleren · ontbrekend verblijf'],['RP02','Kies Publicatie controleren'],['RP04','Vink alles aan · Goedkeuren'],['RP10','Nu publiceren'],['CA02','Gepubliceerd product in de catalogus']]],
+  ['P3 · Reisproduct teruggestuurd',[['RP04','Terugsturen met reden'],['RP05','Bewerken'],['RP03','Aanpassen en opnieuw opslaan']]],
+  ['P4 · Leverancier registreren en contact',[['LV01','Kies + Nieuw'],['LV03','Eerst leeg Registreren: fouten. Daarna naam “Sakura Hotels” met plaats “Tokio”: waarschuwing voor een dubbele leverancier. Klik nogmaals om toch door te gaan'],['LV02','Kies Contactmoment'],['LV05','Opslaan'],['LV07','Leverancierhistorie']]],
+  ['P5 · Aanbod vergelijken en koppelen',[['LV02','Kies Aanbiedingen'],['AB01','Kies Vergelijken'],['AB05','Selecteer een aanbieding · Selecteren'],['AB02','Kies Koppelen'],['AB04','Koppelen → reisonderdeel'],['RD02','Route en onderdeel']]],
+  ['P6 · Catalogus en feedback (andere afdeling)',[['CA01','Product bekijken'],['CA02','Feedback geven'],['CA05','Feedback verzenden'],['CA06','Bevestiging']]],
+  ['Uitzonderingen product en leverancier',[['PK05','Geen productkansen'],['RP06','Versieconflict'],['RP08','Opslaan mislukt'],['RP09','Geen rechten'],['RD06','Ontbrekend verblijf'],['CA03','Geen gepubliceerde reizen'],['CA04','Geen toegang'],['ON07','Geen onderhandeling']]]]}];
+function rFlows(){
+ return `<div class="head"><div><h1>Testflows user stories</h1><p>Begin een flow via de eerste link. Daarna navigeer je alleen met de knoppen in de schermen.</p></div><span class="pill">Prototype</span></div>
+ <div class="flows">${FLOWS.map(s=>`<section class="card"><h2 class="sec">User story · ${esc(s.story)}</h2><div class="story">${esc(s.text)}</div>
+  <div class="flows">${s.flows.map(f=>`<div class="flow"><h3>${esc(f[0])}</h3><ol>${f[1].map(st=>`<li><a href="#/${st[0]}">${st[0]} ${esc(SCREENS[st[0]].title)}</a> — ${esc(st[1])}</li>`).join('')}</ol></div>`).join('')}</div></section>`).join('')}</div>`;
+}
+function rIndex(){
+ return `<div class="head"><div><h1>Schermindex</h1><p>Alle ${ORDER.length} wireframes met hun uitgaande verbindingen.</p></div><span class="pill">Navigatiecontrole</span></div>
+ <div class="idx">${MODS.map(m=>{const ids=ORDER.filter(i=>mod(i)===m[0]).sort();return `<section class="card"><h2 class="sec">${m[1]} ${esc(m[2])} · ${ids.length}</h2><ul>${ids.map(i=>`<li><a href="#/${i}">${i}</a> ${esc(SCREENS[i].title)}<span class="tag">→ ${outLinks(SCREENS[i]).join(', ')||'–'}</span></li>`).join('')}</ul></section>`;}).join('')}</div>`;
+}
+
+/* ---------- behaviour ---------- */
+function validate(d){
+ const errs = []; const form = $('#frm');
+ form.querySelectorAll('.f').forEach(f => {
+  f.classList.remove('bad'); const el = f.querySelector('input,select,textarea'); const m = f.querySelector('.msg'); m.textContent=''; el.removeAttribute('aria-invalid');
+  const v = (el.value||'').trim(); let msg = '';
+  if (f.dataset.req && !v) msg = 'Dit veld is verplicht.';
+  else if (f.dataset.kind === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) msg = 'Dit is geen geldig e-mailadres.';
+  else if (f.dataset.kind === 'num' && v && Number(v) < 0) msg = 'Voer een positief getal in.';
+  if (msg) { f.classList.add('bad'); m.textContent = msg; el.setAttribute('aria-invalid','true'); el.setAttribute('aria-describedby', m.id); errs.push(f.dataset.label); }
+ });
+ if (d.dateCheck && !errs.length) {
+  const [a,b] = d.dateCheck.map(l => [...form.querySelectorAll('.f')].find(f => f.dataset.label === l.replace(/\*$/,'')));
+  const va = a.querySelector('input').value, vb = b.querySelector('input').value;
+  if (va && vb && vb <= va) { b.classList.add('bad'); b.querySelector('.msg').textContent = 'De einddatum moet na de begindatum liggen.'; errs.push(b.dataset.label); }
+ }
+ const box = $('#ferr');
+ if (errs.length) { box.hidden=false; box.innerHTML = `<b>Opslaan is niet gelukt.</b> Controleer de gemarkeerde velden: ${errs.map(esc).join(', ')}.`; box.focus(); return false; }
+ box.hidden = true; return true;
+}
+function dupCheck(){
+ const get = l => ([...document.querySelectorAll('.f')].find(f=>f.dataset.label===l)?.querySelector('input,select')?.value||'').trim().toLowerCase();
+ const w = $('#fwarn');
+ if (get('Naam') === 'sakura hotels' && get('Plaats') === 'tokio' && w.hidden) {
+  w.hidden=false; w.innerHTML='<b>Mogelijk dubbele leverancier.</b> Er bestaat al een leverancier “Sakura Hotels” in Tokio. Controleer eerst of dit geen dubbele leverancier is. Klik nogmaals op Registreren als het echt een nieuwe leverancier is.';
+  w.scrollIntoView({block:'center'}); return false; }
+ return true;
+}
+function act(d, b){
+ const target = b.dataset.go, kind = b.dataset.kind;
+ if (d.t === 'compare' && /Selecteren|Onderhandeling/.test(b.textContent) && !document.querySelector('input[name=pick]:checked')) { $('#pickerr').hidden=false; return; }
+ if (kind === 'cancel') { leave(target); return; }
+ if (kind === 'save') {
+  if (!validate(d)) return;
+  if (d.dup && !dupCheck()) return;
+  if (d.id === 'ON06') ST.onActionsDone = true;
+  dirty = false; pendingToast = d.id === 'CA05' ? null : 'Opgeslagen.'; go(target); return; }
+ if (kind === 'approve' || kind === 'reason' || kind === 'close') {
+  const box = $('#ferr'); box.hidden = true; $('#reasonm').textContent='';
+  if (kind === 'close' && d.openActions && !ST.onActionsDone) { box.hidden=false; box.innerHTML='<b>Afsluiten kan niet:</b> er staat nog 1 vervolgactie open. Rond eerst alle vervolgacties af.<br><a class="btn sm" href="#/ON06">Vervolgactie afronden → ON06</a>'; box.focus(); return; }
+  if (kind === 'approve' && [...document.querySelectorAll('.checks input')].some(c=>!c.checked)) { box.hidden=false; box.textContent='Vink eerst alle controlepunten aan voordat je goedkeurt.'; box.focus(); return; }
+  if (kind === 'reason' && !$('#reason').value.trim()) { $('#reasonm').textContent='Een reden is verplicht bij '+b.textContent.trim().toLowerCase()+'.'; $('#reason').setAttribute('aria-invalid','true'); $('#reason').focus(); return; }
+  pendingToast = {approve:'Besluit vastgelegd: goedgekeurd.',close:'Onderhandeling afgesloten met akkoord. Contractformulier geopend.'}[kind] || `Vastgelegd: ${b.textContent.trim()}.`;
+  dirty = false; go(target); return; }
+ if (kind === 'publish') { pendingToast = 'Rondreis Japan is gepubliceerd en zichtbaar in de catalogus.'; go(target); return; }
+ leave(target);
+}
+function wire(d){
+ const v = $('#view');
+ v.querySelectorAll('[data-go]').forEach(el => {
+  if (el.tagName === 'TR') {
+   el.addEventListener('click', () => leave(el.dataset.go));
+   el.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); leave(el.dataset.go); } });
+  } else el.addEventListener('click', () => d ? act(d, el) : go(el.dataset.go));
+ });
+ if (!d) return;
+ const frm = $('#frm'); if (frm) { frm.addEventListener('input', ()=>{ dirty = true; }); frm.addEventListener('submit', e=>e.preventDefault()); }
+ const q = $('#q'), fs = $('#fsel');
+ const filt = () => { let n=0; const t=(q?.value||'').toLowerCase(), s=fs?.value||'';
+  v.querySelectorAll('#tb tr').forEach(tr => { const show = tr.textContent.toLowerCase().includes(t) && (!s || [...tr.children].some(td=>td.textContent.trim()===s)); tr.hidden=!show; n+=show; });
+  $('#none').hidden = n>0; };
+ q && q.addEventListener('input', filt); fs && fs.addEventListener('change', filt);
+ const fb = $('#fbtn'); fb && fb.addEventListener('click', () => { const r=$('#frow'); if(!r){toast('Geen filters beschikbaar voor deze lijst.');return;} r.classList.toggle('open'); fb.setAttribute('aria-expanded', r.classList.contains('open')); });
+ const ex = $('#exp'); ex && ex.addEventListener('click', () => {
+  const csv = [d.cols, ...d.rows].map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(';')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv'})); a.download = d.id+'-'+d.title.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.csv'; a.click(); toast('Export gedownload (CSV).'); });
+ v.querySelectorAll('input[name=pick]').forEach(r => r.addEventListener('change', () => { $('#pickerr').hidden=true; v.querySelectorAll('#tb tr').forEach(tr=>tr.classList.toggle('sel', tr.dataset.i===r.value)); }));
+ const dc = $('#docs'); dc && dc.addEventListener('toggle', () => { try { localStorage.setItem('wfDocs', dc.open?'1':'0'); } catch(e){} });
+}
+
+function render(){
+ const id = (location.hash.match(/^#\/([A-Za-z0-9]+)/)||[])[1] || 'DA01';
+ const v = $('#view'); dirty = false;
+ let d = SCREENS[id.toUpperCase()], html, m, title;
+ if (id === 'flows') { html = rFlows(); m='flows'; title='Testflows'; }
+ else if (id === 'index') { html = rIndex(); m='index'; title='Schermindex'; }
+ else {
+  if (!d) { d = null; html = `<div class="card state err"><h2>Scherm niet gevonden</h2><p>Er is geen wireframe met ID “${esc(id)}”.</p><a class="btn pri" href="#/DA01">Naar dashboard</a></div>`; m=''; title='Niet gevonden'; }
+  else { m = mod(d.id); title = d.title;
+   html = ({list:rList,compare:x=>rList(x,true),detail:rDetail,form:rForm,review:rReview,state:rState,matrix:rMatrix}[d.t])(d) + docs(d); }
+ }
+ v.innerHTML = html;
+ document.title = (d?d.id+' · ':'') + title + ' · VoyageVista Wireframes';
+ $('#nav').querySelectorAll('a').forEach(a => a.dataset.m === m ? a.setAttribute('aria-current','page') : a.removeAttribute('aria-current'));
+ $('#crumb').innerHTML = `<a href="#/DA01">Werkplek</a>` + (m && MODNAME[m] ? ` / <a href="#/${MODS.find(x=>x[0]===m)[3]}">${esc(MODNAME[m])}</a>` : '') + ` / ${esc(title)}`;
+ wire(d);
+ $('#side').classList.remove('open'); $('#menuBtn').setAttribute('aria-expanded','false');
+ window.scrollTo(0,0); v.focus({preventScroll:true});
+ if (pendingToast) { toast(pendingToast); pendingToast = null; }
+}
+
+$('#nav').innerHTML = MODS.map(m => `<a href="#/${m[3]}" data-m="${m[0]}"><b>${m[1]}</b>${esc(m[2])}</a>`).join('');
+$('#screenlist').innerHTML = ORDER.map(i => `<option value="${i} ${esc(SCREENS[i].title)}">`).join('');
+$('#gsearch').addEventListener('keydown', e => { if (e.key !== 'Enter') return; const t = e.target.value.trim().toLowerCase(); if (!t) return;
+ const hit = ORDER.find(i => i.toLowerCase() === t.slice(0,4)) || ORDER.find(i => (i+' '+SCREENS[i].title).toLowerCase().includes(t));
+ if (hit) { e.target.value=''; go(hit); } else toast('Geen scherm gevonden voor “'+e.target.value+'”.'); });
+$('#menuBtn').addEventListener('click', () => { const s=$('#side'); s.classList.toggle('open'); $('#menuBtn').setAttribute('aria-expanded', s.classList.contains('open')); });
+window.addEventListener('hashchange', render);
+window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue=''; } });
+render();
+</script>
+</body>
+</html>
